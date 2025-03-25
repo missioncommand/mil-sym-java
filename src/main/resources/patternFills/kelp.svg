@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Version_1.0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	 width="200px" height="250px" xml:space="preserve">
+<g id="main">
+	<g id="kelp1" transform="scale(0.25 0.25)">
+		<path fill="none" stroke="#808080" stroke-width="8" d="M186.5,121.5c22.973-20.676,49.014-39.547,80-46c37.059-7.719,81.906,7.875,108-28"/>
+		<path fill="none" stroke="#808080" stroke-width="8" d="M262.277,76.832c-43.969-7.328-80.516-35.457-105.445-76"/>
+		<path fill="none" stroke="#808080" stroke-width="8" d="M197.5,47.5c-50.059-5.008-102.018,38.008-142,62"/>
+		<path fill="none" stroke="#808080" stroke-width="8" d="M135.832,61.391c-52.047,0-87.924-24.668-135.332-38.891"/>
+		<path fill="none" stroke="#808080" stroke-width="8" d="M46.5,38.5c0,0-22.5,15.75-30,21"/>
+	</g>
+	<g id="kelp2" transform="scale(0.25 0.25)">
+		<path fill="none" stroke="#808080" stroke-width="8" d="M586.5,621.5c22.973-20.676,49.016-39.547,80-46c37.059-7.719,81.906,7.875,108-28"/>
+		<path fill="none" stroke="#808080" stroke-width="8" d="M662.277,576.832c-43.969-7.328-80.516-35.457-105.445-76"/>
+		<path fill="none" stroke="#808080" stroke-width="8" d="M597.5,547.5c-50.059-5.008-102.016,38.008-142,62"/>
+		<path fill="none" stroke="#808080" stroke-width="8" d="M535.832,561.391c-52.047,0-87.926-24.668-135.332-38.891"/>
+		<path fill="none" stroke="#808080" stroke-width="8" d="M446.5,538.5c0,0-22.5,15.75-30,21"/>
+	</g>
+ <!--
+ Used for testing frame size:
+	<g>
+		<g id="kelp_1_" transform="scale(0.25 0.25)">
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M986.5,121.5c22.973-20.676,49.016-39.547,80-46c37.059-7.719,81.906,7.875,108-28"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M1062.277,76.832c-43.969-7.328-80.516-35.457-105.445-76"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M997.5,47.5c-50.059-5.008-102.016,38.008-142,62"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M935.832,61.391c-52.047,0-87.926-24.668-135.332-38.891"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M846.5,38.5c0,0-22.5,15.75-30,21"/>
+		</g>
+	</g>
+	<g>
+		<g id="kelp"  transform="scale(0.25 0.25)">
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M186.5,1121.5c22.973-20.676,49.014-39.547,80-46c37.059-7.719,81.906,7.875,108-28"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M262.277,1076.832c-43.969-7.328-80.516-35.457-105.445-76"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M197.5,1047.5c-50.059-5.008-102.018,38.008-142,62"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M135.832,1061.391c-52.047,0-87.924-24.668-135.332-38.891"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M46.5,1038.5c0,0-22.5,15.75-30,21"/>
+		</g>
+	</g>
+	<g>
+		<g id="kelp_1_" transform="scale(0.25 0.25)">
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M986.5,1121.5c22.973-20.676,49.016-39.547,80-46c37.059-7.719,81.906,7.875,108-28"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M1062.277,1076.832c-43.969-7.328-80.516-35.457-105.445-76"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M997.5,1047.5c-50.059-5.008-102.016,38.008-142,62"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M935.832,1061.391c-52.047,0-87.926-24.668-135.332-38.891"/>
+			<path fill="none" stroke="#FF0000" stroke-width="8" d="M846.5,1038.5c0,0-22.5,15.75-30,21"/>
+		</g>
+	</g>
+-->
+</g>
+</svg>

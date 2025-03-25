@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Version_1.0" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+     width="124" height="104" xml:space="preserve">
+<g id="main">
+	<g>
+		<g id="trap1">
+			<rect x="1" y="21" fill="none" stroke="#C0C0C0" stroke-width="2" width="60" height="30"/>
+            <line fill="none" stroke="#C0C0C0" stroke-width="2" x1="11" y1="1" x2="31" y2="21"/>
+		</g>
+
+        <g id="trap2">
+			<rect x="63" y="73" fill="none" stroke="#C0C0C0" stroke-width="2" width="60" height="30"/>
+            <line fill="none" stroke="#C0C0C0" stroke-width="2" x1="73" y1="53" x2="93" y2="73"/>
+		</g>
+	</g>
+</g>
+</svg>

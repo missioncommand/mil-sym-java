@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Version_1.0" xmlns="http://www.w3.org/2000/svg" x="0" y="0"
+	 width="200px" height="200px" xml:space="preserve">
+<g id="main">
+	<text x="0" y="50" fill="#808080" stroke="#808080" font-family="sans-serif" font-size="60">#</text>
+	<text x="100" y="150" fill="#808080" stroke="#808080" font-family="sans-serif" font-size="60">#</text>
+</g>
+</svg>

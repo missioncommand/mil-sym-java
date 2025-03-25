@@ -1,0 +1,38 @@
+000000	13	Unspecified Mine
+000001	14	Antipersonnel Mine
+000010	15	Antipersonnel Mine with Directional Effects
+000100	16	Antitank Mine
+001000	17	Antitank Mine with Antihandling Device
+010000	18	Wide Area Antitank Mine
+100000	19	Mine Cluster
+000011	20	Antipersonnel Mine and Antipersonnel Mine with Directional Effects
+000101	21	Antipersonnel Mine and Antitank Mine
+001001	22	Antipersonnel Mine and Antitank Mine with Antihandling Device
+010001	23	Antipersonnel Mine and Wide Area Antitank Mine
+100001	24	Antipersonnel Mine and Mine Cluster
+000110	25	Antipersonnel Mine with Directional Effects and Antitank Mine
+001010	26	Antipersonnel Mine with Directional Effects and Antitank Mine with Antihandling Device
+010010	27	Antipersonnel Mine with Directional Effects and Wide Area Antitank Mine
+100010	28	Antipersonnel Mine with Directional Effects and Mine Cluster
+001100	29	Antitank Mine and Antitank Mine with Antihandling Device
+010100	30	Antitank Mine and Wide Area Antitank Mine
+100100	31	Antitank Mine and Mine Cluster
+011000	32	Antitank Mine with Antihandling Device and Wide Area Antitank Mine
+101000	33	Antitank Mine with Antihandling Device and Mine Cluster
+110000	34	Wide Area Antitank Mine and Mine Cluster
+000111	35	Antipersonnel Mine, Antipersonnel Mine with Directional Effects, and Antitank Mine
+001011	36	Antipersonnel Mine, Antipersonnel Mine with Directional Effects, and Antitank Mine with Antihandling Device
+010011	37	Antipersonnel Mine, Antipersonnel Mine with Directional Effects, and Wide Area Antitank Mine
+100011	38	Antipersonnel Mine, Antipersonnel Mine with Directional Effects, and Mine Cluster
+001101	39	Antipersonnel Mine, Antitank Mine, and Antitank Mine with Antihandling Device
+010101	40	Antipersonnel Mine, Antitank Mine, and Wide Area Antitank Mine
+100101	41	Antipersonnel Mine, Antitank Mine, and Mine Cluster
+011001	42	Antipersonnel Mine, Antitank Mine with Antihandling Device, and Wide Area Antitank Mine
+101001	43	Antipersonnel Mine, Antitank Mine with Antihandling Device, and Mine Cluster
+110001	44	Antipersonnel Mine, Wide Area Antitank Mine, and Mine Cluster
+001110	45	Antipersonnel Mine with Directional Effects, Antitank Mine, and Antitank Mine with Antihandling Device
+010110	46	Antipersonnel Mine with Directional Effects, Antitank Mine, and Wide Area Antitank Mine
+100110	47	Antipersonnel Mine with Directional Effects, Antitank Mine, and Mine Cluster
+011010	48	Antipersonnel Mine with Directional Effects, Antitank Mine with Antihandling Device, and Wide Area Antitank Mine
+101010	49	Antipersonnel Mine with Directional Effects, Antitank Mine with Antihandling Device, and Mine Cluster
+110010	50	Antipersonnel Mine with Directional Effects, Wide Area Antitank Mine, and Mine Cluster
