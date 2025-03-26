@@ -1,5 +1,25 @@
 plugins {
     id 'java'
+    id 'maven-publish' // Required for POM generation
+    id 'signing'
+}
+
+group = 'armyc2.c5isr.renderer'
+version = '2.1.2'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    //fancy world math, https://github.com/mgavaghan/geodesy
+    implementation 'org.gavaghan:geodesy:1.1.3'
+
+    //jsvg - SVG rendering library, https://github.com/weisJ/jsvg
+    implementation("com.github.weisj:jsvg:1.6.1");
 }
 
 /*tasks.withType(javadoc).configureEach {
@@ -74,30 +94,47 @@ task javadocJar(type: Jar, dependsOn: 'javadoc') {
 
 task sourceJar(type: Jar) {
     from sourceSets.main.java.srcDirs
-    archiveClassifier  = 'javadoc'
+    archiveClassifier  = 'sources'
+}
+
+
+
+/*task slimJar(type: Jar) {
+    manifest {
+        attributes("Tester": "armyc2.c5isr.renderer.tester")
+    }
+    from {
+        sourceSets.main.output
+    }
+
+    archiveClassifier = "slim"
+}//*/
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes("Tester": "armyc2.c5isr.renderer.tester",
+                "Implementation-Title": "mil-sym-java",
+                "Implementation-Version": version,
+                "License": "GNU General Public License v3.0"
+        )
+    }
+    from("LICENSE") {
+        into("") // Place the license at the root of the JAR
+    }
+    from {
+        sourceSets.main.output
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    archiveClassifier = "fat"
 }
 
 artifacts {
     archives javadocJar
     archives sourceJar
-}
-
-group = 'armyc2.c5isr.renderer'
-version = '2.1.1'
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-
-    //fancy world math, https://github.com/mgavaghan/geodesy
-    implementation 'org.gavaghan:geodesy:1.1.3'
-
-    //jsvg - SVG rendering library, https://github.com/weisJ/jsvg
-    implementation("com.github.weisj:jsvg:1.6.1");
+    //archives slimJar
+    archives fatJar
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -108,15 +145,119 @@ java {
 }
 
 jar {
-    manifest {
+    /*manifest {
         attributes "Tester": "armyc2.c5isr.renderer.tester"
+    }//*/
+
+    manifest {
+        attributes("Tester": "armyc2.c5isr.renderer.tester",
+                "Implementation-Title": "mil-sym-java",
+                "Implementation-Version": version,
+                "License": "GNU General Public License v3.0"
+        )
+    }
+    from("LICENSE") {
+        into("") // Place the license at the root of the JAR
     }
 
-    from {
+    //fat jar
+    /*from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }//*/
+
+    //slim jar
+    // Include only compiled classes and resources from your project
+    from {
+        sourceSets.main.output
     }
 }
 
 test {
     useJUnitPlatform()
+}
+
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = 'io.github.missioncommand' //'armyc2.c5isr.renderer'
+            artifactId = 'mil-sym-java' // Replace with your project's artifact ID
+            version = '2.1.2'
+
+            // Add the fatJar as an additional artifact
+            artifact(tasks.named("fatJar")) {
+                classifier = "fat" // Use the classifier set for fatJar
+            }
+
+            pom {
+                name = 'mil-sym-java'
+                description = 'MilStd 2525D+ renderer'
+                url = 'https://github.com/your-project-url'
+                licenses {
+                    license {
+                        name = 'GNU General Public License v3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.html'
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = '1'
+                        name = 'C5ISR ESI'
+                        email = 'email@email.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/missioncommand/mil-sym-java.git'
+                    developerConnection = 'scm:git:ssh://github.com/missioncommand/mil-sym-java.git'
+                    url = 'https://github.com/missioncommand/mil-sym-java'
+                }
+                /*withXml {
+                    asNode().dependencies.dependency.findAll {
+                        it.scope.text() == 'test'
+                    }.each { testDependency ->
+                        testDependency.parent().remove(testDependency)
+                    }
+                }//*/
+                /* {
+                    dependency {
+                        groupId = 'org.gavaghan'
+                        artifactId = 'geodesy'
+                        version = '1.1.3'
+                        scope = 'compile'
+                    }
+                    dependency {
+                        groupId = 'com.github.weisj'
+                        artifactId = 'jsvg'
+                        version = '1.6.1'
+                        scope = 'compile'
+                    }
+                    dependency {
+                        groupId = 'org.junit.jupiter'
+                        artifactId = 'junit-jupiter'
+                        version = '5.9.1'
+                        scope = 'test'
+                    }
+                }//*/
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "ossrh"
+            url = version.endsWith("-SNAPSHOT")
+                    ? uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                    : uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = project.findProperty("ossrhUsername") ?: ""
+                password = project.findProperty("ossrhPassword") ?: ""
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
