@@ -7,7 +7,8 @@ mil-sym-java is a well worn set of java libraries that have been used in US Army
 This is a continuation of that effort and is not currently open source until which time we get the proper approvals in place.
 This library aims to support 2525D, 2525E and potentially more future versions.
 
-[JavaDocs](https://missioncommand.github.io/javadoc/2525D/java/index.html)
+[JavaDocs](https://missioncommand.github.io/javadoc/2525D/java/index.html)  
+[Wiki](https://github.com/missioncommand/mil-sym-java/wiki)
 
 The old 2525C renderer has been retired but the library is still available here:
 [mil-sym-renderer](https://central.sonatype.com/artifact/io.github.missioncommand/mil-sym-renderer/0.1.41)
