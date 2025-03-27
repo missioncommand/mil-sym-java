@@ -5,12 +5,18 @@ About
 mil-sym-java is a well worn set of java libraries that have been used in US Army Mission Command software for years.  In November 2013 Mission Command was given the approval to release and maintain these libraries as public open source.  Eventually work on the 2525C SEC Renderer ended and the project was retired
 
 This is a continuation of that effort and is not currently open source until which time we get the proper approvals in place.
-This library aims to support 2525D, 2525E and potentailly more future versions.
+This library aims to support 2525D, 2525E and potentially more future versions.
+
+[JavaDocs](https://missioncommand.github.io/javadoc/2525D/android/index.html)
+
+The old 2525C renderer has been retired but the library is still available here:
+[mil-sym-renderer](https://central.sonatype.com/artifact/io.github.missioncommand/mil-sym-renderer/0.1.41)
+[mil-sym-service](https://central.sonatype.com/artifact/io.github.missioncommand/mil-sym-service/0.1.41)
 
 
 MIL-STD-2525
 -----------
-The [MIL-STD-2525] standard defines how to visualize military symbology.  This project provides support for the entire MIL-STD-2525D Change 1.
+The [MIL-STD-2525] standard defines how to visualize military symbology.  This project provides support for the entire MIL-STD-2525D Change 1 and MIL-STD-2525E.
 
 Project Structure
 ------------
