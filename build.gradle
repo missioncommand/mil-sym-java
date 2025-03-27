@@ -186,10 +186,18 @@ publishing {
             artifactId = 'mil-sym-java' // Replace with your project's artifact ID
             version = '2.1.2'
 
-            // Add the fatJar as an additional artifact
-            artifact(tasks.named("fatJar")) {
-                classifier = "fat" // Use the classifier set for fatJar
+            artifact(tasks.named("javadocJar")) {
+                classifier = "javadoc" // Use the classifier set for fatJar
             }
+
+            artifact(tasks.named("sourceJar")) {
+                classifier = "sources" // Use the classifier set for fatJar
+            }
+
+            // Add the fatJar as an additional artifact
+            /*artifact(tasks.named("fatJar")) {
+                classifier = "fat" // Use the classifier set for fatJar
+            }//*/
 
             pom {
                 name = 'mil-sym-java'
