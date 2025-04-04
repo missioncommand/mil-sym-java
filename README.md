@@ -10,9 +10,8 @@ This library aims to support 2525D, 2525E and potentially more future versions.
 [JavaDocs](https://missioncommand.github.io/javadoc/2525D/java/index.html)  
 [Wiki](https://github.com/missioncommand/mil-sym-java/wiki)
 
-The old 2525C renderer has been retired but the library is still available here:
-[mil-sym-renderer](https://central.sonatype.com/artifact/io.github.missioncommand/mil-sym-renderer/0.1.41)
-[mil-sym-service](https://central.sonatype.com/artifact/io.github.missioncommand/mil-sym-service/0.1.41)
+The old 2525C renderer has been retired but the libraries and usage information are still available here:  
+[2525C Renderer Overview](https://github.com/missioncommand/mil-sym-java/wiki/2525C-Renderer-Overview)
 
 
 MIL-STD-2525
