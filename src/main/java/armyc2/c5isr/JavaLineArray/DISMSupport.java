@@ -2266,22 +2266,23 @@ public final class DISMSupport
             counter++;
             
             if(drawJaggies)//diagnostic
-            while (i <= iNumJaggies) {
-                pts[1].x = savepoints2[1].x - dDeltaXOut + dDeltaXAlong * i;
-                pts[1].y = savepoints2[1].y - dDeltaYOut + dDeltaYAlong * i;
-                i++;
-                pts[2].x = savepoints2[1].x + dDeltaXOut + dDeltaXAlong * i;
-                pts[2].y = savepoints2[1].y + dDeltaYOut + dDeltaYAlong * i;
-                i++;
-                for (j = 0; j < 3; j++) {
-                    points[counter] = new POINT2(pts[j]);
-                    points[counter].style = 0;
-                    counter++;
+            {
+                while (i <= iNumJaggies) {
+                    pts[1].x = savepoints2[1].x - dDeltaXOut + dDeltaXAlong * i;
+                    pts[1].y = savepoints2[1].y - dDeltaYOut + dDeltaYAlong * i;
+                    i++;
+                    pts[2].x = savepoints2[1].x + dDeltaXOut + dDeltaXAlong * i;
+                    pts[2].y = savepoints2[1].y + dDeltaYOut + dDeltaYAlong * i;
+                    i++;
+                    for (j = 0; j < 3; j++) {
+                        points[counter] = new POINT2(pts[j]);
+                        points[counter].style = 0;
+                        counter++;
+                    }
+                    points[counter - 1].style = 5;
+                    pts[0] = new POINT2(pts[2]);
                 }
-                points[counter - 1].style = 5;
-                pts[0] = new POINT2(pts[2]);
             }
-
 
             pts[1] = new POINT2(pts[0]);
             pts[0].x = savepoints2[1].x + dDeltaXAlong * i;

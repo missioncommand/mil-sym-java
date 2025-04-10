@@ -169,7 +169,10 @@ public class Tester extends javax.swing.JFrame {
         else
             id += "00000";//2525D has 5 reserved positions
 
-        id += "000";//country code
+        if(cbModifiers.isSelected())
+            id += "840";//country code
+        else//
+            id += "000";//country code
 
 
         return id;
@@ -509,7 +512,7 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.AO_ENGAGEMENT_BAR, "AO:AOA-AO");
             modifier.put(Modifiers.AR_SPECIAL_DESIGNATOR, "AR");
             modifier.put(Modifiers.AQ_GUARDED_UNIT, "AQ");
-            modifier.put(Modifiers.AS_COUNTRY, "USA");
+            //modifier.put(Modifiers.AS_COUNTRY, "USA");
             
             //*/
             //modifier.put(Modifiers.CN_CPOF_NAME_LABEL, "CPOF'D");
@@ -696,7 +699,7 @@ public class Tester extends javax.swing.JFrame {
 
         cbStatus.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbStatusItemStateChanged(evt);
+                cbModifiersItemStateChanged(evt);
             }
         });
 
@@ -756,6 +759,12 @@ public class Tester extends javax.swing.JFrame {
         lblPixelSize.setText("Pixel Size");
 
         cbModifiers.setText("Modifiers");
+
+        cbModifiers.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbAffiliationItemStateChanged(evt);
+            }
+        });
 
         btnSpeedTest.setText("Speed Test");
         btnSpeedTest.addActionListener(new java.awt.event.ActionListener() {
@@ -1398,6 +1407,10 @@ public class Tester extends javax.swing.JFrame {
         updatedSymbolIDField();
     }//GEN-LAST:event_cbAffiliationItemStateChanged
 
+    private void cbModifiersItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAffiliationItemStateChanged
+        updatedSymbolIDField();
+    }//GEN-LAST:event_cbAffiliationItemStateChanged
+
     private void cbContextItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbContextItemStateChanged
         updatedSymbolIDField();
     }//GEN-LAST:event_cbContextItemStateChanged
@@ -1441,7 +1454,7 @@ public class Tester extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -1467,13 +1480,13 @@ public class Tester extends javax.swing.JFrame {
                 new Tester().setVisible(true);
             }
         });
-        
-        
-        
+
+
+
     }
-    
+
         public MilStdSymbol render(MilStdSymbol symbol, IPointConversion converter, Object clipBounds) {
-        
+
         try
         {
             armyc2.c5isr.RenderMultipoints.clsRenderer.renderWithPolylines(symbol, converter, clipBounds);
@@ -1496,7 +1509,7 @@ public class Tester extends javax.swing.JFrame {
             //        new RendererException(message2, t));
             System.err.println(t.getMessage());
         }
-        
+
         return symbol;
     }
 
