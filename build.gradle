@@ -4,8 +4,13 @@ plugins {
     id 'signing'
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.forkOptions.executable = "${System.getenv('JAVA_HOME')}/bin/javac"
+}
+
+
 group = 'armyc2.c5isr.renderer'
-version = '2.1.2'
+version = '2.1.5'
 
 repositories {
     mavenCentral()
@@ -138,11 +143,11 @@ artifacts {
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
-java {
+/*java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(8)
     }
-}
+}//*/
 
 jar {
     /*manifest {
@@ -184,14 +189,14 @@ publishing {
             from components.java
             groupId = 'io.github.missioncommand' //'armyc2.c5isr.renderer'
             artifactId = 'mil-sym-java' // Replace with your project's artifact ID
-            version = '2.1.4'
+            version = '2.1.5'
 
             artifact(tasks.named("javadocJar")) {
-                classifier = "javadoc" // Use the classifier set for fatJar
+                classifier = "javadoc" // Use the classifier set for javadocJar
             }
 
             artifact(tasks.named("sourceJar")) {
-                classifier = "sources" // Use the classifier set for fatJar
+                classifier = "sources" // Use the classifier set for sourceJar
             }
 
             // Add the fatJar as an additional artifact
@@ -202,7 +207,7 @@ publishing {
             pom {
                 name = 'mil-sym-java'
                 description = 'MilStd 2525D+ renderer'
-                url = 'https://github.com/your-project-url'
+                url = 'https://github.com/missioncommand/mil-sym-java'
                 licenses {
                     license {
                         name = 'Apache-2.0 License'

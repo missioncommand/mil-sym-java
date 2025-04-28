@@ -616,10 +616,11 @@ public class SinglePointSVGRenderer {
 
             if(keepUnitRatio)
             {
-                pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.75f);
+                if(msi.getDrawRule() == DrawRules.POINT1)//Action Points
+                    pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.5f);
+                else
+                    pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.1f);
             }
-
-
 
 
             if (ss==SymbolID.SymbolSet_ControlMeasure && ec == 270701)//static depiction
