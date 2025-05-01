@@ -89,6 +89,9 @@ public class AffiliationColors {
 		public static Color UnknownGraphicLineColor = Color.YELLOW;
 
 		public static Color SuspectGraphicLineColor = new Color(255,188,1);
+
+		public static Color ObstacleGreenDark = new Color(0,166,81);
+		public static Color ObstacleGreen = new Color(0,255,0);
                 
         public static Color WeatherRed = new Color(198,16,33);//0xC61021;// 198,16,33
 		public static Color WeatherBlue = new Color(0,0,255);//0x0000FF;// 0,0,255

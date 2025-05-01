@@ -80,6 +80,8 @@ public class RendererSettings {
 
     private static boolean _OutlineSPControlMeasures = true;
 
+    private static boolean _ActionPointDefaultFill = true;
+
 
 
     /**
@@ -492,6 +494,21 @@ public class RendererSettings {
     public boolean getOutlineSPControlMeasures()
     {
         return _OutlineSPControlMeasures;
+    }
+
+    /**
+     * If true, set fill based on affiliation color for Action Points, Sonobuoys, ACP, CCP, PUP.
+     * False means there is no fill.
+     * @param value
+     */
+    public void setActionPointDefaultFill(boolean value)
+    {
+        _ActionPointDefaultFill = value;
+    }
+
+    public boolean getActionPointDefaultFill()
+    {
+        return _ActionPointDefaultFill;
     }
 
     /**

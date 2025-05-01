@@ -65,6 +65,8 @@ public class Tester extends javax.swing.JFrame {
             RendererSettings.getInstance().setCacheEnabled(false);
             //RendererSettings.getInstance().setOperationalConditionModifierType(RendererSettings.OperationalConditionModifierType_SLASH);
             //RendererSettings.getInstance().setDrawAffiliationModifierAsLabel(false);
+            RendererSettings.getInstance().setActionPointDefaultFill(true);
+            //RendererSettings.getInstance().setOutlineSPControlMeasures(false);
 
             //Test adding of custom symbol
             MSInfo miBase = MSLookup.getInstance().getMSLInfo("10110000",SymbolID.Version_2525E);

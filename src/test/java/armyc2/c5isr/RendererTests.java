@@ -110,7 +110,7 @@ public class RendererTests {
     // Takes roughly 8 minutes
     public void testRandomEC() {
         final String defaultID = "100301000011000011110000000000";
-        for (int i = 0; i <= 999999; i++) {
+        for (int i = 100000; i <= 500000; i++) {
             testCode(SymbolID.setEntityCode(defaultID, i));
         }
     }

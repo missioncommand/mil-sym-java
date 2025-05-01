@@ -569,14 +569,15 @@ public class SinglePointSVGRenderer {
             int drawRule = 0;
             boolean hasAPFill = false;
             if(msi!=null){drawRule = msi.getDrawRule();}
-            if(SymbolUtilities.isActionPoint(symbolID) || //action points
-                    drawRule==DrawRules.POINT10 || //Sonobuoy
-                    ec == 180100 || ec == 180200 || ec == 180400) //ACP, CCP, PUP
-            {
-                if(SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_ControlMeasure)
+            if(RendererSettings.getInstance().getActionPointDefaultFill()) {
+                if (SymbolUtilities.isActionPoint(symbolID) || //action points
+                        drawRule == DrawRules.POINT10 || //Sonobuoy
+                        ec == 180100 || ec == 180200 || ec == 180400) //ACP, CCP, PUP
                 {
-                    lineColor = "#000000";
-                    hasAPFill = true;
+                    if (SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_ControlMeasure) {
+                        lineColor = "#000000";
+                        hasAPFill = true;
+                    }
                 }
             }
             if(lineColor==null)
@@ -601,7 +602,7 @@ public class SinglePointSVGRenderer {
                 if(attributes.containsKey(MilStdAttributes.KeepUnitRatio))
                     keepUnitRatio = Boolean.parseBoolean(attributes.get(MilStdAttributes.KeepUnitRatio));
 
-                if(asIcon==false)//don't outline icons because they're not going on the map
+                if(!(asIcon==true || hasAPFill==true))//don't outline icons because they're not going on the map and icons with fills don't need it
                 {
                     if(attributes.containsKey(MilStdAttributes.OutlineSymbol))
                         outlineSymbol = Boolean.parseBoolean(attributes.get(MilStdAttributes.OutlineSymbol));
@@ -619,7 +620,7 @@ public class SinglePointSVGRenderer {
                 if(msi.getDrawRule() == DrawRules.POINT1)//Action Points
                     pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.5f);
                 else
-                    pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.1f);
+                    pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.2f);
             }
 
 
@@ -654,10 +655,6 @@ public class SinglePointSVGRenderer {
                 String strSVGIcon = null;
 
 
-                if(drawRule==DrawRules.POINT1) //action points and a few others
-                {//TODO: move this stroke width adjustment to the external took that makes 2525D.SVG & 2525E.SVG
-                    siIcon = new SVGInfo(siIcon.getID(),siIcon.getBbox(), siIcon.getSVG().replaceAll("stroke-width=\"4\"","stroke-width=\"6\""));
-                }
                 if(hasAPFill) //Action Point(s), Sonobuoys, ACP, CCP, PUP
                 {
                     String apFill;

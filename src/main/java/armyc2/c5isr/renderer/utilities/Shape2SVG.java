@@ -16,14 +16,15 @@ public class Shape2SVG {
      * @param strokeOpacity "1.0"
      * @param fillOpacity "1.0"
      * @param dashArray "4 1 2 3"
+     * @param lineCap "butt", "round", or "square"
      * @return
      */
-    public static String Convert(Shape shape,String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray)
+    public static String Convert(Shape shape,String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray, String lineCap)
     {
         if(shape instanceof Path2D)
-            return convertPath((Path2D)shape, stroke, fill, strokeWidth, strokeOpacity, fillOpacity, dashArray);
+            return convertPath((Path2D)shape, stroke, fill, strokeWidth, strokeOpacity, fillOpacity, dashArray, lineCap);
         else if(shape instanceof Rectangle2D)
-            return convertRect((Rectangle2D)shape, stroke, fill, strokeWidth, strokeOpacity, fillOpacity, dashArray);
+            return convertRect((Rectangle2D)shape, stroke, fill, strokeWidth, strokeOpacity, fillOpacity, dashArray, lineCap);
         else
             return null;
     }
@@ -257,9 +258,10 @@ public class Shape2SVG {
      * @param strokeOpacity "1.0"
      * @param fillOpacity "1.0"
      * @param dashArray "4 1 2 3"
+     * @param lineCap "butt", "round", or "square"
      * @return
      */
-    private static String convertPath(Path2D path2D, String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray)
+    private static String convertPath(Path2D path2D, String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray, String lineCap)
     {
         double[] coords = new double[6];
         StringBuilder sbPath = new StringBuilder();
@@ -316,33 +318,54 @@ public class Shape2SVG {
                 sbLine.append(" stroke-opacity=\"").append(strokeOpacity).append("\"");
             }
 
-            //sbLine.append(" stroke-linecap=\"round\"");
+            if(lineCap != null &&
+                    (lineCap.equalsIgnoreCase("butt") ||
+                        lineCap.equalsIgnoreCase("round") ||
+                        lineCap.equalsIgnoreCase("square")))
+            {
+                sbLine.append(" stroke-linecap=\"").append(lineCap).append("\"");
+            }
+            else
+                sbLine.append(" stroke-linecap=\"round\"");
+
 
             if(dashArray != null)
                 sbLine.append(" stroke-dasharray=\"").append(dashArray).append("\"");
-
-            if(fill != null)
-            {
-                if(format == 2)
-                    sbLine.append(" fill=\"").append(fill.replace("#","%23")).append("\"");
-                else
-                    sbLine.append(" fill=\"").append(fill).append("\"");
-
-                if(fillOpacity != null && fillOpacity != "1.0")
-                {
-                    sbLine.append(" fill-opacity=\"").append(fillOpacity).append("\"");
-                }
-            }
-            else
-                sbLine.append(" fill=\"none\"");
-
-            sbLine.append(" />");
         }
+
+        if(fill != null)
+        {
+            if(format == 2)
+                sbLine.append(" fill=\"").append(fill.replace("#","%23")).append("\"");
+            else
+                sbLine.append(" fill=\"").append(fill).append("\"");
+
+            if(fillOpacity != null && fillOpacity != "1.0")
+            {
+                sbLine.append(" fill-opacity=\"").append(fillOpacity).append("\"");
+            }
+        }
+        else
+            sbLine.append(" fill=\"none\"");
+
+        sbLine.append(" />");
 
         return sbLine.toString();
     }
 
-    private static String convertRect(Rectangle2D rect, String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray)
+    /**
+     *
+     * @param rect
+     * @param stroke like "#000000
+     * @param fill like "#0000FF" or "none"
+     * @param strokeWidth "#"
+     * @param strokeOpacity "1.0"
+     * @param fillOpacity "1.0"
+     * @param dashArray "4 1 2 3"
+     * @param lineCap "butt", "round", or "square"
+     * @return
+     */
+    private static String convertRect(Rectangle2D rect, String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray, String lineCap)
     {
         StringBuilder sb = new StringBuilder();
         if(rect != null && rect.isEmpty() != true)
@@ -358,6 +381,14 @@ public class Shape2SVG {
                     sb.append(" stroke-width=\"" + strokeWidth + "\"");
                 else
                     sb.append(" stroke-width=\"2\"");
+
+                if(lineCap != null &&
+                        (lineCap.equalsIgnoreCase("butt") ||
+                                lineCap.equalsIgnoreCase("round") ||
+                                lineCap.equalsIgnoreCase("square")))
+                {
+                    sb.append(" stroke-linecap=\"").append(lineCap).append("\"");
+                }
             }
 
             if(fill != null)

@@ -815,7 +815,7 @@ public class ModifierRenderer implements SettingsEventListener
                 ociShape = processOperationalConditionIndicator(symbolID, symbolBounds, ociOffset);
                 if (ociShape != null) {
                     Rectangle2D temp = (Rectangle2D) ociShape.clone();
-                    ShapeUtilities.grow(temp, 1);
+                    ShapeUtilities.grow(temp, 2);
                     ociBounds = temp;
                     imageBounds = imageBounds.createUnion(ociBounds);
                 }
@@ -944,7 +944,7 @@ public class ModifierRenderer implements SettingsEventListener
                 Line2D hqStaff = new Line2D.Double(pt1HQ,pt2HQ);
                 temp = new Path2D.Double();
                 temp.append(hqStaff,false);
-                sbSVG.append(Shape2SVG.Convert(temp, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(temp, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, null,null));
             }
             if (echelonBounds != null)
             {
@@ -956,13 +956,13 @@ public class ModifierRenderer implements SettingsEventListener
             }
             if (tfBounds != null)
             {
-                sbSVG.append(Shape2SVG.Convert(tfRectangle, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(tfRectangle, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, null,null));
             }
             if(ebBounds != null)
             {
                 String svgEBFill = RendererUtilities.colorToHexString(ebColor,false);
                 //create fill and outline
-                sbSVG.append(Shape2SVG.Convert(ebRectangle, svgStroke, svgEBFill, svgStrokeWidth, svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(ebRectangle, svgStroke, svgEBFill, svgStrokeWidth, svgAlpha, svgAlpha, null,null));
                 //create internal text
                 sbSVG.append(Shape2SVG.Convert(tiAO, null, "#000000", null, svgAlpha, svgAlpha, null));
             }
@@ -976,13 +976,22 @@ public class ModifierRenderer implements SettingsEventListener
                     svgFDIDashArray = "5 3";
                 }
 
+                /// ///////////////////////////////////
+                //Divide line in 14 parts. line is 3 parts to 2 parts gap
+                float distance = RendererUtilities.getDistanceBetweenPoints(fdiTop,fdiLeft);
+                //distance = distance / 14f;
+                dashArray[1] = (int)((distance / 14f) * 2);
+                dashArray[0] = (int)((distance / 14f) * 3);//*/
+                svgFDIDashArray = "" + dashArray[0] + " " + dashArray[1];
+                /// //////////////////////////////////
+
                 Path2D fdiPath = new Path2D.Double();
                 fdiPath.moveTo(fdiTop.getX(), fdiTop.getY());
                 fdiPath.lineTo(fdiLeft.getX(), fdiLeft.getY());
                 fdiPath.moveTo(fdiTop.getX(), fdiTop.getY());
                 fdiPath.lineTo(fdiRight.getX(), fdiRight.getY());//*/
 
-                sbSVG.append(Shape2SVG.Convert(fdiPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, svgFDIDashArray));
+                sbSVG.append(Shape2SVG.Convert(fdiPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, svgFDIDashArray,"round"));
 
 
             }
@@ -991,7 +1000,7 @@ public class ModifierRenderer implements SettingsEventListener
                 int liStrokeWidth = 2;
                 if(pixelSize < 100)
                     liStrokeWidth=1;
-                sbSVG.append(Shape2SVG.Convert(liPath, svgStroke, null, String.valueOf(liStrokeWidth), svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(liPath, svgStroke, null, String.valueOf(liStrokeWidth), svgAlpha, svgAlpha, null,null));
             }
             if (ociBounds != null && ociShape != null)
             {
@@ -1021,8 +1030,8 @@ public class ModifierRenderer implements SettingsEventListener
                 }
 
                 String svgOCIStatusColor = RendererUtilities.colorToHexString(statusColor,false);
-                sbSVG.append(Shape2SVG.Convert(ociBounds, null, svgStroke, svgStrokeWidth, svgAlpha, svgAlpha, null));
-                sbSVG.append(Shape2SVG.Convert(ociShape, null, svgOCIStatusColor, svgStrokeWidth, svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(ociBounds, null, svgStroke, svgStrokeWidth, svgAlpha, svgAlpha, null,null));
+                sbSVG.append(Shape2SVG.Convert(ociShape, null, svgOCIStatusColor, svgStrokeWidth, svgAlpha, svgAlpha, null,null));
 
                 ociBounds = null;
                 ociShape = null;
@@ -1037,11 +1046,11 @@ public class ModifierRenderer implements SettingsEventListener
                     svgMobilitySW = String.valueOf(strokeWidthNL);
                 }
 
-                sbSVG.append(Shape2SVG.Convert(mobilityPath, svgStroke, null, svgMobilitySW, svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(mobilityPath, svgStroke, null, svgMobilitySW, svgAlpha, svgAlpha, null,null));
 
                 if (mobilityPathFill != null)
                 {
-                    sbSVG.append(Shape2SVG.Convert(mobilityPathFill, "none", svgStroke, "0", svgAlpha, svgAlpha, null));
+                    sbSVG.append(Shape2SVG.Convert(mobilityPathFill, "none", svgStroke, "0", svgAlpha, svgAlpha, null,null));
                 }
 
                 mobilityBounds = null;
@@ -1060,7 +1069,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (ociStrokeWidth < 1f)
                     ociStrokeWidth = 1f;
 
-                sbSVG.append(Shape2SVG.Convert(ociSlashShape, svgStroke, null, String.valueOf(ociStrokeWidth), svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(ociSlashShape, svgStroke, null, String.valueOf(ociStrokeWidth), svgAlpha, svgAlpha, null,null));
                 ociBounds = null;
                 ociSlashShape = null;
             }
@@ -1078,14 +1087,14 @@ public class ModifierRenderer implements SettingsEventListener
                 {
                     domPath.lineTo(domPoints[2].getX(), domPoints[2].getY());
                 }
-                sbSVG.append(Shape2SVG.Convert(domPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(domPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, null,null));
 
                 domPath.reset();
 
                 domPath.moveTo(domPoints[3].getX(), domPoints[3].getY());
                 domPath.lineTo(domPoints[4].getX(), domPoints[4].getY());
                 domPath.lineTo(domPoints[5].getX(), domPoints[5].getY());
-                sbSVG.append(Shape2SVG.Convert(domPath, "none", svgStroke, "0", svgAlpha, svgAlpha, null));
+                sbSVG.append(Shape2SVG.Convert(domPath, "none", svgStroke, "0", svgAlpha, svgAlpha, null,null));
 
                 domBounds = null;
                 domPoints = null;
@@ -1197,7 +1206,15 @@ public class ModifierRenderer implements SettingsEventListener
                     dashArray[1] = 3f;
                 }
 
-                stroke = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dashArray, 0.0f);
+                /// ///////////////////////////////////
+                //Divide line in 14 parts. line is 3 parts to 2 parts gap
+                float distance = RendererUtilities.getDistanceBetweenPoints(fdiTop,fdiLeft);
+                //distance = distance / 14f;
+                dashArray[1] = (int)((distance / 14f) * 2);
+                dashArray[0] = (int)((distance / 14f) * 3);//*/
+                /// //////////////////////////////////
+
+                stroke = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dashArray, 0.0f);
                 g2d.setStroke(stroke);
                 Path2D fdiPath = new Path2D.Double();
 
@@ -1308,6 +1325,8 @@ public class ModifierRenderer implements SettingsEventListener
                 ociShape = null;
             }
 
+
+
             //draw original icon.
             //ctx.drawImage(ii.getImage(),symbolBounds.getX(), symbolBounds.getY());
 
@@ -1360,96 +1379,6 @@ public class ModifierRenderer implements SettingsEventListener
         //*/
         //return null;
 
-    }
-
-    /**
-     *
-     * @param symbolID
-     * @return
-     * @deprecated no longer a thing in 2525D
-     * TODO: remove
-     */
-    private static double getYPositionForSCC(String symbolID)
-    {
-        double yPosition = 0.32;
-        /*int aff = SymbolID.getAffiliation(symbolID);
-        int context = SymbolID.getContext(symbolID);
-        char affiliation = symbolID.charAt(1);
-
-        if(temp.equals("WMGC--"))//GROUND (BOTTOM) MILCO
-        {
-            if(affiliation == 'H' ||
-                    affiliation == 'S')//suspect
-                yPosition = 0.29;
-            else if(affiliation == 'N' ||
-                    affiliation == 'L')//exercise neutral
-                yPosition = 0.32;
-            else if(affiliation == 'F' ||
-                    affiliation == 'A' ||//assumed friend
-                    affiliation == 'D' ||//exercise friend
-                    affiliation == 'M' ||//exercise assumed friend
-                    affiliation == 'K' ||//faker
-                    affiliation == 'J')//joker
-                yPosition = 0.32;
-            else
-                yPosition = 0.34;
-        }
-        else if(temp.equals("WMMC--"))//MOORED MILCO
-        {
-            if(affiliation == 'H' ||
-                    affiliation == 'S')//suspect
-                yPosition = 0.25;
-            else if(affiliation == 'N' ||
-                    affiliation == 'L')//exercise neutral
-                yPosition = 0.25;
-            else if(affiliation == 'F' ||
-                    affiliation == 'A' ||//assumed friend
-                    affiliation == 'D' ||//exercise friend
-                    affiliation == 'M' ||//exercise assumed friend
-                    affiliation == 'K' ||//faker
-                    affiliation == 'J')//joker
-                yPosition = 0.25;
-            else
-                yPosition = 0.28;
-        }
-        else if(temp.equals("WMFC--"))//FLOATING MILCO
-        {
-            if(affiliation == 'H' ||
-                    affiliation == 'S')//suspect
-                yPosition = 0.29;
-            else if(affiliation == 'N' ||
-                    affiliation == 'L')//exercise neutral
-                yPosition = 0.32;
-            else if(affiliation == 'F' ||
-                    affiliation == 'A' ||//assumed friend
-                    affiliation == 'D' ||//exercise friend
-                    affiliation == 'M' ||//exercise assumed friend
-                    affiliation == 'K' ||//faker
-                    affiliation == 'J')//joker
-                yPosition = 0.32;
-            else
-                yPosition= 0.34;
-        }
-        else if(temp.equals("WMC---"))//GENERAL MILCO
-        {
-            if(affiliation == 'H' ||
-                    affiliation == 'S')//suspect
-                yPosition = 0.33;
-            else if(affiliation == 'N' ||
-                    affiliation == 'L')//exercise neutral
-                yPosition = 0.36;
-            else if(affiliation == 'F' ||
-                    affiliation == 'A' ||//assumed friend
-                    affiliation == 'D' ||//exercise friend
-                    affiliation == 'M' ||//exercise assumed friend
-                    affiliation == 'K' ||//faker
-                    affiliation == 'J')//joker
-                yPosition = 0.36;
-            else
-                yPosition = 0.36;
-        }*/
-
-        return yPosition;
     }
 
     /**
@@ -8862,10 +8791,21 @@ public class ModifierRenderer implements SettingsEventListener
                         arrMods.add(ti);
                     }
                 }
+                strText = null;
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) &&
                         (ec == 160300 || ec == 132000)) 
                 {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+
+                        x = (int)(bounds.getCenterX() + (bounds.getWidth() * 0.15f));
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
+                        y = y + (int) (labelHeight * 0.5f);
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
                 }
                 if (ec == 240601 || ec == 240602)
                 {
@@ -8878,22 +8818,17 @@ public class ModifierRenderer implements SettingsEventListener
                         else
                             strText = modifiers.get(Modifiers.AP1_TARGET_NUMBER_EXTENSION);
                     }
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+
+                        x = (int)(bounds.getCenterX() + (bounds.getWidth() * 0.15f));
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
+                        y = y + (int) (labelHeight * 0.5f);
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
                 }
-
-
-                if (strText != null) {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
-
-                    x = (int)(bounds.getCenterX() + (bounds.getWidth() * 0.15f));
-//                  x = x - (labelbounds.getWidth * 0.5);
-                    y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
-                    y = y + (int) (labelHeight * 0.5f);
-
-                    ti.setLocation(Math.round(x), Math.round(y));
-                    arrMods.add(ti);
-                }
-
-
             } 
             else if (ec == 132100)  //Key Terrain
             {
@@ -9581,12 +9516,20 @@ public class ModifierRenderer implements SettingsEventListener
 
                     g2d.setColor(lineColor);
 
-                    if (symbolBounds.getHeight() < 20) {
+                    /*if (symbolBounds.getHeight() < 20) {
                         dashArray[0] = 5f;
                         dashArray[1] = 3f;
-                    }
+                    }//*/
 
-                    BasicStroke stroke = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dashArray, 0.0f);
+                    /// ///////////////////////////////////
+                    //Divide line in 14 parts. line is 3 parts to 2 parts gap
+                    float distance = RendererUtilities.getDistanceBetweenPoints(fdiTop,fdiLeft);
+                    //distance = distance / 14f;
+                    dashArray[1] = (int)((distance / 14f) * 2);
+                    dashArray[0] = (int)((distance / 14f) * 3);//*/
+                    /// //////////////////////////////////
+
+                    BasicStroke stroke = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dashArray, 0.0f);
                     g2d.setStroke(stroke);
                     Path2D fdiPath = new Path2D.Double();
 
@@ -9631,14 +9574,14 @@ public class ModifierRenderer implements SettingsEventListener
                     {
                         domPath.lineTo(domPoints[2].getX(), domPoints[2].getY());
                     }
-                    sbSVG.append(Shape2SVG.Convert(domPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, null));
+                    sbSVG.append(Shape2SVG.Convert(domPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, null,null));
 
                     domPath.reset();
 
                     domPath.moveTo(domPoints[3].getX(), domPoints[3].getY());
                     domPath.lineTo(domPoints[4].getX(), domPoints[4].getY());
                     domPath.lineTo(domPoints[5].getX(), domPoints[5].getY());
-                    sbSVG.append(Shape2SVG.Convert(domPath, "none", svgStroke, "0", svgAlpha, svgAlpha, null));
+                    sbSVG.append(Shape2SVG.Convert(domPath, "none", svgStroke, "0", svgAlpha, svgAlpha, null,null));
 
                     domBounds = null;
                     domPoints = null;
@@ -9651,10 +9594,19 @@ public class ModifierRenderer implements SettingsEventListener
                     String svgFDIDashArray = "6 4";
                     float[] dashArray = {6f,4f};
 
-                    if (symbolBounds.getHeight() < 20)
+                    /*if (symbolBounds.getHeight() < 20)
                     {
                         svgFDIDashArray = "5 3";
-                    }
+                    }//*/
+
+                    /// ///////////////////////////////////
+                    //Divide line in 14 parts. line is 3 parts to 2 parts gap
+                    float distance = RendererUtilities.getDistanceBetweenPoints(fdiTop,fdiLeft);
+                    //distance = distance / 14f;
+                    dashArray[1] = (int)((distance / 14f) * 2);
+                    dashArray[0] = (int)((distance / 14f) * 3);
+                    svgFDIDashArray = "" + dashArray[0] + " " + dashArray[1];
+                    /// //////////////////////////////////
 
                     Path2D fdiPath = new Path2D.Double();
                     fdiPath.moveTo(fdiTop.getX(), fdiTop.getY());
@@ -9662,7 +9614,7 @@ public class ModifierRenderer implements SettingsEventListener
                     fdiPath.moveTo(fdiTop.getX(), fdiTop.getY());
                     fdiPath.lineTo(fdiRight.getX(), fdiRight.getY());//*/
 
-                    sbSVG.append(Shape2SVG.Convert(fdiPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, svgFDIDashArray));
+                    sbSVG.append(Shape2SVG.Convert(fdiPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, svgFDIDashArray,"round"));
                 }
                 //</editor-fold>
 
@@ -10046,12 +9998,20 @@ public class ModifierRenderer implements SettingsEventListener
 
                     g2d.setColor(lineColor);
 
-                    if (symbolBounds.getHeight() < 20) {
+                    /*if (symbolBounds.getHeight() < 20) {
                         dashArray[0] = 5f;
                         dashArray[1] = 3f;
-                    }
+                    }//*/
 
-                    BasicStroke stroke = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dashArray, 0.0f);
+                    /// ///////////////////////////////////
+                    //Divide line in 14 parts. line is 3 parts to 2 parts gap
+                    float distance = RendererUtilities.getDistanceBetweenPoints(fdiTop,fdiLeft);
+                    //distance = distance / 14f;
+                    dashArray[1] = (int)((distance / 14f) * 2);
+                    dashArray[0] = (int)((distance / 14f) * 3);//*/
+                    /// //////////////////////////////////
+
+                    BasicStroke stroke = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dashArray, 0.0f);
                     g2d.setStroke(stroke);
                     Path2D fdiPath = new Path2D.Double();
 
@@ -10088,10 +10048,19 @@ public class ModifierRenderer implements SettingsEventListener
                     String svgFDIDashArray = "6 4";
                     float[] dashArray = {6f,4f};
 
-                    if (symbolBounds.getHeight() < 20)
+                    /*if (symbolBounds.getHeight() < 20)
                     {
                         svgFDIDashArray = "5 3";
-                    }
+                    }*/
+
+                    /// ///////////////////////////////////
+                    //Divide line in 14 parts. line is 3 parts to 2 parts gap
+                    float distance = RendererUtilities.getDistanceBetweenPoints(fdiTop,fdiLeft);
+                    //distance = distance / 14f;
+                    dashArray[1] = (int)((distance / 14f) * 2);
+                    dashArray[0] = (int)((distance / 14f) * 3);
+                    svgFDIDashArray = "" + dashArray[0] + " " + dashArray[1];//*/
+                    /// //////////////////////////////////
 
                     Path2D fdiPath = new Path2D.Double();
                     fdiPath.moveTo(fdiTop.getX(), fdiTop.getY());
@@ -10099,7 +10068,7 @@ public class ModifierRenderer implements SettingsEventListener
                     fdiPath.moveTo(fdiTop.getX(), fdiTop.getY());
                     fdiPath.lineTo(fdiRight.getX(), fdiRight.getY());//*/
 
-                    sbSVG.append(Shape2SVG.Convert(fdiPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, svgFDIDashArray));
+                    sbSVG.append(Shape2SVG.Convert(fdiPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, svgFDIDashArray,"round"));
                 }
                 //</editor-fold>
 

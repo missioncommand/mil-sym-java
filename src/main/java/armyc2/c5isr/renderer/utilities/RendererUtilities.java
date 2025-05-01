@@ -3,6 +3,7 @@ package armyc2.c5isr.renderer.utilities;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -442,6 +443,12 @@ public class RendererUtilities {
             largest = strokeWidths.descendingSet().first();
         }
         return largest * OUTLINE_SCALING_FACTOR;
+    }
+
+    public static int getDistanceBetweenPoints(Point2D pt1, Point2D pt2)
+    {
+        int distance = (int)(Math.sqrt(Math.pow((pt2.getX() - pt1.getX()) ,2) + Math.pow((pt2.getY() - pt1.getY()) ,2)));
+        return distance;
     }
 
     // Overloaded method to return non-outline symbols as normal.
