@@ -4,6 +4,7 @@ package armyc2.c5isr.renderer.utilities;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -454,6 +455,31 @@ public class RendererUtilities {
     // Overloaded method to return non-outline symbols as normal.
     public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor) {
         return setSVGSPCMColors(symbolID, svg, strokeColor, fillColor, false);
+    }
+
+    public static SVGInfo scaleIcon(String symbolID, SVGInfo icon)
+    {
+        SVGInfo retVal= icon;
+        //safe square inside octagon:  <rect x="220" y="310" width="170" height="170"/>
+        double maxSize = 170;
+        Rectangle2D bbox =  icon.getBbox();
+        double length = Math.max(bbox.getWidth(),bbox.getHeight());
+        if(length < 100 &&
+                SymbolID.getCommonModifier1(symbolID)==0 &&
+                SymbolID.getCommonModifier2(symbolID)==0 &&
+                SymbolID.getModifier1(symbolID)==0 &&
+                SymbolID.getModifier2(symbolID)==0)//if largest side smaller than 100 and there are no section mods, make it bigger
+        {
+            double ratio = maxSize / length;
+            double transx = ((bbox.getX() + (bbox.getWidth()/2)) * ratio) - (bbox.getX() + (bbox.getWidth()/2));
+            double transy = ((bbox.getY() + (bbox.getHeight()/2)) * ratio) - (bbox.getY() + (bbox.getHeight()/2));
+            String transform = " transform=\"translate(-" + transx + ",-" + transy + ") scale(" + ratio + " " + ratio + ")\">";
+            String svg = icon.getSVG();
+            svg = svg.replaceFirst(">",transform);
+            Rectangle2D newBbox = new Rectangle2D.Double(bbox.getX() - transx,bbox.getY() - transy,bbox.getWidth() * ratio, bbox.getHeight() * ratio);
+            retVal = new SVGInfo(icon.getID(),newBbox,svg);
+        }
+        return retVal;
     }
 
 }

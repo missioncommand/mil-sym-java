@@ -125,6 +125,8 @@ public class RendererSettings {
     //acevedo - 11/29/2017 - adding option to render only 2 labels.
     private boolean _TwoLabelOnly = false;
 
+    private static boolean _scaleMainIconWithoutSectorMods = true;
+
     //acevedo - 12/8/17 - allow the setting of affiliation colors.
     private   Color _friendlyUnitFillColor = AffiliationColors.FriendlyUnitFillColor;
     /// <summary>
@@ -830,6 +832,24 @@ public class RendererSettings {
     public void setTwoLabelOnly(boolean TwoLabelOnly )
     {
         _TwoLabelOnly = TwoLabelOnly;
+    }
+
+    /**
+     * When true, if the main icon is normally small to allow room for sector modifiers,
+     * make it larger when no sector modifiers are present for better visibility.
+     * @param scaleMainIcon
+     */
+    public void setScaleMainIcon(boolean scaleMainIcon )
+    {
+        _scaleMainIconWithoutSectorMods = scaleMainIcon;
+    }
+    /**
+     * When true, if the main icon is normally small to allow room for sector modifiers,
+     * main icon is made larger when no sector modifiers are present for better visibility.
+     */
+    public boolean getScaleMainIcon()
+    {
+        return _scaleMainIconWithoutSectorMods;
     }
 
     /**

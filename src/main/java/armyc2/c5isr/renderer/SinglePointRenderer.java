@@ -239,6 +239,9 @@ public class SinglePointRenderer implements SettingsEventListener{
                         siIcon = SVGLookup.getInstance().getSVGLInfo("00000000", version);//question mark
                 }
 
+                if(RendererSettings.getInstance().getScaleMainIcon())
+                    siIcon = RendererUtilities.scaleIcon(symbolID,siIcon);
+
                 siMod1 = SVGLookup.getInstance().getSVGLInfo(mod1ID, version);
                 siMod2 = SVGLookup.getInstance().getSVGLInfo(mod2ID, version);
                 top = (int)Math.round(siFrame.getBbox().getY());

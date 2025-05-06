@@ -67,7 +67,7 @@ public class Tester extends javax.swing.JFrame {
             //RendererSettings.getInstance().setDrawAffiliationModifierAsLabel(false);
             RendererSettings.getInstance().setActionPointDefaultFill(true);
             //RendererSettings.getInstance().setOutlineSPControlMeasures(false);
-
+            RendererSettings.getInstance().setScaleMainIcon(true);
             //Test adding of custom symbol
             MSInfo miBase = MSLookup.getInstance().getMSLInfo("10110000",SymbolID.Version_2525E);
             MSInfo mi = new MSInfo(13,"10", "Sustainment","TEST","","165700",miBase.getModifiers());
@@ -601,6 +601,7 @@ public class Tester extends javax.swing.JFrame {
     {
         Map<String,String> attributes = new HashMap<>();
         attributes.put(MilStdAttributes.PixelSize, "50");
+        //attributes.put(MilStdAttributes.FillColor, "#00FF00");
         return attributes;
     }
 
@@ -1183,6 +1184,7 @@ public class Tester extends javax.swing.JFrame {
         //Generate GeoJSON
         Map<String,String> attributes = new HashMap<>();
         attributes.put(MilStdAttributes.LineWidth,String.valueOf(ms.getLineWidth()));
+        //attributes.put(MilStdAttributes.FillColor,"#00FF00");
         int format = WebRenderer.OUTPUT_FORMAT_GEOJSON;
         renderWebFormat(msi, symbolID, ms, pConverter,modifiers,attributes,format);
 
