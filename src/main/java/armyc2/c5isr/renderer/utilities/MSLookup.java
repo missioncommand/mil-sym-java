@@ -679,21 +679,19 @@ public class MSLookup {
     {
         int length = basicID.length();
         if (length == 8) {
-            if (version < SymbolID.Version_2525E)
-                return _MSLookupD.getOrDefault(basicID, null);
-            else if (version == SymbolID.Version_2525E)
+            if (version == SymbolID.Version_2525E)
                 return _MSLookupE.getOrDefault(basicID, null);
+            else if (version == SymbolID.Version_2525D && basicID.equals("25272100"))
+                // MSDZ can have extra point in D
+                return new MSInfo(SymbolID.Version_2525D, "25",
+                        "Protection Areas", "Minimum Safe Distance Zone", "",
+                        "272100", "Area", "Area14", new ArrayList<>());
             else
                 return _MSLookupD.getOrDefault(basicID, null);
         }
         else if (length >= 20 && length <= 30)//probably got a full id instead of a basic ID.
         {
-            if (version < SymbolID.Version_2525E)
-                return _MSLookupD.getOrDefault(SymbolUtilities.getBasicSymbolID(basicID), null);
-            else if (version == SymbolID.Version_2525E)
-                return _MSLookupE.getOrDefault(SymbolUtilities.getBasicSymbolID(basicID), null);
-            else
-                return _MSLookupD.getOrDefault(SymbolUtilities.getBasicSymbolID(basicID), null);
+            return getMSLInfo(SymbolUtilities.getBasicSymbolID(basicID), version);
         } else
             return null;
     }
