@@ -1497,64 +1497,81 @@ public class ModifierRenderer implements SettingsEventListener
         x2 = Math.round(dx2);
         y2 = Math.round(dy2);
 
-        //create arrowhead//////////////////////////////////////////////////////
-        float arrowWidth = 10.0f,//8.0f,//6.5f;//7.0f;//6.5f;//10.0f//default
-                theta = 0.423f;//higher value == shorter arrow head//*/
 
-        if (length < 50)
+        //UPDATED ARROWHEAD CODE
+        Point2D[] head = null;
+        Point2D endPoint = new Point2D.Double(x2, y2);
+        if(pt2 != null)
+            head = createDOMArrowHead(pt2, endPoint);//pt3);
+        else
+            head = createDOMArrowHead(pt1, endPoint);//pt3);
+
+        if(head != null)
         {
-            theta = 0.55f;
+            arrowPoints[0] = pt1;
+            arrowPoints[1] = pt2;
+            arrowPoints[2] = pt3;
+            arrowPoints[3] = head[0];
+            arrowPoints[4] = head[1];
+            arrowPoints[5] = head[2];
+
+            //adjusted endpoint
+            if(head.length >= 4 && head[3] != null)
+            {
+                arrowPoints[2] = head[3];
+            }
         }
-        /*float arrowWidth = length * .09f,// 16.0f,//8.0f,//6.5f;//7.0f;//6.5f;//10.0f//default
-         theta = length * .0025f;//0.423f;//higher value == shorter arrow head
-         if(arrowWidth < 8)
-         arrowWidth = 8f;//*/
 
-        int[] xPoints = new int[3];//3
-        int[] yPoints = new int[3];//3
-        int[] vecLine = new int[2];//2
-        int[] vecLeft = new int[2];//2
-        double fLength;
-        double th;
-        double ta;
-        double baseX, baseY;
+        return arrowPoints;
 
-        xPoints[0] = x2;
-        yPoints[0] = y2;
+    }
 
-        //build the line vector
-        vecLine[0] = (xPoints[0] - x1);
-        vecLine[1] = (yPoints[0] - y1);
+    private static Point2D[] createDOMArrowHead(Point2D lpt1, Point2D lpt2)
+    {
+        Point2D[] arrowPoints = new Point2D.Double[6];
+        Point2D pt1 = null;
+        Point2D pt2 = null;
+        Point2D pt3 = null;
 
-        //build the arrow base vector - normal to the line
-        vecLeft[0] = -vecLine[1];
-        vecLeft[1] = vecLine[0];
+        double x1 = lpt1.getX();
+        double y1 = lpt1.getY();
+        double x2 = lpt2.getX();
+        double y2 = lpt2.getY();
 
-        //setup length parameters
-        fLength = Math.sqrt(vecLine[0] * vecLine[0] + vecLine[1] * vecLine[1]);
-        th = arrowWidth / (2.0 * fLength);
-        ta = arrowWidth / (2.0 * (Math.tan(theta) / 2.0) * fLength);
+        // Compute direction vector
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double length = Math.sqrt(dx * dx + dy * dy);
 
-        //find base of the arrow
-        baseX = (xPoints[0] - ta * vecLine[0]);
-        baseY = (yPoints[0] - ta * vecLine[1]);
+        // Scale triangle size
+        double scale = length * 0.15;  // Scaling factor for size
+        double offset = scale * 1.5;  // Move triangle further down the line
 
-        //build the points on the sides of the arrow
-        xPoints[1] = (int) Math.round(baseX + th * vecLeft[0]);
-        yPoints[1] = (int) Math.round(baseY + th * vecLeft[1]);
-        xPoints[2] = (int) Math.round(baseX - th * vecLeft[0]);
-        yPoints[2] = (int) Math.round(baseY - th * vecLeft[1]);
+        // Normalize direction vector
+        double unitX = dx / length;
+        double unitY = dy / length;
 
-        //line.lineTo((int)baseX, (int)baseY);
-        pt3 = new Point2D.Double(Math.round(baseX), Math.round(baseY));
+        // Compute perpendicular vector for triangle base
+        double nx = -unitY;
+        double ny = unitX;
+
+        // Compute adjusted triangle vertices
+        double tipX = x2;
+        double tipY = y2;
+        double baseX1 = (int) (x2 - offset * unitX + scale * nx);
+        double baseY1 = (int) (y2 - offset * unitY + scale * ny);
+        double baseX2 = (int) (x2 - offset * unitX - scale * nx);
+        double baseY2 = (int) (y2 - offset * unitY - scale * ny);
+
 
         //arrowHead = new Polygon(xPoints, yPoints, 3);
-        arrowPoints[0] = pt1;//new Point2D.Double(pt1.getX(), pt1.getY());
-        arrowPoints[1] = pt2;//new Point2D.Double(pt2.getX(), pt2.getY());
-        arrowPoints[2] = pt3;//new Point2D.Double(pt3.getX(), pt3.getY());
-        arrowPoints[3] = new Point2D.Double(xPoints[0], yPoints[0]);
-        arrowPoints[4] = new Point2D.Double(xPoints[1], yPoints[1]);
-        arrowPoints[5] = new Point2D.Double(xPoints[2], yPoints[2]);
+        arrowPoints[0] = new Point2D.Double(tipX,tipY);
+        arrowPoints[1] = new Point2D.Double(baseX1,baseY1);
+        arrowPoints[2] = new Point2D.Double(baseX2,baseY2);
+        // Adjust line endpoint to be the middle of the base line of the arrowhead
+        double adjustedX2 = (baseX1 + baseX2) / 2;
+        double adjustedY2 = (baseY1 + baseY2) / 2;
+        arrowPoints[3] = new Point2D.Double(adjustedX2,adjustedY2);
 
         return arrowPoints;
 
