@@ -20,7 +20,8 @@ import java.util.logging.Level;
 //@SuppressWarnings("unused")
 public final class WebRenderer /* extends Applet */ {
 
-    @Deprecated
+	public static final int OUTPUT_FORMAT_KML = 0;
+	@Deprecated
     public static final int OUTPUT_FORMAT_JSON = 1;
     public static final int OUTPUT_FORMAT_GEOJSON = 2;
     public static final int OUTPUT_FORMAT_GEOSVG = 3;

@@ -716,8 +716,14 @@ public class MultiPointHandler {
                 jsonContent = JSONize(shapes, modifiers, ipc, true, normalize);
                 jsonOutput.append(jsonContent);
                 jsonOutput.append("}");
-            }
-            else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON)
+            } else if (format == WebRenderer.OUTPUT_FORMAT_KML) {
+                Color textColor = mSymbol.getTextColor();
+                if(textColor==null)
+                    textColor=mSymbol.getLineColor();
+
+                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor);
+                jsonOutput.append(jsonContent);
+            } else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON)
             {
                 /*
                 jsonOutput.append("{\"type\":\"FeatureCollection\",\"features\":");
@@ -1290,7 +1296,14 @@ public class MultiPointHandler {
                 //jsonContent = JSONize(shapes, modifiers, ipc, normalize);
                 jsonOutput.append(jsonContent);
                 jsonOutput.append("}");
-            }  else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON) {
+            } else if (format == WebRenderer.OUTPUT_FORMAT_KML) {
+                Color textColor = mSymbol.getTextColor();
+                if(textColor==null)
+                    textColor=mSymbol.getLineColor();
+
+                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor);
+                jsonOutput.append(jsonContent);
+            } else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON) {
                 jsonOutput.append("{\"type\":\"FeatureCollection\",\"features\":");
                 jsonContent = GeoJSONize(shapes, modifiers, ipc, normalize, mSymbol.getTextColor(), mSymbol.getTextBackgroundColor());
                 jsonOutput.append(jsonContent);
