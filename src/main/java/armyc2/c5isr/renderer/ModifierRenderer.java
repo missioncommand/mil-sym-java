@@ -1411,7 +1411,7 @@ public class ModifierRenderer implements SettingsEventListener
             else
                 length = (int)Math.round(bounds.getHeight() * 0.7);
         }
-        else if(bounds.getHeight() >= 100)
+        else //if(bounds.getHeight() >= 100)
         {
             length = (int)Math.round(bounds.getHeight() * 0.7);
         }

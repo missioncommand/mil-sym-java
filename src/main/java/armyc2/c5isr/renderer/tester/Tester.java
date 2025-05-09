@@ -60,6 +60,7 @@ public class Tester extends javax.swing.JFrame {
            loadTree(SymbolID.Version_2525Dch1);
             //RendererSettings.getInstance().setLabelFont("algerian",Font.TRUETYPE_FONT,24);
            setCBItems();
+            cbPixelSize.setSelectedIndex(1);
             SinglePointRenderer.getInstance();
             SVGLookup.getInstance();
             RendererSettings.getInstance().setCacheEnabled(false);
@@ -757,7 +758,7 @@ public class Tester extends javax.swing.JFrame {
         tfSymbolID.setEditable(false);
         tfSymbolID.setText("Symbol ID");
 
-        cbPixelSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "50", "75", "100", "200" }));
+        cbPixelSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25", "50", "75", "100", "200" }));
 
         lblPixelSize.setText("Pixel Size");
 
