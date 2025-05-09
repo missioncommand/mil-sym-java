@@ -462,8 +462,12 @@ public class RendererUtilities {
         SVGInfo retVal= icon;
         //safe square inside octagon:  <rect x="220" y="310" width="170" height="170"/>
         double maxSize = 170;
-        Rectangle2D bbox =  icon.getBbox();
-        double length = Math.max(bbox.getWidth(),bbox.getHeight());
+        Rectangle2D bbox = null;
+        if(icon != null)
+            bbox =  icon.getBbox();
+        double length = 0;
+        if(bbox != null)
+            length = Math.max(bbox.getWidth(),bbox.getHeight());
         if(length < 100 && length > 0 &&
                 SymbolID.getCommonModifier1(symbolID)==0 &&
                 SymbolID.getCommonModifier2(symbolID)==0 &&
