@@ -2794,7 +2794,7 @@ public class MultiPointHandler {
             kml.append("<name>" + cdataStart + text + cdataEnd + "</name>");
             kml.append("<Style>");
             kml.append("<IconStyle>");
-            kml.append("<scale>.7</scale>");
+            kml.append("<scale>" + kmlScale + "</scale>");
             kml.append("<heading>" + angle + "</heading>");
             kml.append("<Icon>");
             kml.append("<href></href>");
