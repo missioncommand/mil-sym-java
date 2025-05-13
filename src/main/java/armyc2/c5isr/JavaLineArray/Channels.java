@@ -1493,8 +1493,8 @@ public final class Channels {
             switch (vbiDrawThis) {
                 case TacticalLines.LC:
                 case TacticalLines.LC_HOSTILE:
-                    lUpperFlotCount = flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblUpperCounter);
-                    lLowerFlotCount = flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblLowerCounter);
+                    lUpperFlotCount = flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblUpperCounter);
+                    lLowerFlotCount = flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblLowerCounter);
                     if (lUpperFlotCount <= 0 || lLowerFlotCount <= 0) {
                         return 0;
                     }
@@ -1519,8 +1519,8 @@ public final class Channels {
                         pLowerFlotPoints[k] = new POINT2(pLowerLinePoints[k]);
                     }
 
-                    lUpperFlotCount = flot.GetFlotDouble(pUpperFlotPoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblUpperCounter);	//6/24/04
-                    lLowerFlotCount = flot.GetFlotDouble(pLowerFlotPoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblLowerCounter);	//6/24/04
+                    lUpperFlotCount = flot.GetFlotDouble(pUpperFlotPoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblUpperCounter);	//6/24/04
+                    lLowerFlotCount = flot.GetFlotDouble(pLowerFlotPoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblLowerCounter);	//6/24/04
                     pLinePoints = new POINT2[lUpperFlotCount + lLowerFlotCount];
                     lineutility.InitializePOINT2Array(pLinePoints);
 
@@ -1707,7 +1707,7 @@ public final class Channels {
                         else
                             xSize = vblChannelWidth / 4;
                         for (j = 0; j < vblUpperCounter - 1; j++) {
-                            double dIncrement = xSize + arraysupport.getScaledSize(2, tg.get_LineThickness() / 2d);
+                            double dIncrement = xSize + arraysupport.getScaledSize(2, tg.get_LineThickness() / 2d, tg.get_patternScale());
                             d = lineutility.CalcDistanceDouble(pOriginalLinePoints[j], pOriginalLinePoints[j + 1]);
                             lHowManyThisSegment = (int) (d/dIncrement);
                             remainder=d-dIncrement*lHowManyThisSegment;

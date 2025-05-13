@@ -52,7 +52,7 @@ public final class clsUtility {
             int j=0,hatch2=0;
             Shape2 shape2=null;
             int index=0;
-            float hatchLineThickness = (float) (tg.get_LineThickness() / 2.0);
+            float hatchLineThickness = 1.5f + ((tg.get_LineThickness() / 2f) - 1.5f) * (float) tg.get_patternScale();
             Color hatchColor = tg.get_LineColor();
             int hatchSpacing = (int) (hatchLineThickness * 10);
 
@@ -81,7 +81,7 @@ public final class clsUtility {
                 case TacticalLines.RAD:
                     hatchStyle=Hatch_BackwardDiagonal;
                     hatchColor = Color.yellow;
-                    hatchLineThickness = tg.get_LineThickness();
+                    hatchLineThickness = 3 + (tg.get_LineThickness() - 3) * (float) tg.get_patternScale();
                     break;
                 case TacticalLines.WFZ:
                     hatchStyle=Hatch_BackwardDiagonal;

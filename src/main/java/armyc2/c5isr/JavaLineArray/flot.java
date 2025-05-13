@@ -168,18 +168,18 @@ public final class flot {
             switch (tg.get_LineType()) {
                 case TacticalLines.WF:
                 case TacticalLines.UWF:
-                    dIncrement = arraysupport.getScaledSize(40, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 case TacticalLines.WFG:
-                    dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness(), tg.get_patternScale());
                     nFactor = 17;
                     break;
                 case TacticalLines.WFY:
-                    dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness(), tg.get_patternScale());
                     nFactor = 20;
                     break;
                 default:
-                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());
                     break;
             }
 
@@ -246,14 +246,14 @@ public final class flot {
             switch (lineType) {
                 case TacticalLines.WF:
                 case TacticalLines.UWF:
-                    dIncrement = arraysupport.getScaledSize(40, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 case TacticalLines.WFG:
                 case TacticalLines.WFY:
-                    dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 default:
-                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());
                     break;
             }
             for (j = 0; j < numPts; j++)
@@ -308,22 +308,22 @@ public final class flot {
                                             {
                                                 if (lineType == TacticalLines.WFG) {
                                                     pt2 = new POINT2(style10Points[style10Counter - 1]);
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(10, tg.get_LineThickness()), 5);
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(20, tg.get_LineThickness()), 20);
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(30, tg.get_LineThickness()), 0);
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(70, tg.get_LineThickness()), 5);
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()), 5);
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), 20);
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), 0);
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(70, tg.get_LineThickness(), tg.get_patternScale()), 5);
                                                 }
                                                 if (lineType == TacticalLines.WFY) {
                                                     pt2 = new POINT2(style10Points[style10Counter - 1]);
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(10, tg.get_LineThickness()), 5);	//pt before 1st break
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(15, tg.get_LineThickness()), 0);	//1st pt after 1st break;
-                                                    crossPt1 = lineutility.ExtendDirectedLine(style10Points[style10Counter - 1], pt1, style10Points[style10Counter - 1], 3, arraysupport.getScaledSize(5, tg.get_LineThickness()), 0);
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(25, tg.get_LineThickness()), 5);	//2nd point after 1st break;
-                                                    crossPt2 = lineutility.ExtendDirectedLine(style10Points[style10Counter - 1], pt1, style10Points[style10Counter - 1], 2,  arraysupport.getScaledSize(5, tg.get_LineThickness()), 5);
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()), 5);	//pt before 1st break
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(15, tg.get_LineThickness(), tg.get_patternScale()), 0);	//1st pt after 1st break;
+                                                    crossPt1 = lineutility.ExtendDirectedLine(style10Points[style10Counter - 1], pt1, style10Points[style10Counter - 1], 3, arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale()), 0);
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(25, tg.get_LineThickness(), tg.get_patternScale()), 5);	//2nd point after 1st break;
+                                                    crossPt2 = lineutility.ExtendDirectedLine(style10Points[style10Counter - 1], pt1, style10Points[style10Counter - 1], 2,  arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale()), 5);
                                                     style10Points[style10Counter++] = new POINT2(crossPt1);
                                                     style10Points[style10Counter++] = new POINT2(crossPt2);
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(30, tg.get_LineThickness()), 0);	//1st pt after 2nd break
-                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(60, tg.get_LineThickness()), 5);	//2nd pt after 2nd break
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), 0);	//1st pt after 2nd break
+                                                    style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(60, tg.get_LineThickness(), tg.get_patternScale()), 5);	//2nd pt after 2nd break
                                                 }
                                             }
                                         } else {
@@ -331,7 +331,7 @@ public final class flot {
                                             pt2.y = vbPoints[2 * l + 1];
                                             pt2.style = 0;
                                             style10Points[style10Counter++] = new POINT2(pt2);
-                                            style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(40, tg.get_LineThickness()), 5);
+                                            style10Points[style10Counter++] = lineutility.ExtendAlongLineDouble(pt2, pt1, arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale()), 5);
 
                                             pt2.x = vbPoints[2 * l + 2];
                                             pt2.y = vbPoints[2 * l + 3];
@@ -423,27 +423,27 @@ public final class flot {
             switch (lineType) {
                 case TacticalLines.WF:
                 case TacticalLines.UWF:
-                    dIncrement = arraysupport.getScaledSize(40, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 case TacticalLines.WFG:
                 case TacticalLines.WFY:
-                    dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 case TacticalLines.OCCLUDED:
                 case TacticalLines.UOF:
-                    dIncrement = arraysupport.getScaledSize(50, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(50, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 case TacticalLines.SF:
                 case TacticalLines.USF:
                 case TacticalLines.SFG:
                 case TacticalLines.SFY:
-                    dIncrement = arraysupport.getScaledSize(80, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(80, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 case TacticalLines.OFY:
-                    dIncrement = arraysupport.getScaledSize(80, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(80, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 default:
-                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());
                     break;
             }
 
@@ -529,7 +529,7 @@ public final class flot {
                 lLocx = (int) (vbPoints[2 * segment] + (m + 0.5) * (vbPoints[2 * segment + 2] - vbPoints[2 * segment]) * dIncrement / dDistance);
                 lLocy = (int) (vbPoints[2 * segment + 1] + (m + 0.5) * (vbPoints[2 * segment + 3] - vbPoints[2 * segment + 1]) * dIncrement / dDistance);
 
-                CalcAnglePoints(lLocx, lLocy, dAngle, arcpoints, arraysupport.getScaledSize(10, tg.get_LineThickness()));
+                CalcAnglePoints(lLocx, lLocy, dAngle, arcpoints, arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()));
 
                 for (j = 0; j < 30; j++) {
                     points[lSegCounter] = arcpoints[j];
@@ -596,8 +596,8 @@ public final class flot {
             POINT2[] pSpikePoints = null;
             POINT2 pt0 = new POINT2(), tempPoint = new POINT2();
             POINT2[] pFlotPoints = null;
-            double dSpikeSize = arraysupport.getScaledSize(20, tg.get_LineThickness()),
-                    dIncrement = arraysupport.getScaledSize(50, tg.get_LineThickness());
+            double dSpikeSize = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()),
+                    dIncrement = arraysupport.getScaledSize(50, tg.get_LineThickness(), tg.get_patternScale());
             int[] vbPoints = null;
             int nFlotCounter = 0, nSpikeCounter = 0;
             int[] flots = null;
@@ -1283,8 +1283,8 @@ public final class flot {
             POINT2 pt0 = new POINT2(), tempPoint = new POINT2();
             POINT2[] pFlotPoints = null;
             POINT2[] pSegmentPoints = null;
-            double dSpikeSize = arraysupport.getScaledSize(20, tg.get_LineThickness());
-            double dIncrement = arraysupport.getScaledSize(80, tg.get_LineThickness());	//was 70
+            double dSpikeSize = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());
+            double dIncrement = arraysupport.getScaledSize(80, tg.get_LineThickness(), tg.get_patternScale());	//was 70
             int[] vbPoints = null;
             int nFlotCounter = 0, nSpikeCounter = 0, nSegmentCounter = 0;
             int[] flots = null;
@@ -1524,9 +1524,9 @@ public final class flot {
                     d1 = lineutility.CalcDistanceDouble(pSpikeStart[l], pFlotEnd[l]);
                     pSegmentPoints[nSegmentCounter++] = lineutility.ExtendAlongLineDouble(pSpikeStart[l], pLinePoints[j], d1 / 3, 0);
                     pSegmentPoints[nSegmentCounter++] = lineutility.ExtendAlongLineDouble(pSpikeStart[l], pLinePoints[j], 2 * d1 / 3, 5);
-                    tempPoint = lineutility.ExtendDirectedLine(pLinePoints[j], pLinePoints[j + 1], pSegmentPoints[nSegmentCounter - 2], 2, arraysupport.getScaledSize(5, tg.get_LineThickness()), 0);
+                    tempPoint = lineutility.ExtendDirectedLine(pLinePoints[j], pLinePoints[j + 1], pSegmentPoints[nSegmentCounter - 2], 2, arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale()), 0);
                     pSegmentPoints[nSegmentCounter++] = new POINT2(tempPoint);
-                    tempPoint = lineutility.ExtendDirectedLine(pLinePoints[j], pLinePoints[j + 1], pSegmentPoints[nSegmentCounter - 2], 3, arraysupport.getScaledSize(5, tg.get_LineThickness()), 5);
+                    tempPoint = lineutility.ExtendDirectedLine(pLinePoints[j], pLinePoints[j + 1], pSegmentPoints[nSegmentCounter - 2], 3, arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale()), 5);
                     pSegmentPoints[nSegmentCounter++] = new POINT2(tempPoint);
                 }
                 if (nSpikeCounter == 0) {
@@ -1588,8 +1588,8 @@ public final class flot {
             POINT2[] pSpikePoints = null;
             POINT2 pt0 = new POINT2(), tempPoint = new POINT2();
             POINT2[] pFlotPoints = null;
-            double dSpikeSize = arraysupport.getScaledSize(20, tg.get_LineThickness()),
-                    dIncrement = arraysupport.getScaledSize(80, tg.get_LineThickness());
+            double dSpikeSize = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()),
+                    dIncrement = arraysupport.getScaledSize(80, tg.get_LineThickness(), tg.get_patternScale());
             int[] vbPoints = null;
             int nFlotCounter = 0, nSpikeCounter = 0, nSegCounter = 0;
             int[] flots = null;
@@ -1887,8 +1887,8 @@ public final class flot {
                         pSpikePoints[nSpikeCounter + 3] = lineutility.ExtendAlongLineDouble(pSpikeStart[k], pLinePoints[j], 3 * d1 / 4);		//was 1.5*dSpikeSize/2
                         pSpikePoints[nSpikeCounter + 3].style = 5;	//end of red part
                         //the cross points
-                        pSpikePoints[nSpikeCounter + 4] = lineutility.ExtendDirectedLine(pSpikePoints[nSpikeCounter], pLinePoints[j], pSpikePoints[nSpikeCounter], 2, arraysupport.getScaledSize(5, tg.get_LineThickness()), 25);
-                        pSpikePoints[nSpikeCounter + 5] = lineutility.ExtendDirectedLine(pSpikePoints[nSpikeCounter + 3], pLinePoints[j], pSpikePoints[nSpikeCounter + 3], 3, arraysupport.getScaledSize(5, tg.get_LineThickness()), 5);
+                        pSpikePoints[nSpikeCounter + 4] = lineutility.ExtendDirectedLine(pSpikePoints[nSpikeCounter], pLinePoints[j], pSpikePoints[nSpikeCounter], 2, arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale()), 25);
+                        pSpikePoints[nSpikeCounter + 5] = lineutility.ExtendDirectedLine(pSpikePoints[nSpikeCounter + 3], pLinePoints[j], pSpikePoints[nSpikeCounter + 3], 3, arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale()), 5);
                         nSpikeCounter += 6;
 
                         d1 = lineutility.CalcDistanceDouble(pFlotEnd[k + 1], pSpikeEnd[k]);
@@ -1901,8 +1901,8 @@ public final class flot {
                         pSpikePoints[nSpikeCounter + 3] = lineutility.ExtendAlongLineDouble(pSpikeEnd[k], pLinePoints[j + 1], 3 * d1 / 4);
                         pSpikePoints[nSpikeCounter + 3].style = 5;
                         //the cross points
-                        pSpikePoints[nSpikeCounter + 4] = lineutility.ExtendDirectedLine(pSpikePoints[nSpikeCounter], pLinePoints[j + 1], pSpikePoints[nSpikeCounter], 3, arraysupport.getScaledSize(5, tg.get_LineThickness()), 19);
-                        pSpikePoints[nSpikeCounter + 5] = lineutility.ExtendDirectedLine(pSpikePoints[nSpikeCounter + 3], pLinePoints[j + 1], pSpikePoints[nSpikeCounter + 3], 2, arraysupport.getScaledSize(5, tg.get_LineThickness()), 5);
+                        pSpikePoints[nSpikeCounter + 4] = lineutility.ExtendDirectedLine(pSpikePoints[nSpikeCounter], pLinePoints[j + 1], pSpikePoints[nSpikeCounter], 3, arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale()), 19);
+                        pSpikePoints[nSpikeCounter + 5] = lineutility.ExtendDirectedLine(pSpikePoints[nSpikeCounter + 3], pLinePoints[j + 1], pSpikePoints[nSpikeCounter + 3], 2, arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale()), 5);
                         nSpikeCounter += 6;
 
                     }
