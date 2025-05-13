@@ -2034,7 +2034,7 @@ public final class clsUtility {
      */
     public static void SegmentLCPoints(TGLight tg, IPointConversion converter) {
         try {
-            if (tg.get_LineType() != TacticalLines.LC && tg.get_LineType() != TacticalLines.LC_HOSTILE)
+            if (tg.get_LineType() != TacticalLines.LC)
                 return;
 
             ArrayList<POINT2> points = tg.get_Pixels();

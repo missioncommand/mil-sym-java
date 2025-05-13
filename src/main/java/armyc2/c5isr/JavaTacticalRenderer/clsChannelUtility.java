@@ -111,7 +111,6 @@ public final class clsChannelUtility {
             double[] channelPixels = null;
             switch (lineType) {
                 case TacticalLines.LC:
-                case TacticalLines.LC_HOSTILE:
                 case TacticalLines.UNSP:
                 case TacticalLines.DFENCE:
                 case TacticalLines.SFENCE:
@@ -371,8 +370,6 @@ public final class clsChannelUtility {
             //anchor point, i.e. the rotary feature can no longer stick out past the anchor point
             //45 pixels shift here matches the 45 pixels shift for catkbyfire found in Channels.GetAXADDouble
             lineutility.adjustCATKBYFIREControlPoint(linetype, pixels, 45);
-            if(tg.get_LineType()==TacticalLines.LC && tg.isHostile())
-                linetype=TacticalLines.LC_HOSTILE;
             
             int j = 0;
             double[] pixels2 = new double[pixels.size() * 2];
@@ -482,7 +479,6 @@ public final class clsChannelUtility {
                     }
                     break;
                 case TacticalLines.LC:
-                case TacticalLines.LC_HOSTILE:
                     channelWidth = (int) arraysupport.getScaledSize(40, tg.get_LineThickness());// was 20;
                     pixels2 = new double[pixels.length];
                     n = pixels.length;
@@ -524,7 +520,7 @@ public final class clsChannelUtility {
             }
 
             // Line of contact looks bad with small channel corners extending out
-            if (linetype == TacticalLines.LC || linetype == TacticalLines.LC_HOSTILE) {
+            if (linetype == TacticalLines.LC) {
                 partitions = new ArrayList<>();
                 ArrayList<P1> singleLinePartitions = new ArrayList<>();
                 clsUtility.GetLCPartitions(pixels2, arraysupport.getScaledSize(40, tg.get_LineThickness()), partitions, singleLinePartitions);
