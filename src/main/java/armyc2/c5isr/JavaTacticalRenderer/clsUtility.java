@@ -199,7 +199,6 @@ public final class clsUtility {
             case TacticalLines.ESR1:
             case TacticalLines.ESR2:
             case TacticalLines.ROADBLK:
-            case TacticalLines.TRIP:
             case TacticalLines.EASY:
             case TacticalLines.BYDIF:
             case TacticalLines.BYIMP:
@@ -729,6 +728,7 @@ public final class clsUtility {
                 case TacticalLines.PAA_RECTANGULAR:
                 case TacticalLines.RECTANGULAR_TARGET:
                 case TacticalLines.CFL:
+                case TacticalLines.TRIP:
                 case TacticalLines.DIRATKAIR:
                 case TacticalLines.BOUNDARY:
                 case TacticalLines.ISOLATE:
