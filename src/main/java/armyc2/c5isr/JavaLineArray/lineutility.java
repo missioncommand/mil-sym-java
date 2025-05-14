@@ -697,7 +697,7 @@ public final class lineutility {
             POINT2 extendBackAbove = null, extendBackBelow = null;
             POINT2 xPoint1 = null, xPoint2 = null;
             int n=pLinePoints.length;
-            final double xSize = arraysupport.getScaledSize(5, tg.get_LineThickness());
+            final double xSize = arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale());
             final double dIncrement = xSize * 4;
             //for (j = 0; j < pLinePoints.length - 1; j++) 
             for (j = 0; j < n - 1; j++) 
@@ -2351,10 +2351,6 @@ public final class lineutility {
                     startangle = M - 90 * Math.PI / 180.0;
                     endangle = startangle + 2 * 90 * Math.PI / 180.0;
                     break;
-                case TacticalLines.TRIP:
-                    startangle = M - 45 * Math.PI / 180.0;
-                    endangle = startangle + 2 * 45 * Math.PI / 180.0;
-                    break;
                 case TacticalLines.ISOLATE:
                 case TacticalLines.CORDONKNOCK:
                 case TacticalLines.CORDONSEARCH:
@@ -2404,10 +2400,6 @@ public final class lineutility {
                     case TacticalLines.CLUSTER:
                         startangle = M - Math.PI + 90 * Math.PI / 180.0;
                         endangle = startangle - 2 * 90 * Math.PI / 180.0;
-                        break;
-                    case TacticalLines.TRIP:
-                        startangle = M - Math.PI + 45 * Math.PI / 180.0;
-                        endangle = startangle - 2 * 45 * Math.PI / 180.0;
                         break;
                     default:
                         break;
@@ -3193,12 +3185,12 @@ public final class lineutility {
 
             InitializePOINT2Array(pCirclePoints);
             nSpikeCounter = nOldCounter;
-            double spikeLength = arraysupport.getScaledSize(12, tg.get_LineThickness());
+            double spikeLength = arraysupport.getScaledSize(12, tg.get_LineThickness(), tg.get_patternScale());
             double spikeHeight = spikeLength * 1.25;
             double minLength = 2 * spikeLength;
             for (i = 0; i < nOldCounter - 1; i++) {
                 if (linetype == TacticalLines.ATDITCHM && i == 0) {
-                    double radius = arraysupport.getScaledSize(4, tg.get_LineThickness());
+                    double radius = arraysupport.getScaledSize(4, tg.get_LineThickness(), tg.get_patternScale());
                     minLength = spikeLength * 2.5 + radius * 2;
                 }
 

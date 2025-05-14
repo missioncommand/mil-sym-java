@@ -127,6 +127,8 @@ public class RendererSettings {
 
     private static boolean _scaleMainIconWithoutSectorMods = true;
 
+    private double _patternScale = 1.0;
+
     //acevedo - 12/8/17 - allow the setting of affiliation colors.
     private   Color _friendlyUnitFillColor = AffiliationColors.FriendlyUnitFillColor;
     /// <summary>
@@ -850,6 +852,20 @@ public class RendererSettings {
     public boolean getScaleMainIcon()
     {
         return _scaleMainIconWithoutSectorMods;
+    }
+
+    /**
+     * Multipoint features and patterns scale with line width ({@link MilStdAttributes#LineWidth}).
+     * {@code patternScale} is the ratio of how much to increase features and patterns by with line width.
+     * default value is 1.0. Can be overwritten on render with {@link MilStdAttributes#PatternScale}
+     * @param patternScale
+     */
+    public void setPatternScale(double patternScale) {
+        _patternScale = patternScale;
+    }
+
+    public double getPatternScale() {
+        return _patternScale;
     }
 
     /**

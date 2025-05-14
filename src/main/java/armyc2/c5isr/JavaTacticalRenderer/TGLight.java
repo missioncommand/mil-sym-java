@@ -7,6 +7,7 @@ import armyc2.c5isr.JavaLineArray.POINT2;
 import armyc2.c5isr.JavaLineArray.TacticalLines;
 import armyc2.c5isr.renderer.utilities.ErrorLogger;
 import armyc2.c5isr.renderer.utilities.RendererException;
+import armyc2.c5isr.renderer.utilities.RendererSettings;
 import armyc2.c5isr.renderer.utilities.SymbolID;
 import armyc2.c5isr.renderer.utilities.SymbolUtilities;
 
@@ -627,4 +628,15 @@ public class TGLight {
     public int get_lineCap() {
         return lineCap;
     }
+
+    private double patternScale = RendererSettings.getInstance().getPatternScale();
+
+    public double get_patternScale() {
+        return patternScale;
+    }
+
+    public void set_patternScale(double scale) {
+        patternScale = scale;
+    }
+
 }

@@ -322,7 +322,7 @@ public final class clsChannelUtility {
             POINT2[] pts=tg.Pixels.toArray(new POINT2[pixels.size()]);
             POINT2 ul=new POINT2(),lr=new POINT2();
             lineutility.CalcMBRPoints((POINT2[])pts, pts.length, ul, lr);
-            double flotDiameter = arraysupport.getScaledSize(21, tg.get_LineThickness());
+            double flotDiameter = arraysupport.getScaledSize(21, tg.get_LineThickness(), tg.get_patternScale());
             if(lr.x-ul.x>=flotDiameter)
                 return pixels;
             else if (lr.y-ul.y>=flotDiameter)
@@ -408,7 +408,7 @@ public final class clsChannelUtility {
                 return null;
             }
 
-            double factor = arraysupport.getScaledSize(3, tg.get_LineThickness());
+            double factor = arraysupport.getScaledSize(3, tg.get_LineThickness(), tg.get_patternScale());
 
             clsUtility.GetSegments(pixels, segments, factor);
             partitions = new ArrayList<P1>();
@@ -449,7 +449,7 @@ public final class clsChannelUtility {
             //value array still needs to be allocated or there is a
             //null pointer exception in DrawGoodChannel2
             distanceToChannelPoint.value = new double[1];
-            distanceToChannelPoint.value[0] = arraysupport.getScaledSize(20, tg.get_LineThickness());
+            distanceToChannelPoint.value[0] = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());
 
             switch (linetype) {
                 case TacticalLines.MAIN:
@@ -479,7 +479,7 @@ public final class clsChannelUtility {
                     }
                     break;
                 case TacticalLines.LC:
-                    channelWidth = (int) arraysupport.getScaledSize(40, tg.get_LineThickness());// was 20;
+                    channelWidth = (int) arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale());// was 20;
                     pixels2 = new double[pixels.length];
                     n = pixels.length;
                     //for (j = 0; j < pixels.length; j++) 
@@ -497,9 +497,9 @@ public final class clsChannelUtility {
                 case TacticalLines.DOUBLEC:
                 case TacticalLines.TRIPLE:
                     tg.set_lineCap(BasicStroke.CAP_BUTT);
-                    channelWidth = (int) arraysupport.getScaledSize(30, tg.get_LineThickness());
+                    channelWidth = (int) arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale());
                     if (Channels.getShiftLines()) {
-                        channelWidth = (int) arraysupport.getScaledSize(60, tg.get_LineThickness());
+                        channelWidth = (int) arraysupport.getScaledSize(60, tg.get_LineThickness(), tg.get_patternScale());
                     }
                     pixels2 = new double[pixels.length];
                     n = pixels.length;
@@ -523,7 +523,7 @@ public final class clsChannelUtility {
             if (linetype == TacticalLines.LC) {
                 partitions = new ArrayList<>();
                 ArrayList<P1> singleLinePartitions = new ArrayList<>();
-                clsUtility.GetLCPartitions(pixels2, arraysupport.getScaledSize(40, tg.get_LineThickness()), partitions, singleLinePartitions);
+                clsUtility.GetLCPartitions(pixels2, arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale()), partitions, singleLinePartitions);
                 DrawSegments(tg, pixels2, partitions, channelWidth, shapes, channelPoints, distanceToChannelPoint.value[0]);
 
                 if (singleLinePartitions.size() > 0) {

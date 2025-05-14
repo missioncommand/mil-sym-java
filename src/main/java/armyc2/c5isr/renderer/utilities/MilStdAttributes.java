@@ -144,6 +144,13 @@ public class MilStdAttributes {
     public static final String EngagementBarColor = "ENGAGEMENTBARCOLOR";
 
     /**
+     * Multipoint features and patterns scale with line width ({@link MilStdAttributes#LineWidth}).
+     * {@code PatternScale} is the ratio of how much to increase features and patterns by with line width.
+     * default value is {@link RendererSettings#getPatternScale()}
+     */
+    public static final String PatternScale = "PATTERNSCALE";
+
+    /**
      * No Longer relevant
      * @return {@link ArrayList}
      * @deprecated see {@link #GetAttributesList(String)}

@@ -754,20 +754,6 @@ public class DrawRules {
     public static final int LINE14 = 314;
 
     /**
-     * Anchor Points: This symbol requires two anchor points. Points 1 and 2
-     * define the length and orientation of the straight line (trip wire)
-     * portion of the symbol.
-     *
-     * Size/Shape: Points 1 and 2 determine the length and orientation of the
-     * line drawn from the physical mine to the end of the trip wire. The
-     * distance between the line connecting points 1 and 2 is the length of
-     * the trip wire connected to the mine.
-     *
-     * Orientation: Orientation is determined by the anchor points.
-     */
-    public static final int LINE15 = 315;
-
-    /**
      * Anchor Points: This symbol requires four points. Points 1 and 2 define
      * one side of the assault crossing site and points 3 and 4 define the
      * opposite side of the assault crossing site.

@@ -69,11 +69,11 @@ public final class countsupport
                     count=vblCounter*15;    //15 points per segment
                     break;
                 case TacticalLines.REEF:
-                    vblCounter = GetReefCount(pLinePoints, arraysupport.getScaledSize(40, tg.get_LineThickness()), vblSaveCounter);
+                    vblCounter = GetReefCount(pLinePoints, arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale()), vblSaveCounter);
                     count=vblCounter;
                     break;
                 case TacticalLines.RESTRICTED_AREA:
-                    vblCounter = GetRestrictedAreaCount(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness()), vblSaveCounter);
+                    vblCounter = GetRestrictedAreaCount(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness(), tg.get_patternScale()), vblSaveCounter);
                     count=vblCounter;
                     break;
                 case TacticalLines.TRAINING_AREA:
@@ -81,41 +81,41 @@ public final class countsupport
                     count=vblCounter;
                     break;
                 case TacticalLines.PIPE:
-                    count = GetPipeCount(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblSaveCounter);
+                    count = GetPipeCount(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblSaveCounter);
                     break;
                 case TacticalLines.ANCHORAGE_AREA:
                 case TacticalLines.ANCHORAGE_LINE:
-                    count = flot.GetAnchorageCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);
+                    count = flot.GetAnchorageCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
                     break;
                 case TacticalLines.LRO:
-                    int xCount=GetXPointsCount(pLinePoints, arraysupport.getScaledSize(30, tg.get_LineThickness()), vblCounter);
-                    int lvoCount=GetLVOCount(pLinePoints, arraysupport.getScaledSize(30, tg.get_LineThickness()), vblCounter);
+                    int xCount=GetXPointsCount(pLinePoints, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
+                    int lvoCount=GetLVOCount(pLinePoints, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
                     count=xCount+lvoCount;
                     break;
                 case TacticalLines.LVO:
-                    count=GetLVOCount(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);
+                    count=GetLVOCount(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
                     break;
                 case TacticalLines.ICING:
-                    vblCounter = GetIcingCount(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness()), vblCounter);
+                    vblCounter = GetIcingCount(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
                     count=vblCounter;
                     break;
                 case TacticalLines.FLOT:
                     vblSaveCounter = vblCounter;
-                    vblCounter = flot.GetFlotCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);
+                    vblCounter = flot.GetFlotCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
                     count=vblCounter;
                     break;
                 case TacticalLines.MVFR:
                 case TacticalLines.UNDERCAST:
                     vblSaveCounter = vblCounter;
-                    vblCounter = flot.GetFlotCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);
+                    vblCounter = flot.GetFlotCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
                     count=vblCounter;
                     break;
                 case TacticalLines.ITD:
-                    vblCounter = GetITDQty(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness()), vblCounter) + vblCounter;
+                    vblCounter = GetITDQty(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness(), tg.get_patternScale()), vblCounter) + vblCounter;
                     count=vblCounter;
                     break;
                 case TacticalLines.CONVERGENCE:
-                    vblCounter = GetConvergenceQty(pLinePoints, arraysupport.getScaledSize(10, tg.get_LineThickness()), vblCounter) + vblCounter;
+                    vblCounter = GetConvergenceQty(pLinePoints, arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()), vblCounter) + vblCounter;
                     count=vblCounter;
                     break;
                 case TacticalLines.RIDGE:
@@ -126,15 +126,15 @@ public final class countsupport
                 case TacticalLines.UPPER_TROUGH:
                 case TacticalLines.INSTABILITY:
                 case TacticalLines.SHEAR:
-                    vblCounter = GetSquallQty(pLinePoints, 6, arraysupport.getScaledSize(30, tg.get_LineThickness()), (int)vblSaveCounter);
+                    vblCounter = GetSquallQty(pLinePoints, 6, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), (int)vblSaveCounter);
                     count=vblCounter;
                     break;
                 case TacticalLines.CABLE:
-                    vblCounter = GetSquallQty(pLinePoints, 6, arraysupport.getScaledSize(20, tg.get_LineThickness()), (int)vblSaveCounter);
+                    vblCounter = GetSquallQty(pLinePoints, 6, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), (int)vblSaveCounter);
                     count=vblCounter;
                     break;
                 case TacticalLines.SQUALL:
-                    vblCounter = GetSquallQty(pLinePoints, 5, arraysupport.getScaledSize(30, tg.get_LineThickness()), (int)vblSaveCounter)+ 2 * vblSaveCounter;
+                    vblCounter = GetSquallQty(pLinePoints, 5, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), (int)vblSaveCounter)+ 2 * vblSaveCounter;
                     count=vblCounter;
                     break;
                 case TacticalLines.USF:
@@ -146,7 +146,7 @@ public final class countsupport
                     break;
                 case TacticalLines.OFY:
                     vblSaveCounter = vblCounter;
-                    vblCounter = flot.GetOFYCountDouble(pLinePoints, arraysupport.getScaledSize(80, tg.get_LineThickness()), vblCounter);
+                    vblCounter = flot.GetOFYCountDouble(pLinePoints, arraysupport.getScaledSize(80, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
                     count=vblCounter;
                     break;
                 case TacticalLines.UCF:
@@ -172,9 +172,6 @@ public final class countsupport
                 case TacticalLines.FORDSITE:
                 case TacticalLines.FOXHOLE:
                     count = 4;
-                    break;
-                case TacticalLines.TRIP:
-                    count = 35;
                     break;
                 case TacticalLines.AMBUSH:	//extra 3 for open arrow, extra 26 for the tail arc,
                     //and an extra 22 for the tail line segments
@@ -329,7 +326,7 @@ public final class countsupport
                     break;
                 case TacticalLines.FORDIF:
                     dRadius = lineutility.CalcDistanceToLineDouble(pLinePoints[0], pLinePoints[1], pLinePoints[2]);
-                    double spikeLength = arraysupport.getScaledSize(10, tg.get_LineThickness());
+                    double spikeLength = arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale());
                     count=(int)((dRadius / (spikeLength / 2)) * 3) + 6;
                     if(clipBounds != null)
                     {
@@ -396,10 +393,10 @@ public final class countsupport
                     count = Channels.GetTripleCountDouble(pLinePoints, vblCounter, vbiDrawThis);
                     break;
                 case TacticalLines.LC:
-                    pUpperLinePoints = Channels.GetChannelArray2Double(1,pUpperLinePoints,1,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness()));
-                    pLowerLinePoints = Channels.GetChannelArray2Double(1,pLowerLinePoints,0,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness()));
-                    int lUpperFlotCount= flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);
-                    int lLowerFlotCount= flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);
+                    pUpperLinePoints = Channels.GetChannelArray2Double(1,pUpperLinePoints,1,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()));
+                    pLowerLinePoints = Channels.GetChannelArray2Double(1,pLowerLinePoints,0,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()));
+                    int lUpperFlotCount= flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
+                    int lLowerFlotCount= flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);
                     count=lUpperFlotCount+lLowerFlotCount;
                     break;
                 case TacticalLines.OCCLUDED:
@@ -707,13 +704,13 @@ public final class countsupport
                     case TacticalLines.CF:
                     case TacticalLines.CFG:
                     case TacticalLines.CFY:
-                        dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness());
+                        dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness(), tg.get_patternScale());
                         break;
                     case TacticalLines.RIDGE:
-                        dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness());
+                        dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());
                         break;
                 default:
-                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness());
+                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());
                     break;
             }
 

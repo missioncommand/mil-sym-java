@@ -199,7 +199,6 @@ public final class clsUtility {
             case TacticalLines.ESR1:
             case TacticalLines.ESR2:
             case TacticalLines.ROADBLK:
-            case TacticalLines.TRIP:
             case TacticalLines.EASY:
             case TacticalLines.BYDIF:
             case TacticalLines.BYIMP:
@@ -729,6 +728,7 @@ public final class clsUtility {
                 case TacticalLines.PAA_RECTANGULAR:
                 case TacticalLines.RECTANGULAR_TARGET:
                 case TacticalLines.CFL:
+                case TacticalLines.TRIP:
                 case TacticalLines.DIRATKAIR:
                 case TacticalLines.BOUNDARY:
                 case TacticalLines.ISOLATE:
@@ -2039,7 +2039,7 @@ public final class clsUtility {
 
             ArrayList<POINT2> points = tg.get_Pixels();
 
-            double LCChannelWith = arraysupport.getScaledSize(40, tg.get_LineThickness());
+            double LCChannelWith = arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale());
 
             for (int i = 0; i < points.size() - 2; i++) {
                 POINT2 ptA = new POINT2(points.get(i).x, points.get(i).y);
@@ -2125,16 +2125,16 @@ public final class clsUtility {
                 case TacticalLines.DOUBLEC:
                 case TacticalLines.TRIPLE:
                 case TacticalLines.STRONG:
-                    glyphSize= arraysupport.getScaledSize(30, tg.get_LineThickness());
+                    glyphSize= arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 case TacticalLines.UNSP:
                 case TacticalLines.LINE:
                 case TacticalLines.ATWALL:
                 case TacticalLines.SFENCE:
-                    glyphSize=arraysupport.getScaledSize(40, tg.get_LineThickness());
+                    glyphSize=arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 case TacticalLines.DFENCE:
-                    glyphSize=arraysupport.getScaledSize(50, tg.get_LineThickness());
+                    glyphSize=arraysupport.getScaledSize(50, tg.get_LineThickness(), tg.get_patternScale());
                     break;
                 default:
                     return;

@@ -331,9 +331,6 @@ public class MSInfo {
             case "line14":
                 idr = DrawRules.LINE14;
                 break;
-            case "line15":
-                idr = DrawRules.LINE15;
-                break;
             case "line16":
                 idr = DrawRules.LINE16;
                 break;
@@ -537,7 +534,6 @@ public class MSInfo {
             case DrawRules.LINE6://doesn't seem to be used
             case DrawRules.LINE10:
             case DrawRules.LINE12:
-            case DrawRules.LINE15:
             case DrawRules.LINE17:
             case DrawRules.LINE22:
             case DrawRules.LINE23:
