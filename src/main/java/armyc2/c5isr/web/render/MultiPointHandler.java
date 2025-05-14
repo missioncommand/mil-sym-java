@@ -1571,6 +1571,7 @@ public class MultiPointHandler {
         DistanceUnit altitudeUnit = null;
         int pixelSize = 50;
         boolean keepUnitRatio = true;
+        double patternScale = RendererSettings.getInstance().getPatternScale();
 
         try {
 
@@ -1731,6 +1732,10 @@ public class MultiPointHandler {
                     keepUnitRatio = Boolean.parseBoolean(saAttributes.get(MilStdAttributes.KeepUnitRatio));
                     symbol.setKeepUnitRatio(keepUnitRatio);
                 }
+
+                if(saAttributes.containsKey(MilStdAttributes.PatternScale)) {
+                    patternScale = Double.parseDouble(saAttributes.get(MilStdAttributes.PatternScale));
+                }
             }
 
             symbol.setModifierMap(modifiers);
@@ -1768,6 +1773,7 @@ public class MultiPointHandler {
             symbol.setHideOptionalLabels(hideOptionalLabels);
             symbol.setAltitudeUnit(altitudeUnit);
             symbol.setDistanceUnit(distanceUnit);
+            symbol.setPatternScale(patternScale);
 
             // Check grpahic modifiers variables.  If we set earlier, populate
             // the fields, otherwise, ignore.
