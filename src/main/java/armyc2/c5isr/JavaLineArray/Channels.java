@@ -626,8 +626,7 @@ public final class Channels {
 
             channelWidth = vblChannelWidth;
 
-            if (linetype != (long) TacticalLines.LC &&
-                    linetype != TacticalLines.LC_HOSTILE) {
+            if (linetype != (long) TacticalLines.LC) {
                 channelWidth /= 2;
             }
 
@@ -830,7 +829,6 @@ public final class Channels {
             //get the upper or lower channel array for the specified channel type
             switch (vbiDrawThis) {
                 case TacticalLines.LC:
-                case TacticalLines.LC_HOSTILE:
                 case TacticalLines.AIRAOA:
                 case TacticalLines.AAAAA:
                 case TacticalLines.CATK:
@@ -1293,7 +1291,6 @@ public final class Channels {
             switch(vbiDrawThis)
             {
                 case TacticalLines.LC:
-                case TacticalLines.LC_HOSTILE:
                 case TacticalLines.UNSP:
                 case TacticalLines.LWFENCE:
                 case TacticalLines.HWFENCE:
@@ -1428,7 +1425,6 @@ public final class Channels {
                     }
                     break;
                 case TacticalLines.LC:
-                case TacticalLines.LC_HOSTILE:
                     if(shiftLines) {
                         pOriginalLinePoints = new POINT2[vblUpperCounter];
                         for (k = 0; k < vblUpperCounter; k++) {
@@ -1441,12 +1437,8 @@ public final class Channels {
                     pLowerLinePoints = GetChannelArray2Double(nPrinter, pLowerLinePoints, 0, vblLowerCounter, vbiDrawThis, vblChannelWidth);
                     
                     if(shiftLines)   
-                    {                        
-                        //if(_affiliation != null && _affiliation.equalsIgnoreCase("H"))
-                        if(vbiDrawThis==TacticalLines.LC_HOSTILE)
-                            pLowerLinePoints=pOriginalLinePoints;
-                        else
-                            pUpperLinePoints=pOriginalLinePoints;
+                    {
+                        pUpperLinePoints=pOriginalLinePoints;
                     }
                     
                     if ((pUpperLinePoints[0].x > pUpperLinePoints[1].x) && (pUpperLinePoints[0].y != pUpperLinePoints[1].y)) {
@@ -1492,7 +1484,6 @@ public final class Channels {
             //load channel array into pLinePoints
             switch (vbiDrawThis) {
                 case TacticalLines.LC:
-                case TacticalLines.LC_HOSTILE:
                     lUpperFlotCount = flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblUpperCounter);
                     lLowerFlotCount = flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblLowerCounter);
                     if (lUpperFlotCount <= 0 || lLowerFlotCount <= 0) {
@@ -2185,7 +2176,6 @@ public final class Channels {
                 switch(vbiDrawThis)
                 {
                     case TacticalLines.LC:
-                    case TacticalLines.LC_HOSTILE:
                         if(beginPath==false)
                         {
                             if(k>0)

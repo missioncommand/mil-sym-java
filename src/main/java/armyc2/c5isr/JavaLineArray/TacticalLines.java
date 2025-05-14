@@ -153,7 +153,6 @@ public final class TacticalLines {
     public static final int MAIN = 22521410;
     public static final int MAIN_STRAIGHT = 22521411;
     public static final int LC = 22123000;
-    public static final int LC_HOSTILE = 22123002;
     public static final int IL = 22524000;
     public static final int LDLC = 22527000;
     public static final int SPT = 22521420;
