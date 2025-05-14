@@ -546,6 +546,9 @@ public class Modifier2 {
                 case TacticalLines.OBSFAREA:
                     label = "FREE";
                     break;
+                case TacticalLines.TRIP:
+                    label = "t";
+                    break;
                 default:
                     break;
             }
@@ -2083,6 +2086,7 @@ public class Modifier2 {
                 case TacticalLines.IFF_ON:
                 case TacticalLines.GENERIC_LINE:
                 case TacticalLines.CFL:
+                case TacticalLines.TRIP:
                 case TacticalLines.RFL:
                 case TacticalLines.FLOT:
                 case TacticalLines.LC:
@@ -3017,6 +3021,10 @@ public class Modifier2 {
                     getPixelsMiddleSegment(tg, stringWidth, pt0, pt1);
                     AddModifier2(tg, label + TSpace + tg.get_Name(), aboveMiddle, -0.7 * csFactor, pt0, pt1, false);
                     addDTG(tg, aboveMiddle, 0.7 * csFactor, 1.7 * csFactor, pt0, pt1, metrics);
+                    break;
+                case TacticalLines.TRIP:
+                    midPt = lineutility.MidPointDouble(pt0, pt1, 0);
+                    AddModifier2(tg, label, aboveMiddle, -0.7 * csFactor, midPt, midPt, false);
                     break;
                 case TacticalLines.FLOT:
                     if (tg.get_H().equals("1")) {
