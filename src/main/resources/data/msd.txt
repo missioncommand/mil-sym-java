@@ -1142,7 +1142,7 @@
 			Double Strand Concertina	290308	Line	Line1		
 			Triple Strand Concertina	290309	Line	Line1		
 		Mine Cluster		290400	Area	Area13		
-		Trip Wire		290500	Line	Line1
+		Trip Wire		290500	Line	Line5
 		Lane		290600	Line	Line14	W,W1	
 		Ferry		290700	Line	Line18		
 		Raft Site		290800	Line	Line14		
