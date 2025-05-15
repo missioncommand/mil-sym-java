@@ -1123,66 +1123,46 @@ public class Modifier2 {
     }
 
     /**
-     * Adds label on line
-     *
-     * Replaces areasWithENY()
+     * Adds two or four labels on area outline
      *
      * @param label
      * @param tg
-     * @param g2d
-     * @param twoLabelOnly - true if only add two instances of label to line (used with N modifier)
-     *                     Ignored if RendererSettings.TwoLabelOnly is true
+     * @param twoLabelOnly - when true only two labels are added to line (east and west most segment midpoints)
+     *                     when false, four labels are added to line (north, south, east and west most segment midpoints)
      */
-    private static void addModifierOnLine(String label, TGLight tg, Graphics2D g2d, boolean twoLabelOnly) {
-        if (label == null || label.isEmpty()) {
+    private static void addModifierOnLine(String label, TGLight tg, boolean twoLabelOnly) {
+        if (label == null || label.isEmpty() || tg.Pixels.isEmpty()) {
             return;
         }
         try {
-            if (!RendererSettings.getInstance().getTwoLabelOnly() && !twoLabelOnly) {
-                FontMetrics metrics = g2d.getFontMetrics();
-                final int stringWidth = metrics.stringWidth(label);
-                boolean foundLongSegment = false;
-
-                for (int j = 0; j < tg.Pixels.size() - 1; j++) {
-                    POINT2 pt0 = tg.Pixels.get(j);
-                    POINT2 pt1 = tg.Pixels.get(j + 1);
-                    double dist = lineutility.CalcDistanceDouble(pt0, pt1);
-                    if (dist > 1.5 * stringWidth) {
-                        foundLongSegment = true;
-                        AddIntegralAreaModifier(tg, label, aboveMiddle, 0, pt0, pt1, false);
-                    }
+            POINT2 leftPt = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(1), 0);
+            POINT2 rightPt = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(1), 0);
+            POINT2 topPt = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(1), 0);
+            POINT2 bottomPt = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(1), 0);
+            for (int j = 1; j < tg.Pixels.size() - 1; j++) {
+                POINT2 midPt = lineutility.MidPointDouble(tg.Pixels.get(j), tg.Pixels.get(j + 1), 0);
+                if (midPt.x <= leftPt.x) {
+                    leftPt = midPt;
                 }
-                if (!foundLongSegment) {
-                    // did not find a long enough segment
-                    int middleSegment = tg.Pixels.size() / 2 - 1;
-                    int middleSegment2 = tg.Pixels.size() - 2;
-                    if (tg.Pixels.size() > 3) {
-                        middleSegment = tg.Pixels.size() / 4;
-                        middleSegment2 = 3 * tg.Pixels.size() / 4;
-                    }
-                    if (middleSegment != 0) {
-                        AddIntegralModifier(tg, label, aboveMiddle, 0, middleSegment, middleSegment + 1, false);
-                    }
-                    AddIntegralModifier(tg, label, aboveMiddle, 0, middleSegment2, middleSegment2 + 1, false);
+                if (midPt.x >= rightPt.x) {
+                    rightPt = midPt;
                 }
-            } else if (tg.Pixels.size() > 0) {
-                // 2 labels one to the left and the other to the right of graphic.
-                POINT2 leftPt = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(1), 0);
-                POINT2 rightPt = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(1), 0);
-
-                for (int j = 1; j < tg.Pixels.size() - 1; j++) {
-                    POINT2 midPt = lineutility.MidPointDouble(tg.Pixels.get(j), tg.Pixels.get(j + 1), 0);
-                    if (midPt.x <= leftPt.x) {
-                        leftPt = midPt;
-                    }
-                    if (midPt.x >= rightPt.x) {
-                        rightPt = midPt;
-                    }
+                if (midPt.y <= topPt.y) {
+                    topPt = midPt;
                 }
+                if (midPt.y >= bottomPt.y) {
+                    bottomPt = midPt;
+                }
+            }
 
-                if (leftPt != rightPt)
-                    AddAreaModifier(tg, label, aboveMiddle, 0, leftPt, leftPt);
-                AddAreaModifier(tg, label, aboveMiddle, 0, rightPt, rightPt);
+            if (leftPt != rightPt)
+                AddAreaModifier(tg, label, aboveMiddle, 0, leftPt, leftPt);
+            AddAreaModifier(tg, label, aboveMiddle, 0, rightPt, rightPt);
+            if (!twoLabelOnly) {
+                if (bottomPt != leftPt && bottomPt != rightPt)
+                    AddAreaModifier(tg, label, aboveMiddle, 0, bottomPt, bottomPt);
+                if (topPt != leftPt && topPt != rightPt && topPt != bottomPt)
+                    AddAreaModifier(tg, label, aboveMiddle, 0, topPt, topPt);
             }
         } catch (Exception exc) {
             ErrorLogger.LogException(_className, "addModifierOnLine",
@@ -1190,16 +1170,16 @@ public class Modifier2 {
         }
     }
 
-    private static void addModifierOnLine(String label, TGLight tg, Graphics2D g2d) {
-        addModifierOnLine(label, tg, g2d, false);
+    private static void addModifierOnLine(String label, TGLight tg) {
+        addModifierOnLine(label, tg, false);
     }
 
     /**
-     * Adds N modifier on line
+     * Adds N modifier on area outline
      */
-    private static void addNModifier(TGLight tg, Graphics2D g2d) {
+    private static void addNModifier(TGLight tg) {
         if (tg.isHostile()) {
-            addModifierOnLine(tg.get_N(), tg, g2d, true);
+            addModifierOnLine(tg.get_N(), tg, true);
         }
     }
 
@@ -2456,7 +2436,7 @@ public class Modifier2 {
                 case TacticalLines.JTAA:
                 case TacticalLines.SAA:
                 case TacticalLines.SGAA:
-                    addNModifier(tg, g2d);
+                    addNModifier(tg);
                     AddIntegralAreaModifier(tg, label + TDash + tg.get_Name(), area, 0, ptCenter, ptCenter, false);
                     addDTG(tg, area, csFactor, 2 * csFactor, ptCenter, ptCenter, metrics);
                     break;
@@ -2488,13 +2468,13 @@ public class Modifier2 {
                     AddIntegralAreaModifier(tg, label + TSpace + tg.get_Name(), area, -1 * csFactor, ptCenter, ptCenter, false);
                     AddModifier(tg, tg.get_H(), area, 0, ptCenter, ptCenter);
                     addDTG(tg, area, 1 * csFactor, 2 * csFactor, ptCenter, ptCenter, metrics);
-                    addNModifier(tg, g2d);
+                    addNModifier(tg);
                     addModifierBottomSegment(tg, tg.get_EchelonSymbol());
                     break;
                 case TacticalLines.GENERIC_AREA:
                     AddIntegralAreaModifier(tg, tg.get_H() + " " + tg.get_Name(), area, -0.5 * csFactor, ptCenter, ptCenter, false);
                     addDTG(tg, area, 0.5 * csFactor, 1.5 * csFactor, ptCenter, ptCenter, metrics);
-                    addNModifier(tg, g2d);
+                    addNModifier(tg);
                     break;
                 case TacticalLines.AIRHEAD:
                     GetMBR(tg, ul, ur, lr, ll);
@@ -2591,7 +2571,7 @@ public class Modifier2 {
                     GetMBR(tg, ul, ur, lr, ll);
                     AddIntegralAreaModifier(tg, tg.get_H(), aboveMiddle, -1.5 * csFactor, ul, ur, false);
                     AddIntegralAreaModifier(tg, tg.get_DTG(), aboveMiddle, 1.5 * csFactor, ll, lr, false);
-                    addModifierOnLine("M", tg, g2d);
+                    addModifierOnLine("M", tg);
                     AddIntegralAreaModifier(tg, getImageModifier(tg), areaImage, 0, ptCenter, ptCenter, false);
                     break;
                 case TacticalLines.FENCED:
@@ -2605,7 +2585,7 @@ public class Modifier2 {
                             AddIntegralAreaModifier(tg, tg.get_N(), aboveMiddle, 0, pt0, pt1, true);
                         }
                     }
-                    addModifierOnLine("M", tg, g2d);
+                    addModifierOnLine("M", tg);
                     AddIntegralAreaModifier(tg, getImageModifier(tg), areaImage, 0, ptCenter, ptCenter, false);
                     break;
                 case TacticalLines.ASLTXING:
@@ -2767,10 +2747,10 @@ public class Modifier2 {
                     AddIntegralAreaModifier(tg, tg.get_Name(), area, 1.5 * csFactor, ptCenter, ptCenter, false);
                     break;
                 case TacticalLines.UXO:
-                    addModifierOnLine("UXO", tg, g2d);
+                    addModifierOnLine("UXO", tg, true);
                     break;
                 case TacticalLines.GENERAL:
-                    addNModifier(tg, g2d);
+                    addNModifier(tg);
                     break;
                 case TacticalLines.DHA:
                 case TacticalLines.FARP:
@@ -2906,7 +2886,7 @@ public class Modifier2 {
                     break;
                 case TacticalLines.DEPICT:
                     GetMBR(tg, ul, ur, lr, ll);
-                    addNModifier(tg, g2d);
+                    addNModifier(tg);
                     AddIntegralAreaModifier(tg, getImageModifier(tg), areaImage, 0, ptCenter, ptCenter, false);
                     break;
                 case TacticalLines.FFA:
@@ -2917,7 +2897,7 @@ public class Modifier2 {
                     addDTG(tg, area, 1 * csFactor, 2 * csFactor, ptCenter, ptCenter, metrics);
                     break;
                 case TacticalLines.PAA:
-                    addModifierOnLine("PAA", tg, g2d);
+                    addModifierOnLine("PAA", tg);
                     AddIntegralAreaModifier(tg, tg.get_Name(), area, -0.5 * csFactor, ptCenter, ptCenter, false);
                     addDTG(tg, area, 0.5 * csFactor, 1.5 * csFactor, ptCenter, ptCenter, metrics);
                     break;
@@ -2956,7 +2936,7 @@ public class Modifier2 {
                 case TacticalLines.PNO:
                     AddIntegralAreaModifier(tg, label + TSpace + tg.get_Name(), area, 0, ptCenter, ptCenter, false);
                     addModifierBottomSegment(tg, tg.get_EchelonSymbol());
-                    addNModifier(tg, g2d);
+                    addNModifier(tg);
                     break;
                 case TacticalLines.WFZ:
                     AddIntegralAreaModifier(tg, label, area, -1.5 * csFactor, ptCenter, ptCenter, true);
