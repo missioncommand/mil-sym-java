@@ -3269,8 +3269,7 @@ public class Modifier2 {
                         AddAreaModifier(tg, "RG " + AM.get(k + 1), area, -1, pt0, pt0);
                         ptLeft = locAZModifier.get(2 * k);
                         ptRight = locAZModifier.get(2 * k + 1);
-                        // TODO convert an to double then int then string
-                        AddAreaModifier(tg, String.valueOf(Integer.parseInt(an[2 * k])), area, 0, ptLeft, ptLeft);
+                        AddAreaModifier(tg, an[2 * k], area, 0, ptLeft, ptLeft);
                         AddAreaModifier(tg, an[2 * k + 1], area, 0, ptRight, ptRight);
                     }
                 }
