@@ -2,7 +2,7 @@ package armyc2.c5isr.renderer.utilities;
 
 /**
  * Draw Rules for Control Measures
- * 
+ *
  */
 public class DrawRules {
 
@@ -20,7 +20,7 @@ public class DrawRules {
      * Size/Shape: Determined by the anchor points. The information fields
      * should be moveable and scalable as a block within the area.
      *
-     * Orientation: Not applicable.
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA1 = 101;
 
@@ -34,7 +34,7 @@ public class DrawRules {
      * Size/Shape: Determined by the anchor points. The information fields
      * should be moveable and scalable as a block within the area.
      *
-     * Orientation: Not applicable.
+     * Used by: 2525D,Dch1,E
      */
     public static final int AREA2 = 102;
 
@@ -45,8 +45,7 @@ public class DrawRules {
      *
      * Size/Shape: Determined by the anchor points.
      *
-     * Orientation: The side opposite Field B (Echelon) faces toward the
-     * hostile force.
+     * Used by: 2525D,Dch1,E
      */
     public static final int AREA3 = 103;
 
@@ -63,7 +62,7 @@ public class DrawRules {
      * height of B, which in turn should affect the tic length and spacing
      * accordingly.
      *
-     * Orientation: Not applicable.
+     * Used by: 2525D,Dch1,E
      */
     public static final int AREA4 = 104;
 
@@ -81,7 +80,7 @@ public class DrawRules {
      * provided a facility to allow them to manually alter the height of B,
      * which in turn should affect the tic length and spacing accordingly.
      *
-     * Orientation: The opening typically faces enemy forces.
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA5 = 105;
 
@@ -98,7 +97,7 @@ public class DrawRules {
      * facility to allow them to manually alter the height of R, which in turn
      * should affect the tic length and spacing accordingly.
      *
-     * Orientation: The opening will be on the friendly side of the symbol.
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA6 = 106;
 
@@ -114,6 +113,8 @@ public class DrawRules {
      * Orientation: Orientation is determined by the anchor points. The back
      * side of the symbol encompasses the firing position, while the arrowhead
      * typically points at the target.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA7 = 107;
 
@@ -130,6 +131,8 @@ public class DrawRules {
      * side of the symbol encompasses the firing position, while the arrowheads
      * typically indicate the left and right limits of coverage that the firing
      * position is meant to support.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA8 = 108;
 
@@ -146,6 +149,8 @@ public class DrawRules {
      * The naming convention determines whether the area describes a series or
      * group of targets.
      *
+     * Used by: 2525D,Dch1,E
+     *
      */
     public static final int AREA9 = 109;
 
@@ -159,6 +164,8 @@ public class DrawRules {
      * should be moveable and scalable within the area.
      *
      * Orientation: Not applicable.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA10 = 110;
 
@@ -172,6 +179,8 @@ public class DrawRules {
      * plane extending perpendicularly from the midpoint of the vertical line.
      *
      * Orientation: The head of the "T" typically faces enemy forces.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA11 = 111;
 
@@ -186,6 +195,8 @@ public class DrawRules {
      * arrows will remain in proportion to the length of the longest arrow.
      *
      * Orientation: The arrows point away from enemy forces.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA12 = 112;
 
@@ -197,6 +208,8 @@ public class DrawRules {
      * The radius of the semicircle is ½ the length of the straight line.
      *
      * Orientation: Not applicable.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA13 = 113;
 
@@ -209,6 +222,8 @@ public class DrawRules {
      *
      * Orientation: The center point is typically centered over Ground Zero (GZ)
      * or Designated Ground Zero (DGZ).
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA14 = 114;
 
@@ -222,6 +237,8 @@ public class DrawRules {
      * arc of the circle.
      *
      * Orientation: The opening will be on the friendly side of the symbol.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA15 = 115;
 
@@ -236,6 +253,8 @@ public class DrawRules {
      *
      * Orientation: The opening will be on the friendly side of the
      * control measure.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA16 = 116;
 
@@ -249,6 +268,8 @@ public class DrawRules {
      * from the midpoint of the vertical line.
      *
      * Orientation: The arrow points toward enemy forces.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA17 = 117;
 
@@ -265,6 +286,8 @@ public class DrawRules {
      * typically located at the base of the curve and the unit performing the
      * relief is typically located at the end of the symbol. The arrowhead
      * typically points to the location the relieved unit should move to.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA18 = 118;
 
@@ -278,6 +301,8 @@ public class DrawRules {
      * will be a 30-degree arc of the circle.
      *
      * Orientation: The opening will be on the friendly side of the symbol.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA19 = 119;
 
@@ -288,7 +313,7 @@ public class DrawRules {
      *
      * Size/Shape: Determined by the anchor points.
      *
-     * Orientation: Not applicable.
+     * Used by: 2525D,Dch1,E
      */
     public static final int AREA20 = 120;
 
@@ -303,6 +328,8 @@ public class DrawRules {
      * Orientation: Orientation is determined by the anchor points.
      * The arrowheads may touch other symbols that define the limits of the
      * task. The tactical symbol indicator is centered over point 1.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA21 = 121;
 
@@ -313,6 +340,8 @@ public class DrawRules {
      * Size/Shape: Static.
      *
      * Orientation: The symbol is typically centered over the desired location.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA22 = 122;
 
@@ -323,6 +352,8 @@ public class DrawRules {
      * Size/Shape: Determined by the anchor points
      *
      * Orientation: Not applicable.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int AREA23 = 123;
 
@@ -336,6 +367,8 @@ public class DrawRules {
      * project perpendicularly from the midpoint of the vertical line.
      *
      * Orientation: The head of the "T" typically faces enemy forces.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int AREA24 = 124;
 
@@ -352,6 +385,8 @@ public class DrawRules {
      * parallel to each other.
      *
      * Orientation: The arrows typically point toward enemy forces.
+     *
+     * Used by: 2525D,Dch1
      */
     public static final int AREA25 = 125;
 
@@ -365,6 +400,8 @@ public class DrawRules {
      * Size/Shape: Determined by the anchor points.
      *
      * Orientation: The symbol will typically be oriented upright.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AREA26 = 126;
 
@@ -376,6 +413,8 @@ public class DrawRules {
      * Size/Shape: Static.
      *
      * Orientation: The symbol will typically be oriented upright.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT1 = 201;
 
@@ -386,6 +425,8 @@ public class DrawRules {
      * Size/Shape: Static.
      *
      * Orientation: The symbol is typically centered over the desired location.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT2 = 202;
 
@@ -398,6 +439,8 @@ public class DrawRules {
      * performance-contoured color options
      *
      * Orientation: The symbol is typically centered over the desired location.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT3 = 203;
 
@@ -409,6 +452,8 @@ public class DrawRules {
      * Size/Shape: Static.
      *
      * Orientation: The symbol will typically be oriented upright (as shown in the template and example).
+     * +
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT4 = 204;
 
@@ -420,6 +465,8 @@ public class DrawRules {
      *
      * Orientation: The symbol will typically be oriented upright (as shown in
      * the example).
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT5 = 205;
 
@@ -431,6 +478,8 @@ public class DrawRules {
      * Size/Shape: Static.
      *
      * Orientation: The symbol will typically be oriented upright.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT6 = 206;
 
@@ -442,6 +491,8 @@ public class DrawRules {
      *
      * Orientation: The symbol will typically be oriented upright (as shown in
      * the template and example).
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT7 = 207;
 
@@ -454,6 +505,8 @@ public class DrawRules {
      * Orientation: The symbol is typically centered over the desired location.
      * A user can use this symbol to define a new type of point if the selection
      * that follows is not sufficient.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int POINT8 = 208;
 
@@ -466,6 +519,8 @@ public class DrawRules {
      * Orientation: The symbol's center point is typically centered over the
      * desired location. The symbol shall be oriented upright, as shown in the
      * examples.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int POINT9 = 209;
 
@@ -479,6 +534,8 @@ public class DrawRules {
      * Orientation: The symbol's center point is typically centered over the
      * desired location. The symbol will be oriented upright, as shown in the
      * example.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int POINT10 = 210;
 
@@ -490,6 +547,8 @@ public class DrawRules {
      *
      * Orientation: The symbol is centered over the desired location. The symbol
      * shall be oriented upright, as shown in the example.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int POINT11 = 211;
 
@@ -505,6 +564,8 @@ public class DrawRules {
      * ending with points 1 and 2.
      *
      * Orientation: The opening typically faces the applicable obstacle.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT12 = 212;
 
@@ -515,6 +576,8 @@ public class DrawRules {
      * Size/Shape: Static.
      *
      * Orientation: The symbol is typically centered over the desired location.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int POINT13 = 213;
 
@@ -526,6 +589,8 @@ public class DrawRules {
      * two arrows.
      *
      * Orientation: The symbol is typically centered over the desired location.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int POINT14 = 214;
 
@@ -536,6 +601,8 @@ public class DrawRules {
      * Size/Shape: Static.
      *
      * Orientation: The symbol is typically centered over the desired location.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT15 = 215;
 
@@ -546,6 +613,8 @@ public class DrawRules {
      * Size/Shape: The symbol is a high-angle cone.
      *
      * Orientation: The symbol will remain upright.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT16 = 216;
 
@@ -563,6 +632,8 @@ public class DrawRules {
      * Orientation: The orientation of this symbol is determined by the
      * rotation angle provided, where 0 degrees is North and a positive
      * rotation angle rotates the rectangle in a clockwise direction.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT17 = 217;
 
@@ -579,6 +650,8 @@ public class DrawRules {
      *
      * Orientation: The orientation of this symbol is determined by the search
      * axis azimuth provided.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POINT18 = 218;
 
@@ -591,6 +664,8 @@ public class DrawRules {
      * line.
      *
      * Orientation: Orientation is determined by the order in which the anchor points are entered.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE1 = 301;
 
@@ -605,6 +680,8 @@ public class DrawRules {
      *
      * Orientation: Orientation is determined by the order in which the anchor points
      * are entered.
+     *
+     * Used by: 2525D,Dch1
      */
     public static final int LINE2 = 302;
 
@@ -618,6 +695,8 @@ public class DrawRules {
      * Orientation: Orientation is determined by the anchor points. The
      * arrowheads may touch other symbols that define the limits of the task.
      * The top of the tactical symbol indicator may touch point 1
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE3 = 303;
 
@@ -628,6 +707,8 @@ public class DrawRules {
      * Size/Shape: The symbol varies only in length.
      *
      * Orientation: Orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE4 = 304;
 
@@ -640,6 +721,8 @@ public class DrawRules {
      * Orientation: One point defines the origin from which the bearing is being
      * taken and the other point defines the location or direction from which a
      * contact is made.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int LINE5 = 305;
 
@@ -652,6 +735,8 @@ public class DrawRules {
      * length as the line between points 2 and 3.
      *
      * Orientation: Orientation is determined by the anchor points
+     *
+     * Used by: 2525D,Dch1
      */
     public static final int LINE6 = 306;
 
@@ -666,6 +751,8 @@ public class DrawRules {
      *
      * Orientation: Orientation is determined by the order in which the anchor
      * points are entered.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int LINE7 = 307;
 
@@ -678,6 +765,8 @@ public class DrawRules {
      * Size/Shape: The anchor points define the size and shape.
      *
      * Orientation: The orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE8 = 308;
 
@@ -689,6 +778,8 @@ public class DrawRules {
      * varies only in length.
      *
      * Orientation: The orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE9 = 309;
 
@@ -703,6 +794,8 @@ public class DrawRules {
      * Orientation: The rear of the symbol identifies the enemy’s location and
      * the arrow points in the direction the obstacle should force the enemy to
      * turn.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE10 = 310;
 
@@ -714,6 +807,8 @@ public class DrawRules {
      * Size/Shape. Determined by the anchor points.
      *
      * Orientation: Not applicable.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE11 = 311;
 
@@ -726,6 +821,8 @@ public class DrawRules {
      * point 3 determines its width.
      *
      * Orientation: Orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE12 = 312;
 
@@ -738,6 +835,8 @@ public class DrawRules {
      * line. The size of the tooth does not change.
      *
      * Orientation: Orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int LINE13 = 313;
 
@@ -750,6 +849,8 @@ public class DrawRules {
      * angle.
      *
      * Orientation: Orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE14 = 314;
 
@@ -761,6 +862,8 @@ public class DrawRules {
      * Size/Shape: Determined by the anchor points.
      *
      * Orientation: Not applicable.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE16 = 316;
 
@@ -773,6 +876,8 @@ public class DrawRules {
      * determines its width.
      *
      * Orientation: Orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE17 = 317;
 
@@ -785,6 +890,8 @@ public class DrawRules {
      * common arrowhead.
      *
      * Orientation: Orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int LINE18 = 318;
 
@@ -796,6 +903,8 @@ public class DrawRules {
      * varies only in length.
      *
      * Orientation: Orientation is determined by the anchor points
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE19 = 319;
 
@@ -807,6 +916,8 @@ public class DrawRules {
      * varies only in length.
      *
      * Orientation: The arrow points to the location where the convoy has halted.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int LINE20 = 320;
 
@@ -819,6 +930,8 @@ public class DrawRules {
      * information associated with the line segment.
      *
      * Orientation: Orientation is determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int LINE21 = 321;
 
@@ -833,6 +946,8 @@ public class DrawRules {
      *
      * Orientation: The opening defines the span of the breach and typically
      * faces enemy forces.
+     *
+     * Used by: 2525D,Dch1
      */
     public static final int LINE22 = 322;
 
@@ -849,6 +964,8 @@ public class DrawRules {
      * orientation of the symbol as a whole.
      *
      * Orientation: The arrows typically point toward enemy forces.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE23 = 323;
 
@@ -867,6 +984,8 @@ public class DrawRules {
      * the arrowhead may indicate the location where the action is to conclude.
      * The unit’s current location is typically represented at the base of the
      * arc. The 180 degree circular arc is always perpendicular to the line.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE24 = 324;
 
@@ -879,6 +998,8 @@ public class DrawRules {
      * varies only in length.
      *
      * Orientation: The arrow typically points in the direction of the action.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE25 = 325;
 
@@ -899,6 +1020,8 @@ public class DrawRules {
      * task. The tactical symbol indicator is centered between point 2 and
      * point 3 when four points are in use or centered on Point 1 when three
      * points are in use.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE26 = 326;
 
@@ -921,6 +1044,8 @@ public class DrawRules {
      * Orientation: The arrowhead identifies the location/object to be seized
      * and the circle identifies the unit(s) assigned the task. See 5.3.11 for
      * options to accommodate multiple units.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE27 = 327;
 
@@ -935,6 +1060,8 @@ public class DrawRules {
      * of the arrowhead indicating the location of the action.
      *
      * Duplicate of Line9 so removed in 2525E
+     *
+     * Used by: 2525D,Dch1
      */
     public static final int LINE28 = 328;
 
@@ -951,8 +1078,62 @@ public class DrawRules {
      * Orientation: Orientation is determined by the anchor points. The back
      * side of the symbol encompasses the ambush position, while the arrowhead
      * typically points at the target.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int LINE29 = 329;
+
+    /**
+     * Anchor Points: Point 1 defines the tip of the arrowhead. Point 2 defines
+     * the end of the symbol. Point 3’s distance from Point 2 defines the length
+     * of the four angled lines making up the arrowhead and dashed “tail”. Angles
+     * a are always drawn at 45 degrees. Angle b is always drawn at 90 degrees.
+     *
+     * Size/Shape: The symbol varies only in length.
+     *
+     * Used by: Ech1
+     */
+    public static final int LINE30 = 330;
+
+    /**
+     * Anchor Points: This graphic requires four anchor points. Point 1 defines the
+     * beginning of the straight line. Point 2 defines the end of the straight-line
+     * portion of the graphic. Point 3 defines the diameter. Point 4 defines the
+     * orientation of the 180 degree circular arc.
+     *
+     * Size/Shape: Points 1 and 2 determine the length of the straight-line portion
+     * of the symbol. Point 3 defines the diameter of the arc. Point 4 defines which
+     * side of the line the arc is on.
+     *
+     * Used by: Ech1
+     */
+    public static final int LINE31 = 331;
+
+    /**
+     * Anchor Points: This graphic requires three anchor points. Point 1 defines the
+     * end of the straight-line portion of the graphic. Point 2 defines the center of
+     * the two 90 degree circular arcs. Point 3 defines the tip of the arrowhead.
+     *
+     * Size/Shape: Points 1 and 3 determine the length of the symbol.
+     *
+     * Used by: Ech1
+     */
+    public static final int LINE32 = 332;
+
+    /**
+     * Anchor Points: This graphic requires three anchor points.
+     * Point 1 defines the beginning of the straight line. Point 2
+     * defines the end of the straight line portion of the graphic.
+     * Point 3 defines the diameter and orientation of the 180 degree
+     * circular arc and the tip of the arrowhead.
+     *
+     * Size/Shape: Points 1 and 2 determine the length of the straight
+     * line portion of the symbol. Point 3 defines which side of the
+     * line the arc is on and the diameter of the arc.
+     *
+     * Used by: Ech1
+     */
+    public static final int LINE33 = 333;
 
     /**
      * Anchor Points: This symbol may contain multiple segments. Each segment
@@ -969,6 +1150,8 @@ public class DrawRules {
      * symbol.
      *
      * Orientation: The anchor points determine orientation.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int CORRIDOR1 = 401;
 
@@ -985,6 +1168,8 @@ public class DrawRules {
      * occur between Points 1 and 2.
      *
      * Orientation: The arrowhead typically points toward enemy forces.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int AXIS1 = 501;
 
@@ -999,6 +1184,8 @@ public class DrawRules {
      * and Point N determines the width.
      *
      * Orientation: The arrowhead typically points toward enemy forces.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int AXIS2 = 502;
 
@@ -1012,6 +1199,8 @@ public class DrawRules {
      * symbol stays proportional to the length of the center line.
      *
      * Orientation: Orientation is determined by points 1 and 2.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int POLYLINE1 = 601;
 
@@ -1028,6 +1217,8 @@ public class DrawRules {
      * Orientation: The orientation of this symbol is determined by the rotation
      * angle provided, where 0 degrees is east/west and a positive rotation
      * angle rotates the ellipse in a counter-clockwise direction.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int ELLIPSE1 = 701;
 
@@ -1042,6 +1233,8 @@ public class DrawRules {
      * information fields should be moveable and scalable.
      *
      * Orientation: As determined by the anchor points.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int RECTANGULAR1 = 801;
 
@@ -1049,12 +1242,13 @@ public class DrawRules {
      * Anchor Points: This symbol requires one (1) anchor point to define the
      * center of the area.
      *
-     * Size/Shape: Size Is determined by the anchor point, the target length
-     * (in meters) and target width (in meters). A rectangular target is wider
-     * and longer than 200 meters. The information fields should be moveable and
-     * saleable within the area. Shape: Rectangle.
+     * Size/Shape: Size is determined by the anchor point, the target length (in meters)
+     * and target width (in meters). A rectangular target is wider and longer than 200 meters.
+     * The information fields should be moveable and saleable within the area. Shape: Rectangle.
      *
      * Orientation: As determined by the Target Attitude (in mils).
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int RECTANGULAR2 = 802;
 
@@ -1071,6 +1265,8 @@ public class DrawRules {
      * Orientation: As determined by the anchor points. The center point of the
      * area shall always have the target symbol with the same
      * upright orientation.
+     *
+     * Used by: 2525D,Dch1,E
      */
     public static final int RECTANGULAR3 = 803;
 
@@ -1083,6 +1279,8 @@ public class DrawRules {
      * information fields should be scalable within the circle.
      *
      * Orientation: Not applicable
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int CIRCULAR1 = 901;
 
@@ -1100,6 +1298,8 @@ public class DrawRules {
      *
      * Orientation: The center point is typically centered over the known
      * location of a weapon or sensor system.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int CIRCULAR2 = 902;
 
@@ -1123,6 +1323,8 @@ public class DrawRules {
      * Orientation: The center point is typically centered over the known
      * location of a weapon or sensor system. The orientation may change as
      * the object moves or changes.
+     *
+     * Used by: 2525D,Dch1,E,Ech1
      */
     public static final int ARC1 = 1001;
 
