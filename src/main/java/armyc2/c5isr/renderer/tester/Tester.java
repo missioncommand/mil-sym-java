@@ -1042,6 +1042,11 @@ public class Tester extends javax.swing.JFrame {
                 //attributes.put(MilStdAttributes.EngagementBarColor,"#FF0000");
                 //attributes.put(MilStdAttributes.Alpha,"77");
 
+                //No fill example
+                /*attributes.put(MilStdAttributes.FillColor,"#00000000");//set alpha to zero on fill
+                attributes.put(MilStdAttributes.IconColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));
+                attributes.put(MilStdAttributes.LineColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));//*/
+
                 String pixelSize = String.valueOf(cbPixelSize.getSelectedItem());
 
                 attributes.put(MilStdAttributes.PixelSize,pixelSize);
