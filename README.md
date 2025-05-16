@@ -34,10 +34,5 @@ Build:
 ./gradlew build
 ````
 
-Build and install to Maven local:
-````
-./gradlew build publishToMavenLocal
-````
-
   
     
