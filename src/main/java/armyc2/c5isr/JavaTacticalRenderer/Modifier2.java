@@ -2488,7 +2488,7 @@ public class Modifier2 {
                 case TacticalLines.SAAFR:
                 case TacticalLines.SC:
                     AddIntegralModifier(tg, "Name: " + tg.get_Name(), aboveMiddle, -7 * csFactor, middleSegment, middleSegment + 1, false);
-                    AddIntegralModifier(tg, "Width: " + tg.get_AM(), aboveMiddle, -6 * csFactor, middleSegment, middleSegment + 1, false);
+                    AddIntegralModifier(tg, "Width: " + removeDecimal(tg.get_AM()), aboveMiddle, -6 * csFactor, middleSegment, middleSegment + 1, false);
                     AddIntegralModifier(tg, "Min Alt: " + tg.get_X(), aboveMiddle, -5 * csFactor, middleSegment, middleSegment + 1, false);
                     AddIntegralModifier(tg, "Max Alt: " + tg.get_X1(), aboveMiddle, -4 * csFactor, middleSegment, middleSegment + 1, false);
                     AddIntegralModifier(tg, "DTG Start: " + tg.get_DTG(), aboveMiddle, -3 * csFactor, middleSegment, middleSegment + 1, false);
@@ -3280,11 +3280,11 @@ public class Modifier2 {
                 if (!tg.get_HideOptionalLabels()) {
                     for (int k = 0; k < numSectors; k++) {
                         pt0 = locModifier.get(k);
-                        AddAreaModifier(tg, "RG " + AM.get(k + 1), area, -1, pt0, pt0);
+                        AddAreaModifier(tg, "RG " + removeDecimal(AM.get(k + 1)), area, -1, pt0, pt0);
                         ptLeft = locAZModifier.get(2 * k);
                         ptRight = locAZModifier.get(2 * k + 1);
-                        AddAreaModifier(tg, an[2 * k], area, 0, ptLeft, ptLeft);
-                        AddAreaModifier(tg, an[2 * k + 1], area, 0, ptRight, ptRight);
+                        AddAreaModifier(tg, removeDecimal(an[2 * k]), area, 0, ptLeft, ptLeft);
+                        AddAreaModifier(tg, removeDecimal(an[2 * k + 1]), area, 0, ptRight, ptRight);
                     }
                 }
             } else if (tg.get_LineType() == TacticalLines.RADAR_SEARCH) {
@@ -3861,9 +3861,9 @@ public class Modifier2 {
                                 pt0 = tg.Pixels.get(j * 102 + 25);
                                 //AddAreaModifier(tg, "RG " + am[j], area, -1, pt0, pt0);
                                 if(j==0)
-                                    AddAreaModifier(tg, "MIN RG " + am[j], 3, -1, pt0, pt0);
+                                    AddAreaModifier(tg, "MIN RG " + removeDecimal(am[j]), 3, -1, pt0, pt0);
                                 else
-                                    AddAreaModifier(tg, "MAX RG " + "(" + Integer.toString(j) + ") " + am[j], 3, -1, pt0, pt0);
+                                    AddAreaModifier(tg, "MAX RG " + "(" + Integer.toString(j) + ") " + removeDecimal(am[j]), 3, -1, pt0, pt0);
                             }
                         }
                     }// end if set range fan text
@@ -4678,5 +4678,16 @@ public class Modifier2 {
             return symbol.getImage();
         else
             return null;
+    }
+
+    private static String removeDecimal(double doubleVal) {
+        return String.valueOf(Math.round(doubleVal));
+    }
+
+    private static String removeDecimal(String strDoubleVal) {
+        if (strDoubleVal.indexOf(" ") > 0) // String contains unit
+            return removeDecimal(Double.parseDouble(strDoubleVal.substring(0, strDoubleVal.indexOf(" ")))) + strDoubleVal.substring(strDoubleVal.indexOf(" "));
+        else
+            return removeDecimal(Double.parseDouble(strDoubleVal));
     }
 }
