@@ -818,7 +818,7 @@ public class RendererSettings {
 
     /**
      ** Get a boolean indicating between the use of supply routes labels in all segments (false) or
-     * to only set 2 labels one at the east and the other one at the west of the graphic (true).
+     * to only set 2 labels one at the north and the other one at the south of the graphic (true).
      * @return {boolean}
      * @deprecated
      */
@@ -829,7 +829,7 @@ public class RendererSettings {
 
     /**
      * Set a boolean indicating between the use of supply routes labels in all segments (false) or
-     * to only set 2 labels one at the east and the other one at the west of the graphic (true).
+     * to only set 2 labels one at the north and the other one at the south of the graphic (true).
      * @param TwoLabelOnly
      * @deprecated
      */
