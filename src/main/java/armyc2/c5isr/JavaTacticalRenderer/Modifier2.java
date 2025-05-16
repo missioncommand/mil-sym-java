@@ -2839,6 +2839,24 @@ public class Modifier2 {
 
                     }//else
                     break;
+                case TacticalLines.TRIP:
+                    foundSegment = false;
+                    stringWidth = (int) (1.5 * (double) metrics.stringWidth(label));
+                    for (j = 0; j < tg.Pixels.size() - 1; j++) {
+                        pt0 = tg.Pixels.get(j);
+                        pt1 = tg.Pixels.get(j + 1);
+                        midPt = lineutility.MidPointDouble(pt0, pt1, 0);
+                        dist = lineutility.CalcDistanceDouble(pt0, pt1);
+                        if (dist > stringWidth) {
+                            AddModifier2(tg, label, aboveMiddle, -0.7 * csFactor, midPt, midPt, false);
+                            foundSegment = true;
+                        }
+                    }
+                    if (!foundSegment) {
+                        midPt = lineutility.MidPointDouble(tg.Pixels.get(middleSegment), tg.Pixels.get(middleSegment + 1), 0);
+                        AddModifier2(tg, label, aboveMiddle, -0.7 * csFactor, midPt, midPt, false);
+                    }
+                    break;
                 case TacticalLines.GAP:
                     if (tg.Pixels.get(1).y > tg.Pixels.get(0).y) {
                         pt0 = tg.Pixels.get(1);
@@ -3001,10 +3019,6 @@ public class Modifier2 {
                     getPixelsMiddleSegment(tg, stringWidth, pt0, pt1);
                     AddModifier2(tg, label + TSpace + tg.get_Name(), aboveMiddle, -0.7 * csFactor, pt0, pt1, false);
                     addDTG(tg, aboveMiddle, 0.7 * csFactor, 1.7 * csFactor, pt0, pt1, metrics);
-                    break;
-                case TacticalLines.TRIP:
-                    midPt = lineutility.MidPointDouble(pt0, pt1, 0);
-                    AddModifier2(tg, label, aboveMiddle, -0.7 * csFactor, midPt, midPt, false);
                     break;
                 case TacticalLines.FLOT:
                     if (tg.get_H().equals("1")) {
