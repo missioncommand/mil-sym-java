@@ -10,7 +10,7 @@ tasks.withType(JavaCompile).configureEach {
 
 
 group = 'armyc2.c5isr.renderer'
-version = '2.1.5'
+version = '2.1.6'
 
 repositories {
     mavenCentral()
@@ -189,7 +189,7 @@ publishing {
             from components.java
             groupId = 'io.github.missioncommand' //'armyc2.c5isr.renderer'
             artifactId = 'mil-sym-java' // Replace with your project's artifact ID
-            version = '2.1.5'
+            version = '2.1.6'
 
             artifact(tasks.named("javadocJar")) {
                 classifier = "javadoc" // Use the classifier set for javadocJar

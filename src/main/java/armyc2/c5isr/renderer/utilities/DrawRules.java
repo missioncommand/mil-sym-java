@@ -1086,7 +1086,7 @@ public class DrawRules {
     /**
      * Anchor Points: Point 1 defines the tip of the arrowhead. Point 2 defines
      * the end of the symbol. Point 3’s distance from Point 2 defines the length
-     * of the four angled lines making up the arrowhead and dashed “tail”. Angles
+     * of the four angled lines making up the arrowhead and dashed "tail". Angles
      * a are always drawn at 45 degrees. Angle b is always drawn at 90 degrees.
      *
      * Size/Shape: The symbol varies only in length.
