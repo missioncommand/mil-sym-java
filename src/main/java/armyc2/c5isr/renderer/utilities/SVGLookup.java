@@ -296,17 +296,21 @@ public class SVGLookup {
                 case 121104:
                 case 121105:
                 case 121106:
+                case 121107:
                 case 121300:
                 case 121301:
                 case 121302:
                 case 121303:
+                case 121304:
                 case 121802:
+                case 122100:
                 case 130100:
                 case 130101:
                 case 130102:
                 case 130103:
                 case 130200:
                 case 130302:
+                case 130303:
                 case 140102:
                 case 140103:
                 case 140104:
@@ -857,28 +861,6 @@ public class SVGLookup {
         return kl;
     }
 
-    /**
-     *
-     * @param node
-     * <a href="https://stackoverflow.com/questions/4412848/xml-node-to-string-in-java">
-     *     https://stackoverflow.com/questions/4412848/xml-node-to-string-in-java</a>
-     */
-    /*private static String nodeToString(Node node)
-    {
-        StringWriter sw = new StringWriter();
-        try
-        {
-            Transformer t = TransformerFactory.newInstance().newTransformer();
-            t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-            t.setOutputProperty(OutputKeys.INDENT, "yes");
-            t.transform(new DOMSource(node), new StreamResult(sw));
-        }
-        catch(TransformerException te)
-        {
-            System.out.println(te.getMessage());
-        }
-        return sw.toString();
-    }//*/
 
     /*
      * For use only by MilStdIconRenderer.addCustomSymbol()

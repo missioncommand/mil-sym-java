@@ -1036,6 +1036,8 @@ public class Tester extends javax.swing.JFrame {
                 //modifiers.put(Modifiers.T_UNIQUE_DESIGNATION_1,"MISSILE");
                 //attributes.put(MilStdAttributes.LineColor,"#FF0000");
                 //attributes.put(MilStdAttributes.FillColor,"#00FF00");
+                //transparent fill
+                //attributes.put(MilStdAttributes.FillColor,"#8000FF00");
                 //attributes.put(MilStdAttributes.FillColor,"#A020F0");
                 //attributes.put(MilStdAttributes.TextColor,"#FF0000");
                 //attributes.put(MilStdAttributes.TextBackgroundColor,"#00FF00");
@@ -1087,6 +1089,10 @@ public class Tester extends javax.swing.JFrame {
             String svg = MilStdIconRenderer.getInstance().RenderSVG(symbolID,modifiers, attributes).getSVG();
             copyToClipboard(svg);
             System.out.println(svg);
+
+            //svg = MilStdIconRenderer.getInstance().RenderSVG("11011000000000000000",modifiers, attributes).getSVG();
+            //copyToClipboard(svg);
+            //System.out.println(svg);
 
             //Test adding of custom symbol
             //test with code: 130310000016570000000000000000
