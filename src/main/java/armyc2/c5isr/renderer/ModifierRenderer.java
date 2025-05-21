@@ -9490,7 +9490,7 @@ public class ModifierRenderer implements SettingsEventListener
                 }
 
                 //shift image points
-                centerPoint.setLocation(centerPoint.getX() + shiftX, centerPoint.getX() + shiftY);
+                centerPoint.setLocation(centerPoint.getX() + shiftX, centerPoint.getY() + shiftY);
                 RectUtilities.shift(symbolBounds, shiftX, shiftY);
                 RectUtilities.shift(imageBounds, shiftX, shiftY);
             }
