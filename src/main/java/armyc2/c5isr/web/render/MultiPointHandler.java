@@ -3030,4 +3030,571 @@ public class MultiPointHandler {
             return "true";
         }
     }
+
+    /**
+     *
+     * @param id
+     * @param name
+     * @param description
+     * @param basicShapeType
+     * @param controlPoints
+     * @param scale
+     * @param bbox
+     * @param symbolModifiers
+     * @param symbolAttributes
+     * @return
+     */
+    public static MilStdSymbol RenderBasicShapeAsMilStdSymbol(String id,
+                                                              String name,
+                                                              String description,
+                                                              int basicShapeType,
+                                                              String controlPoints,
+                                                              Double scale,
+                                                              String bbox,
+                                                              Map<String,String> symbolModifiers,
+                                                              Map<String,String> symbolAttributes)
+    {
+        MilStdSymbol mSymbol = null;
+        boolean normalize = true;
+        Double controlLat = 0.0;
+        Double controlLong = 0.0;
+        //String jsonContent = "";
+
+        Rectangle rect = null;
+
+        //for symbol & line fill
+        ArrayList<POINT2> tgPoints = null;
+
+        String[] coordinates = controlPoints.split(" ");
+        ArrayList<ShapeInfo> shapes = null;//new ArrayList<ShapeInfo>();
+        ArrayList<ShapeInfo> modifiers = null;//new ArrayList<ShapeInfo>();
+        //ArrayList<Point2D> pixels = new ArrayList<Point2D>();
+        ArrayList<Point2D> geoCoords = new ArrayList<Point2D>();
+        int len = coordinates.length;
+
+        IPointConversion ipc = null;
+
+        //Deutch moved section 6-29-11
+        Double left = 0.0;
+        Double right = 0.0;
+        Double top = 0.0;
+        Double bottom = 0.0;
+        Point2D temp = null;
+        Point2D ptGeoUL = null;
+        int width = 0;
+        int height = 0;
+        int leftX = 0;
+        int topY = 0;
+        int bottomY = 0;
+        int rightX = 0;
+        int j = 0;
+        ArrayList<Point2D> bboxCoords = null;
+        if (bbox != null && bbox.equals("") == false) {
+            String[] bounds = null;
+            if (bbox.contains(" "))//trapezoid
+            {
+                bboxCoords = new ArrayList<Point2D>();
+                double x = 0;
+                double y = 0;
+                String[] coords = bbox.split(" ");
+                String[] arrCoord;
+                for (String coord : coords) {
+                    arrCoord = coord.split(",");
+                    x = Double.valueOf(arrCoord[0]);
+                    y = Double.valueOf(arrCoord[1]);
+                    bboxCoords.add(new Point2D.Double(x, y));
+                }
+                //use the upper left corner of the MBR containing geoCoords
+                //to set the converter
+                ptGeoUL = getGeoUL(bboxCoords);
+                left = ptGeoUL.getX();
+                top = ptGeoUL.getY();
+                ipc = new PointConverter(left, top, scale);
+                Point2D ptPixels = null;
+                Point2D ptGeo = null;
+                int n = bboxCoords.size();
+                //for (j = 0; j < bboxCoords.size(); j++)
+                for (j = 0; j < n; j++) {
+                    ptGeo = bboxCoords.get(j);
+                    ptPixels = ipc.GeoToPixels(ptGeo);
+                    x = ptPixels.getX();
+                    y = ptPixels.getY();
+                    if (x < 20) {
+                        x = 20;
+                    }
+                    if (y < 20) {
+                        y = 20;
+                    }
+                    ptPixels.setLocation(x, y);
+                    //end section
+                    bboxCoords.set(j, (Point2D) ptPixels);
+                }
+            } else//rectangle
+            {
+                bounds = bbox.split(",");
+                left = Double.valueOf(bounds[0]);
+                right = Double.valueOf(bounds[2]);
+                top = Double.valueOf(bounds[3]);
+                bottom = Double.valueOf(bounds[1]);
+                scale = getReasonableScale(bbox, scale);
+                ipc = new PointConverter(left, top, scale);
+            }
+
+            Point2D pt2d = null;
+            if (bboxCoords == null) {
+                pt2d = new Point2D.Double(left, top);
+                temp = ipc.GeoToPixels(pt2d);
+
+                leftX = (int) temp.getX();
+                topY = (int) temp.getY();
+
+                pt2d = new Point2D.Double(right, bottom);
+                temp = ipc.GeoToPixels(pt2d);
+
+                bottomY = (int) temp.getY();
+                rightX = (int) temp.getX();
+                //diagnostic clipping does not work for large scales
+//                if (scale > 10e6) {
+//                    //get widest point in the AOI
+//                    double midLat = 0;
+//                    if (bottom < 0 && top > 0) {
+//                        midLat = 0;
+//                    } else if (bottom < 0 && top < 0) {
+//                        midLat = top;
+//                    } else if (bottom > 0 && top > 0) {
+//                        midLat = bottom;
+//                    }
+//
+//                    temp = ipc.GeoToPixels(new Point2D.Double(right, midLat));
+//                    rightX = (int) temp.getX();
+//                }
+                //end section
+
+                width = (int) Math.abs(rightX - leftX);
+                height = (int) Math.abs(bottomY - topY);
+
+                if(width==0 || height==0)
+                    rect=null;
+                else
+                    rect = new Rectangle(leftX, topY, width, height);
+            }
+        } else {
+            rect = null;
+        }
+        //end section
+
+        for (int i = 0; i < len; i++) {
+            String[] coordPair = coordinates[i].split(",");
+            Double latitude = Double.valueOf(coordPair[1].trim());
+            Double longitude = Double.valueOf(coordPair[0].trim());
+            geoCoords.add(new Point2D.Double(longitude, latitude));
+        }
+        if (ipc == null) {
+            Point2D ptCoordsUL = getGeoUL(geoCoords);
+            ipc = new PointConverter(ptCoordsUL.getX(), ptCoordsUL.getY(), scale);
+        }
+        //if (crossesIDL(geoCoords) == true)
+//        if(Math.abs(right-left)>180)
+//        {
+//            normalize = true;
+//            ((PointConverter)ipc).set_normalize(true);
+//        }
+//        else {
+//            normalize = false;
+//            ((PointConverter)ipc).set_normalize(false);
+//        }
+
+        //seems to work ok at world view
+//        if (normalize) {
+//            NormalizeGECoordsToGEExtents(0, 360, geoCoords);
+//        }
+
+        //M. Deutch 10-3-11
+        //must shift the rect pixels to synch with the new ipc
+        //the old ipc was in synch with the bbox, so rect x,y was always 0,0
+        //the new ipc synchs with the upper left of the geocoords so the boox is shifted
+        //and therefore the clipping rectangle must shift by the delta x,y between
+        //the upper left corner of the original bbox and the upper left corner of the geocoords
+        ArrayList<Point2D> geoCoords2 = new ArrayList<Point2D>();
+        geoCoords2.add(new Point2D.Double(left, top));
+        geoCoords2.add(new Point2D.Double(right, bottom));
+
+//        if (normalize) {
+//            NormalizeGECoordsToGEExtents(0, 360, geoCoords2);
+//        }
+
+        //disable clipping
+        if (crossesIDL(geoCoords) == false) {
+            rect = null;
+            bboxCoords = null;
+        }
+
+        String symbolCode = "";
+        try {
+            String fillColor = null;
+            mSymbol = new MilStdSymbol(symbolCode, null, geoCoords, null);
+
+//            mSymbol.setUseDashArray(true);
+
+            if (symbolModifiers != null || symbolAttributes != null) {
+                populateModifiers(symbolModifiers, symbolAttributes, mSymbol);
+            } else {
+                mSymbol.setFillColor(null);
+            }
+
+            if (mSymbol.getFillColor() != null) {
+                Color fc = mSymbol.getFillColor();
+                //fillColor = Integer.toHexString(fc.getRGB());
+                fillColor = Integer.toHexString(fc.getRGB());
+            }
+
+            TGLight tg = clsRenderer.createTGLightFromMilStdSymbolBasicShape(mSymbol, ipc, basicShapeType);
+            ArrayList<ShapeInfo> shapeInfos = new ArrayList();
+            ArrayList<ShapeInfo> modifierShapeInfos = new ArrayList();
+            Object clipArea;
+            if (bboxCoords == null) {
+                clipArea = rect;
+            } else {
+                clipArea = bboxCoords;
+            }
+            if (clsRenderer.intersectsClipArea(tg, ipc, clipArea)) {
+                clsRenderer.render_GE(tg, shapeInfos, modifierShapeInfos, ipc, clipArea);
+            }
+            mSymbol.setSymbolShapes(shapeInfos);
+            mSymbol.setModifierShapes(modifierShapeInfos);
+            mSymbol.set_WasClipped(tg.get_WasClipped());
+            shapes = mSymbol.getSymbolShapes();
+            modifiers = mSymbol.getModifierShapes();
+
+            //convert points////////////////////////////////////////////////////
+            ArrayList<ArrayList<Point2D>> polylines = null;
+            ArrayList<ArrayList<Point2D>> newPolylines = null;
+            ArrayList<Point2D> newLine = null;
+            for (ShapeInfo shape : shapes) {
+                polylines = shape.getPolylines();
+                //System.out.println("pixel polylines: " + String.valueOf(polylines));
+                newPolylines = ConvertPolylinePixelsToCoords(polylines, ipc, normalize);
+                shape.setPolylines(newPolylines);
+            }
+
+            for (ShapeInfo label : modifiers) {
+                Point2D pixelCoord = label.getModifierPosition();
+                if (pixelCoord == null) {
+                    pixelCoord = label.getGlyphPosition();
+                }
+                Point2D geoCoord = ipc.PixelsToGeo(pixelCoord);
+
+                if (normalize) {
+                    geoCoord = NormalizeCoordToGECoord(geoCoord);
+                }
+
+                double latitude = geoCoord.getY();
+                double longitude = geoCoord.getX();
+                label.setModifierPosition(new Point2D.Double(longitude, latitude));
+
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            mSymbol.setModifierShapes(modifiers);
+            mSymbol.setSymbolShapes(shapes);
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            System.out.println("Symbol Code: " + symbolCode);
+            exc.printStackTrace();
+        }
+
+        boolean debug = false;
+        if (debug == true) {
+            System.out.println("Symbol Code: " + symbolCode);
+            System.out.println("Scale: " + scale);
+            System.out.println("BBOX: " + bbox);
+            if (controlPoints != null) {
+                System.out.println("Geo Points: " + controlPoints);
+            }
+            if (bbox != null) {
+                System.out.println("geo bounds: " + bbox);
+            }
+            if (rect != null) {
+                System.out.println("pixel bounds: " + rect.toString());
+            }
+        }
+
+        return mSymbol;
+
+    }
+
+    /**
+     *
+     * @param id - For the client to track the symbol, not related to rendering
+     * @param name - For the client to track the symbol, not related to rendering
+     * @param description - For the client to track the symbol, not related to rendering
+     * @param basicShapeType
+     * @param controlPoints
+     * @param scale
+     * @param bbox
+     * @param symbolModifiers keyed using constants from
+     * Modifiers. Pass in comma delimited String for modifiers with multiple
+     * values like AM, AN &amp; X
+     * @param symbolAttributes keyed using constants from
+     * MilStdAttributes. pass in double[] for AM, AN and X; Strings for the
+     * rest.
+     * @param format
+     * @return
+     */
+    public static String RenderBasicShape(String id,
+                                          String name,
+                                          String description,
+                                          int basicShapeType,
+                                          String controlPoints,
+                                          Double scale,
+                                          String bbox,
+                                          Map<String,String> symbolModifiers,
+                                          Map<String,String> symbolAttributes,
+                                          int format)//,
+    {
+        boolean normalize = true;
+        //Double controlLat = 0.0;
+        //Double controlLong = 0.0;
+        //Double metPerPix = GeoPixelConversion.metersPerPixel(scale);
+        //String bbox2=getBoundingRectangle(controlPoints,bbox);
+        StringBuilder jsonOutput = new StringBuilder();
+        String jsonContent = "";
+
+        Rectangle rect = null;
+        String[] coordinates = controlPoints.split(" ");
+        ArrayList<ShapeInfo> shapes = new ArrayList<ShapeInfo>();
+        ArrayList<ShapeInfo> modifiers = new ArrayList<ShapeInfo>();
+        //ArrayList<Point2D> pixels = new ArrayList<Point2D>();
+        ArrayList<Point2D> geoCoords = new ArrayList<Point2D>();
+        int len = coordinates.length;
+        //diagnostic create geoCoords here
+        Point2D coordsUL=null;
+        final String symbolCode = "";
+
+        for (int i = 0; i < len; i++)
+        {
+            String[] coordPair = coordinates[i].split(",");
+            Double latitude = Double.valueOf(coordPair[1].trim()).doubleValue();
+            Double longitude = Double.valueOf(coordPair[0].trim()).doubleValue();
+            geoCoords.add(new Point2D.Double(longitude, latitude));
+        }
+        ArrayList<POINT2> tgPoints = null;
+        IPointConversion ipc = null;
+
+        //Deutch moved section 6-29-11
+        Double left = 0.0;
+        Double right = 0.0;
+        Double top = 0.0;
+        Double bottom = 0.0;
+        Point2D temp = null;
+        Point2D ptGeoUL = null;
+        int width = 0;
+        int height = 0;
+        int leftX = 0;
+        int topY = 0;
+        int bottomY = 0;
+        int rightX = 0;
+        int j = 0;
+        ArrayList<Point2D> bboxCoords = null;
+        if (bbox != null && bbox.equals("") == false) {
+            String[] bounds = null;
+            if (bbox.contains(" "))//trapezoid
+            {
+                bboxCoords = new ArrayList<Point2D>();
+                double x = 0;
+                double y = 0;
+                String[] coords = bbox.split(" ");
+                String[] arrCoord;
+                for (String coord : coords) {
+                    arrCoord = coord.split(",");
+                    x = Double.valueOf(arrCoord[0]);
+                    y = Double.valueOf(arrCoord[1]);
+                    bboxCoords.add(new Point2D.Double(x, y));
+                }
+                //use the upper left corner of the MBR containing geoCoords
+                //to set the converter
+                ptGeoUL = getGeoUL(bboxCoords);
+                left = ptGeoUL.getX();
+                top = ptGeoUL.getY();
+                String bbox2=getBboxFromCoords(bboxCoords);
+                scale = getReasonableScale(bbox2, scale);
+                ipc = new PointConverter(left, top, scale);
+                Point2D ptPixels = null;
+                Point2D ptGeo = null;
+                int n = bboxCoords.size();
+                //for (j = 0; j < bboxCoords.size(); j++)
+                for (j = 0; j < n; j++) {
+                    ptGeo = bboxCoords.get(j);
+                    ptPixels = ipc.GeoToPixels(ptGeo);
+                    x = ptPixels.getX();
+                    y = ptPixels.getY();
+                    if (x < 20) {
+                        x = 20;
+                    }
+                    if (y < 20) {
+                        y = 20;
+                    }
+                    ptPixels.setLocation(x, y);
+                    //end section
+                    bboxCoords.set(j, (Point2D) ptPixels);
+                }
+            } else//rectangle
+            {
+                bounds = bbox.split(",");
+                left = Double.valueOf(bounds[0]);
+                right = Double.valueOf(bounds[2]);
+                top = Double.valueOf(bounds[3]);
+                bottom = Double.valueOf(bounds[1]);
+                scale = getReasonableScale(bbox, scale);
+                ipc = new PointConverter(left, top, scale);
+            }
+
+            Point2D pt2d = null;
+            if (bboxCoords == null) {
+                pt2d = new Point2D.Double(left, top);
+                temp = ipc.GeoToPixels(pt2d);
+
+                leftX = (int) temp.getX();
+                topY = (int) temp.getY();
+
+                pt2d = new Point2D.Double(right, bottom);
+                temp = ipc.GeoToPixels(pt2d);
+
+                bottomY = (int) temp.getY();
+                rightX = (int) temp.getX();
+
+                width = (int) Math.abs(rightX - leftX);
+                height = (int) Math.abs(bottomY - topY);
+
+                rect = new Rectangle(leftX, topY, width, height);
+            }
+        } else {
+            rect = null;
+        }
+
+        if (ipc == null) {
+            Point2D ptCoordsUL = getGeoUL(geoCoords);
+            ipc = new PointConverter(ptCoordsUL.getX(), ptCoordsUL.getY(), scale);
+        }
+
+        ArrayList<Point2D> geoCoords2 = new ArrayList<Point2D>();
+        geoCoords2.add(new Point2D.Double(left, top));
+        geoCoords2.add(new Point2D.Double(right, bottom));
+
+//        if (normalize) {
+//            NormalizeGECoordsToGEExtents(0, 360, geoCoords2);
+//        }
+
+        try {
+
+            //String fillColor = null;
+            MilStdSymbol mSymbol = new MilStdSymbol(symbolCode, null, geoCoords, null);
+
+            if (format == WebRenderer.OUTPUT_FORMAT_GEOSVG){
+                // Use dash array and hatch pattern fill for SVG output
+                symbolAttributes.put(MilStdAttributes.UseDashArray, "true");
+                symbolAttributes.put(MilStdAttributes.UsePatternFill, "true");
+            }
+
+            if (symbolModifiers != null || symbolAttributes != null) {
+                populateModifiers(symbolModifiers, symbolAttributes, mSymbol);
+            } else {
+                mSymbol.setFillColor(null);
+            }
+
+            TGLight tg = clsRenderer.createTGLightFromMilStdSymbolBasicShape(mSymbol, ipc, basicShapeType);
+            ArrayList<ShapeInfo> shapeInfos = new ArrayList();
+            ArrayList<ShapeInfo> modifierShapeInfos = new ArrayList();
+            Object clipArea;
+            if (bboxCoords == null) {
+                clipArea = rect;
+            } else {
+                clipArea = bboxCoords;
+            }
+            if (clsRenderer.intersectsClipArea(tg, ipc, clipArea)) {
+                clsRenderer.render_GE(tg, shapeInfos, modifierShapeInfos, ipc, clipArea);
+            }
+            mSymbol.setSymbolShapes(shapeInfos);
+            mSymbol.setModifierShapes(modifierShapeInfos);
+            mSymbol.set_WasClipped(tg.get_WasClipped());
+            shapes = mSymbol.getSymbolShapes();
+            modifiers = mSymbol.getModifierShapes();
+
+            if (format == WebRenderer.OUTPUT_FORMAT_JSON) {
+                jsonOutput.append("{\"type\":\"symbol\",");
+                jsonContent = JSONize(shapes, modifiers, ipc, true, normalize);
+                jsonOutput.append(jsonContent);
+                jsonOutput.append("}");
+            } else if (format == WebRenderer.OUTPUT_FORMAT_KML) {
+                Color textColor = mSymbol.getTextColor();
+                if(textColor==null)
+                    textColor=mSymbol.getLineColor();
+
+                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor);
+                jsonOutput.append(jsonContent);
+            } else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON)
+            {
+                jsonOutput.append("{\"type\":\"FeatureCollection\",\"features\":");
+                jsonContent = GeoJSONize(shapes, modifiers, ipc, normalize, mSymbol.getTextColor(), mSymbol.getTextBackgroundColor());
+                jsonOutput.append(jsonContent);
+
+                //moving meta data properties to the last feature with no coords as feature collection doesn't allow properties
+                jsonOutput.replace(jsonOutput.toString().length()-1,jsonOutput.toString().length(),"" );
+                jsonOutput.append(",{\"type\": \"Feature\",\"geometry\": { \"type\": \"Polygon\",\"coordinates\": [ ]}");
+
+                jsonOutput.append(",\"properties\":{\"id\":\"");
+                jsonOutput.append(id);
+                jsonOutput.append("\",\"name\":\"");
+                jsonOutput.append(name);
+                jsonOutput.append("\",\"description\":\"");
+                jsonOutput.append(description);
+                jsonOutput.append("\",\"symbolID\":\"");
+                jsonOutput.append(symbolCode);
+                jsonOutput.append("\",\"wasClipped\":\"");
+                jsonOutput.append(String.valueOf(mSymbol.get_WasClipped()));
+                //jsonOutput.append("\"}}");
+
+                jsonOutput.append("\"}}]}");
+            } else if (format == WebRenderer.OUTPUT_FORMAT_GEOSVG) {
+                String textColor = mSymbol.getTextColor() != null ? RendererUtilities.colorToHexString(mSymbol.getTextColor(), false) : "";
+                String backgroundColor = mSymbol.getTextBackgroundColor() != null ? RendererUtilities.colorToHexString(mSymbol.getTextBackgroundColor(), false) : "";
+                //returns an svg with a geoTL and geoBR value to use to place the canvas on the map
+                jsonContent = MultiPointHandlerSVG.GeoSVGize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor, backgroundColor, mSymbol.get_WasClipped());
+                jsonOutput.append(jsonContent);
+            }
+        } catch (Exception exc) {
+            String st = JavaRendererUtilities.getStackTrace(exc);
+            jsonOutput = new StringBuilder();
+            jsonOutput.append("{\"type\":\"error\",\"error\":\"There was an error creating the MilStdSymbol " + symbolCode + ": " + "- ");
+            jsonOutput.append(exc.getMessage() + " - ");
+            jsonOutput.append(st);
+            jsonOutput.append("\"}");
+
+            ErrorLogger.LogException("MultiPointHandler", "RenderBasicShape", exc);
+        }
+
+        boolean debug = false;
+        if (debug == true) {
+            System.out.println("Symbol Code: " + symbolCode);
+            System.out.println("Scale: " + scale);
+            System.out.println("BBOX: " + bbox);
+            if (controlPoints != null) {
+                System.out.println("Geo Points: " + controlPoints);
+            }
+            if (bbox != null) {
+                System.out.println("geo bounds: " + bbox);
+            }
+            if (rect != null) {
+                System.out.println("pixel bounds: " + rect.toString());
+            }
+            if (jsonOutput != null) {
+                System.out.println(jsonOutput.toString());
+            }
+        }
+
+        ErrorLogger.LogMessage("MultiPointHandler", "RenderBasicShape()", "exit RenderBasicShape", Level.FINER);
+        return jsonOutput.toString();
+
+    }
 }

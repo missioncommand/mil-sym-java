@@ -86,6 +86,336 @@ public final class clsRenderer {
     }
 
     /**
+     * Build a tactical graphic object from the client MilStdSymbol
+     *
+     * @param milStd MilstdSymbol object
+     * @param converter geographic to pixels converter
+     * @param lineType {@link armyc2.c5isr.JavaLineArray.BasicShapes}
+     * @return tactical graphic
+     */
+    public static TGLight createTGLightFromMilStdSymbolBasicShape(MilStdSymbol milStd,
+                                                                  IPointConversion converter,
+                                                                  int lineType) {
+        TGLight tg = new TGLight();
+        try {
+            boolean useLineInterpolation = milStd.getUseLineInterpolation();
+            tg.set_UseLineInterpolation(useLineInterpolation);
+            tg.set_LineType(lineType);
+            String status = tg.get_Status();
+            tg.set_VisibleModifiers(true);
+            //set tg latlongs and pixels
+            setClientCoords(milStd, tg);
+            //build tg.Pixels
+            tg.Pixels = clsUtility.LatLongToPixels(tg.LatLongs, converter);
+            //tg.set_Font(new Font("Arial", Font.PLAIN, 12));
+            RendererSettings r = RendererSettings.getInstance();
+            int type = r.getMPLabelFontType();
+            String name = r.getMPLabelFontName();
+            int sz = r.getMPLabelFontSize();
+            Font font = new Font(name, type, sz);
+            tg.set_Font(font);
+            tg.set_FillColor(milStd.getFillColor());
+            tg.set_LineColor(milStd.getLineColor());
+            tg.set_LineThickness(milStd.getLineWidth());
+            tg.set_TexturePaint(milStd.getFillStyle());
+            tg.set_Fillstyle(milStd.getPatternFillType());
+            tg.set_patternScale(milStd.getPatternScale());
+
+            tg.setIconSize(milStd.getUnitSize());
+            tg.set_KeepUnitRatio(milStd.getKeepUnitRatio());
+
+            tg.set_FontBackColor(Color.WHITE);
+            tg.set_TextColor(milStd.getTextColor());
+            if (milStd.getModifier(Modifiers.W_DTG_1) != null) {
+                tg.set_DTG(milStd.getModifier(Modifiers.W_DTG_1));
+            }
+            if (milStd.getModifier(Modifiers.W1_DTG_2) != null) {
+                tg.set_DTG1(milStd.getModifier(Modifiers.W1_DTG_2));
+            }
+            if (milStd.getModifier(Modifiers.H_ADDITIONAL_INFO_1) != null) {
+                tg.set_H(milStd.getModifier(Modifiers.H_ADDITIONAL_INFO_1));
+            }
+            if (milStd.getModifier(Modifiers.H1_ADDITIONAL_INFO_2) != null) {
+                tg.set_H1(milStd.getModifier(Modifiers.H1_ADDITIONAL_INFO_2));
+            }
+            if (milStd.getModifier(Modifiers.H2_ADDITIONAL_INFO_3) != null) {
+                tg.set_H2(milStd.getModifier(Modifiers.H2_ADDITIONAL_INFO_3));
+            }
+            if (milStd.getModifier(Modifiers.T_UNIQUE_DESIGNATION_1) != null) {
+                tg.set_Name(milStd.getModifier(Modifiers.T_UNIQUE_DESIGNATION_1));
+            }
+            if (milStd.getModifier(Modifiers.T1_UNIQUE_DESIGNATION_2) != null) {
+                tg.set_T1(milStd.getModifier(Modifiers.T1_UNIQUE_DESIGNATION_2));
+            }
+            if (milStd.getModifier(Modifiers.V_EQUIP_TYPE) != null) {
+                tg.set_V(milStd.getModifier(Modifiers.V_EQUIP_TYPE));
+            }
+            if (milStd.getModifier(Modifiers.AS_COUNTRY) != null) {
+                tg.set_AS(milStd.getModifier(Modifiers.AS_COUNTRY));
+            }
+            if (milStd.getModifier(Modifiers.AP_TARGET_NUMBER) != null) {
+                tg.set_AP(milStd.getModifier(Modifiers.AP_TARGET_NUMBER));
+            }
+            if (milStd.getModifier(Modifiers.Y_LOCATION) != null) {
+                tg.set_Location(milStd.getModifier(Modifiers.Y_LOCATION));
+            }
+            if (milStd.getModifier(Modifiers.N_HOSTILE) != null) {
+                tg.set_N(milStd.getModifier(Modifiers.N_HOSTILE));
+            }
+            tg.set_UseDashArray(milStd.getUseDashArray());
+            tg.set_UseHatchFill(milStd.getUseFillPattern());
+            //tg.set_UsePatternFill(milStd.getUseFillPattern());
+            tg.set_HideOptionalLabels(milStd.getHideOptionalLabels());
+            boolean isClosedArea = armyc2.c5isr.JavaTacticalRenderer.clsUtility.isClosedPolygon(lineType);
+
+            if (isClosedArea) {
+                armyc2.c5isr.JavaTacticalRenderer.clsUtility.ClosePolygon(tg.Pixels);
+                armyc2.c5isr.JavaTacticalRenderer.clsUtility.ClosePolygon(tg.LatLongs);
+            }
+
+            String strXAlt = "";
+            //construct the H1 and H2 modifiers for sector from the mss AM, AN, and X arraylists
+            if (lineType == TacticalLines.BS_ELLIPSE) {
+                ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
+                ArrayList<Double> AN = milStd.getModifiers_AM_AN_X(Modifiers.AN_AZIMUTH);
+                //ensure array length 3
+                double r2=0;
+                double b=0;
+                if(AM.size()==1)
+                {
+                    r2=AM.get(0);
+                    AM.add(r2);
+                    AM.add(0d);
+                }
+                else if(AM.size()==2)
+                {
+                    r2=AM.get(0);
+                    b=AM.get(1);
+                    AM.set(1, r2);
+                    AM.add(b);
+                }
+                if (AN == null) {
+                    AN = new ArrayList<Double>();
+                }
+                if (AN.size() < 1) {
+                    AN.add(new Double(0));
+                }
+                if (AM != null && AM.size() >= 2 && AN != null && AN.size() >= 1) {
+                    POINT2 ptAzimuth = new POINT2(0, 0);
+                    ptAzimuth.x = AN.get(0);
+                    POINT2 ptCenter = tg.Pixels.get(0);
+                    POINT2 pt0 = mdlGeodesic.geodesic_coordinate(tg.LatLongs.get(0), AM.get(0), 90);//semi-major axis
+                    POINT2 pt1 = mdlGeodesic.geodesic_coordinate(tg.LatLongs.get(0), AM.get(1), 0);//semi-minor axis
+                    Point2D pt02d = new Point2D.Double(pt0.x, pt0.y);
+                    Point2D pt12d = new Point2D.Double(pt1.x, pt1.y);
+                    pt02d = converter.GeoToPixels(pt02d);
+                    pt12d = converter.GeoToPixels(pt12d);
+                    pt0 = new POINT2(pt02d.getX(), pt02d.getY());
+                    pt1 = new POINT2(pt12d.getX(), pt12d.getY());
+                    tg.Pixels = new ArrayList<POINT2>();
+                    tg.Pixels.add(ptCenter);
+                    tg.Pixels.add(pt0);
+                    tg.Pixels.add(pt1);
+                    tg.Pixels.add(ptAzimuth);
+                }
+                if(AM != null && AM.size()>2)
+                {
+                    //use AM[2] for the buffer, so PBS_CIRCLE requires AM size 3 like PBS_ELLIPSE to use a buffer
+                    double dist=AM.get(2);
+                    POINT2 pt0=mdlGeodesic.geodesic_coordinate(tg.LatLongs.get(0), dist, 45);   //azimuth 45 is arbitrary
+                    Point2D pt02d = new Point2D.Double(tg.LatLongs.get(0).x,tg.LatLongs.get(0).y);
+                    Point2D pt12d = new Point2D.Double(pt0.x, pt0.y);
+                    pt02d = converter.GeoToPixels(pt02d);
+                    pt12d = converter.GeoToPixels(pt12d);
+                    pt0=new POINT2(pt02d.getX(),pt02d.getY());
+                    POINT2 pt1=new POINT2(pt12d.getX(),pt12d.getY());
+                    dist=lineutility.CalcDistanceDouble(pt0, pt1);
+                    //arraysupport will use line style to create the buffer shape
+                    tg.Pixels.get(0).style=(int)dist;
+                }
+            }
+            int j = 0;
+            if (lineType == TacticalLines.BBS_RECTANGLE || lineType == TacticalLines.BS_BBOX) {
+                double minLat = tg.LatLongs.get(0).y;
+                double maxLat = tg.LatLongs.get(0).y;
+                double minLong = tg.LatLongs.get(0).x;
+                double maxLong = tg.LatLongs.get(0).x;
+                for (j = 1; j < tg.LatLongs.size(); j++) {
+                    if (tg.LatLongs.get(j).x < minLong) {
+                        minLong = tg.LatLongs.get(j).x;
+                    }
+                    if (tg.LatLongs.get(j).x > maxLong) {
+                        maxLong = tg.LatLongs.get(j).x;
+                    }
+                    if (tg.LatLongs.get(j).y < minLat) {
+                        minLat = tg.LatLongs.get(j).y;
+                    }
+                    if (tg.LatLongs.get(j).y > maxLat) {
+                        maxLat = tg.LatLongs.get(j).y;
+                    }
+                }
+                tg.LatLongs = new ArrayList();
+                tg.LatLongs.add(new POINT2(minLong, maxLat));
+                tg.LatLongs.add(new POINT2(maxLong, maxLat));
+                tg.LatLongs.add(new POINT2(maxLong, minLat));
+                tg.LatLongs.add(new POINT2(minLong, minLat));
+                if (lineType == TacticalLines.BS_BBOX) {
+                    tg.LatLongs.add(new POINT2(minLong, maxLat));
+                }
+                tg.Pixels = clsUtility.LatLongToPixels(tg.LatLongs, converter);
+            }
+            //these have a buffer value in meters which we'll stuff tg.H2
+            //and use the style member of tg.Pixels to stuff the buffer width in pixels
+            switch (lineType) {
+                case TacticalLines.BBS_AREA:
+                case TacticalLines.BBS_LINE:
+                case TacticalLines.BBS_RECTANGLE:
+                    String H2 = null;
+                    double dist = 0;
+                    POINT2 pt0;
+                    POINT2 pt1;//45 is arbitrary
+                    ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
+                    if (AM != null && AM.size() > 0) {
+                        H2 = AM.get(0).toString();
+                        tg.set_H2(H2);
+                    }
+                    if (H2 != null && !H2.isEmpty()) {
+                        for (j = 0; j < tg.LatLongs.size(); j++) {
+                            if (tg.LatLongs.size() > j) {
+                                if (!Double.isNaN(Double.parseDouble(H2))) {
+                                    if (j == 0) {
+                                        dist = Double.parseDouble(H2);
+                                        pt0 = new POINT2(tg.LatLongs.get(0));
+                                        pt1 = mdlGeodesic.geodesic_coordinate(pt0, dist, 45);//45 is arbitrary
+                                        Point2D pt02d = new Point2D.Double(pt0.x, pt0.y);
+                                        Point2D pt12d = new Point2D.Double(pt1.x, pt1.y);
+                                        pt02d = converter.GeoToPixels(pt02d);
+                                        pt12d = converter.GeoToPixels(pt12d);
+                                        pt0.x = pt02d.getX();
+                                        pt0.y = pt02d.getY();
+                                        pt1.x = pt12d.getX();
+                                        pt1.y = pt12d.getY();
+                                        dist = lineutility.CalcDistanceDouble(pt0, pt1);
+                                    }
+                                    tg.Pixels.get(j).style = Math.round((float) dist);
+                                } else {
+                                    tg.Pixels.get(j).style = 0;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (lineType == TacticalLines.PBS_ELLIPSE) //geo ellipse
+            {
+                ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
+                ArrayList<Double> AN = milStd.getModifiers_AM_AN_X(Modifiers.AN_AZIMUTH);
+                if (AM != null && AM.size() > 1) {
+                    String strAM = AM.get(0).toString(); // major axis
+                    tg.set_AM(strAM);
+                    String strAM1 = AM.get(1).toString(); // minor axis
+                    tg.set_AM1(strAM1);
+                }
+                if (AN != null && AN.size() > 0) {
+                    String strAN = AN.get(0).toString(); // rotation
+                    tg.set_AN(strAN);
+                }
+            }
+            switch (lineType) {
+                case TacticalLines.BBS_AREA:
+                case TacticalLines.BBS_LINE:
+                case TacticalLines.BBS_POINT:
+                case TacticalLines.BBS_RECTANGLE:
+                    if (tg.get_FillColor() == null) {
+                        tg.set_FillColor(Color.LIGHT_GRAY);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            switch (lineType) {
+                case TacticalLines.PBS_CIRCLE:
+                case TacticalLines.BBS_POINT:
+                    ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
+                    if (AM != null && AM.size() > 0) {
+                        String strAM = Double.toString(AM.get(0));
+                        //set width for rectangles or radius for circles
+                        tg.set_AM(strAM);
+                    } else if (lineType == TacticalLines.BBS_POINT && tg.LatLongs.size() > 1) {
+                        double dist = mdlGeodesic.geodesic_distance(tg.LatLongs.get(0), tg.LatLongs.get(1), null, null);
+                        String strT1 = Double.toString(dist);
+                        tg.set_T1(strT1);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (lineType == TacticalLines.PBS_RECTANGLE || lineType == TacticalLines.PBS_SQUARE) {
+                ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
+                ArrayList<Double> AN = milStd.getModifiers_AM_AN_X(Modifiers.AN_AZIMUTH);
+                if (lineType == TacticalLines.PBS_SQUARE) //for square
+                {
+                    double r2=AM.get(0);
+                    double b=0;
+                    if(AM.size()==1)
+                    {
+                        AM.add(r2);
+                        AM.add(b);
+                    }
+                    else if(AM.size()==2)
+                    {
+                        b=AM.get(1);
+                        AM.set(1,r2);
+                        AM.add(b);
+                    }
+                    else if(AM.size()>2)
+                        AM.set(1, r2);
+                }
+                //if all these conditions are not met we do not want to set any tg modifiers
+                if (lineType == TacticalLines.PBS_SQUARE) //square
+                {
+                    double am0 = AM.get(0);
+                    if (AM.size() == 1) {
+                        AM.add(am0);
+                    } else if (AM.size() >= 2) {
+                        AM.set(1, am0);
+                    }
+                }
+                if (AN == null) {
+                    AN = new ArrayList<>();
+                }
+                if (AN.isEmpty()) {
+                    AN.add(0d);
+                }
+
+                if (AM != null && AM.size() > 1) {
+                    String strAM = Double.toString(AM.get(0));    //width
+                    String strAM1 = Double.toString(AM.get(1));     //length
+                    //set width and length in meters for rectangular target
+                    tg.set_AM(strAM);
+                    tg.set_AM1(strAM1);
+                    //set attitude in degrees
+                    String strAN = Double.toString(AN.get(0));
+                    tg.set_AN(strAN);
+                }
+                /*
+                if(AM.size()>2)
+                {
+                    String strH1 = Double.toString(AM.get(2));     //buffer size
+                    tg.set_H1(strH1);
+                }
+                 */
+            }
+        } catch (Exception exc) {
+            ErrorLogger.LogException("clsRenderer", "createTGLightFromBasicMilStdSymbol",
+                    new RendererException("Failed to build multipoint TG for " + lineType, exc));
+        }
+        return tg;
+    }
+
+    /**
      * Create MilStdSymbol from tactical graphic
      *
      * @deprecated
@@ -1390,6 +1720,35 @@ public final class clsRenderer {
         } catch (Exception exc) {
             ErrorLogger.LogException(_className, "render_Shape",
                     new RendererException("Failed inside render_Shape", exc));
+
+        }
+    }
+
+    private static void resolvePostClippedShapes(TGLight tg, ArrayList<Shape2> shapes) {
+        try {
+            //resolve the PBS and BBS shape properties after the post clip, regardless whether they were clipped
+            switch (tg.get_LineType()) {
+                case TacticalLines.BBS_RECTANGLE:
+                case TacticalLines.BBS_POINT:
+                case TacticalLines.BBS_LINE:
+                case TacticalLines.BBS_AREA:
+                case TacticalLines.PBS_RECTANGLE:
+                case TacticalLines.PBS_SQUARE:
+                    break;
+                default:
+                    return;
+            }
+            Color fillColor = tg.get_FillColor();
+            shapes.get(0).setFillColor(fillColor);
+            shapes.get(1).setFillColor(null);
+            int fillStyle = tg.get_FillStyle();
+            shapes.get(0).set_Fillstyle(0);
+            shapes.get(1).set_Fillstyle(fillStyle);
+            return;
+
+        } catch (Exception exc) {
+            ErrorLogger.LogException(_className, "resolvePostClippedShapes",
+                    new RendererException("Failed inside resolvePostClippedShapes", exc));
 
         }
     }
