@@ -480,8 +480,8 @@ public class SinglePointSVGRenderer {
             if(hasTextModifiers)
                 widthOffset = 2;//add for the text outline
 
-            int svgWidth = (int)(si.getImageBounds().getWidth()+widthOffset);
-            int svgHeight = (int)si.getImageBounds().getHeight();
+            int svgWidth = (int)Math.ceil(si.getImageBounds().getWidth()+widthOffset);
+            int svgHeight = (int)Math.ceil(si.getImageBounds().getHeight());
             //add SVG tag with dimensions
             //draw unit from SVG
             String svgAlpha = "";
