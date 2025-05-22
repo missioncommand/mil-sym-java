@@ -2119,6 +2119,14 @@ public class Modifier2 {
                 case TacticalLines.RECTANGULAR_TARGET:
                 case TacticalLines.LINE:
                 case TacticalLines.ASLTXING:
+                case TacticalLines.BS_LINE:
+                case TacticalLines.BS_AREA:
+                case TacticalLines.BBS_LINE:
+                case TacticalLines.BBS_AREA:
+                case TacticalLines.PBS_CIRCLE:
+                case TacticalLines.PBS_ELLIPSE:
+                case TacticalLines.PBS_RECTANGLE:
+                case TacticalLines.BBS_POINT:
                     origPoints = lineutility.getDeepCopy(tg.Pixels);
                     break;
                 default:    //exit early for those not applicable
@@ -2200,6 +2208,44 @@ public class Modifier2 {
                 case TacticalLines.PL:
                     AddIntegralAreaModifier(tg, label + TSpace + tg.get_Name(), toEnd, T1LineFactor, pt0, pt1, false);
                     AddIntegralAreaModifier(tg, label + TSpace + tg.get_Name(), toEnd, T1LineFactor, ptLast, ptNextToLast, false);
+                    break;
+                case TacticalLines.BS_LINE:
+                case TacticalLines.BBS_LINE:
+                    if (tg.get_T1() == null || tg.get_T1().isEmpty()) {
+                        AddIntegralAreaModifier(tg, tg.get_Name(), toEnd, T1LineFactor, pt0, pt1, false);
+                        AddIntegralAreaModifier(tg, tg.get_Name(), toEnd, T1LineFactor, ptLast, ptNextToLast, false);
+                    } else {
+                        if (tg.get_T1().equalsIgnoreCase("1")) {
+                            for (j = 0; j < tg.Pixels.size() - 1; j++) {
+                                AddIntegralAreaModifier(tg, tg.get_Name(), aboveMiddle, 0, tg.Pixels.get(j), tg.Pixels.get(j + 1), false);
+                            }
+                        } else if (tg.get_T1().equalsIgnoreCase("2")) {
+                            AddIntegralAreaModifier(tg, tg.get_Name(), toEnd, T1LineFactor, pt0, pt1, false);
+                            AddIntegralAreaModifier(tg, tg.get_Name(), toEnd, T1LineFactor, ptLast, ptNextToLast, false);
+                        } else if (tg.get_T1().equalsIgnoreCase("3")) {
+                            //either end of the polyline
+                            dist = lineutility.CalcDistanceDouble(pt0, pt1);
+                            stringWidth = metrics.stringWidth(tg.get_Name());
+                            stringWidth /= 2;
+                            pt2 = lineutility.ExtendAlongLineDouble2(pt1, pt0, dist + stringWidth);
+                            AddIntegralAreaModifier(tg, tg.get_Name(), area, 0, pt2, pt2, false);
+                            dist = lineutility.CalcDistanceDouble(ptNextToLast, ptLast);
+                            pt2 = lineutility.ExtendAlongLineDouble2(ptNextToLast, ptLast, dist + stringWidth);
+                            AddIntegralAreaModifier(tg, tg.get_Name(), area, 0, pt2, pt2, false);
+                            //the intermediate points
+                            for (j = 1; j < tg.Pixels.size() - 1; j++) {
+                                AddIntegralAreaModifier(tg, tg.get_Name(), area, 0, tg.Pixels.get(j), tg.Pixels.get(j), false);
+                            }
+                        } else //t1 is set inadvertantly or for other graphics
+                        {
+                            AddIntegralAreaModifier(tg, tg.get_Name(), toEnd, T1LineFactor, pt0, pt1, false);
+                            AddIntegralAreaModifier(tg, tg.get_Name(), toEnd, T1LineFactor, ptLast, ptNextToLast, false);
+                        }
+                    }
+                    break;
+                case TacticalLines.BS_AREA:
+                case TacticalLines.BBS_AREA:
+                    AddIntegralAreaModifier(tg, tg.get_Name(), area, 0, ptCenter, ptCenter, false);
                     break;
                 case TacticalLines.FEBA:
                     AddIntegralAreaModifier(tg, label, toEnd, 0, pt0, pt1, false);
@@ -2543,6 +2589,12 @@ public class Modifier2 {
                 case TacticalLines.RECTANGULAR:
                 case TacticalLines.CIRCULAR:
                     AddIntegralAreaModifier(tg, ap, area, 0, pt0, pt0, false);
+                    break;
+                case TacticalLines.PBS_CIRCLE:
+                case TacticalLines.PBS_ELLIPSE:
+                case TacticalLines.PBS_RECTANGLE:
+                case TacticalLines.BBS_POINT:
+                    AddIntegralAreaModifier(tg, tg.get_Name(), area, 0, pt0, pt0, false);
                     break;
                 case TacticalLines.RECTANGULAR_TARGET:
                     stringWidth = metrics.stringWidth(tg.get_Name());
@@ -3399,6 +3451,8 @@ public class Modifier2 {
                 return;
             }
             switch (tg.get_LineType()) {
+                case TacticalLines.BS_RECTANGLE:
+                case TacticalLines.BBS_RECTANGLE:
                 case TacticalLines.CONVOY:
                 case TacticalLines.HCONVOY:
                 case TacticalLines.BREACH:
@@ -3424,6 +3478,7 @@ public class Modifier2 {
                 case TacticalLines.CUED_ACQUISITION:
                 case TacticalLines.CIRCULAR:
                 case TacticalLines.BDZ:
+                case TacticalLines.BBS_POINT:
                 case TacticalLines.FSA_CIRCULAR:
                 case TacticalLines.NOTACK:
                 case TacticalLines.ATI_CIRCULAR:
@@ -3527,6 +3582,15 @@ public class Modifier2 {
 
             shiftModifierPath(tg, pt0, pt1, ptLast, ptNextToLast);
             switch (linetype) {
+                case TacticalLines.BS_RECTANGLE:
+                case TacticalLines.BBS_RECTANGLE:
+                    pts = new POINT2[4];
+                    for (j = 0; j < 4; j++) {
+                        pts[j] = tg.Pixels.get(j);
+                    }
+                    ptCenter = lineutility.CalcCenterPointDouble2(pts, 4);
+                    AddIntegralAreaModifier(tg, tg.get_Name(), area, -0.125 * csFactor, ptCenter, ptCenter, false);
+                    break;
                 case TacticalLines.CONVOY:
                 case TacticalLines.HCONVOY:
                     pt2 = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(3), 0);

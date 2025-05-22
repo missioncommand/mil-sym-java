@@ -65,6 +65,12 @@ public final class countsupport
             //end delcarations
             switch (vbiDrawThis)
             {
+                case TacticalLines.BS_ELLIPSE:
+                    count=37;
+                    break;
+                case TacticalLines.BS_CROSS:
+                    count=4;
+                    break;
                 case TacticalLines.OVERHEAD_WIRE:
                     count=vblCounter*15;    //15 points per segment
                     break;
@@ -391,6 +397,9 @@ public final class countsupport
                 case TacticalLines.SFENCE:
                 case TacticalLines.DFENCE:
                     count = Channels.GetTripleCountDouble(pLinePoints, vblCounter, vbiDrawThis);
+                    break;
+                case TacticalLines.BBS_LINE:
+                    count=2*vblCounter;
                     break;
                 case TacticalLines.LC:
                     pUpperLinePoints = Channels.GetChannelArray2Double(1,pUpperLinePoints,1,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()));

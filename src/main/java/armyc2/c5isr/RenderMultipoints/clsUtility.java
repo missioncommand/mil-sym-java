@@ -63,7 +63,15 @@ public final class clsUtility {
             {
                 if(armyc2.c5isr.JavaTacticalRenderer.clsUtility.IsChange1Area(lineType)==false)
                 {
-                    return;
+                    switch(lineType)
+                    {
+                        case TacticalLines.BBS_AREA:
+                        case TacticalLines.BBS_LINE:
+                        case TacticalLines.BBS_RECTANGLE:
+                            break;
+                        default:
+                            return;
+                    }
                 }
             }
 

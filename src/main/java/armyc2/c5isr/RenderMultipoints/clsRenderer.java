@@ -1264,6 +1264,7 @@ public final class clsRenderer {
             } else if (clsUtilityCPOF.canClipPoints(tg) == false && clipPoints != null) {
                 shapes = clsUtilityCPOF.postClipShapes(tg, shapes, clipPoints);
             }
+            resolvePostClippedShapes(tg,shapes);
             //returns early if textSpecs are null
             //currently the client is ignoring these
             if (modifierShapeInfos != null) {
