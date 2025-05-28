@@ -117,6 +117,7 @@ public final class clsChannelUtility {
                 case TacticalLines.DOUBLEA:
                 case TacticalLines.LWFENCE:
                 case TacticalLines.HWFENCE:
+                case TacticalLines.BBS_LINE:
                 case TacticalLines.SINGLEC:
                 case TacticalLines.DOUBLEC:
                 case TacticalLines.TRIPLE:
@@ -504,6 +505,15 @@ public final class clsChannelUtility {
                     pixels2 = new double[pixels.length];
                     n = pixels.length;
                     //for (j = 0; j < pixels.length; j++) 
+                    for (j = 0; j < n; j++) {
+                        pixels2[j] = pixels[j];
+                    }
+                    break;
+                case TacticalLines.BBS_LINE:
+                    channelWidth = 8 * tg.Pixels.get(0).style;  //was 20 1-10-13
+                    pixels2 = new double[pixels.length];
+                    n = pixels.length;
+                    //for (j = 0; j < pixels.length; j++)
                     for (j = 0; j < n; j++) {
                         pixels2[j] = pixels[j];
                     }

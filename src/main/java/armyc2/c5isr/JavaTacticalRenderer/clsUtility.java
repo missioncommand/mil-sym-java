@@ -110,6 +110,7 @@ public final class clsUtility {
             case TacticalLines.RECTANGULAR:
             case TacticalLines.CUED_ACQUISITION:
             case TacticalLines.CIRCULAR:
+            case TacticalLines.PBS_CIRCLE:
             case TacticalLines.BDZ:
             case TacticalLines.FSA_CIRCULAR:
             case TacticalLines.NOTACK:
@@ -132,6 +133,7 @@ public final class clsUtility {
             case TacticalLines.LAUNCH_AREA:
             case TacticalLines.DEFENDED_AREA_CIRCULAR:
             case TacticalLines.SHIP_AOI_CIRCULAR:
+            case TacticalLines.PBS_ELLIPSE:
             case TacticalLines.RANGE_FAN:
             case TacticalLines.RANGE_FAN_SECTOR:
             case TacticalLines.RADAR_SEARCH:
@@ -328,6 +330,8 @@ public final class clsUtility {
     public static boolean isClosedPolygon(int linetype) {
         boolean result = false;
         switch (linetype) {
+            case TacticalLines.BBS_AREA:
+            case TacticalLines.BS_BBOX:
             case TacticalLines.AT:
             case TacticalLines.DEPICT:
             case TacticalLines.DZ:
@@ -356,6 +360,7 @@ public final class clsUtility {
             case TacticalLines.JTAA:
             case TacticalLines.SAA:
             case TacticalLines.SGAA:
+            case TacticalLines.BS_AREA:
             case TacticalLines.ASSAULT:
             case TacticalLines.ATKPOS:
             case TacticalLines.OBJ:
@@ -689,6 +694,8 @@ public final class clsUtility {
                                 case TacticalLines.RANGE_FAN:
                                 case TacticalLines.RANGE_FAN_SECTOR:
                                 case TacticalLines.RADAR_SEARCH:
+                                case TacticalLines.BBS_AREA:
+                                case TacticalLines.BBS_RECTANGLE:
                                     shape.setFillColor(null);
                                     break;
                                 default:
@@ -696,6 +703,22 @@ public final class clsUtility {
                                     shape.setFillColor(tg.get_FillColor());
                                     break;
                             }
+                        }
+                        switch(lineType)
+                        {
+                            case TacticalLines.BS_ELLIPSE:
+                            case TacticalLines.BS_RECTANGLE:
+                                //case TacticalLines.BBS_RECTANGLE:
+                                shape.set_Fillstyle(tg.get_FillStyle());
+                                shape.setFillColor(tg.get_FillColor());
+                                break;
+                            case TacticalLines.BBS_RECTANGLE:
+                            case TacticalLines.PBS_RECTANGLE:
+                            case TacticalLines.PBS_SQUARE:
+                                shape.setFillColor(null);
+                                break;
+                            default:
+                                break;
                         }
                     }
                     break;
@@ -725,6 +748,7 @@ public final class clsUtility {
         {
             switch(linetype)
             {
+                case TacticalLines.BS_LINE:
                 case TacticalLines.PAA_RECTANGULAR:
                 case TacticalLines.RECTANGULAR_TARGET:
                 case TacticalLines.CFL:
@@ -1010,6 +1034,11 @@ public final class clsUtility {
                 if(lineType==TacticalLines.AIRFIELD)
                     if(j==1)
                         shape.setFillColor(null);
+                //diagnostic
+                if(lineType==TacticalLines.BBS_POINT)
+                    if(j==0)
+                        shape.setLineColor(null);
+                //end section
 
                 shapeType = shape.getShapeType();
 
@@ -1067,10 +1096,15 @@ public final class clsUtility {
                 case TacticalLines.LAUNCH_AREA:
                 case TacticalLines.DEFENDED_AREA_CIRCULAR:
                 case TacticalLines.SHIP_AOI_CIRCULAR:
+                case TacticalLines.PBS_ELLIPSE:
                 case TacticalLines.RECTANGULAR:
                 case TacticalLines.CUED_ACQUISITION:
+                case TacticalLines.PBS_RECTANGLE:
+                case TacticalLines.PBS_SQUARE:
                 case TacticalLines.CIRCULAR:
+                case TacticalLines.PBS_CIRCLE:
                 case TacticalLines.BDZ:
+                case TacticalLines.BBS_POINT:
                 case TacticalLines.FSA_CIRCULAR:
                 case TacticalLines.NOTACK:
                 case TacticalLines.FFA_CIRCULAR:
@@ -1417,6 +1451,7 @@ public final class clsUtility {
                 case TacticalLines.DOUBLEA:
                 case TacticalLines.LWFENCE:
                 case TacticalLines.HWFENCE:
+                case TacticalLines.BBS_LINE:
                 case TacticalLines.SINGLEC:
                 case TacticalLines.DOUBLEC:
                 case TacticalLines.TRIPLE:
@@ -1773,6 +1808,17 @@ public final class clsUtility {
      */
     public static boolean isAutoshape(TGLight tg) {
         try {
+            switch(tg.get_LineType())
+            {
+                case TacticalLines.BBS_RECTANGLE:
+                case TacticalLines.BS_RECTANGLE:
+                case TacticalLines.BS_ELLIPSE:
+                case TacticalLines.PBS_CIRCLE:
+                case TacticalLines.BS_CROSS:
+                case TacticalLines.BS_BBOX:
+                case TacticalLines.BBS_POINT:
+                    return true;
+            }
             MSInfo msInfo = MSLookup.getInstance().getMSLInfo(tg.get_SymbolId());
             if (msInfo == null || IsChange1Area(tg.get_LineType())) {
                 return false;
@@ -2121,6 +2167,7 @@ public final class clsUtility {
                 case TacticalLines.DOUBLEA:
                 case TacticalLines.LWFENCE:
                 case TacticalLines.HWFENCE:
+                case TacticalLines.BBS_LINE:
                 case TacticalLines.SINGLEC:
                 case TacticalLines.DOUBLEC:
                 case TacticalLines.TRIPLE:

@@ -5,6 +5,29 @@ package armyc2.c5isr.JavaLineArray;
  * 
  */
 public final class TacticalLines {
+    public static final int BS_LINE=10000000;
+    public static final int BS_AREA=11000000;
+    @Deprecated
+    public static final int BS_CROSS=12000000;
+    @Deprecated
+    public static final int BS_ELLIPSE=13000000;
+    public static final int PBS_ELLIPSE=13000001;
+    public static final int PBS_CIRCLE=13000002;
+    @Deprecated
+    public static final int BS_RECTANGLE=14000000;
+    public static final int PBS_RECTANGLE=14000001;
+    @Deprecated
+    public static final int PBS_SQUARE=14000002;
+    @Deprecated
+    public static final int BBS_LINE=15000000;
+    @Deprecated
+    public static final int BBS_AREA=15000001;
+    public static final int BBS_POINT=15000002;
+    @Deprecated
+    public static final int BBS_RECTANGLE=15000003;
+    @Deprecated
+    public static final int BS_BBOX=15000004;
+
     public static final int PZ = 22138000;
     public static final int LZ = 22137000;
     public static final int DZ = 22135000;

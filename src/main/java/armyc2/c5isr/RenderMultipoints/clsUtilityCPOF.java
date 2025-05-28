@@ -89,7 +89,9 @@ public final class clsUtilityCPOF {
             length.value = new double[1];
             switch (lineType) {
                 case TacticalLines.CIRCULAR:
+                case TacticalLines.PBS_CIRCLE:
                 case TacticalLines.BDZ:
+                case TacticalLines.BBS_POINT:
                 case TacticalLines.FSA_CIRCULAR:
                 case TacticalLines.NOTACK:
                 case TacticalLines.FFA_CIRCULAR:
@@ -115,6 +117,7 @@ public final class clsUtilityCPOF {
                 case TacticalLines.LAUNCH_AREA:
                 case TacticalLines.DEFENDED_AREA_CIRCULAR:
                 case TacticalLines.SHIP_AOI_CIRCULAR:
+                case TacticalLines.PBS_ELLIPSE:
                     //minor radius in meters
                     if (SymbolUtilities.isNumber(tg.get_AM1())) {
                         length.value[0] = Double.parseDouble(tg.get_AM1());
@@ -140,6 +143,20 @@ public final class clsUtilityCPOF {
                     //so we must multiply by 360/6400 to convert to degrees
                     if (SymbolUtilities.isNumber(tg.get_AN())) {
                         attitude.value[0] = Double.parseDouble(tg.get_AN()) * (360d / 6400d);
+                    }
+                    break;
+                case TacticalLines.PBS_RECTANGLE:
+                case TacticalLines.PBS_SQUARE:
+                    if (SymbolUtilities.isNumber(tg.get_AM1())) {
+                        length.value[0] = Double.parseDouble(tg.get_AM1());
+                    }
+                    if (SymbolUtilities.isNumber(tg.get_AM())) {
+                        width.value[0] = Double.parseDouble(tg.get_AM());
+                    }
+                    //assume that attitude was passed in mils
+                    //so we must multiply by 360/6400 to convert to degrees
+                    if (SymbolUtilities.isNumber(tg.get_AN())) {
+                        attitude.value[0] = Double.parseDouble(tg.get_AN());
                     }
                     break;
                 case TacticalLines.CUED_ACQUISITION:
@@ -304,6 +321,7 @@ public final class clsUtilityCPOF {
                 case TacticalLines.LAUNCH_AREA:
                 case TacticalLines.DEFENDED_AREA_CIRCULAR:
                 case TacticalLines.SHIP_AOI_CIRCULAR:
+                case TacticalLines.PBS_ELLIPSE:
                     POINT2[] ellipsePts = mdlGeodesic.getGeoEllipse(pt0, width.value[0], length.value[0], attitude.value[0]);
                     for (j = 0; j < ellipsePts.length; j++) //was 103
                     {
@@ -417,6 +435,8 @@ public final class clsUtilityCPOF {
                     tg.Pixels.add(ptTemp);
                     break;
                 case TacticalLines.RECTANGULAR:
+                case TacticalLines.PBS_RECTANGLE:
+                case TacticalLines.PBS_SQUARE:
                 case TacticalLines.CUED_ACQUISITION:
                     //AFATDS swap length and width
                     //comment next three lines to render per Mil-Std-2525
@@ -455,7 +475,9 @@ public final class clsUtilityCPOF {
                     tg.Pixels.add(new POINT2(tg.Pixels.get(0).x, tg.Pixels.get(0).y));
                     break;
                 case TacticalLines.CIRCULAR:
+                case TacticalLines.PBS_CIRCLE:
                 case TacticalLines.BDZ:
+                case TacticalLines.BBS_POINT:
                 case TacticalLines.FSA_CIRCULAR:
                 case TacticalLines.NOTACK:
                 case TacticalLines.ACA_CIRCULAR:
@@ -548,6 +570,42 @@ public final class clsUtilityCPOF {
                 //load left and right shapes into shapes
                 shapes.addAll(shapesLeft);
                 shapes.addAll(shapesRight);
+            }
+            if (lineType == TacticalLines.BBS_POINT) {
+                Shape2 shape = new Shape2(Shape2.SHAPE_TYPE_POLYLINE);
+                shape.moveTo(ptCenter);
+                //ptCenter.x+=1;
+                ptCenter.y += 1;
+                shape.lineTo(ptCenter);
+                shapes.add(shape);
+            }
+            if (lineType == TacticalLines.PBS_RECTANGLE || lineType == TacticalLines.PBS_SQUARE)
+            {
+                double dist = radius.value[0];//Double.parseDouble(strH1);
+                pt0 = new POINT2(tg.LatLongs.get(0));
+                pt1 = mdlGeodesic.geodesic_coordinate(pt0, dist, 45);//45 is arbitrary
+                Point2D pt02d = new Point2D.Double(pt0.x, pt0.y);
+                Point2D pt12d = new Point2D.Double(pt1.x, pt1.y);
+                pt02d = converter.GeoToPixels(pt02d);
+                pt12d = converter.GeoToPixels(pt12d);
+                pt0.x = pt02d.getX();
+                pt0.y = pt02d.getY();
+                pt1.x = pt12d.getX();
+                pt1.y = pt12d.getY();
+                dist = lineutility.CalcDistanceDouble(pt0, pt1);    //pixels distance
+                //tg.Pixels.get(0).style=(int)dist;
+                ArrayList<POINT2> tempPixels = new ArrayList();
+                tempPixels.addAll((ArrayList) tg.Pixels);
+                POINT2[]pts=tempPixels.toArray(new POINT2[tempPixels.size()]);
+                pts[0].style=(int)dist;
+                lineutility.getExteriorPoints(pts, pts.length, lineType, false);
+                tg.Pixels.clear();
+                for(j=0;j<pts.length;j++)
+                    tg.Pixels.add(new POINT2(pts[j].x,pts[j].y));
+
+                Change1PixelsToShapes(tg, shapes, true);
+                //reuse the original pixels for the subsequent call to AddModifier2
+                tg.Pixels = tempPixels;
             }
             return true;
         } catch (Exception exc) {
@@ -1030,6 +1088,9 @@ public final class clsUtilityCPOF {
             //do not clear pixel style for the air corridors because
             //arraysupport is using linestyle for these to set the segment width         
             switch (tg.get_LineType()) {
+                case TacticalLines.BBS_AREA:
+                case TacticalLines.BBS_LINE:
+                case TacticalLines.BBS_RECTANGLE:
                 case TacticalLines.SC:
                 case TacticalLines.MRR:
                 case TacticalLines.SL:
@@ -1037,6 +1098,7 @@ public final class clsUtilityCPOF {
                 case TacticalLines.LLTR:
                 case TacticalLines.AC:
                 case TacticalLines.SAAFR:
+                case TacticalLines.BS_ELLIPSE:
                     return;
                 default:
                     break;
@@ -1243,6 +1305,8 @@ public final class clsUtilityCPOF {
                 case TacticalLines.JTAA:
                 case TacticalLines.SAA:
                 case TacticalLines.SGAA:
+                case TacticalLines.BS_AREA:
+                case TacticalLines.BS_LINE:
                 case TacticalLines.ASSY:
                 case TacticalLines.EA:
                 case TacticalLines.FORT_REVD:
@@ -1873,6 +1937,9 @@ public final class clsUtilityCPOF {
             }
             //do not pre-segment the autoshapes
             if (clsUtility.isAutoshape(tg)) {
+                return false;
+            }
+            if (SymbolUtilities.isBasicShape(linetype)) {
                 return false;
             }
             //temporarily do not pre-segment the channel types.

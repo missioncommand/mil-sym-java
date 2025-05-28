@@ -292,6 +292,7 @@ public final class clsRenderer2 {
             {
                 //this will help with click-drag mode
                 if(tg.Pixels.size()<2)
+                    if(lineType != TacticalLines.BS_CROSS)
                         return null;
                 
                 if (CELineArray.CIsChannel(lineType) == 0)
