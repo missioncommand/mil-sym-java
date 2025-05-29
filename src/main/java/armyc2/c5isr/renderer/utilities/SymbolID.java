@@ -116,6 +116,9 @@ public class SymbolID {
      */
     public static final int Version_APP6Dch2 = 12;
     public static final int Version_2525E = 13;
+    public static final int Version_APP6Ech1 = 14;
+    public static final int Version_2525Ech1 = 15;
+    public static final int Version_APP6Ech2 = 16;
 
     //Standard Identity, First Digit (3)
     public static final int StandardIdentity_Context_Reality = 0;
