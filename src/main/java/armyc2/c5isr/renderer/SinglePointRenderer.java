@@ -342,7 +342,7 @@ public class SinglePointRenderer implements SettingsEventListener{
                     //make sure string is properly formatted.
                     iconColor = RendererUtilities.colorToHexString(RendererUtilities.getColorFromHexString(iconColor),false);
                     if(iconColor != null && iconColor != "#000000" && iconColor != "")
-                        color = " stroke=\"" + iconColor + "\" fill=\"" + iconColor + "\" ";
+                        color = " fill=\"" + iconColor + "\" ";
                     else
                         iconColor = null;
                 }
