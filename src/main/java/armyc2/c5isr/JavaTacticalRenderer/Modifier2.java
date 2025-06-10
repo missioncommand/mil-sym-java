@@ -241,6 +241,9 @@ public class Modifier2 {
                 case TacticalLines.WITHDRAW:
                     label = "W";
                     break;
+                case TacticalLines.DISENGAGE:
+                    label = "DIS";
+                    break;
                 case TacticalLines.WDRAWUP:
                     label = "WP";
                     break;
@@ -2081,6 +2084,7 @@ public class Modifier2 {
                 case TacticalLines.FPOL:
                 case TacticalLines.RPOL:
                 case TacticalLines.WITHDRAW:
+                case TacticalLines.DISENGAGE:
                 case TacticalLines.WDRAWUP:
                 case TacticalLines.BEARING:
                 case TacticalLines.BEARING_J:
@@ -3126,6 +3130,7 @@ public class Modifier2 {
                 case TacticalLines.FPOL:
                 case TacticalLines.RPOL:
                 case TacticalLines.WITHDRAW:
+                case TacticalLines.DISENGAGE:
                 case TacticalLines.WDRAWUP:
                     AddIntegralModifier(tg, label, aboveMiddle, 0, 0, 1, true);
                     break;

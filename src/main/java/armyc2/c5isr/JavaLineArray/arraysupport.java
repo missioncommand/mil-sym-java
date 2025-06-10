@@ -3792,6 +3792,7 @@ public final class arraysupport {
                     break;
                 case TacticalLines.DELAY:
                 case TacticalLines.WITHDRAW:
+                case TacticalLines.DISENGAGE:
                 case TacticalLines.WDRAWUP:
                 case TacticalLines.RETIRE:
                 case TacticalLines.FPOL:
