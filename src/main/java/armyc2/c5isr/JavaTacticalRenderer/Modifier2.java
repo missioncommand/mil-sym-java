@@ -173,6 +173,9 @@ public class Modifier2 {
                 case TacticalLines.ISOLATE:
                     label = "I";
                     break;
+                case TacticalLines.AREA_DEFENSE:
+                    label = "AD";
+                    break;
                 case TacticalLines.FIX:
                     label = "F";
                     break;
@@ -3490,6 +3493,7 @@ public class Modifier2 {
                 case TacticalLines.OCCUPY:
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
+                case TacticalLines.AREA_DEFENSE:
                 case TacticalLines.CONTAIN:
                 case TacticalLines.SEIZE:
                 case TacticalLines.EVACUATE:
@@ -3655,6 +3659,7 @@ public class Modifier2 {
                 case TacticalLines.OCCUPY:
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
+                case TacticalLines.AREA_DEFENSE:
                     pt0 = tg.Pixels.get(13);
                     pt1 = tg.Pixels.get(14);
                     //pt1=lineutility.ExtendAlongLineDouble(pt1, pt0, -10);
