@@ -2575,8 +2575,9 @@ public class Modifier2 {
                     AddIntegralAreaModifier(tg, tg.get_T1(), area, -2 * csFactor, ptCenter, ptCenter, false);
                     AddIntegralAreaModifier(tg, "MIN ALT: " + tg.get_X(), area, -1 * csFactor, ptCenter, ptCenter, false, "H");
                     AddIntegralAreaModifier(tg, "MAX ALT: " + tg.get_X1(), area, 0, ptCenter, ptCenter, false, "H1");
-                    AddIntegralAreaModifier(tg, tg.get_Location(), area, 1 * csFactor, ptCenter, ptCenter, false, "H2");
-                    addDTG(tg, area, 2 * csFactor, 3 * csFactor, ptCenter, ptCenter, metrics);
+                    AddIntegralAreaModifier(tg, "GRID " + tg.get_Location(), area, 1 * csFactor, ptCenter, ptCenter, false, "H2");
+                    AddModifier2(tg, "EFF " + tg.get_DTG() + WDash, area, 2 * csFactor, ptCenter, ptCenter, false, "W");
+                    AddModifier2(tg, tg.get_DTG1(), area, 3 * csFactor, ptCenter, ptCenter, false, "W1");
                     break;
                 case TacticalLines.MFP:
                     pt0 = tg.Pixels.get(middleSegment);
@@ -3748,8 +3749,8 @@ public class Modifier2 {
                     AddModifier2(tg, tg.get_T1(), aboveMiddle, -2 * csFactor, ptLeft, ptRight, false, "T1");
                     AddModifier2(tg, "MIN ALT: " + tg.get_X(), aboveMiddle, -1 * csFactor, ptLeft, ptRight, false, "H");
                     AddModifier2(tg, "MAX ALT: " + tg.get_X1(), aboveMiddle, 0, ptLeft, ptRight, false, "H1");
-                    AddModifier2(tg, "Grids: " + tg.get_H(), aboveMiddle, 1 * csFactor, ptLeft, ptRight, false, "H2");
-                    AddModifier2(tg, "EFF: " + tg.get_DTG() + WDash, aboveMiddle, 2 * csFactor, ptLeft, ptRight, false, "W");
+                    AddModifier2(tg, "GRID " + tg.get_Location(), aboveMiddle, 1 * csFactor, ptLeft, ptRight, false, "H2");
+                    AddModifier2(tg, "EFF " + tg.get_DTG() + WDash, aboveMiddle, 2 * csFactor, ptLeft, ptRight, false, "W");
                     AddModifier2(tg, tg.get_DTG1(), aboveMiddle, 3 * csFactor, ptLeft, ptRight, false, "W1");
                     break;
                 case TacticalLines.ACA_CIRCULAR:
@@ -3758,8 +3759,8 @@ public class Modifier2 {
                     AddModifier2(tg, tg.get_T1(), area, -2 * csFactor, ptCenter, ptCenter, false, "T1");
                     AddIntegralAreaModifier(tg, "MIN ALT: " + tg.get_X(), area, -1 * csFactor, ptCenter, ptCenter, false, "H");
                     AddIntegralAreaModifier(tg, "MAX ALT: " + tg.get_X1(), area, 0, ptCenter, ptCenter, false, "H1");
-                    AddIntegralAreaModifier(tg, "Grids: " + tg.get_H(), area, 1 * csFactor, ptCenter, ptCenter, false, "H2");
-                    AddIntegralAreaModifier(tg, "EFF: " + tg.get_DTG() + WDash, area, 2 * csFactor, ptCenter, ptCenter, false, "W");
+                    AddIntegralAreaModifier(tg, "GRID " + tg.get_Location(), area, 1 * csFactor, ptCenter, ptCenter, false, "H2");
+                    AddIntegralAreaModifier(tg, "EFF " + tg.get_DTG() + WDash, area, 2 * csFactor, ptCenter, ptCenter, false, "W");
                     AddIntegralAreaModifier(tg, tg.get_DTG1(), area, 3 * csFactor, ptCenter, ptCenter, false, "W1");
                     break;
                 case TacticalLines.FSA_CIRCULAR:
