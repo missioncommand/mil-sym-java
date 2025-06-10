@@ -199,6 +199,9 @@ public class Modifier2 {
                 case TacticalLines.RETIRE:
                     label = "R";
                     break;
+                case TacticalLines.PURSUIT:
+                    label = "P";
+                    break;
                 case TacticalLines.FPOL:
                     label = "P(F)";
                     break;
@@ -2088,6 +2091,7 @@ public class Modifier2 {
                 case TacticalLines.IL:
                 case TacticalLines.DRCL:
                 case TacticalLines.RETIRE:
+                case TacticalLines.PURSUIT:
                 case TacticalLines.FPOL:
                 case TacticalLines.RPOL:
                 case TacticalLines.WITHDRAW:
@@ -3137,6 +3141,7 @@ public class Modifier2 {
                     AddIntegralModifier(tg, tg.get_Name(), aboveMiddle, 0, 1, 0, false);
                     break;
                 case TacticalLines.RETIRE:
+                case TacticalLines.PURSUIT:
                 case TacticalLines.FPOL:
                 case TacticalLines.RPOL:
                 case TacticalLines.WITHDRAW:

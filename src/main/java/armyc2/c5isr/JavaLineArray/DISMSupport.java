@@ -240,14 +240,13 @@ public final class DISMSupport
         }
     }
     /**
-     * Calculates the points for DELAY, WITHDRAW, WDRAWUP, RETIRE
+     * Calculates the points for DELAY, WITHDRAW, DISENGAGE, WDRAWUP, RETIRE, FPOL, RPOL
      *
      * @param points OUT - the client points, also used for the returned points.
      */
     protected static int GetDelayGraphicEtcDouble(POINT2[] points) {
         int counter=0;
         try {
-            POINT2[] pts = new POINT2[2];
             POINT2[] savepoints = new POINT2[3];
             double iLength = 0;
             double iRadius = 0;
@@ -266,7 +265,6 @@ public final class DISMSupport
                 savepoints[j] = new POINT2(points[j]);
             }
 
-            lineutility.InitializePOINT2Array(pts);
             lineutility.InitializePOINT2Array(arcpoints);
             lineutility.InitializePOINT2Array(deltapoints);
 
@@ -330,6 +328,104 @@ public final class DISMSupport
         } catch (Exception exc) {
             ErrorLogger.LogException(_className ,"GetDelayGraphicEtcDouble",
                     new RendererException("Failed inside GetDelayGraphicEtcDouble", exc));
+        }
+        return counter;
+    }
+    /**
+     * Calculates the points for PURSUIT
+     *
+     * @param points OUT - the client points, also used for the returned points.
+     */
+    protected static int GetPursuitGraphicDouble(POINT2[] points) {
+        int counter=0;
+        try {
+            POINT2[] savepoints = new POINT2[3];
+            double iLength = 0;
+            double iRadius = 0;
+            double iDiagEOL_length = 0;
+            double dAngle1 = 0;
+            double iDeltaX1 = 0;
+            double iDeltaY1 = 0;
+            double iDeltaX2 = 0;
+            double iDeltaY2 = 0;
+            POINT2 ptArcCenter = new POINT2();
+            POINT2[] arcpoints = new POINT2[17];
+            POINT2[] deltapoints = new POINT2[4];
+            int j = 0;
+
+            for (j = 0; j < 3; j++) {
+                savepoints[j] = new POINT2(points[j]);
+            }
+
+            lineutility.InitializePOINT2Array(arcpoints);
+            lineutility.InitializePOINT2Array(deltapoints);
+
+            points[counter] = new POINT2(savepoints[0]);
+            points[counter].style = 14;
+            counter++;
+            points[counter] = new POINT2(savepoints[1]);
+            points[counter].style = 5;
+            counter++;
+
+            iLength =  Math.sqrt((savepoints[1].x - savepoints[0].x) * (savepoints[1].x - savepoints[0].x) +
+                    (savepoints[1].y - savepoints[0].y) * (savepoints[1].y - savepoints[0].y));
+            iRadius =  Math.sqrt((savepoints[2].x - savepoints[1].x) * (savepoints[2].x - savepoints[1].x) +
+                    (savepoints[2].y - savepoints[1].y) * (savepoints[2].y - savepoints[1].y)) / 2;
+            iDiagEOL_length = (iLength + iRadius * 2) / 20;
+            dAngle1 = Math.atan2(points[2].y - points[1].y, points[2].x - points[1].x);
+
+            double DPIScaleFactor = RendererSettings.getInstance().getDeviceDPI() / 96.0;
+            if ((double) iDiagEOL_length > maxLength * DPIScaleFactor) {
+                iDiagEOL_length = maxLength * DPIScaleFactor;
+            }
+            if ((double) iDiagEOL_length < minLength * DPIScaleFactor) {   //was minLength
+                iDiagEOL_length = minLength * DPIScaleFactor;
+            }
+
+            // draw the semicircle
+            ptArcCenter.x = (savepoints[1].x + savepoints[2].x) / 2;
+            ptArcCenter.y = (savepoints[1].y + savepoints[2].y) / 2;
+            boolean reverseArc = ReverseDelayArc(savepoints);
+            if (reverseArc == false) {
+                ArcApproximationDouble( (ptArcCenter.x - iRadius), (ptArcCenter.y - iRadius),
+                        (ptArcCenter.x + iRadius), (ptArcCenter.y + iRadius),
+                        savepoints[1].x, savepoints[1].y, savepoints[2].x, savepoints[2].y, arcpoints);
+                dAngle1 += CONST_PI / 2;
+            } else {
+                dAngle1 -= CONST_PI / 2;
+                ArcApproximationDouble((ptArcCenter.x - iRadius), (ptArcCenter.y - iRadius),
+                        (ptArcCenter.x + iRadius), (ptArcCenter.y + iRadius),
+                        savepoints[2].x, savepoints[2].y, savepoints[1].x, savepoints[1].y, arcpoints);
+            }
+
+            // draw the arrow
+            iDeltaX1 = (iDiagEOL_length * Math.cos(dAngle1 - CONST_PI / 4));
+            iDeltaY1 = (iDiagEOL_length * Math.sin(dAngle1 - CONST_PI / 4));
+            iDeltaX2 = (iDiagEOL_length * Math.cos(dAngle1 + CONST_PI / 4));
+            iDeltaY2 = (iDiagEOL_length * Math.sin(dAngle1 + CONST_PI / 4));
+            DrawEndpieceDeltasDouble(savepoints[2],
+                    iDeltaX1, iDeltaY1, iDeltaX2, iDeltaY2, deltapoints);
+
+            for (j = 0; j < 4; j++) {
+                points[counter] = new POINT2(deltapoints[j]);
+                counter++;
+            }
+
+            for (j = 0; j < 17; j++) {
+                points[counter] = new POINT2(arcpoints[j]);
+                points[counter].style = 0;
+                counter++;
+            }
+            points[counter-1].style = 5;
+
+            // draw the line perpendicular to arrow
+            points[counter] = lineutility.ExtendAlongLineDouble(savepoints[1], savepoints[2], iRadius * 2 - iDiagEOL_length, 0);
+            counter++;
+            points[counter] = lineutility.ExtendAlongLineDouble(savepoints[1], savepoints[2], iRadius * 2 + iDiagEOL_length, 0);
+            counter++;
+        } catch (Exception exc) {
+            ErrorLogger.LogException(_className ,"GetPursuitGraphicDouble",
+                    new RendererException("Failed inside GetPursuitGraphicDouble", exc));
         }
         return counter;
     }

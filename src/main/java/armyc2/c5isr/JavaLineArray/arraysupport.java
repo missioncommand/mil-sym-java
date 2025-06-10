@@ -3800,6 +3800,9 @@ public final class arraysupport {
                 case TacticalLines.RPOL:
                     acCounter = DISMSupport.GetDelayGraphicEtcDouble(pLinePoints);
                     break;
+                case TacticalLines.PURSUIT:
+                    acCounter = DISMSupport.GetPursuitGraphicDouble(pLinePoints);
+                    break;
                 case TacticalLines.EASY:
                     acCounter = DISMSupport.GetDISMEasyDouble(pLinePoints, lineType);
                     break;

@@ -228,6 +228,9 @@ public final class countsupport
                 case TacticalLines.RPOL:
                     count = 23;
                     break;
+                case TacticalLines.PURSUIT:
+                    count = 25;
+                    break;
                 case TacticalLines.SEIZE:
                 case TacticalLines.EVACUATE:
                     count = 37;
