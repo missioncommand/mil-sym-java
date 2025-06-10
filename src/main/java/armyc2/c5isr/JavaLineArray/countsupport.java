@@ -233,6 +233,7 @@ public final class countsupport
                     count = 37;
                     break;
                 case TacticalLines.RIP:
+                case TacticalLines.DEMONSTRATE:
                     count = 29;
                     break;
                 case TacticalLines.DIRATKSPT:

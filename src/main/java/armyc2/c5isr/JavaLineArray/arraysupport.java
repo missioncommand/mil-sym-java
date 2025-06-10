@@ -3788,6 +3788,7 @@ public final class arraysupport {
                     acCounter = DISMSupport.GetDISMFixDouble(pLinePoints, lineType, clipBounds);
                     break;
                 case TacticalLines.RIP:
+                case TacticalLines.DEMONSTRATE:
                     acCounter = DISMSupport.GetDISMRIPDouble(pLinePoints, lineType);
                     break;
                 case TacticalLines.DELAY:

@@ -162,6 +162,7 @@ public final class clsUtility {
                 break;
             case TacticalLines.SPTBYFIRE:
             case TacticalLines.RIP:
+            case TacticalLines.DEMONSTRATE:
             case TacticalLines.GAP:
             case TacticalLines.ASLTXING:
             case TacticalLines.MSDZ:
