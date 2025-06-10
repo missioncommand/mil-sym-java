@@ -3774,6 +3774,7 @@ public final class arraysupport {
                     acCounter = DISMSupport.GetDISMByDifDouble(pLinePoints, lineType, clipBounds);
                     break;
                 case TacticalLines.SEIZE:
+                case TacticalLines.EVACUATE:
                     double radius = 0;
                     if (vblSaveCounter == 4) {
                         radius = lineutility.CalcDistanceDouble(pLinePoints[0], pLinePoints[1]);
@@ -3839,6 +3840,7 @@ public final class arraysupport {
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
                 case TacticalLines.SEIZE:
+                case TacticalLines.EVACUATE:
                 case TacticalLines.BS_RECTANGLE:
                 case TacticalLines.BBS_RECTANGLE:
                 //add these
