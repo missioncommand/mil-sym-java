@@ -50,6 +50,8 @@
 		Bomb		130100
 		Decoy		130200
 	Manual Track			140000
+	Equipment			150000
+		Tactical Air Navigation (TACAN)		150100
 02	Unspecified			0
 	Missile			110000
 05	Unspecified			0
@@ -134,11 +136,13 @@
 			Motorized 	121104
 			Infantry Fighting Vehicle	121105
 			Main Gun System	121106
+			Marine Air Ground Task Force (MAGTF)	121107
 		Observer		121200
 		Reconnaissance/Cavalry/Scout		121300
 			Reconnaissance and Surveillance	121301
 			Marine	121302
 			Motorized	121303
+			Reconnaissance Artillery, Mounted Operation	121304
 		Sea Air Land (SEAL)		121400
 		Sniper		121500
 		Surveillance		121600
@@ -149,6 +153,7 @@
 			Underwater Demolition	121805
 		Unmanned Aerial Systems		121900
 		Ranger		122000
+		Combined Combat Unit		122100
 	Fires			130000
 		Air Defense		130100
 			Main Gun System	130101
@@ -156,6 +161,7 @@
 			Air and Missile Defense	130103
 		Air/Land Naval Gunfire Liaison		130200
 		Field Artillery		130300
+			Reconnaissance (FIST)	130303
 		Field Artillery Observer		130400
 		Joint Fire Support		130500
 		Meteorological		130600
@@ -204,8 +210,6 @@
 			Analysis	150501
 			Direction Finding	150502
 			Intercept	150503
-			Jamming	150504
-			Search	150505
 		Intercept (Search and Recording)		150600
 		Interrogation		150700
 		Jamming		150800
@@ -259,6 +263,7 @@
 		Contracting Services		165400
 		Parachute Rigger		165500
 		Human Resources		165600
+		Field Feeding		165700
 	Naval 			170000
 		Naval		170100
 	Named Headquarters			180000
@@ -476,6 +481,7 @@
 			Military	201302
 		Unit Deployment Shipments		201400
 		Emergency Medical Operation		201500
+		Tactical Air Navigation (TACAN)		201600
 	Land Mines			210000
 		Land Mine		210100
 		Antipersonnel Land mine (APL)		210200
@@ -512,8 +518,8 @@
 		Safe House		111700
 		White List Location		111800
 		Tented Camp		111900
-			Displaced Persons/ Refugee/Evacuees Camp	111901
-			Training Camp	111902
+			Civilian Camp	111903
+			Military Camp	111904
 		Warehouse/Storage Facility		112000
 			Grenade	112001
 		Law Enforcement		112100
@@ -533,6 +539,7 @@
 			Fire Station	112201
 			Emergency Medical Operation	112202
 		Home/House		112300
+		Non-Governmental Organization		112400
 	Infrastructure			120000
 		Agriculture and Food Infrastructure		120100
 			Agriculture Laboratory	120101
@@ -697,9 +704,9 @@
 		Pick-Up Zone		150900	Area	Area1	T	
 		Fortified Area		151000	Area	Area1	T	
 		Limited Access Area		151100	Area	Area2		
-		Battle Position		151200	Area	Area3	B,T	
-			Prepared (P) but not Occupied	151202	Area	Area3	B,T	
-			Strong Point	151203	Area	Area4	B,T	
+		Battle Position		151200	Area	Area1	B,T	
+			Prepared (P) but not Occupied	151202	Area	Area1	B,T	
+			Strong Point	151203	Area	Area1	B,T	
 			Contain	151204	Area	Area5		
 			Retain	151205	Area	Area6		
 		Engagement Area (EA)		151300	Area	Area1	T	
@@ -707,7 +714,7 @@
 			Friendly Airborne/Aviation	151401	Line	Axis1	T,W,W1	
 			Attack Helicopter	151402	Line	Axis1	T,W,W1	
 			Main Attack	151403	Line	Axis2	T,W,W1	
-			Supporting Attack	151404	Line	Axis2	T,W,W1	
+			Supporting Attack	151404	Line	Axis1	T,W,W1	
 		Assault Position		151500	Area	Area1	T	
 		Attack Position		151600	Area	Area1	T	
 		Objective		151700	Area	Area1	T	
@@ -716,6 +723,10 @@
 		Attack by Fire Position		152000	Area	Area7		
 		Support by Fire		152100	Area	Area8		
 		Search Area/Reconnaissance Area		152200	Area	Area21		
+		Area Defense		152600	Area	Area15		
+		Frontal Attack		152700	Line	Axis1	T,W,W1	
+		Mobile Defense		152800	Area	Area27		
+		Turning Movement		152900	Line	Axis1	T,W,W1	
 	Maneuver Points			160000				
 		Observation Post/Outpost (unspecified)		160100	Point	Point2		
 		Observation Post/Outpost (specified)		160200	Point			
@@ -784,7 +795,7 @@
 			Ellipse/Circle	200201	Area	Ellipse1	AM,AN,T
 			Rectangle	200202	Area	Rectangular1	AM,T	
 		No Attack (NOTACK) Zone		200300	Area	Circular1	AM,W,W1	
-		Ship Area of Interest		200400	Point	Point3		
+		Ship Area of Interest		200400	Point	Point2		
 			Ellipse/Circle	200401	Area	Ellipse1	AM,AN
 			Rectangle	200402	Area	Rectangular1	AM
 		Active Maneuver Area		200500	Point	Point2		
@@ -820,31 +831,31 @@
 		Formation		212700	Point	Point2		
 		Harbor		212800	Point	Point8	H	
 		Harbor Entrance Point		212900				
-			A	212901	Point	Point8		
-			Q	212902	Point	Point8		
-			X	212903	Point	Point8		
-			Y	212904	Point	Point8		
+			A	212901	Point	Point2		
+			Q	212902	Point	Point2		
+			X	212903	Point	Point2		
+			Y	212904	Point	Point2		
 		Dip Position		213000	Point	Point2		
 		Search		213100	Point	Point2		
 		Search Area		213200	Point	Point2		
 		Search Center		213300	Point	Point2		
 		Navigational Reference Point		213400	Point	Point2		
-		Sonobuoy		213500	Point	Point10	T,H	
-			Ambient Noise	213501	Point	Point10	T,H	
-			Air Transportable Communication	213502	Point	Point10	H	
-			Barra	213503	Point	Point10	H	
-			Bathythermograph Transmitting	213504	Point	Point10	T,H	
-			Command Active Multi-Beam (CAMBS)	213505	Point	Point10	H	
-			Command Active Sonobuoy Directional Command Active Sonobuoy System (CASS)	213506	Point	Point10	H	
-			Directional Frequency Analysis and Recording (DIFAR)	213507	Point	Point10	T,H	
-			Directional Command Active Sonobuoy System (DICASS)	213508	Point	Point10	T,H	
-			Expendable Reliable Acoustic Path Sonobuoy (ERAPS)	213509	Point	Point10	H	
-			Expired	213510	Point	Point10		
-			Kingpin	213511	Point	Point10	H	
-			Low Frequency Analysis and Recording (LOFAR)	213512	Point	Point10	H	
-			Pattern Center	213513	Point	Point10	H	
-			Range Only	213514	Point	Point10	H	
-			Vertical Line Array Directional Frequency Analysis and Recording (DIFAR)	213515	Point	Point10	T,H	
+		Sonobuoy		213500	Point	Point2	T,H	
+			Ambient Noise	213501	Point	Point2	T,H	
+			Air Transportable Communication	213502	Point	Point2	H	
+			Barra	213503	Point	Point2	H	
+			Bathythermograph Transmitting	213504	Point	Point2	T,H	
+			Command Active Multi-Beam (CAMBS)	213505	Point	Point2	H	
+			Command Active Sonobuoy Directional Command Active Sonobuoy System (CASS)	213506	Point	Point2	H	
+			Directional Frequency Analysis and Recording (DIFAR)	213507	Point	Point2	T,H	
+			Directional Command Active Sonobuoy System (DICASS)	213508	Point	Point2	T,H	
+			Expendable Reliable Acoustic Path Sonobuoy (ERAPS)	213509	Point	Point2	H	
+			Expired	213510	Point	Point2		
+			Kingpin	213511	Point	Point2	H	
+			Low Frequency Analysis and Recording (LOFAR)	213512	Point	Point2	H	
+			Pattern Center	213513	Point	Point2	H	
+			Range Only	213514	Point	Point2	H	
+			Vertical Line Array Directional Frequency Analysis and Recording (DIFAR)	213515	Point	Point2	T,H	
 		Reference Point		213600	Point	Point2		
 		Special Point		213700	Point	Point2		
 		Navigational Reference Point(Points)		213800	Point	Point2		
@@ -902,20 +913,20 @@
 			Bottom Return/Non-MILCO, Wreck, Dangerous	219100	Point	Point2		
 			Bottom Return/Non-MILCO, Wreck, Non Dangerous	219200	Point	Point2		
 	Maritime Control Lines			220000				
-		Bearing Line		220100	Line	Line5	H	
-			Electronic	220101	Line	Line5	H	
-			Electronic Warfare (EW)	220102	Line	Line5	H	
-			Acoustic	220103	Line	Line5	H	
-			Acoustic (Ambiguous)	220104	Line	Line5	H	
-			Torpedo	220105	Line	Line5	H	
-			Electro-Optical Intercept	220106	Line	Line5	H	
-			Jammer	220107	Line	Line5	H	
-			Radio Direction Finder (RDF)	220108	Line	Line5	H	
+		Bearing Line		220100	Line	Line1	H	
+			Electronic	220101	Line	Line1	H	
+			Electronic Warfare (EW)	220102	Line	Line1	H	
+			Acoustic	220103	Line	Line1	H	
+			Acoustic (Ambiguous)	220104	Line	Line1	H	
+			Torpedo	220105	Line	Line1	H	
+			Electro-Optical Intercept	220106	Line	Line1	H	
+			Jammer	220107	Line	Line1	H	
+			Radio Direction Finder (RDF)	220108	Line	Line1	H	
 	Fires Areas			240000				
 		Airspace Coordination Area		240100				
 			Irregular	240101	Area	Area1	T,T1,X,Y,W,W1	
-			Rectangular	240102	Area	Rectangular1	AM,T,T1,X,H,W,W1
-			Circular	240103	Area	Circular1	AM,T,T1,X,H,W,W1	
+			Rectangular	240102	Area	Rectangular1	AM,T,T1,X,Y,W,W1
+			Circular	240103	Area	Circular1	AM,T,T1,X,Y,W,W1	
 		Free Fire Area		240200				
 			Irregular	240201	Area	Area1	T,W,W1	
 			Rectangular	240202	Area	Rectangular1	AM,T,W,W1	
@@ -944,8 +955,7 @@
 			Area Target	240801	Area	Area1	AP	
 			Rectangular Target	240802	Area	Rectangular2	AM,AN,AP	
 			Circular Target	240803	Area	Circular1	AM,AP	
-			Rectangular Target - Single Target	240804	Area	Rectangular3	AM,T	
-			Series or Groups of Targets	240805	Area	Area9	T	
+			Series or Groups of Targets	240805	Area	Area1	T	
 			Smoke	240806	Area	Area1	AP,W,W1	
 			Bomb Area	240808	Area	Area1		
 		Fire Support Station		240900	Point	Point2	T	
@@ -995,6 +1005,7 @@
 			Irregular, Purple	242304	Area	Area10	T,W,W1	
 			Rectangular, Purple	242305	Area	Rectangular1	AM,T,W,W1	
 			Circular, Purple	242306	Area	Circular1	AM,T,W,W1	
+		Kill Zone		242800	Area	Area1	T	
 	Fires Points			250000				
 		Firing Point		250100	Point	Point1	H,T,W,W1	
 		Hide Point		250200	Point	Point1	H,T,W,W1	
@@ -1018,7 +1029,6 @@
 			Block	270501	Area	Area11		
 			Disrupt	270502	Area	Area12		
 			Fix	270503	Line	Line9		
-			Turn	270504	Line	Line10		
 		Obstacle Bypass		270600				
 			Easy	270601	Line	Point12		
 			Difficult	270602	Line	Point12		
@@ -1178,15 +1188,15 @@
 		Bypass		340300	Line	Point12		
 		Canalize		340400	Line	Point12		
 		Clear		340500	Line	Line23		
-		Counterattack		340600	Line	Axis2		
-		Counterattack by Fire		340700	Line	Axis2		
+		Counterattack		340600	Line	Axis1		
+		Counterattack by Fire		340700	Line	Axis1		
 		Delay		340800	Line	Line24	W	
 		Destroy		340900	Point	Point2		
 		Disrupt		341000	Area	Area12		
 		Fix		341100	Line	Line9		
 		Follow and Assume		341200	Line	Line25	T	
 		Follow and Support		341300	Line	Line25	T	
-		Interdict		341400	Point	Point14		
+		Interdict		341400	Point	Point2		
 		Isolate		341500	Area	Area15		
 		Neutralize		341600	Point	Point2		
 		Occupy		341700	Area	Area16		
@@ -1204,29 +1214,18 @@
 		Cordon and Knock		342600	Area	Area15		
 		Cordon and Search		342700	Area	Area15		
 		Suppress		342800	Point	Point2		
+		Movement to Contact		342900	Line	Axis1	T,W,W1	
+		Exploit/Exploitation		343100	Line	Line30		
+		Demonstrate/Demonstration		343300	Area	Area18		
+		Envelopment		343500	Line	Line31		
+		Infiltration		343800	Line	Line32		
+		Pursuit		344000	Line	Line33		
 		Forward Passage of Lines		344100	Line	Line24		
 		Rearward Passage of Lines		344200	Line	Line24		
-		Advance to Contact		342900	Line			MISSING
-		Capture		343000	Line			MISSING
-		Conduct Exploitation		343100	Line			MISSING
-		Control		343200	Area			MISSING
-		Demonstration		343300	Line			MISSING
-		Deny		343400	Area			MISSING
-		Envelop		343500	Line			MISSING
-		Escort		343600	Line			MISSING
-		Exfiltrate		343700	Line			MISSING
-		Infiltrate		343800	Line			MISSING
-		Locate		343900	Area			MISSING
-		Pursue		344000	Line			MISSING
-	Space Debris			350000	Point			MISSING
-		Man Made Space Debris		350100				MISSING
-			Man Made Space Debris Small	350101				MISSING
-			Man Made Space Debris Medium	350102				MISSING
-			Man Made Space Debris Big	350103				MISSING
-		Natural Space Debris		350200				MISSING
-			Natural Space Debris Small	350201				MISSING
-			Natural Space Debris Medium	350202				MISSING
-			Natural Space Debris Big	350203				MISSING
+		Defeat		344300	Point	Point2			
+		Disengage		344400	Line	Line24			
+		Evacuate/Evacuation		344500	Line	Line27			
+		Turn		344700	Line	Line10			
 27	Military			110000
 		Activity/Task		110200
 			Explosive Ordnance Disposal	110201
@@ -1313,6 +1312,7 @@
 			Navy Task Unit	121004
 			Convoy	121005
 		Sea-Based X-Band Radar		121100
+		Tactical Air Navigation (TACAN)		121200
 	Military Non Combatant			130000
 		Auxiliary Ship		130100
 			Ammunition Ship	130101
@@ -1393,7 +1393,6 @@
 		Sea Mine, Floating		110300
 		Sea Mine, Rising		110400
 		Sea Mine, Other Position		110500
-		Kingfisher		110600
 		Small Object, Mine-Like		110700
 		Exercise Mine, General		110800
 			Exercise Mine, Bottom	110801
@@ -1486,7 +1485,6 @@
 			Sniping	110401
 		Illegal Drug Operation		110500
 			Trafficking	110501
-			Illegal Drug Lab	110502
 		Explosion		110600
 			Grenade Explosion	110601
 			Incendiary Explosion	110602
@@ -2040,8 +2038,6 @@
 	Threat			150000
 		Malware		150100
 		Phishing		150200
-		Spear Phishing		150300
-		Whale Phishing		150400
 	Data			160000
 		Digital Currency		160100
 		Persona		160200

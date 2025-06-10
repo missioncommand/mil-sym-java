@@ -235,6 +235,9 @@ public class MSInfo {
             case "area26":
                 idr = DrawRules.AREA26;
                 break;
+            case "area27":
+                idr = DrawRules.AREA27;
+                break;
             case "point1":
                 idr = DrawRules.POINT1;
                 break;
@@ -372,6 +375,18 @@ public class MSInfo {
                 break;
             case "line29":
                 idr = DrawRules.LINE29;
+                break;
+            case "line30":
+                idr = DrawRules.LINE30;
+                break;
+            case "line31":
+                idr = DrawRules.LINE31;
+                break;
+            case "line32":
+                idr = DrawRules.LINE32;
+                break;
+            case "line33":
+                idr = DrawRules.LINE33;
                 break;
             case "corridor1":
                 idr = DrawRules.CORRIDOR1;
@@ -529,6 +544,7 @@ public class MSInfo {
             case DrawRules.AREA21:
             case DrawRules.AREA24:
             case DrawRules.AREA25:
+            case DrawRules.AREA27:
             case DrawRules.POINT12:
             case DrawRules.LINE3:
             case DrawRules.LINE6://doesn't seem to be used
@@ -539,6 +555,9 @@ public class MSInfo {
             case DrawRules.LINE23:
             case DrawRules.LINE24:
             case DrawRules.LINE29://Ambush
+            case DrawRules.LINE30:
+            case DrawRules.LINE32:
+            case DrawRules.LINE33:
             case DrawRules.POLYLINE1:
                 points[0] = 3;
                 points[1] = 3;
@@ -566,6 +585,7 @@ public class MSInfo {
             case DrawRules.AREA18:
             case DrawRules.LINE11:
             case DrawRules.LINE16:
+            case DrawRules.LINE31:
                 points[0] = 4;
                 points[1] = 4;
                 break;

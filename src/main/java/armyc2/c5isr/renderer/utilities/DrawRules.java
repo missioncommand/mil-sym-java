@@ -405,6 +405,21 @@ public class DrawRules {
      */
     public static final int AREA26 = 126;
 
+    /**
+     * Anchor Points: This symbol requires three anchor points. Point 1 defines
+     * the tip of the arrowhead. Point 2 defines the end of the straight-line
+     * portion of the symbol. Point 3 defines the diameter and orientation of
+     * the 180 degree circular arc.
+     *
+     * Size/Shape: Points 1 and 2 determine the length of the straight-line
+     * portion of the symbol. Point 3 defines which side of the line the arc
+     * is on and the diameter of the arc
+     *
+     * Orientation: Determined by the anchor points.
+     *
+     * Used by: Ech1
+     */
+    public static final int AREA27 = 127;
 
     /**
      * Anchor Points: This symbol requires one anchor point. The anchor point
