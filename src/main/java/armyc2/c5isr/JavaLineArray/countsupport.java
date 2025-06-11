@@ -240,6 +240,9 @@ public final class countsupport
                 case TacticalLines.DEMONSTRATE:
                     count = 29;
                     break;
+                case TacticalLines.MOBILE_DEFENSE:
+                    count = 44;
+                    break;
                 case TacticalLines.DIRATKSPT:
                     count = vblCounter + 3;
                     break;

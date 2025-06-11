@@ -3836,6 +3836,101 @@ public final class arraysupport {
                 case TacticalLines.DEMONSTRATE:
                     acCounter = DISMSupport.GetDISMRIPDouble(pLinePoints, lineType);
                     break;
+                case TacticalLines.MOBILE_DEFENSE:
+                    pLinePoints[2] = lineutility.PointRelativeToLine(pt0, pt1, pt1, pt2);
+                    pLinePoints[3] =  lineutility.PointRelativeToLine(pt0, pt1, pt0, pt2);
+                    acCounter = DISMSupport.GetDISMRIPDouble(pLinePoints, lineType);
+                    // Add spikes
+                    POINT2[] trianglePts = new POINT2[18];
+                    lineutility.InitializePOINT2Array(trianglePts);
+                    int l = 0;
+                    dRadius = lineutility.CalcDistanceDouble(pLinePoints[1], pLinePoints[2]) / 2;
+                    POINT2 arcCenter = lineutility.MidPointDouble(pLinePoints[1], pLinePoints[2], 0);
+                    double dLength = Math.abs(dRadius - 20);
+                    if (dRadius < 40) {
+                        dLength = dRadius / 1.5;
+                    }
+                    if (dRadius > 100) {
+                        dLength = 0.8 * dRadius;
+                    }
+
+                    POINT2 tmpPt = new POINT2();
+                    tmpPt.x = arcCenter.x - (long) ((dRadius / dLength) * (arcCenter.x - pLinePoints[10].x));
+                    tmpPt.y = arcCenter.y - (long) ((dRadius / dLength) * (arcCenter.y - pLinePoints[10].y));
+                    trianglePts[l] = new POINT2(pLinePoints[10 - 1]);
+                    trianglePts[l].style = 9;
+                    l++;
+                    trianglePts[l] = new POINT2(tmpPt);
+                    trianglePts[l].style = 9;
+                    l++;
+                    trianglePts[l] = new POINT2(pLinePoints[10 + 1]);
+                    trianglePts[l].style = 9;
+                    l++;
+                    trianglePts[l] = new POINT2(pLinePoints[10]);
+                    trianglePts[l].style = 9;
+                    l++;
+                    trianglePts[l] = new POINT2(pLinePoints[10 - 1]);
+                    trianglePts[l].style = 10;
+                    l++;
+
+                    tmpPt.x = arcCenter.x - (long) ((dRadius / dLength) * (arcCenter.x - pLinePoints[22].x));
+                    tmpPt.y = arcCenter.y - (long) ((dRadius / dLength) * (arcCenter.y - pLinePoints[22].y));
+                    trianglePts[l] = new POINT2(pLinePoints[22 - 1]);
+                    trianglePts[l].style = 9;
+                    l++;
+                    trianglePts[l] = new POINT2(tmpPt);
+                    trianglePts[l].style = 9;
+                    l++;
+                    trianglePts[l] = new POINT2(pLinePoints[22 + 1]);
+                    trianglePts[l].style = 9;
+                    l++;
+                    trianglePts[l] = new POINT2(pLinePoints[22]);
+                    trianglePts[l].style = 9;
+                    l++;
+                    trianglePts[l] = new POINT2(pLinePoints[22 - 1]);
+                    trianglePts[l].style = 10;
+                    l++;
+
+                    double triangleBaseLen = lineutility.CalcDistanceDouble(trianglePts[0], trianglePts[2]);
+                    double triangleHeight = lineutility.CalcDistanceDouble(trianglePts[1], trianglePts[3]);
+                    trianglePts[l] = lineutility.ExtendAlongLineDouble(pLinePoints[3], pLinePoints[2], lineutility.CalcDistanceDouble(pt0, pt1) / 8, 9);
+                    trianglePts[l].style = 9;
+                    l++;
+
+                    trianglePts[l] = lineutility.ExtendAlongLineDouble2(trianglePts[l-1], pLinePoints[2], triangleBaseLen);
+                    trianglePts[l].style = 9;
+                    l++;
+
+                    trianglePts[l] = lineutility.ExtendDirectedLine(trianglePts[l-2], trianglePts[l-1],
+                            lineutility.MidPointDouble(trianglePts[l-2], trianglePts[l-1], 0), lineutility.extend_above, triangleHeight);
+                    trianglePts[l].style = 9;
+                    l++;
+
+                    trianglePts[l] = new POINT2(trianglePts[l-3]);
+                    trianglePts[l].style = 10;
+                    l++;
+
+                    trianglePts[l] = lineutility.ExtendAlongLineDouble(pLinePoints[0], pLinePoints[1], lineutility.CalcDistanceDouble(pt0, pt1) / 8, 9);
+                    trianglePts[l].style = 9;
+                    l++;
+
+                    trianglePts[l] = lineutility.ExtendAlongLineDouble2(trianglePts[l-1], pLinePoints[1], triangleBaseLen);
+                    trianglePts[l].style = 9;
+                    l++;
+
+                    trianglePts[l] = lineutility.ExtendDirectedLine(trianglePts[l-2], trianglePts[l-1],
+                            lineutility.MidPointDouble(trianglePts[l-2], trianglePts[l-1], 0), lineutility.extend_below, triangleHeight);
+                    trianglePts[l].style = 9;
+                    l++;
+
+                    trianglePts[l] = new POINT2(trianglePts[l-3]);
+                    trianglePts[l].style = 10;
+
+                    for (j = 0; j < 18; j++) {
+                        pLinePoints[acCounter] = new POINT2(trianglePts[j]);
+                        acCounter++;
+                    }
+                    break;
                 case TacticalLines.DELAY:
                 case TacticalLines.WITHDRAW:
                 case TacticalLines.DISENGAGE:
@@ -4691,6 +4786,7 @@ public final class arraysupport {
                 case TacticalLines.TURN:
                 case TacticalLines.MNFLDDIS:
                 case TacticalLines.AREA_DEFENSE:
+                case TacticalLines.MOBILE_DEFENSE:
                     //POINT2 initialFillPt=null;
                     for (k = 0; k < acCounter; k++) {
                         if (k == 0) {

@@ -499,6 +499,7 @@ public final class clsUtility {
             case TacticalLines.FPOL:
             case TacticalLines.RPOL:
             case TacticalLines.RIP:
+            case TacticalLines.MOBILE_DEFENSE:
             case TacticalLines.DEMONSTRATE:
             case TacticalLines.DELAY:
             case TacticalLines.CATK:

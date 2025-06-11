@@ -247,6 +247,9 @@ public class Modifier2 {
                 case TacticalLines.RIP:
                     label = "RIP";
                     break;
+                case TacticalLines.MOBILE_DEFENSE:
+                    label = "MD";
+                    break;
                 case TacticalLines.DEMONSTRATE:
                     label = "DEM";
                     break;
@@ -3555,6 +3558,7 @@ public class Modifier2 {
                 case TacticalLines.SHIP_AOI_CIRCULAR:
                 case TacticalLines.MFLANE:
                 case TacticalLines.ENVELOPMENT:
+                case TacticalLines.MOBILE_DEFENSE:
                     break;
                 default:
                     return;
@@ -3973,6 +3977,9 @@ public class Modifier2 {
                     break;
                 case TacticalLines.ENVELOPMENT:
                     AddIntegralModifier(tg, label, aboveMiddle, 0, 0, 1, true);
+                    break;
+                case TacticalLines.MOBILE_DEFENSE:
+                    AddIntegralModifier(tg, label, area, 0, 16, 16, true);
                     break;
                 default:
                     break;

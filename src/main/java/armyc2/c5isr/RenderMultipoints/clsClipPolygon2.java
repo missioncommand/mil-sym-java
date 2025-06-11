@@ -654,6 +654,7 @@ public final class clsClipPolygon2 {
                 case TacticalLines.RETAIN:
                 case TacticalLines.ISOLATE:
                 case TacticalLines.AREA_DEFENSE:
+                case TacticalLines.MOBILE_DEFENSE:
                 case TacticalLines.CONVOY:
                 case TacticalLines.HCONVOY:
                     return shapes;

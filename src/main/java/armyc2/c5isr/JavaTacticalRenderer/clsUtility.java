@@ -162,6 +162,7 @@ public final class clsUtility {
                 break;
             case TacticalLines.SPTBYFIRE:
             case TacticalLines.RIP:
+            case TacticalLines.MOBILE_DEFENSE:
             case TacticalLines.DEMONSTRATE:
             case TacticalLines.GAP:
             case TacticalLines.ASLTXING:
@@ -637,6 +638,7 @@ public final class clsUtility {
                 case TacticalLines.EASY:
                 case TacticalLines.BYDIF:
                 case TacticalLines.BYIMP:
+                case TacticalLines.MOBILE_DEFENSE:
                     tg.set_lineCap(BasicStroke.CAP_BUTT);
                     if (shape.getShapeType() == Shape2.SHAPE_TYPE_FILL) {
                         shape.set_Fillstyle(1 /*GraphicProperties.FILL_TYPE_SOLID*/);
@@ -790,6 +792,7 @@ public final class clsUtility {
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
                 case TacticalLines.AREA_DEFENSE:
+                case TacticalLines.MOBILE_DEFENSE:
                 case TacticalLines.FLOT:
                 case TacticalLines.LC:
                 case TacticalLines.PL:
