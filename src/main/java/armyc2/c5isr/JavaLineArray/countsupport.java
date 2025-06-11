@@ -372,6 +372,9 @@ public final class countsupport
                     //they have an extra 8 points for the arrowhead
                     count=2*vblCounter+8;
                     break;
+                case TacticalLines.FRONTAL_ATTACK:
+                    count=2*vblCounter+10;
+                    break;
                 case TacticalLines.CATKBYFIRE:
                     count=2*vblCounter+17;
                     break;

@@ -1027,6 +1027,7 @@ public final class clsUtility {
                     case TacticalLines.AIRAOA:
                     case TacticalLines.AAAAA:
                     case TacticalLines.SPT:
+                    case TacticalLines.FRONTAL_ATTACK:
                     case TacticalLines.MAIN:
                     case TacticalLines.CATKBYFIRE:	//80
                         ArrayList<Shape2> tempShapes=new ArrayList();
@@ -1476,6 +1477,7 @@ public final class clsUtility {
                 case TacticalLines.AIRAOA:
                 case TacticalLines.AAAAA:
                 case TacticalLines.SPT:
+                case TacticalLines.FRONTAL_ATTACK:
                 case TacticalLines.LC:
                 case TacticalLines.UNSP:
                 case TacticalLines.DFENCE:

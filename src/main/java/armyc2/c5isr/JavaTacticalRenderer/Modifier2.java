@@ -573,6 +573,9 @@ public class Modifier2 {
                 case TacticalLines.TRIP:
                     label = "t";
                     break;
+                case TacticalLines.FRONTAL_ATTACK:
+                    label = "A";
+                    break;
                 default:
                     break;
             }
@@ -2135,6 +2138,7 @@ public class Modifier2 {
                 case TacticalLines.ANCHORAGE_LINE:
                 case TacticalLines.ANCHORAGE_AREA:
                 case TacticalLines.SPT:
+                case TacticalLines.FRONTAL_ATTACK:
                 case TacticalLines.AIRAOA:
                 case TacticalLines.AAAAA:
                 case TacticalLines.MAIN:
@@ -2437,6 +2441,7 @@ public class Modifier2 {
                     addDTG(tg, aboveMiddle, csFactor, 2 * csFactor, pt0, pt1, metrics);
                     break;
                 case TacticalLines.SPT:
+                case TacticalLines.FRONTAL_ATTACK:
                 case TacticalLines.AIRAOA:
                 case TacticalLines.AAAAA:
                 case TacticalLines.MAIN:
@@ -2460,6 +2465,10 @@ public class Modifier2 {
                         AddIntegralAreaModifier(tg, tg.get_DTG1(), aboveMiddle, csFactor / 2, midPt, midPt, false);
                         midPt = lineutility.MidPointDouble(pt2, pt3, 0);
                         AddIntegralAreaModifier(tg, tg.get_Name(), aboveMiddle, -csFactor / 2, midPt, midPt, false);
+                    }
+                    if (linetype == TacticalLines.FRONTAL_ATTACK) {
+                        midPt=lineutility.ClosestPointOnLine(pt0, pt1, ptLast);
+                        AddIntegralAreaModifier(tg, label, aboveMiddle, 0.5 * csFactor, midPt, pt0, true);
                     }
                     break;
                 case TacticalLines.LL:

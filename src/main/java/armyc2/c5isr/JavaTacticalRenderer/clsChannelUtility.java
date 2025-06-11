@@ -124,6 +124,7 @@ public final class clsChannelUtility {
                     lineType2 = lineType;
                     break;
                 case TacticalLines.SPT:
+                case TacticalLines.FRONTAL_ATTACK:
                     if (fromSegment == 0) {
                         lineType2 = TacticalLines.CHANNEL_FLARED;
                     } else {
@@ -151,6 +152,7 @@ public final class clsChannelUtility {
                 if (fromSegment != 0) {
                     switch (lineType) {
                         case TacticalLines.SPT:
+                        case TacticalLines.FRONTAL_ATTACK:
                             lineType2 = TacticalLines.SPT_STRAIGHT;
                             break;
                         case TacticalLines.MAIN:
@@ -459,6 +461,7 @@ public final class clsChannelUtility {
                 case TacticalLines.AIRAOA:
                 case TacticalLines.AAAAA:
                 case TacticalLines.SPT:
+                case TacticalLines.FRONTAL_ATTACK:
                     clsUtility.ReorderPixels(pixels);
                     numPoints = pixels.length / 2;
 
