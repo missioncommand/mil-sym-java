@@ -1059,6 +1059,7 @@ public final class clsRenderer {
                     case TacticalLines.MAIN:
                     case TacticalLines.SPT:
                     case TacticalLines.FRONTAL_ATTACK:
+                    case TacticalLines.TURNING_MOVEMENT:
                         POINT2 ptPixels = armyc2.c5isr.JavaTacticalRenderer.clsUtility.ComputeLastPoint(tg.Pixels);
                         tg.Pixels.add(ptPixels);
                         //Point pt = clsUtility.POINT2ToPoint(ptPixels);

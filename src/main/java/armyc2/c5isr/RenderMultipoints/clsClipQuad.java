@@ -453,6 +453,7 @@ public final class clsClipQuad {
                 case TacticalLines.ABATIS:
                 case TacticalLines.SPT:
                 case TacticalLines.FRONTAL_ATTACK:
+                case TacticalLines.TURNING_MOVEMENT:
                 case TacticalLines.MAIN:
                 case TacticalLines.AAAAA:
                 case TacticalLines.AIRAOA:

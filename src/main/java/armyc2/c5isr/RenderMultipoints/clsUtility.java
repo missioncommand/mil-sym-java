@@ -741,6 +741,7 @@ public final class clsUtility {
                 case TacticalLines.AAAAA:
                 case TacticalLines.SPT:
                 case TacticalLines.FRONTAL_ATTACK:
+                case TacticalLines.TURNING_MOVEMENT:
                 case TacticalLines.MAIN:
                     break;
                 default:
@@ -900,6 +901,7 @@ public final class clsUtility {
                 case TacticalLines.AAAAA:
                 case TacticalLines.SPT:
                 case TacticalLines.FRONTAL_ATTACK:
+                case TacticalLines.TURNING_MOVEMENT:
                 case TacticalLines.MAIN:
                 case TacticalLines.CATKBYFIRE:	//80
                     return;

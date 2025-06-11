@@ -373,6 +373,7 @@ public final class countsupport
                     count=2*vblCounter+8;
                     break;
                 case TacticalLines.FRONTAL_ATTACK:
+                case TacticalLines.TURNING_MOVEMENT:
                     count=2*vblCounter+10;
                     break;
                 case TacticalLines.CATKBYFIRE:
