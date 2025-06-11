@@ -205,6 +205,9 @@ public class Modifier2 {
                 case TacticalLines.PURSUIT:
                     label = "P";
                     break;
+                case TacticalLines.ENVELOPMENT:
+                    label = "E";
+                    break;
                 case TacticalLines.FPOL:
                     label = "P(F)";
                     break;
@@ -3551,6 +3554,7 @@ public class Modifier2 {
                 case TacticalLines.RADAR_SEARCH:
                 case TacticalLines.SHIP_AOI_CIRCULAR:
                 case TacticalLines.MFLANE:
+                case TacticalLines.ENVELOPMENT:
                     break;
                 default:
                     return;
@@ -3966,6 +3970,9 @@ public class Modifier2 {
                 case TacticalLines.RANGE_FAN_SECTOR:
                 case TacticalLines.RADAR_SEARCH:
                     addSectorModifiers(tg, converter);
+                    break;
+                case TacticalLines.ENVELOPMENT:
+                    AddIntegralModifier(tg, label, aboveMiddle, 0, 0, 1, true);
                     break;
                 default:
                     break;

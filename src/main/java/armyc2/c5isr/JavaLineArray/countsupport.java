@@ -226,6 +226,7 @@ public final class countsupport
                 case TacticalLines.RETIRE:
                 case TacticalLines.FPOL:
                 case TacticalLines.RPOL:
+                case TacticalLines.ENVELOPMENT:
                     count = 23;
                     break;
                 case TacticalLines.PURSUIT:
