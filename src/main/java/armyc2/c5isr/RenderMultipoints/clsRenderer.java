@@ -1299,7 +1299,15 @@ public final class clsRenderer {
                 POINT2 ptB = new POINT2(points.get(1));
                 POINT2 ptC = new POINT2(points.get(2));
                 shapes.add(DISMSupport.getFDIShape(tg, ptA, ptB, ptC));
-            } else {
+            }
+            else if (lineType == TacticalLines.EXPLOIT) {
+                ArrayList<POINT2> points = shapes.get(1).getPoints();
+                POINT2 ptA = new POINT2(points.get(0));
+                POINT2 ptB = new POINT2(points.get(1));
+                POINT2 ptC = new POINT2(points.get(2));
+                shapes.add(DISMSupport.getFDIShape(tg, ptA, ptB, ptC));
+            }
+            else {
                 // Shape has no arrow. Put on top of shape
                 POINT2 firstPoint = shapes.get(0).getPoints().get(0);
                 POINT2 ptUl = new POINT2(firstPoint);
