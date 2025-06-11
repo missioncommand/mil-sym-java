@@ -705,6 +705,22 @@ public final class clsUtility {
                         }
                     }
                     break;
+                case TacticalLines.MOVEMENT_TO_CONTACT:
+                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_FILL) {
+                        shape.set_Fillstyle(tg.get_FillStyle());
+                        shape.setFillColor(tg.get_FillColor());
+                        // If there are 4 points and the first and last are the same this is
+                        // an arrow at the end of a jaggy line and should be filled with line color
+                        POINT2 firstPt = shape.getPoints().get(0);
+                        POINT2 lastPt = shape.getPoints().get(shape.getPoints().size() - 1);
+                        if (shape.getPoints().size() == 4 && firstPt.x == lastPt.x && firstPt.y == lastPt.y)
+                            shape.setFillColor(tg.get_LineColor());
+                    }
+                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {
+                        shape.setLineColor(tg.get_LineColor());
+                        shape.set_Style(lineStyle);
+                    }
+                    break;
                 default:
                     if (shape.getShapeType() == Shape2.SHAPE_TYPE_FILL) {
                         shape.set_Fillstyle(tg.get_FillStyle());
@@ -1029,6 +1045,7 @@ public final class clsUtility {
                     case TacticalLines.SPT:
                     case TacticalLines.FRONTAL_ATTACK:
                     case TacticalLines.TURNING_MOVEMENT:
+                    case TacticalLines.MOVEMENT_TO_CONTACT:
                     case TacticalLines.MAIN:
                     case TacticalLines.CATKBYFIRE:	//80
                         ArrayList<Shape2> tempShapes=new ArrayList();
@@ -1480,6 +1497,7 @@ public final class clsUtility {
                 case TacticalLines.SPT:
                 case TacticalLines.FRONTAL_ATTACK:
                 case TacticalLines.TURNING_MOVEMENT:
+                case TacticalLines.MOVEMENT_TO_CONTACT:
                 case TacticalLines.LC:
                 case TacticalLines.UNSP:
                 case TacticalLines.DFENCE:

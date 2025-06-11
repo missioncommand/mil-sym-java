@@ -644,6 +644,7 @@ public final class clsClipPolygon2 {
                 case TacticalLines.SPT:
                 case TacticalLines.FRONTAL_ATTACK:
                 case TacticalLines.TURNING_MOVEMENT:
+                case TacticalLines.MOVEMENT_TO_CONTACT:
                 case TacticalLines.MAIN:
                 case TacticalLines.AAAAA:
                 case TacticalLines.AIRAOA:
