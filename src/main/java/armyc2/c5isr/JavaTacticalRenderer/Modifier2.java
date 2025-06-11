@@ -573,6 +573,9 @@ public class Modifier2 {
                 case TacticalLines.TRIP:
                     label = "t";
                     break;
+                case TacticalLines.INFILTRATION:
+                    label = "IN";
+                    break;
                 case TacticalLines.FRONTAL_ATTACK:
                     label = "A";
                     break;
@@ -3575,6 +3578,7 @@ public class Modifier2 {
                 case TacticalLines.MFLANE:
                 case TacticalLines.ENVELOPMENT:
                 case TacticalLines.MOBILE_DEFENSE:
+                case TacticalLines.INFILTRATION:
                     break;
                 default:
                     return;
@@ -3996,6 +4000,9 @@ public class Modifier2 {
                     break;
                 case TacticalLines.MOBILE_DEFENSE:
                     AddIntegralModifier(tg, label, area, 0, 16, 16, true);
+                    break;
+                case TacticalLines.INFILTRATION:
+                    AddIntegralModifier(tg, label, aboveMiddle, 0, 0, 1, true);
                     break;
                 default:
                     break;
