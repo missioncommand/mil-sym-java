@@ -5009,7 +5009,7 @@ public final class arraysupport {
             }
         } catch (Exception exc) {
             ErrorLogger.LogException(_className, "GetLineArray2Double",
-                    new RendererException("GetLineArray2Dboule " + Integer.toString(tg.get_LineType()), exc));
+                    new RendererException("GetLineArray2Double " + Integer.toString(tg.get_LineType()), exc));
         }
         return points;
     }
