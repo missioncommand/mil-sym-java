@@ -747,7 +747,9 @@ public class MultiPointHandler {
 
                 //moving meta data properties to the last feature with no coords as feature collection doesn't allow properties
                 jsonOutput.replace(jsonOutput.toString().length()-1,jsonOutput.toString().length(),"" );
-                jsonOutput.append(",{\"type\": \"Feature\",\"geometry\": { \"type\": \"Polygon\",\"coordinates\": [ ]}");
+                if (jsonContent.length() > 2)
+                    jsonOutput.append(",");
+                jsonOutput.append("{\"type\": \"Feature\",\"geometry\": { \"type\": \"Polygon\",\"coordinates\": [ ]}");
 
                 jsonOutput.append(",\"properties\":{\"id\":\"");
                 jsonOutput.append(id);
@@ -1310,7 +1312,9 @@ public class MultiPointHandler {
 
                 //moving meta data properties to the last feature with no coords as feature collection doesn't allow properties
                 jsonOutput.replace(jsonOutput.toString().length()-1,jsonOutput.toString().length(),"" );
-                jsonOutput.append(",{\"type\": \"Feature\",\"geometry\": { \"type\": \"Polygon\",\"coordinates\": [ ]}");
+                if (jsonContent.length() > 2)
+                    jsonOutput.append(",");
+                jsonOutput.append("{\"type\": \"Feature\",\"geometry\": { \"type\": \"Polygon\",\"coordinates\": [ ]}");
 
                 jsonOutput.append(",\"properties\":{\"id\":\"");
                 jsonOutput.append(id);
@@ -2281,9 +2285,9 @@ public class MultiPointHandler {
             String shapesToAdd = ShapeToGeoJSONString(shapes.get(i), ipc, normalize);
             if (shapesToAdd.length() > 0) {
                 fc.append(shapesToAdd);
-            }
-            if (i < len - 1) {
-                fc.append(",");
+                if (i < len - 1) {
+                    fc.append(",");
+                }
             }
         }
 
@@ -2299,7 +2303,8 @@ public class MultiPointHandler {
                 modifiersToAdd = LabelToGeoJSONString(tempModifier, ipc, normalize, textColor, textBackgroundColor);
             }
             if (modifiersToAdd.length() > 0) {
-                fc.append(",");
+                if (fc.length() > 1)
+                    fc.append(",");
                 fc.append(modifiersToAdd);
             }
         }
@@ -3541,7 +3546,9 @@ public class MultiPointHandler {
 
                 //moving meta data properties to the last feature with no coords as feature collection doesn't allow properties
                 jsonOutput.replace(jsonOutput.toString().length()-1,jsonOutput.toString().length(),"" );
-                jsonOutput.append(",{\"type\": \"Feature\",\"geometry\": { \"type\": \"Polygon\",\"coordinates\": [ ]}");
+                if (jsonContent.length() > 2)
+                    jsonOutput.append(",");
+                jsonOutput.append("{\"type\": \"Feature\",\"geometry\": { \"type\": \"Polygon\",\"coordinates\": [ ]}");
 
                 jsonOutput.append(",\"properties\":{\"id\":\"");
                 jsonOutput.append(id);
