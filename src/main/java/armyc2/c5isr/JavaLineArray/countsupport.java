@@ -245,6 +245,7 @@ public final class countsupport
                     count = 44;
                     break;
                 case TacticalLines.DIRATKSPT:
+                case TacticalLines.INFILTRATION:
                     count = vblCounter + 3;
                     break;
                 case TacticalLines.ABATIS:

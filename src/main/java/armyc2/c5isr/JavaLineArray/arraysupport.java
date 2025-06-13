@@ -3423,10 +3423,13 @@ public final class arraysupport {
                     acCounter = 14;
                     break;
                 case TacticalLines.DIRATKSPT:
-                    //reverse the points
-                    lineutility.ReversePointsDouble2(
-                            pLinePoints,
-                            vblSaveCounter);
+                case TacticalLines.INFILTRATION:
+                    if (lineType == TacticalLines.DIRATKSPT) {
+                        //reverse the points
+                        lineutility.ReversePointsDouble2(
+                                pLinePoints,
+                                vblSaveCounter);
+                    }
                     if (dMBR / 20 > maxLength * DPIScaleFactor) {
                         dMBR = 20 * maxLength * DPIScaleFactor;
                     }
@@ -4726,6 +4729,7 @@ public final class arraysupport {
                     addPolyline(secondPoly, 9, shapes); // Arrow and bowtie
                     break;
                 case TacticalLines.DIRATKSPT:
+                case TacticalLines.INFILTRATION:
                     addPolyline(pLinePoints, acCounter - 3, shapes); // Main line
                     secondPoly = new POINT2[3];
                     for (int i = 0; i < 3; i++) {

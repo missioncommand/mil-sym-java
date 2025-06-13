@@ -832,6 +832,7 @@ public final class clsUtility {
 //                case TacticalLines.SAAFR:
                 case TacticalLines.DIRATKGND:
                 case TacticalLines.DIRATKSPT:
+                case TacticalLines.INFILTRATION:
                 case TacticalLines.FCL:
                 case TacticalLines.HOLD:
                 case TacticalLines.BRDGHD:
@@ -1130,7 +1131,7 @@ public final class clsUtility {
                     stroke = getLineStroke(lineThickness, 0, tg.get_lineCap(), BasicStroke.JOIN_ROUND);
                     arrowHeadShape.setStroke(stroke);
                 }
-            } else if (tg.get_LineType() == TacticalLines.DIRATKGND || tg.get_LineType() == TacticalLines.DIRATKSPT || tg.get_LineType() == TacticalLines.EXPLOIT) {
+            } else if (tg.get_LineType() == TacticalLines.DIRATKGND || tg.get_LineType() == TacticalLines.DIRATKSPT || tg.get_LineType() == TacticalLines.EXPLOIT || lineType == TacticalLines.INFILTRATION) {
                 // Make arrowhead shape solid even if tg.get_LineStyle() isn't
                 Shape2 arrowHeadShape = shapes.get(1);
                 arrowHeadShape.set_Style(0);
@@ -1894,6 +1895,7 @@ public final class clsUtility {
                 case TacticalLines.DIRATKAIR:
                 case TacticalLines.DIRATKGND:
                 case TacticalLines.DIRATKSPT:
+                case TacticalLines.INFILTRATION:
                     // Direction of attack symbols only have two points but can handle more
                     return false;
                 default:

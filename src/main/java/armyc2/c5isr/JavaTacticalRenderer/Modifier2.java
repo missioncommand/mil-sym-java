@@ -579,6 +579,9 @@ public class Modifier2 {
                 case TacticalLines.TURNING_MOVEMENT:
                     label = "T";
                     break;
+                case TacticalLines.INFILTRATION:
+                    label = "IN";
+                    break;
                 default:
                     break;
             }
@@ -2148,6 +2151,7 @@ public class Modifier2 {
                 case TacticalLines.AAAAA:
                 case TacticalLines.MAIN:
                 case TacticalLines.DIRATKSPT:
+                case TacticalLines.INFILTRATION:
                 case TacticalLines.DIRATKGND:
                 case TacticalLines.LAUNCH_AREA:
                 case TacticalLines.DEFENDED_AREA_CIRCULAR:
@@ -2444,6 +2448,9 @@ public class Modifier2 {
                     //midPt=lineutility.MidPointDouble(pt0, midPt, 0);
                     AddIntegralAreaModifier(tg, tg.get_Name(), aboveMiddle, 0, pt0, midPt, false);
                     addDTG(tg, aboveMiddle, csFactor, 2 * csFactor, pt0, pt1, metrics);
+                    break;
+                case TacticalLines.INFILTRATION:
+                    AddIntegralModifier(tg, label, aboveMiddle, 0, middleSegment, middleSegment + 1, true);
                     break;
                 case TacticalLines.SPT:
                 case TacticalLines.FRONTAL_ATTACK:

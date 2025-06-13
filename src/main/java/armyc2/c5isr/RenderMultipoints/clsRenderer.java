@@ -1293,7 +1293,7 @@ public final class clsRenderer {
                 POINT2 ptB = new POINT2(points.get(4));
                 POINT2 ptC = new POINT2(points.get(9));
                 shapes.add(DISMSupport.getFDIShape(tg, ptA, ptB, ptC));
-            } else if (lineType == TacticalLines.DIRATKSPT) {
+            } else if (lineType == TacticalLines.DIRATKSPT || lineType == TacticalLines.INFILTRATION) {
                 ArrayList<POINT2> points = shapes.get(1).getPoints();
                 POINT2 ptA = new POINT2(points.get(0));
                 POINT2 ptB = new POINT2(points.get(1));

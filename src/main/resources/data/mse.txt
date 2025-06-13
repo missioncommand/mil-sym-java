@@ -1218,7 +1218,7 @@
 		Exploit/Exploitation		343100	Line	Line30		
 		Demonstrate/Demonstration		343300	Area	Area18		
 		Envelopment		343500	Line	Line31		
-		Infiltration		343800	Line	Line32		
+		Infiltration		343800	Line	Line1		
 		Pursuit		344000	Line	Line33		
 		Forward Passage of Lines		344100	Line	Line24		
 		Rearward Passage of Lines		344200	Line	Line24		
