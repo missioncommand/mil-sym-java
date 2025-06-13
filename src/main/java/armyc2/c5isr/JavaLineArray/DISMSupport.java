@@ -386,7 +386,6 @@ public final class DISMSupport
     protected static int GetEnvelopmentGraphicDouble(POINT2[] points) {
         int counter=0;
         try {
-            POINT2[] savepoints = new POINT2[4];
             double iLength = 0;
             double iRadius = 0;
             double iDiagEOL_length = 0;
@@ -400,19 +399,18 @@ public final class DISMSupport
             POINT2[] deltapoints = new POINT2[4];
             int j = 0;
 
-            for (j = 0; j < 4; j++) {
-                savepoints[j] = new POINT2(points[j]);
-            }
-
             lineutility.InitializePOINT2Array(arcpoints);
             lineutility.InitializePOINT2Array(deltapoints);
 
-            points[0] = new POINT2(savepoints[0]);
+            boolean reverseArc = IsEnvelopmentArcReversed(points);
+
             points[0].style = 14;
             counter++;
-            points[1] = lineutility.ClosestPointOnLine(savepoints[0], savepoints[2], savepoints[1]);
             points[1].style = 5;
             counter++;
+
+            // Place pt3 on line pt1pt2
+            points[2] = lineutility.ClosestPointOnLine(points[0], lineutility.ExtendLine2Double(points[0], points[1], lineutility.CalcDistanceDouble(points[1], points[2]), 0), points[2]);
 
             iLength =  Math.sqrt((points[1].x - points[0].x) * (points[1].x - points[0].x) +
                     (points[1].y - points[0].y) * (points[1].y - points[0].y));
@@ -422,27 +420,26 @@ public final class DISMSupport
             dAngle1 = Math.atan2(points[2].y - points[1].y, points[2].x - points[1].x);
 
             double DPIScaleFactor = RendererSettings.getInstance().getDeviceDPI() / 96.0;
-            if ((double) iDiagEOL_length > maxLength * DPIScaleFactor) {
+            if (iDiagEOL_length > maxLength * DPIScaleFactor) {
                 iDiagEOL_length = maxLength * DPIScaleFactor;
             }
-            if ((double) iDiagEOL_length < minLength * DPIScaleFactor) {   //was minLength
+            if (iDiagEOL_length < minLength * DPIScaleFactor) {   //was minLength
                 iDiagEOL_length = minLength * DPIScaleFactor;
             }
 
             // draw the semicircle
-            ptArcCenter.x = (points[1].x + savepoints[2].x) / 2;
-            ptArcCenter.y = (points[1].y + savepoints[2].y) / 2;
-            boolean reverseArc = IsEnvelopmentArcReversed(savepoints);
+            ptArcCenter.x = (points[1].x + points[2].x) / 2;
+            ptArcCenter.y = (points[1].y + points[2].y) / 2;
             if (reverseArc) {
                 ArcApproximationDouble( (ptArcCenter.x - iRadius), (ptArcCenter.y - iRadius),
                         (ptArcCenter.x + iRadius), (ptArcCenter.y + iRadius),
-                        points[1].x, points[1].y, savepoints[2].x, savepoints[2].y, arcpoints);
+                        points[1].x, points[1].y, points[2].x, points[2].y, arcpoints);
                 dAngle1 += CONST_PI / 2;
             } else {
                 dAngle1 -= CONST_PI / 2;
                 ArcApproximationDouble((ptArcCenter.x - iRadius), (ptArcCenter.y - iRadius),
                         (ptArcCenter.x + iRadius), (ptArcCenter.y + iRadius),
-                        savepoints[2].x, savepoints[2].y, points[1].x, points[1].y, arcpoints);
+                        points[2].x, points[2].y, points[1].x, points[1].y, arcpoints);
             }
 
             // draw the arrow
@@ -450,7 +447,7 @@ public final class DISMSupport
             iDeltaY1 = (iDiagEOL_length * Math.sin(dAngle1 - CONST_PI / 4));
             iDeltaX2 = (iDiagEOL_length * Math.cos(dAngle1 + CONST_PI / 4));
             iDeltaY2 = (iDiagEOL_length * Math.sin(dAngle1 + CONST_PI / 4));
-            DrawEndpieceDeltasDouble(savepoints[2],
+            DrawEndpieceDeltasDouble(points[2],
                     iDeltaX1, iDeltaY1, iDeltaX2, iDeltaY2, deltapoints);
 
             for (j = 0; j < 4; j++) {
