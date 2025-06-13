@@ -57,7 +57,7 @@ public final class DISMSupport
         }
         return result;
     }
-    protected static void ArcApproximationDouble(double left, double top, double right, double bottom,
+    private static void ArcApproximationDouble(double left, double top, double right, double bottom,
             double startx, double starty, double endx, double endy, POINT2[] lpoints)
     {
 
