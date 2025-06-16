@@ -2180,8 +2180,13 @@ public final class Channels {
                     }
 
                     if (vbiDrawThis == TacticalLines.TURNING_MOVEMENT) {
-                        pt0 = tg.Pixels.get(tg.Pixels.size()-2);
-                        pt1 = tg.Pixels.get(tg.Pixels.size()-3);
+                        if (tg.Pixels.size() == 3) {
+                            pt0 = tg.Pixels.get(1);
+                            pt1 = lineutility.ClosestPointOnLine(tg.Pixels.get(0), tg.Pixels.get(1), tg.Pixels.get(2));
+                        } else { // tg.Pixels.size() > 3
+                            pt0 = tg.Pixels.get(tg.Pixels.size() - 2);
+                            pt1 = tg.Pixels.get(tg.Pixels.size() - 3);
+                        }
                         midPt1 = lineutility.MidPointDouble(pt0, pt1, 0);
                         pLinePoints[vblLowerCounter + vblUpperCounter + 8] = lineutility.ExtendDirectedLine(pt0, pt1, midPt1, lineutility.extend_above, vblChannelWidth / 2, 0);
                         pLinePoints[vblLowerCounter + vblUpperCounter + 9] = lineutility.ExtendDirectedLine(pt0, pt1, midPt1, lineutility.extend_below, vblChannelWidth / 2, 5);
