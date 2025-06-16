@@ -78,8 +78,10 @@ public final class CELineArray {
                     lResult = 2 * lElements + 8;
                     break;
                 case TacticalLines.FRONTAL_ATTACK:
+                    lResult = 2 * lElements + 15;
+                    break;
                 case TacticalLines.TURNING_MOVEMENT:
-                    lResult = 2 * lElements + 10;
+                    lResult = 2 * lElements + 14;
                     break;
                 case TacticalLines.MOVEMENT_TO_CONTACT:
                     lResult = 2 * lElements + 24;

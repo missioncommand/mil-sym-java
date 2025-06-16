@@ -573,12 +573,6 @@ public class Modifier2 {
                 case TacticalLines.TRIP:
                     label = "t";
                     break;
-                case TacticalLines.FRONTAL_ATTACK:
-                    label = "A";
-                    break;
-                case TacticalLines.TURNING_MOVEMENT:
-                    label = "T";
-                    break;
                 case TacticalLines.INFILTRATION:
                     label = "IN";
                     break;
@@ -2479,10 +2473,6 @@ public class Modifier2 {
                         AddIntegralAreaModifier(tg, tg.get_DTG1(), aboveMiddle, csFactor / 2, midPt, midPt, false);
                         midPt = lineutility.MidPointDouble(pt2, pt3, 0);
                         AddIntegralAreaModifier(tg, tg.get_Name(), aboveMiddle, -csFactor / 2, midPt, midPt, false);
-                    }
-                    if (linetype == TacticalLines.FRONTAL_ATTACK || linetype == TacticalLines.TURNING_MOVEMENT) {
-                        midPt=lineutility.ClosestPointOnLine(pt0, pt1, ptLast);
-                        AddIntegralAreaModifier(tg, label, aboveMiddle, 0.5 * csFactor, midPt, pt0, true);
                     }
                     break;
                 case TacticalLines.LL:
