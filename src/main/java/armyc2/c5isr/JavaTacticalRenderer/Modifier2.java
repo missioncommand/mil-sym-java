@@ -4347,21 +4347,6 @@ public class Modifier2 {
         }
     }
 
-    private static int switchDirection(int direction) {
-        int result = -1;
-        switch (direction) {
-            case 0:
-                return 1;
-            case 1:
-                return 0;
-            case 2:
-                return 3;
-            case 3:
-                return 2;
-        }
-        return result;
-    }
-
     /**
      * Displays the modifiers to a Graphics2D from a BufferedImage
      *
@@ -4466,7 +4451,7 @@ public class Modifier2 {
                         }
 
                         if (lineType == TacticalLines.LC || tg.get_Client().equalsIgnoreCase("ge")) {
-                            direction = switchDirection(direction);
+                            direction = lineutility.reverseDirection(direction);
                         }
 
                         if ((modifier.type == toEnd && x1 < x2) || (modifier.type == aboveEnd && x2 < x1)) {

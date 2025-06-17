@@ -1154,22 +1154,7 @@ public final class lineutility {
             ref<double[]> X = new ref(), Y = new ref();
             ptResult = new POINT2(pt0);
             if (d < 0) {
-                switch (direction) {
-                    case 0:
-                        direction = extend_right;
-                        break;
-                    case 1:
-                        direction = extend_left;
-                        break;
-                    case 2:
-                        direction = extend_below;
-                        break;
-                    case 3:
-                        direction = extend_above;
-                        break;
-                    default:
-                        break;
-                }
+                direction = reverseDirection(direction);
                 d = Math.abs(d);
             }
             if (pt1.y == pt2.y)//horizontal segment
@@ -4160,22 +4145,7 @@ public final class lineutility {
             direction = arraysupport.GetInsideOutsideDouble2(pt0, pt1, pts, vblCounter, index, lineType);
             //reverse the direction if these are interior points
             if (interior == true) {
-                switch (direction) {
-                    case 0:
-                        direction = 1;
-                        break;
-                    case 1:
-                        direction = 0;
-                        break;
-                    case 2:
-                        direction = 3;
-                        break;
-                    case 3:
-                        direction = 2;
-                        break;
-                    default:
-                        break;
-                }
+                direction = reverseDirection(direction);
             }
             //pt00-pt01 will be the interior line inside line pt0-pt1
             //pt00 is inside pt0, pt01 is inside pt1
@@ -4191,22 +4161,7 @@ public final class lineutility {
             direction = arraysupport.GetInsideOutsideDouble2(pt1, pt2, (POINT2[]) pts, vblCounter, index, lineType);
             //reverse the direction if these are interior points
             if (interior == true) {
-                switch (direction) {
-                    case 0:
-                        direction = 1;
-                        break;
-                    case 1:
-                        direction = 0;
-                        break;
-                    case 2:
-                        direction = 3;
-                        break;
-                    case 3:
-                        direction = 2;
-                        break;
-                    default:
-                        break;
-                }
+                direction = reverseDirection(direction);
             }
             pt10 = lineutility.ExtendDirectedLine(pt1, pt2, pt1, direction, dist);
             pt11 = lineutility.ExtendDirectedLine(pt1, pt2, pt2, direction, dist);

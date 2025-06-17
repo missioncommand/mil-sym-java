@@ -303,10 +303,6 @@ public final class arraysupport {
             int j = 0, bolVertical = 0;
             int bolVertical2 = 0;
             int nOrientation = 0; //will use 0 for horiz line from left, 1 for vertical line from top
-            int extendLeft = 0;
-            int extendRight = 1;
-            int extendAbove = 2;
-            int extendBelow = 3;
 
             POINT2 pt2 = new POINT2();
             //end declarations. will use this to determine the direction
@@ -407,36 +403,24 @@ public final class arraysupport {
             switch (nInOutCounter % 2) {
                 case 0:
                     if (nOrientation == 0) {
-                        nDirection = extendLeft;
+                        nDirection = lineutility.extend_left;
                     } else {
-                        nDirection = extendAbove;
+                        nDirection = lineutility.extend_above;
                     }
                     break;
                 case 1:
                     if (nOrientation == 0) {
-                        nDirection = extendRight;
+                        nDirection = lineutility.extend_right;
                     } else {
-                        nDirection = extendBelow;
+                        nDirection = lineutility.extend_below;
                     }
                     break;
                 default:
                     break;
             }
             //reverse direction for ICING
-            switch (lineType) {
-                case TacticalLines.ICING:
-                    if (nDirection == extendLeft) {
-                        nDirection = extendRight;
-                    } else if (nDirection == extendRight) {
-                        nDirection = extendLeft;
-                    } else if (nDirection == extendAbove) {
-                        nDirection = extendBelow;
-                    } else if (nDirection == extendBelow) {
-                        nDirection = extendAbove;
-                    }
-                    break;
-                default:
-                    break;
+            if (lineType == TacticalLines.ICING) {
+                nDirection = lineutility.reverseDirection(nDirection);
             }
         } catch (Exception exc) {
             ErrorLogger.LogException(_className, "GetInsideOutsideDouble2",
@@ -485,22 +469,7 @@ public final class arraysupport {
                 switch (lineType) {
                     case TacticalLines.OBSAREA:
                     case TacticalLines.OBSFAREA:
-                        switch (nDirection) {
-                            case 0:	//extend left
-                                nDirection = 1;	//extend right
-                                break;
-                            case 1:	//extend right
-                                nDirection = 0;	//extend left
-                                break;
-                            case 2:	//extend above
-                                nDirection = 3;	//extend below
-                                break;
-                            case 3:	//extgend below
-                                nDirection = 2;	//extend above
-                                break;
-                            default:
-                                break;
-                        }
+                        nDirection = lineutility.reverseDirection(nDirection);
                         break;
                     default:
                         break;
