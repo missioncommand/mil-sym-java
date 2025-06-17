@@ -360,13 +360,13 @@ public final class DISMSupport
             }
 
             POINT2[] ptsSeize = new POINT2[2];
-            ptsSeize[0] = new POINT2(pPoints[0]);
+            ptsSeize[0] = new POINT2(pPoints[1]);
             ptsSeize[1] = new POINT2(pPoints[2]);
             lineutility.CalcClockwiseCenterDouble(ptsSeize);
             double d = lineutility.CalcDistanceDouble(ptsSeize[0], pPoints[3]);
 
             ptsSeize[0] = new POINT2(pPoints[2]);
-            ptsSeize[1] = new POINT2(pPoints[0]);
+            ptsSeize[1] = new POINT2(pPoints[1]);
             lineutility.CalcClockwiseCenterDouble(ptsSeize);
             double dArcReversed = lineutility.CalcDistanceDouble(ptsSeize[0], pPoints[3]);
 
@@ -431,15 +431,15 @@ public final class DISMSupport
             ptArcCenter.x = (points[1].x + points[2].x) / 2;
             ptArcCenter.y = (points[1].y + points[2].y) / 2;
             if (reverseArc) {
-                ArcApproximationDouble( (ptArcCenter.x - iRadius), (ptArcCenter.y - iRadius),
+                ArcApproximationDouble((ptArcCenter.x - iRadius), (ptArcCenter.y - iRadius),
                         (ptArcCenter.x + iRadius), (ptArcCenter.y + iRadius),
                         points[1].x, points[1].y, points[2].x, points[2].y, arcpoints);
                 dAngle1 += CONST_PI / 2;
             } else {
-                dAngle1 -= CONST_PI / 2;
                 ArcApproximationDouble((ptArcCenter.x - iRadius), (ptArcCenter.y - iRadius),
                         (ptArcCenter.x + iRadius), (ptArcCenter.y + iRadius),
                         points[2].x, points[2].y, points[1].x, points[1].y, arcpoints);
+                dAngle1 -= CONST_PI / 2;
             }
 
             // draw the arrow
