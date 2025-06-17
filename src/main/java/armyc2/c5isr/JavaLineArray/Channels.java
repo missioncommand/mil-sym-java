@@ -2193,17 +2193,24 @@ public final class Channels {
                     }
 
                     if (vbiDrawThis == TacticalLines.MOVEMENT_TO_CONTACT) {
-                        midPt1 = lineutility.MidPointDouble(pLinePoints[vblLowerCounter + vblUpperCounter + 1], pLinePoints[vblLowerCounter + vblUpperCounter + 6], 0);
-                        midPt1 = lineutility.ExtendDirectedLine(pLinePoints[vblLowerCounter + vblUpperCounter + 1], pLinePoints[vblLowerCounter + vblUpperCounter + 6], midPt1, lineutility.extend_above, vblChannelWidth / 8.0);
-                        midPt2 = lineutility.MidPointDouble(pLinePoints[vblLowerCounter + vblUpperCounter + 5], pLinePoints[vblLowerCounter + vblUpperCounter + 6], 0);
-                        midPt2 = lineutility.ExtendDirectedLine(pLinePoints[vblLowerCounter + vblUpperCounter + 5], pLinePoints[vblLowerCounter + vblUpperCounter + 6], midPt2, lineutility.extend_below, vblChannelWidth / 8.0);
+                        pt0 = new POINT2(pLinePoints[vblLowerCounter + vblUpperCounter + 1]); // arrow head left
+                        ptCenter = new POINT2(pLinePoints[vblLowerCounter + vblUpperCounter + 6]); // arrow head tip
+                        pt1 = new POINT2(pLinePoints[vblLowerCounter + vblUpperCounter + 5]); // arrow right
+
+                        int direction1 = lineutility.reverseDirection(lineutility.CalcDirectionFromLine(pt0, ptCenter, pt1));
+                        int direction2 = lineutility.reverseDirection(lineutility.CalcDirectionFromLine(pt1, ptCenter, pt0));
+
+                        midPt1 = lineutility.MidPointDouble(pt0, ptCenter, 0);
+                        midPt1 = lineutility.ExtendDirectedLine(pt0, ptCenter, midPt1, direction1, vblChannelWidth / 8.0);
+                        midPt2 = lineutility.MidPointDouble(pt1, ptCenter, 0);
+                        midPt2 = lineutility.ExtendDirectedLine(pt1, ptCenter, midPt2, direction2, vblChannelWidth / 8.0);
 
                         POINT2[] DISMPts = new POINT2[16];
                         lineutility.InitializePOINT2Array(DISMPts);
-                        DISMPts[0] = lineutility.ExtendDirectedLine(pLinePoints[vblLowerCounter + vblUpperCounter + 1], pLinePoints[vblLowerCounter + vblUpperCounter + 6], midPt1, lineutility.extend_above, vblChannelWidth);
+                        DISMPts[0] = lineutility.ExtendDirectedLine(pt0, ptCenter, midPt1, direction1, vblChannelWidth);
                         DISMPts[1] = midPt1;
                         DISMPts[2] = midPt2;
-                        DISMPts[3] = lineutility.ExtendDirectedLine(pLinePoints[vblLowerCounter + vblUpperCounter + 5], pLinePoints[vblLowerCounter + vblUpperCounter + 6], midPt2, lineutility.extend_below, vblChannelWidth);
+                        DISMPts[3] = lineutility.ExtendDirectedLine(pt1, ptCenter, midPt2, direction2, vblChannelWidth);
 
                         lHowManyThisSegment = DISMSupport.GetDISMCoverDoubleRevC(DISMPts, vbiDrawThis, 4);
                         for (int i = 0; i < lHowManyThisSegment; i++) {
