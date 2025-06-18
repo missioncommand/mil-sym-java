@@ -437,7 +437,10 @@ public class Modifier2 {
                 case TacticalLines.ATI:
                 case TacticalLines.ATI_CIRCULAR:
                 case TacticalLines.ATI_RECTANGULAR:
-                    label = "ATI ZONE";
+                    if (SymbolID.getVersion(tg.get_SymbolId()) >= SymbolID.Version_2525Ech1)
+                        label = "ATIZ";
+                    else
+                        label = "ATI ZONE";
                     break;
                 case TacticalLines.PAA:
                 case TacticalLines.PAA_CIRCULAR:
