@@ -41,6 +41,7 @@ public final class TacticalLines {
     public static final int WEZ = 25171300;
     public static final int FEZ = 25171400;
     public static final int JEZ = 25171500;
+    public static final int WFZ_REVD = 2517200;
     public static final int WFZ = 22235000;
     public static final int EZ = 22136000;
     public static final int AIRFIELD = 221311000;

@@ -91,6 +91,7 @@ public final class clsUtility {
                     hatchColor = Color.yellow;
                     hatchLineThickness = 3 + (tg.get_LineThickness() - 3) * (float) tg.get_patternScale();
                     break;
+                case TacticalLines.WFZ_REVD:
                 case TacticalLines.WFZ:
                     hatchStyle=Hatch_BackwardDiagonal;
                     if (tg.get_LineColor() == Color.BLACK)

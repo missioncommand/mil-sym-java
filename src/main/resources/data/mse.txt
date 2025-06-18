@@ -757,7 +757,7 @@
 		Low Altitude Missile Engagement Zone		171700	Area	Area1	T,X,W,W1	2 X values
 		High Altitude Missile Engagement Zone		171800	Area	Area1	T,X,W,W1	2 X values
 		Short Range Air Defense Engagement Zone		171900	Area	Area1	T,X,W,W1	2 X values
-		Weapons Free Zone		172000	Area	Area1	T,W,W1	
+		Weapons Free Zone		172000	Area	Area1	T,X,W,W1	
 	Airspace Control Points			180000		
 		Air Control Point		180100	Point	Point2	T	
 		Communications Checkpoint		180200	Point	Point2	T	

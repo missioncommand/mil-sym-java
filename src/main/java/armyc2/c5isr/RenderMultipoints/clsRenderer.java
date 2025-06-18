@@ -710,6 +710,7 @@ public final class clsRenderer {
                 case TacticalLines.ACA:
                 case TacticalLines.ACA_RECTANGULAR:
                 case TacticalLines.ACA_CIRCULAR:
+                case TacticalLines.WFZ:
                     ArrayList<Double> X = milStd.getModifiers_AM_AN_X(Modifiers.X_ALTITUDE_DEPTH);
                     if (X != null && X.size() > 0) {
                         strXAlt = createAltitudeLabel(X.get(0), altitudeUnit, altitudeLabel);
@@ -2043,6 +2044,9 @@ public final class clsRenderer {
                     return TacticalLines.DISENGAGE;
                 case 344500:
                     return TacticalLines.EVACUATE;
+                // Updated in 2525Ech1
+                case 172000:
+                    return TacticalLines.WFZ;
                 // Removed in 2525Ech1
                 case 240804:
                     return -1;
@@ -2053,7 +2057,8 @@ public final class clsRenderer {
                     return TacticalLines.TURN;
             }
         }
-        if (version >= SymbolID.Version_2525E) {            switch (entityCode) {
+        if (version >= SymbolID.Version_2525E) {
+            switch (entityCode) {
                 // Added in 2525E
                 case 110400:
                     return TacticalLines.GENERIC_LINE;
@@ -2086,6 +2091,9 @@ public final class clsRenderer {
                     return TacticalLines.BCL;
                 case 310100:
                     return TacticalLines.DHA;
+                // Updated in 2525Ech1
+                case 172000:
+                    return TacticalLines.WFZ_REVD;
             }
         } else { // 2525Dchange 1 and older
             switch (entityCode) {
@@ -2109,6 +2117,9 @@ public final class clsRenderer {
                     return TacticalLines.SENSOR_RECTANGULAR;
                 case 241603:
                     return TacticalLines.SENSOR_CIRCULAR;
+                // Updated in 2525Ech1
+                case 172000:
+                    return TacticalLines.WFZ_REVD;
             }
         }
         // Line type isn't specific to a version or doesn't exist
@@ -2265,8 +2276,6 @@ public final class clsRenderer {
                 return TacticalLines.HIMEZ;
             case 171900:
                 return TacticalLines.FAADZ;
-            case 172000:
-                return TacticalLines.WFZ;
             case 200401:
                 return TacticalLines.SHIP_AOI_CIRCULAR;
             case 240804:

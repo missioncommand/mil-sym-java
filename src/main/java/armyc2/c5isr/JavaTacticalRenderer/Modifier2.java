@@ -320,6 +320,7 @@ public class Modifier2 {
                 case TacticalLines.HIMEZ:
                     label = "HIMEZ";
                     break;
+                case TacticalLines.WFZ_REVD:
                 case TacticalLines.WFZ:
                     label = "WFZ";
                     break;
@@ -2032,6 +2033,7 @@ public class Modifier2 {
                 case TacticalLines.GENERIC_AREA:
                 case TacticalLines.ATKPOS:
                 case TacticalLines.ASSAULT:
+                case TacticalLines.WFZ_REVD:
                 case TacticalLines.WFZ:
                 case TacticalLines.OBSFAREA:
                 case TacticalLines.OBSAREA:
@@ -3054,11 +3056,19 @@ public class Modifier2 {
                     addModifierBottomSegment(tg, tg.get_EchelonSymbol());
                     addNModifier(tg);
                     break;
-                case TacticalLines.WFZ:
+                case TacticalLines.WFZ_REVD:
                     AddIntegralAreaModifier(tg, label, area, -1.5 * csFactor, ptCenter, ptCenter, true);
                     AddIntegralAreaModifier(tg, tg.get_Name(), area, -0.5 * csFactor, ptCenter, ptCenter, true);
                     AddIntegralAreaModifier(tg, "TIME FROM: " + tg.get_DTG(), area, 0.5 * csFactor, ptCenter, ptCenter, true, "W");
                     AddIntegralAreaModifier(tg, "TIME TO: " + tg.get_DTG1(), area, 1.5 * csFactor, ptCenter, ptCenter, true, "W1");
+                    break;
+                case TacticalLines.WFZ:
+                    AddIntegralAreaModifier(tg, label, area, -2.5 * csFactor, ptCenter, ptCenter, true);
+                    AddIntegralAreaModifier(tg, tg.get_Name(), area, -1.5 * csFactor, ptCenter, ptCenter, true);
+                    AddIntegralAreaModifier(tg, "TIME FROM: " + tg.get_DTG(), area, -0.5 * csFactor, ptCenter, ptCenter, true, "W");
+                    AddIntegralAreaModifier(tg, "TIME TO: " + tg.get_DTG1(), area, 0.5 * csFactor, ptCenter, ptCenter, true, "W1");
+                    AddIntegralAreaModifier(tg, "MIN ALT: " + tg.get_X(), area, 1.5 * csFactor, ptCenter, ptCenter, false, "H");
+                    AddIntegralAreaModifier(tg, "MAX ALT: " + tg.get_X1(), area, 2.5, ptCenter, ptCenter, false, "H1");
                     break;
                 case TacticalLines.OBSFAREA:
                     AddIntegralAreaModifier(tg, label, area, -1.5 * csFactor, ptCenter, ptCenter, false);
