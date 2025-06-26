@@ -1029,6 +1029,7 @@
 			Block	270501	Area	Area11		
 			Disrupt	270502	Area	Area12		
 			Fix	270503	Line	Line9		
+			Turn	270504	Line	Line10		
 		Obstacle Bypass		270600				
 			Easy	270601	Line	Point12		
 			Difficult	270602	Line	Point12		

@@ -311,6 +311,7 @@ public final class countsupport
                 case TacticalLines.RETAIN:
                     count = 75;
                     break;
+                case TacticalLines.TURN_REVD:
                 case TacticalLines.TURN:
                     count = 29;
                     break;

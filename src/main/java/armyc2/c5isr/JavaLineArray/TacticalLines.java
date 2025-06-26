@@ -84,6 +84,7 @@ public final class TacticalLines {
     public static final int ATKBYFIRE = 22533000;
     public static final int SPTBYFIRE = 22534000;
     public static final int CLUSTER = 23157000;
+    public static final int TURN_REVD = 25270504;
     public static final int TURN = 23173000;
     public static final int PLANNED = 23191000;
     public static final int ESR1 = 23192000;

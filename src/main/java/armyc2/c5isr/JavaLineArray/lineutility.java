@@ -2342,6 +2342,7 @@ public final class lineutility {
                     startangle = M;
                     endangle = startangle + 330 * Math.PI / 180;
                     break;
+                case TacticalLines.TURN_REVD:
                 case TacticalLines.TURN:
                     startangle = M;
                     endangle = startangle + 90 * Math.PI / 180;
@@ -2379,6 +2380,7 @@ public final class lineutility {
                         //else
                         //	endangle=startangle+330*pi/180;
                         break;
+                    case TacticalLines.TURN_REVD:
                     case TacticalLines.TURN:
                         startangle = M - Math.PI;
                         endangle = startangle + 90 * Math.PI / 180;

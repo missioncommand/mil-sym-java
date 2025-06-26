@@ -326,6 +326,7 @@ public final class clsUtilityGE {
                 case TacticalLines.RADAR_SEARCH:
                 case TacticalLines.RANGE_FAN:
                 case TacticalLines.MNFLDFIX:
+                case TacticalLines.TURN_REVD:
                 case TacticalLines.TURN:
                 case TacticalLines.MNFLDDIS:
                 //case TacticalLines.OVERHEAD_WIRE:
