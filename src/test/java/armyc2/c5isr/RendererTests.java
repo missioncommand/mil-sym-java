@@ -8,10 +8,9 @@ import armyc2.c5isr.web.render.WebRenderer;
 import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.*;
 import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -112,6 +111,63 @@ public class RendererTests {
         final String defaultID = "100301000011000011110000000000";
         for (int i = 100000; i <= 500000; i++) {
             testCode(SymbolID.setEntityCode(defaultID, i));
+        }
+    }
+
+    // Verifies valid output without errors for all multipoint symbols using both expected control points and duplicated control points
+    @Test
+    public void testMPSymbols() {
+        HashSet<String> allBasicIDs = new HashSet<>();
+        allBasicIDs.addAll(MSLookup.getInstance().getIDList(SymbolID.Version_2525Dch1));
+        allBasicIDs.addAll(MSLookup.getInstance().getIDList(SymbolID.Version_2525Ech1));
+        HashMap<String, String> modifiers = new HashMap<>();
+        modifiers.put(Modifiers.AM_DISTANCE, "1,10");
+        modifiers.put(Modifiers.AN_AZIMUTH, "0,90");
+        HashMap<String, String> attributes = new HashMap<>();
+        final String validControlPtsStr = "50,20 50,21 50,22 49,22 49,21 49,20";
+        final String duplicateControlPtsStr = "50,20 50,20 50,20 50,20 50,20 50,20";
+        final String bbox = "49,20,50,22";
+        for (String basicID : allBasicIDs) {
+            for (int version : new int[]{SymbolID.Version_2525Dch1, SymbolID.Version_2525Ech1}) {
+                final String symbolCode = "" + version + SymbolID.StandardIdentity_Context_Reality +
+                        SymbolID.StandardIdentity_Affiliation_Friend + basicID.substring(0, 2) +
+                        SymbolID.Status_Present + SymbolID.HQTFD_Unknown + SymbolID.Echelon_Team_Crew +
+                        basicID.substring(2) + "0000000000";
+
+                if (SymbolUtilities.isMultiPoint(symbolCode)) {
+                    for (String controlPtsStr : new String[]{validControlPtsStr, duplicateControlPtsStr}) {
+                        ByteArrayOutputStream ErrOutputStream = new ByteArrayOutputStream();
+                        System.setErr(new PrintStream(ErrOutputStream));
+                        MilStdSymbol mss = WebRenderer.RenderMultiPointAsMilStdSymbol("", "", "", symbolCode, controlPtsStr, "", 100, bbox, modifiers, attributes);
+                        assertNotNull(mss);
+                        assertEquals(ErrOutputStream.toString(), ""); // Assert no errors thrown
+
+                        for (ShapeInfo shape : mss.getSymbolShapes()) {
+                            for (ArrayList<Point2D> polyline : shape.getPolylines()) {
+                                for (Point2D pt : polyline) {
+                                    assertNotNull(pt);
+                                    assertFalse(pt.getX() == 0 && pt.getY() == 0);
+                                }
+                            }
+                        }
+                        for (ShapeInfo shape : mss.getModifierShapes()) {
+                            Point2D pt = shape.getModifierPosition();
+                            assertNotNull(pt);
+                            assertFalse(pt.getX() == 0 && pt.getY() == 0);
+                            pt = shape.getGlyphPosition();
+                            assertNotNull(pt);
+                            assertFalse(pt.getX() == 0 && pt.getY() == 0);
+                        }
+
+                        String kml = WebRenderer.RenderSymbol("", "", "", symbolCode, controlPtsStr, "", 100, bbox, modifiers, attributes, WebRenderer.OUTPUT_FORMAT_KML);
+                        assertTrue(kml.startsWith("<Folder id=\"\"><name><![CDATA[]]>"));
+                        String geojson = WebRenderer.RenderSymbol("", "", "", symbolCode, controlPtsStr, "", 100, bbox, modifiers, attributes, WebRenderer.OUTPUT_FORMAT_GEOJSON);
+                        assertTrue(geojson.startsWith("{\"type\":\"FeatureCollection\",\"features\":"));
+                        String svg = WebRenderer.RenderSymbol("", "", "", symbolCode, controlPtsStr, "", 100, bbox, modifiers, attributes, WebRenderer.OUTPUT_FORMAT_GEOSVG);
+                        assertTrue(svg.startsWith("<svg width="));
+                    }
+                }
+            }
         }
     }
 }
