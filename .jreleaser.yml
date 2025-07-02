@@ -1,0 +1,54 @@
+# Configures environment sources.
+#
+environment:
+
+  # Location of a properties file with key/value pairs
+  # Each key must be prefixed with `JRELEASER_` and match
+  # the environment variable it overrides.
+  #
+  variables: C:\TCE\Code\jreleaser\config.yml
+
+project:
+  name: mil-sym-java
+  version: "2.1.9"
+  description: MilStd 2525D+ renderer
+  license: Apache-2.0
+  authors:
+    - C5ISR ESI
+  links:
+    homepage: https://github.com/missioncommand/mil-sym-java
+
+signing:
+  active: RELEASE
+  mode: MEMORY
+  armored: true
+  verify: true
+  artifacts: true
+  checksums: true
+  files: false
+  #publicKey: JRELEASER_GPG_PUBLIC_KEY in config.yml
+  #secretKey: JRELEASER_GPG_SECRET_KEY in config.yml
+  #passphrase: JRELEASER_GPG_PASSPHRASE in config.yml
+
+release:
+  github:
+    enabled: true
+
+deploy:
+  maven:
+    mavenCentral:
+      sonatype:
+        url: https://central.sonatype.com/api/v1/publisher
+        active: NEVER
+        applyMavenCentralRules: true
+        stagingRepositories:
+          - target/staging-deploy
+#      credentials:
+#        username: JRELEASER_MAVENCENTRAL_USERNAME in config.yml
+#        password: JRELEASER_MAVENCENTRAL_TOKEN in config.yml
+
+files:
+  artifacts:
+    - path: "build/libs/mil-sym-java-{{projectVersion}}.jar"
+    - path: "build/libs/mil-sym-java-{{projectVersion}}-sources.jar"
+    - path: "build/libs/mil-sym-java-{{projectVersion}}-javadoc.jar"

@@ -203,6 +203,37 @@ public class RendererUtilities {
         }
     }
 
+
+    public static int getRecommendedTextOutlineWidth()
+    {
+        return getRecommendedTextOutlineWidth(RendererSettings.getInstance().getDeviceDPI(),RendererSettings.getInstance().getTextBackgroundMethod());
+    }
+
+    public static int getRecommendedTextOutlineWidth(int textBackgroundMethod)
+    {
+        return getRecommendedTextOutlineWidth(RendererSettings.getInstance().getDeviceDPI(),textBackgroundMethod);
+    }
+
+    /**
+     *
+     * @param dpi
+     * @param textBackgroundMethod like RendererSettings.TextBackgroundMethod_OUTLINE or -1 for SVG
+     * @return
+     */
+    public static int getRecommendedTextOutlineWidth(int dpi, int textBackgroundMethod)
+    {
+        int outlineWidth = 0;
+
+        if(textBackgroundMethod == RendererSettings.TextBackgroundMethod_OUTLINE)
+            outlineWidth = (int)Math.floor(Math.max((dpi/24.0),4));
+        else if(textBackgroundMethod == RendererSettings.TextBackgroundMethod_OUTLINE_QUICK)
+            outlineWidth = (int)Math.floor(Math.max(((dpi/48.0) - 1),1));
+        else if(textBackgroundMethod == -1)//SVG
+            outlineWidth = (int)Math.floor(Math.max((dpi/48.0),2));
+
+        return outlineWidth;
+    }
+
     /**
      * For Renderer Use Only
      * Assumes a fresh SVG String from the SVGLookup with its default values

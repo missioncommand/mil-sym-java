@@ -60,6 +60,8 @@ public class RendererSettings {
     //if TextBackgroundMethod_OUTLINE is set, This value determines the width of that outline.
     private static int _TextOutlineWidth = 1;
 
+    private static int _SVGTextOutlineWidth = 2;
+
     //label foreground color, uses line color of symbol if null.
     private static Color _ColorLabelForeground = null; //Color.BLACK;
     //label background color, used if TextBackGroundMethod = TextBackgroundMethod_COLORFILL && not null
@@ -254,10 +256,7 @@ public class RendererSettings {
     synchronized public void setTextBackgroundMethod(int textBackgroundMethod)
     {
         _TextBackgroundMethod = textBackgroundMethod;
-        if(_TextBackgroundMethod == TextBackgroundMethod_OUTLINE)
-            _TextOutlineWidth = 4;
-        else if(_TextBackgroundMethod == TextBackgroundMethod_OUTLINE_QUICK)
-            _TextOutlineWidth = 1;
+        _TextOutlineWidth = RendererUtilities.getRecommendedTextOutlineWidth();
     }
 
     /**
@@ -342,6 +341,8 @@ public class RendererSettings {
     public void setDeviceDPI(int value)
     {
         _DPI = value;
+        _TextOutlineWidth = RendererUtilities.getRecommendedTextOutlineWidth();
+        _SVGTextOutlineWidth = RendererUtilities.getRecommendedTextOutlineWidth(-1);
     }
     public int getDeviceDPI()
     {
@@ -386,19 +387,38 @@ public class RendererSettings {
      * @param width
      * @deprecated - controlled within the renderer
      */
-    /*synchronized public void setTextOutlineWidth(int width)
+    synchronized public void setTextOutlineWidth(int width)
     {
         _TextOutlineWidth = width;
-    }*/
+    }//*/
 
     /**
-     * if RenderSettings.TextBackgroundMethod_OUTLINE is used,
-     * the outline will be this many pixels wide.
+     * Override for text outline width that normally gets set when setting the DPI or the textBackgroundMethod
      * @return
      */
     synchronized public int getTextOutlineWidth()
     {
         return _TextOutlineWidth;
+    }
+
+    /**
+     * Override for SVG text outline width that normally gets set when setting the DPI or the textBackgroundMethod
+     *
+     * @param width
+     * @deprecated - controlled within the renderer
+     */
+    synchronized public void setSVGTextOutlineWidth(int width)
+    {
+        _SVGTextOutlineWidth = width;
+    }//*/
+
+    /**
+     * Text outline width for single point SVG labels
+     * @return
+     */
+    synchronized public int getSVGTextOutlineWidth()
+    {
+        return _SVGTextOutlineWidth;
     }
 
     /**

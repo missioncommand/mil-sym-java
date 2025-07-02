@@ -10275,7 +10275,7 @@ public class ModifierRenderer implements SettingsEventListener
                 svgStroke = RendererUtilities.colorToHexString(backgroundColor,false);
 
         String svgFill = RendererUtilities.colorToHexString(color,false);
-        String svgStrokeWidth = "2";//String.valueOf(RendererSettings.getInstance().getTextOutlineWidth());
+        String svgStrokeWidth = String.valueOf(RendererSettings.getInstance().getSVGTextOutlineWidth());
         for (TextInfo ti : tiArray) {
             sbSVG.append(Shape2SVG.Convert(ti, svgStroke,svgFill,svgStrokeWidth,null,null,null));
             sbSVG.append("\n");
@@ -10300,7 +10300,7 @@ public class ModifierRenderer implements SettingsEventListener
             svgStroke = RendererUtilities.colorToHexString(backgroundColor,false);
 
         String svgFill = RendererUtilities.colorToHexString(color,false);
-        String svgStrokeWidth = "2";//String.valueOf(RendererSettings.getInstance().getTextOutlineWidth());
+        String svgStrokeWidth = String.valueOf(RendererSettings.getInstance().getSVGTextOutlineWidth());
         sbSVG.append("\n<g");
         sbSVG.append(" font-family=\"" + name + '"');
         sbSVG.append(" font-size=\"" + size + "px\"");
@@ -10340,10 +10340,9 @@ public class ModifierRenderer implements SettingsEventListener
 
         int tbm = RendererSettings.getInstance().getTextBackgroundMethod();
         int outlineWidth = RendererSettings.getInstance().getTextOutlineWidth();
-        
-        if(outlineWidth > 2)
-            outlineWidth = 2;
-        
+
+        //outlineWidth = RendererUtilities.getRecommendedTextOutlineWidth();
+
 
         if (color == null)
         {
@@ -10464,10 +10463,11 @@ public class ModifierRenderer implements SettingsEventListener
                 at.translate(textInfo.getLocation().getX(),textInfo.getLocation().getY());
                 Shape shape = tl.getOutline(null);
 
+                at.translate(-0.5,0);//minor offset because outline seems to lean down and right
                 g2d.setTransform(at);
                 g2d.setColor(outlineColor);
                 //g2d.setStroke(new BasicStroke(4,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-                g2d.setStroke(new BasicStroke(4,BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,3));
+                g2d.setStroke(new BasicStroke(outlineWidth,BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,3));
 
                 g2d.draw(shape);
                 g2d.setTransform(new AffineTransform());
