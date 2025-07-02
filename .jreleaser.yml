@@ -19,7 +19,7 @@ project:
     homepage: https://github.com/missioncommand/mil-sym-java
 
 signing:
-  active: RELEASE
+  active: ALWAYS
   mode: MEMORY
   armored: true
   verify: true
@@ -39,10 +39,11 @@ deploy:
     mavenCentral:
       sonatype:
         url: https://central.sonatype.com/api/v1/publisher
-        active: NEVER
+        active: ALWAYS
         applyMavenCentralRules: true
+        verifyPom: false
         stagingRepositories:
-          - target/staging-deploy
+          - build/staging-deploy
 #      credentials:
 #        username: JRELEASER_MAVENCENTRAL_USERNAME in config.yml
 #        password: JRELEASER_MAVENCENTRAL_TOKEN in config.yml

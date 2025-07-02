@@ -1,8 +1,13 @@
 plugins {
     id 'java'
-    //id 'maven-publish' // Required for POM generation
-    //id 'signing'
+    id 'maven-publish' // Required for POM generation
+    //id("org.kordamp.gradle.pomchecker") version "1.11.0"
     id 'org.jreleaser' version '1.18.0'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -97,26 +102,23 @@ javadoc {
     //exclude { FileTreeElement elem -> ((elem.path.contains('/tests/') || elem.path.contains('/Tests/') || elem.path.contains('/testsimpl/')) && !elem.path.contains('com/toto/core/tests/'))}
 }
 
-task javadocJar(type: Jar, dependsOn: 'javadoc') {
+/*tasks.register('javadocJar', Jar) {
+    dependsOn 'javadoc'
     from javadoc.destinationDir
-    archiveClassifier  = 'javadoc'
+    archiveClassifier = 'javadoc'
 }
 
 
-task sourceJar(type: Jar) {
+tasks.register('sourceJar', Jar) {
     from sourceSets.main.java.srcDirs
-    archiveClassifier  = 'sources'
-}
+    archiveClassifier = 'sources'
+}//*/
 
 
 jar {
-    /*manifest {
-        attributes "Tester": "armyc2.c5isr.renderer.tester"
-    }//*/
 
     manifest {
-        attributes("Tester": "armyc2.c5isr.renderer.tester",
-                "Implementation-Title": "mil-sym-java",
+        attributes("Implementation-Title": "mil-sym-java",
                 "Implementation-Version": version,
                 "License": "GNU General Public License v3.0"
         )
@@ -141,7 +143,65 @@ test {
     useJUnitPlatform()
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'io.github.missioncommand' //'armyc2.c5isr.renderer'
+            artifactId = 'mil-sym-java' // Replace with your project's artifact ID
+            //version = '2.1.6'
+            from components.java
 
+            pom {
+                name = 'mil-sym-java'
+                description = 'MilStd 2525D+ renderer'
+                url = 'https://github.com/missioncommand/mil-sym-java'
+                licenses {
+                    license {
+                        name = 'Apache-2.0 License'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0'
+                    }
+                }
+                developers {
+                    developer {
+                        id = '1'
+                        name = 'C5ISR ESI'
+                        email = 'email@email.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/missioncommand/mil-sym-java.git'
+                    developerConnection = 'scm:git:ssh://github.com/missioncommand/mil-sym-java.git'
+                    url = 'https://github.com/missioncommand/mil-sym-java'
+                }
+                                /* {
+                    dependency {
+                        groupId = 'org.gavaghan'
+                        artifactId = 'geodesy'
+                        version = '1.1.3'
+                        scope = 'compile'
+                    }
+                    dependency {
+                        groupId = 'com.github.weisj'
+                        artifactId = 'jsvg'
+                        version = '1.6.1'
+                        scope = 'compile'
+                    }
+                    dependency {
+                        groupId = 'org.junit.jupiter'
+                        artifactId = 'junit-jupiter'
+                        version = '5.9.1'
+                        scope = 'test'
+                    }
+                }//*/
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
 
 jreleaser {
     configFile = file(".jreleaser.yml")
@@ -190,9 +250,11 @@ tasks.register("printJavaInfo")
 
 
 tasks.named("jreleaserFullRelease") {
-    dependsOn("javadocJar", "sourceJar", "jar")
+    dependsOn("jar")
+    //dependsOn("javadocJar", "sourceJar", "jar")
 }
 
 tasks.named("jreleaserAssemble") {
-    dependsOn("javadocJar", "sourceJar", "jar", "verifyArtifacts", "printJavaInfo", "printProjectInfo")
+    dependsOn("jar", "verifyArtifacts", "printJavaInfo", "printProjectInfo")
+    //dependsOn("javadocJar", "sourceJar", "jar", "verifyArtifacts", "printJavaInfo", "printProjectInfo")
 }
