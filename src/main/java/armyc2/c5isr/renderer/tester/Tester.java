@@ -63,6 +63,8 @@ public class Tester extends javax.swing.JFrame {
             cbPixelSize.setSelectedIndex(1);
             SinglePointRenderer.getInstance();
             SVGLookup.getInstance();
+            //RendererSettings.getInstance().setTextBackgroundMethod(RendererSettings.TextBackgroundMethod_OUTLINE_QUICK);
+            //RendererSettings.getInstance().setTextOutlineWidth(3);
             RendererSettings.getInstance().setCacheEnabled(false);
             //RendererSettings.getInstance().setOperationalConditionModifierType(RendererSettings.OperationalConditionModifierType_SLASH);
             //RendererSettings.getInstance().setDrawAffiliationModifierAsLabel(false);
@@ -147,7 +149,7 @@ public class Tester extends javax.swing.JFrame {
         id += basicID.substring(2);
         
         String s1m = tfSector1Mod.getText();
-        if(s1m.length() == 2 && SymbolUtilities.isNumber(s1m))
+        if(s1m.length() == 2)
         {
             id += s1m;
         }
@@ -155,7 +157,7 @@ public class Tester extends javax.swing.JFrame {
             id += "00";
         
         String s2m = tfSector2Mod.getText();
-        if(s2m.length() == 2 && SymbolUtilities.isNumber(s2m))
+        if(s2m.length() == 2)
         {
             id += s2m;
         }
@@ -1045,9 +1047,9 @@ public class Tester extends javax.swing.JFrame {
                 //attributes.put(MilStdAttributes.Alpha,"77");
 
                 //No fill example
-                /*attributes.put(MilStdAttributes.FillColor,"#00000000");//set alpha to zero on fill
-                attributes.put(MilStdAttributes.IconColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));
-                attributes.put(MilStdAttributes.LineColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));//*/
+                //attributes.put(MilStdAttributes.FillColor,"#00000000");//set alpha to zero on fill
+                //attributes.put(MilStdAttributes.IconColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));
+                //attributes.put(MilStdAttributes.LineColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));//*/
 
                 String pixelSize = String.valueOf(cbPixelSize.getSelectedItem());
 

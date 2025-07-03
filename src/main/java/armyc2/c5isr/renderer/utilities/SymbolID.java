@@ -669,7 +669,7 @@ public class SymbolID {
     {
         if(symbolID != null && symbolID.length() >= 20)
         {
-            return Integer.parseInt(symbolID.substring(16, 18));
+            return Integer.parseInt(symbolID.substring(16, 18),16);
         }
         else
         {
@@ -680,20 +680,43 @@ public class SymbolID {
     /**
      * Set Sector 1 Modifier at positions 17-18.
      * @param symbolID 30 Character {@link String}
-     * @param mod1 {@link Integer}
+     * @param mod1 {@link Integer} 0-255
      * @return {@link String}
      */
     public static String setModifier1(String symbolID, int mod1)
     {
-        String newID = new String(symbolID);
-        String mod = String.valueOf(mod1);
-        if(mod.length()==1)
-            mod = "0" + mod;
-        if(symbolID != null && symbolID.length() >= 20)
+        if(mod1 >=0 && mod1 <=255)
         {
-            newID = newID.substring(0,16) + mod + newID.substring(18);
+            String mod = Integer.toHexString(mod1);
+            return setModifier1(symbolID,mod);
         }
-        return newID;
+        else
+            return symbolID;
+    }
+
+    /**
+     *
+     * @param symbolID 30 Character {@link String}
+     * @param mod1 {@link String} hex string from "00" to "FF"
+     * @return {@link String}
+     */
+    public static String setModifier1(String symbolID, String mod1)
+    {
+        int num = Integer.parseInt(mod1,16);
+        if(num >= 0 && num <= 255)
+        {
+            String newID = new String(symbolID);
+            String mod = mod1;
+            if(mod.length()==1)
+                mod = "0" + mod;
+            if(symbolID != null && symbolID.length() >= 20)
+            {
+                newID = newID.substring(0,16) + mod + newID.substring(18);
+            }
+            return newID;
+        }
+        else
+            return symbolID;
     }
 
     /**
@@ -742,7 +765,7 @@ public class SymbolID {
     {
         if(symbolID != null && symbolID.length() >= 20)
         {
-            return Integer.parseInt(symbolID.substring(18, 20));
+            return Integer.parseInt(symbolID.substring(18, 20),16);
         }
         else
         {
@@ -753,20 +776,44 @@ public class SymbolID {
     /**
      * Set Sector 2 Modifier at positions 17-18.
      * @param symbolID 30 Character {@link String}
-     * @param mod1 {@link Integer}
+     * @param mod2 {@link Integer} 0-255
      * @return {@link String}
      */
-    public static String setModifier2(String symbolID, int mod1)
+    public static String setModifier2(String symbolID, int mod2)
     {
-        String newID = new String(symbolID);
-        String mod = String.valueOf(mod1);
-        if(mod.length()==1)
-            mod = "0" + mod;
-        if(symbolID != null && symbolID.length() >= 20)
+
+        if(mod2 >=0 && mod2 <=255)
         {
-            newID = newID.substring(0,18) + mod + newID.substring(20);
+            String mod = Integer.toHexString(mod2);
+            return setModifier2(symbolID,mod);
         }
-        return newID;
+        else
+            return symbolID;
+    }
+
+    /**
+     *
+     * @param symbolID 30 Character {@link String}
+     * @param mod2 {@link String} hex string from "00" to "FF"
+     * @return {@link String}
+     */
+    public static String setModifier2(String symbolID, String mod2)
+    {
+        int num = Integer.parseInt(mod2,16);
+        if(num >= 0 && num <= 255)
+        {
+            String newID = new String(symbolID);
+            String mod = mod2;
+            if(mod.length()==1)
+                mod = "0" + mod;
+            if(symbolID != null && symbolID.length() >= 20)
+            {
+                newID = newID.substring(0,18) + mod + newID.substring(20);
+            }
+            return newID;
+        }
+        else
+            return symbolID;
     }
 
     /**
