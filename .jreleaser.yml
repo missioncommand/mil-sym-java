@@ -10,7 +10,7 @@ environment:
 
 project:
   name: mil-sym-java
-  version: "2.1.10"
+  #version: inherited from version = "#.#.#" in build.gradle file
   description: MilStd 2525D+ renderer
   license: Apache-2.0
   authors:
