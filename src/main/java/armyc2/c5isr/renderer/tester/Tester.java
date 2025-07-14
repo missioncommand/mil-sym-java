@@ -405,6 +405,8 @@ public class Tester extends javax.swing.JFrame {
         cbContext.addItem("0-Reality");
         cbContext.addItem("1-Exercise");
         cbContext.addItem("2-Simulation");
+        cbContext.addItem("3-Restricted");
+        cbContext.addItem("4-No-Strike");
         cbContext.setSelectedIndex(0);
         
         cbAffiliation.addItem("0-Pending");

@@ -71,4 +71,21 @@ public class RectUtilities {
 		return new Rectangle((int) x, (int) y,
 				(int) w, (int) h);
 	}
+
+	public static Rectangle2D toRectangle2D(double x, double y, double w, double h) {
+		return new Rectangle2D.Double(x, y,
+				w, h);
+	}
+
+	public static Rectangle2D toRectangle2D(Rectangle b) {
+		if (b == null) {
+			return null;
+		}/*from w ww . j a  va 2s . c o  m*/
+		else if (b instanceof Rectangle2D) {
+			return (Rectangle2D) b;
+		} else {
+			return new Rectangle2D.Double(b.getX(), b.getY(),
+					b.getWidth(), b.getHeight());
+		}
+	}
 }

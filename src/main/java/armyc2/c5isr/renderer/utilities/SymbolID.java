@@ -124,6 +124,8 @@ public class SymbolID {
     public static final int StandardIdentity_Context_Reality = 0;
     public static final int StandardIdentity_Context_Exercise = 1;
     public static final int StandardIdentity_Context_Simulation = 2;
+    public static final int StandardIdentity_Context_Restricted_Target_Reality = 3;
+    public static final int StandardIdentity_Context_No_Strike_Entity_Reality = 4;
 
     //Standard Identity, Second Digit (4)
     public static final int StandardIdentity_Affiliation_Pending = 0;

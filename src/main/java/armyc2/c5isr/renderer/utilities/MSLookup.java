@@ -287,33 +287,28 @@ public class MSLookup {
                     break;
                 case SymbolID.SymbolSet_Space:
                 case SymbolID.SymbolSet_SpaceMissile:
-                    modifiers.add(Modifiers.A_SYMBOL_ICON);
-                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
-                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
-                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
-                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
-                    modifiers.add(Modifiers.V_EQUIP_TYPE);
-                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
-                    modifiers.add(Modifiers.Z_SPEED);
-                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
-                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
-                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
-                    modifiers.add(Modifiers.AS_COUNTRY);
-                    break;
                 case SymbolID.SymbolSet_Air:
                 case SymbolID.SymbolSet_AirMissile:
                     modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.B_ECHELON);
+                    modifiers.add(Modifiers.C_QUANTITY);
                     modifiers.add(Modifiers.G_STAFF_COMMENTS);
                     modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.J_EVALUATION_RATING);
+                    modifiers.add(Modifiers.P_IFF_SIF_AIS);
                     modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
                     modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
                     modifiers.add(Modifiers.V_EQUIP_TYPE);
+                    modifiers.add(Modifiers.W_DTG_1);
                     modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    modifiers.add(Modifiers.Y_LOCATION);
                     modifiers.add(Modifiers.Z_SPEED);
                     modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AD_PLATFORM_TYPE);
                     modifiers.add(Modifiers.AF_COMMON_IDENTIFIER);
                     modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
                     modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
+                    modifiers.add(Modifiers.AR_SPECIAL_DESIGNATOR);
                     modifiers.add(Modifiers.AS_COUNTRY);
                     break;
                 case SymbolID.SymbolSet_SeaSurface:

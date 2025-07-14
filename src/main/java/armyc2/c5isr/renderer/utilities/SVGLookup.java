@@ -221,6 +221,8 @@ public class SVGLookup {
                         affiliation = SymbolID.StandardIdentity_Affiliation_Unknown;
                     }
             }
+            if(context == SymbolID.StandardIdentity_Context_Restricted_Target_Reality || context == SymbolID.StandardIdentity_Context_No_Strike_Entity_Reality)
+                context = SymbolID.StandardIdentity_Context_Reality;
             frameID = context + "_" + affiliation + ss + "_" + status;
         }
         else//2525E or above
@@ -250,6 +252,8 @@ public class SVGLookup {
             {
                 return "octagon";
             }
+            if(context == SymbolID.StandardIdentity_Context_Restricted_Target_Reality || context == SymbolID.StandardIdentity_Context_No_Strike_Entity_Reality)
+                context = SymbolID.StandardIdentity_Context_Reality;
             frameID = context + "_" + affiliation + frameShape + "_" + status;
         }
 
