@@ -177,6 +177,7 @@ public class MSLookup {
                 case SymbolID.SymbolSet_LandCivilianUnit_Organization:
                     modifiers.add(Modifiers.A_SYMBOL_ICON);
                     modifiers.add(Modifiers.B_ECHELON);
+                    modifiers.add(Modifiers.C_QUANTITY);
                     modifiers.add(Modifiers.D_TASK_FORCE_INDICATOR);
                     modifiers.add(Modifiers.F_REINFORCED_REDUCED);
                     modifiers.add(Modifiers.G_STAFF_COMMENTS);
@@ -209,7 +210,7 @@ public class MSLookup {
                     modifiers.add(Modifiers.AS_COUNTRY);
                     break;
                 case SymbolID.SymbolSet_LandEquipment:
-                case SymbolID.SymbolSet_SignalsIntelligence:
+                case SymbolID.SymbolSet_SignalsIntelligence_Land:
                     modifiers.add(Modifiers.A_SYMBOL_ICON);
                     modifiers.add(Modifiers.C_QUANTITY);
                     modifiers.add(Modifiers.G_STAFF_COMMENTS);
@@ -217,7 +218,6 @@ public class MSLookup {
                     modifiers.add(Modifiers.J_EVALUATION_RATING);
                     modifiers.add(Modifiers.K_COMBAT_EFFECTIVENESS);
                     modifiers.add(Modifiers.L_SIGNATURE_EQUIP);
-                    modifiers.add(Modifiers.M_HIGHER_FORMATION);
                     modifiers.add(Modifiers.N_HOSTILE);
                     modifiers.add(Modifiers.P_IFF_SIF_AIS);
                     modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
@@ -245,6 +245,7 @@ public class MSLookup {
                     break;
                 case SymbolID.SymbolSet_LandInstallation:
                     modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.C_QUANTITY);
                     modifiers.add(Modifiers.G_STAFF_COMMENTS);
                     modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
                     modifiers.add(Modifiers.J_EVALUATION_RATING);
