@@ -1531,11 +1531,11 @@ public class SymbolUtilities {
                     case SymbolID.SymbolSet_LandCivilianUnit_Organization:
                     case SymbolID.SymbolSet_LandUnit:
                     case SymbolID.SymbolSet_LandInstallation:
-                    case SymbolID.SymbolSet_SignalsIntelligence_Land:
                     case SymbolID.SymbolSet_Activities:
                     case SymbolID.SymbolSet_CyberSpace:
                         rh = 1f;
                         break;
+                    case SymbolID.SymbolSet_SignalsIntelligence_Land:
                     default:
                         rh=1.2f;
                 }
@@ -1687,12 +1687,12 @@ public class SymbolUtilities {
                     case SymbolID.SymbolSet_LandCivilianUnit_Organization:
                     case SymbolID.SymbolSet_LandUnit:
                     case SymbolID.SymbolSet_LandInstallation:
-                    case SymbolID.SymbolSet_SignalsIntelligence_Land:
                     case SymbolID.SymbolSet_Activities:
                     case SymbolID.SymbolSet_CyberSpace:
                         rw = 1.5f;
                         break;
                     case SymbolID.SymbolSet_LandEquipment:
+                    case SymbolID.SymbolSet_SignalsIntelligence_Land:
                         rw = 1.2f;
                         break;
                     default:

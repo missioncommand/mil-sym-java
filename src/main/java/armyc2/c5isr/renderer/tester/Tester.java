@@ -495,7 +495,7 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.J_EVALUATION_RATING,"J");
             modifier.put(Modifiers.M_HIGHER_FORMATION,"M");
             modifier.put(Modifiers.N_HOSTILE,"ENY");
-            modifier.put(Modifiers.P_IFF_SIF_AIS,"P");
+            modifier.put(Modifiers.P_IFF_SIF_AIS,"Pj");
             modifier.put(Modifiers.Y_LOCATION,"Y");
             
             modifier.put(Modifiers.C_QUANTITY,"C");
@@ -503,10 +503,10 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.F_REINFORCED_REDUCED,"RD");
             modifier.put(Modifiers.L_SIGNATURE_EQUIP,"!");
             modifier.put(Modifiers.AA_SPECIAL_C2_HQ,"AA");
-            modifier.put(Modifiers.G_STAFF_COMMENTS,"G");
+            modifier.put(Modifiers.G_STAFF_COMMENTS,"Gj");
             //symbol.symbolicon A
-            modifier.put(Modifiers.V_EQUIP_TYPE,"V");
-            modifier.put(Modifiers.T_UNIQUE_DESIGNATION_1,"T");
+            modifier.put(Modifiers.V_EQUIP_TYPE,"Vj");
+            modifier.put(Modifiers.T_UNIQUE_DESIGNATION_1,"Tj");
             modifier.put(Modifiers.T1_UNIQUE_DESIGNATION_2,"T1");
             modifier.put(Modifiers.Z_SPEED,"999");//Z
 
