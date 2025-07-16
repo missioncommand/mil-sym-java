@@ -241,7 +241,6 @@ public class MSLookup {
                     modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
                     modifiers.add(Modifiers.AQ_GUARDED_UNIT);
                     modifiers.add(Modifiers.AS_COUNTRY);
-                    modifiers.add(Modifiers.AR_SPECIAL_DESIGNATOR);
                     break;
                 case SymbolID.SymbolSet_LandInstallation:
                     modifiers.add(Modifiers.A_SYMBOL_ICON);
@@ -375,7 +374,6 @@ public class MSLookup {
                     modifiers.add(Modifiers.W_DTG_1);
                     modifiers.add(Modifiers.Y_LOCATION);
                     modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
-                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
                     modifiers.add(Modifiers.AS_COUNTRY);
                     break;
             /*case SymbolID.SymbolSet_SignalsIntelligence_Air:
