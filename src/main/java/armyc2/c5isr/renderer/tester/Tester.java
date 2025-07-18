@@ -515,6 +515,9 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.AD_PLATFORM_TYPE, "AD");
             modifier.put(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME, "AE");
             modifier.put(Modifiers.AF_COMMON_IDENTIFIER, "AF");
+
+            modifier.put(Modifiers.AJ_SPEED_LEADER, "700 KPH 090");
+
             //TODO
             modifier.put(Modifiers.AO_ENGAGEMENT_BAR, "AO:AOA-AO");
             modifier.put(Modifiers.AR_SPECIAL_DESIGNATOR, "AR");
@@ -1061,6 +1064,7 @@ public class Tester extends javax.swing.JFrame {
                 try
                 {
                     icon = MilStdIconRenderer.getInstance().RenderIcon(symbolID, modifiers, attributes);
+                    MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
                     g2d = (Graphics2D) this.getGraphics();
                     Graphics2D graphics = (Graphics2D)jPanel1.getGraphics();
                     Point2D mouseClickLocation = new Point2D.Double(evt.getPoint().getX(),evt.getPoint().getY());
@@ -1070,7 +1074,6 @@ public class Tester extends javax.swing.JFrame {
                     }
                     else
                     {
-                        MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
                         String message = "RenderIcon - " + symbolID + " returned null.";
                         ErrorLogger.LogMessage("Tester", "formMouseClicked", message);
                     }

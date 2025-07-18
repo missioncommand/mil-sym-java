@@ -482,7 +482,7 @@ public class ModifierRenderer implements SettingsEventListener
         //Draw Echelon
         int intEchelon = SymbolID.getAmplifierDescriptor(symbolID);// SymbolUtilitiesD.getEchelon(symbolID);//symbolID.substring(11, 12);
         String strEchelon = null;
-        if (intEchelon > 10 && intEchelon < 29 && SymbolUtilities.canSymbolHaveModifier(symbolID, Modifiers.B_ECHELON))
+        if (intEchelon > 10 && intEchelon < 29 && SymbolUtilities.hasModifier(symbolID, Modifiers.B_ECHELON))
         {
             strEchelon = SymbolUtilities.getEchelonText(intEchelon);
         }
@@ -521,7 +521,7 @@ public class ModifierRenderer implements SettingsEventListener
         Rectangle2D tfBounds = null;
         Rectangle2D tfRectangle = null;
         int hqtfd = SymbolID.getHQTFD(symbolID);
-        if (SymbolUtilities.isTaskForce(symbolID))
+        if (SymbolUtilities.hasModifier(symbolID, Modifiers.D_TASK_FORCE_INDICATOR) && SymbolUtilities.isTaskForce(symbolID))
         {
             int height = (int)Math.round(symbolBounds.getHeight() / 4);
             int width = (int)Math.round(symbolBounds.getWidth() / 3);
@@ -582,7 +582,7 @@ public class ModifierRenderer implements SettingsEventListener
         Point2D fdiRight = null;
 
         if (SymbolUtilities.hasFDI(symbolID)
-                && SymbolUtilities.canSymbolHaveModifier(symbolID, Modifiers.AB_FEINT_DUMMY_INDICATOR))
+                && SymbolUtilities.hasModifier(symbolID, Modifiers.AB_FEINT_DUMMY_INDICATOR))
         {
             //create feint indicator /\
             fdiLeft = new Point2D.Double(symbolBounds.getX(), symbolBounds.getY());
@@ -778,7 +778,8 @@ public class ModifierRenderer implements SettingsEventListener
         // <editor-fold defaultstate="collapsed" desc="Build DOM Arrow">
         Point2D[] domPoints = null;
         Rectangle2D domBounds = null;
-        if (modifiers.containsKey(Modifiers.Q_DIRECTION_OF_MOVEMENT) && SymbolUtilities.canSymbolHaveModifier(symbolID, Modifiers.Q_DIRECTION_OF_MOVEMENT))
+        if (SymbolUtilities.hasModifier(symbolID, Modifiers.Q_DIRECTION_OF_MOVEMENT) &&
+                modifiers.containsKey(Modifiers.Q_DIRECTION_OF_MOVEMENT))
         {
             String strQ = modifiers.get(Modifiers.Q_DIRECTION_OF_MOVEMENT);
 
@@ -806,6 +807,82 @@ public class ModifierRenderer implements SettingsEventListener
         }
 
         // </editor-fold>
+
+        // <editor-fold defaultstate="collapsed" desc="Build Speed Leader">
+        Path2D slPath = null;
+        Rectangle2D slBounds = null;
+        if (SymbolUtilities.hasModifier(symbolID, Modifiers.AJ_SPEED_LEADER) &&
+                (modifiers.containsKey(Modifiers.AJ_SPEED_LEADER)))
+        {
+            String aj = modifiers.get(Modifiers.AJ_SPEED_LEADER);
+            String[] values = aj.split(" ");
+            if(values.length >= 3)
+            {
+                int speed = Integer.parseInt(values[0]);
+                String speedUnit = values[1];
+                int angle = 0;
+                if(values[2].length()==3)
+                    angle = Integer.parseInt(values[2])-90;
+                else
+                    angle = (int)(Integer.parseInt(values[2]) * 0.05625)-90;
+
+                slPath = new Path2D.Double();
+                slPath.moveTo(symbolCenter.getX(), symbolCenter.getY());
+
+                //convert to Knots
+                switch(speedUnit)//KPH, KPS, MPH, NMH, KTS//https://www.aviationhunt.com/speed-converter/
+                {
+                    case "KPH":
+                        speed = (int)(speed * 0.539957);
+                        break;
+                    case "KPS"://https://www.metric-conversions.org/speed/kilometers-per-second-to-knots.htm
+                        speed = (int)(speed * 1943.84);
+                        break;
+                    case "MPH":
+                        speed = (int)(speed * 0.86897);
+                        break;
+                }
+
+                int distance = 0;
+                char frame = SymbolID.getFrameShape(symbolID);
+                int dpi = RendererSettings.getInstance().getDeviceDPI();
+                if(ss == SymbolID.SymbolSet_Air ||
+                        ss == SymbolID.SymbolSet_AirMissile ||
+                        ss == SymbolID.SymbolSet_SignalsIntelligence_Air ||
+                        ss == SymbolID.SymbolSet_SpaceMissile ||
+                        ss == SymbolID.SymbolSet_Space ||
+                        (SymbolID.getVersion(symbolID) <= SymbolID.Version_2525Dch1 && ss == SymbolID.SymbolSet_SignalsIntelligence_Space) ||
+                        (SymbolID.getVersion(symbolID) >= SymbolID.Version_2525E &&
+                                (frame == SymbolID.FrameShape_Air) ||
+                                frame == SymbolID.FrameShape_Space))
+                {//aircraft might be 1/4 inch if its speed is less than 300 knots, 1/2 inch if its speed is between 300 and 600 knots and 3/4 inch if its speed is more than 600 knots.
+                    if(speed < 300)
+                        distance = (int)(dpi * 0.25);
+                    else if (speed < 600)
+                        distance = (int)(dpi * 0.5);
+                    else
+                        distance = (int)(dpi * 0.75);
+                }
+                else//submarine might be 1/4 inch if its speed is less than 15 knots, 1/2 inch if its speed is between 15 and 30 knots and 3/4 inch if its speed is more than 30 knots
+                {
+                    if(speed < 15)
+                        distance = (int)(dpi * 0.25);
+                    else if (speed < 30)
+                        distance = (int)(dpi * 0.5);
+                    else
+                        distance = (int)(dpi * 0.75);
+                }
+                double radians = (angle * (Math.PI / 180));//convert degrees to radians
+                int x2 = (int)(symbolCenter.getX() + distance * Math.cos(radians));
+                int y2 = (int)(symbolCenter.getY() + distance * Math.sin(radians));
+
+                slPath.lineTo(x2,y2);
+                slBounds = slPath.getBounds2D();
+                imageBounds = imageBounds.createUnion(slBounds);
+            }
+        }
+        // </editor-fold>
+
         // <editor-fold defaultstate="collapsed" desc="Build Operational Condition Indicator">
         Rectangle2D ociBounds = null;
         Rectangle2D ociShape = null;
@@ -1039,6 +1116,11 @@ public class ModifierRenderer implements SettingsEventListener
                 }
                 ShapeUtilities.offset(domBounds, shiftX, shiftY);
             }
+            if(slBounds != null)
+            {
+                ShapeUtilities.offset(slBounds, shiftX, shiftY);
+                ShapeUtilities.offset(slPath, shiftX, shiftY);
+            }
             if (mobilityBounds != null)
             {
                 //shift mobility points
@@ -1125,7 +1207,6 @@ public class ModifierRenderer implements SettingsEventListener
                 fdiPath.lineTo(fdiRight.getX(), fdiRight.getY());//*/
 
                 sbSVG.append(Shape2SVG.Convert(fdiPath, svgStroke, null, svgStrokeWidth, svgAlpha, svgAlpha, svgFDIDashArray,"round"));
-
 
             }
             if (liBounds != null)
@@ -1254,6 +1335,10 @@ public class ModifierRenderer implements SettingsEventListener
 
                 domBounds = null;
                 domPoints = null;
+            }
+            if(slBounds != null)
+            {
+                sbSVG.append(Shape2SVG.Convert(slPath, svgStroke, "none", svgStrokeWidth, svgAlpha, svgAlpha, null,null));
             }
 
             newsdi = new SVGSymbolInfo(sbSVG.toString(),centerPoint,symbolBounds,imageBounds);
@@ -1524,6 +1609,14 @@ public class ModifierRenderer implements SettingsEventListener
                 domPoints = null;
             }
 
+            if(slBounds != null)
+            {
+                stroke = new BasicStroke((float)nsStrokeWidth);
+                g2d.setStroke(stroke);
+                g2d.setColor(RendererUtilities.setColorAlpha(Color.BLACK,alpha));
+                g2d.draw(slPath);
+            }
+
             if (ociBounds != null && ociSlashShape != null) {
                 g2d.setColor(lineColor);
 
@@ -1610,7 +1703,9 @@ public class ModifierRenderer implements SettingsEventListener
         pt1 = new Point2D.Double(x1, y1);
 
         if (SymbolUtilities.canSymbolHaveModifier(symbolID, Modifiers.Q_DIRECTION_OF_MOVEMENT ) &&
-                SymbolUtilities.isCBRNEvent(symbolID) || SymbolUtilities.isLand(symbolID))
+                SymbolUtilities.isCBRNEvent(symbolID) ||
+                SymbolUtilities.isLand(symbolID) ||
+                SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_DismountedIndividuals)
         {
             //drawStaff = true;
             if(SymbolUtilities.isHQ(symbolID)==false)//has HQ staff to start from
@@ -4928,7 +5023,7 @@ public class ModifierRenderer implements SettingsEventListener
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, false);
                 //just above V/AD/AE
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -5017,7 +5112,7 @@ public class ModifierRenderer implements SettingsEventListener
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, false);
                 //just below V/AD/AE
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -5038,7 +5133,7 @@ public class ModifierRenderer implements SettingsEventListener
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, false);
                 //below T
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -5133,7 +5228,7 @@ public class ModifierRenderer implements SettingsEventListener
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, false);
                 //above X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -5187,7 +5282,7 @@ public class ModifierRenderer implements SettingsEventListener
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, false);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -7417,7 +7512,7 @@ public class ModifierRenderer implements SettingsEventListener
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, false);
                 //on top
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -7685,7 +7780,7 @@ public class ModifierRenderer implements SettingsEventListener
                 }//*/
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, false);
                 //below top left
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -7706,7 +7801,7 @@ public class ModifierRenderer implements SettingsEventListener
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, false);
                 //below top left
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
