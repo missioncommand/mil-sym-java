@@ -750,8 +750,8 @@ public class RendererSettings {
             map.put(TextAttribute.TRACKING, _ModifierFontTracking);
 
             Font temp = new Font(_ModifierFontName, _ModifierFontType, _ModifierFontSize);
-
-            return temp.deriveFont(map);
+            //temp = temp.deriveFont(map);
+            return temp;//temp.deriveFont(map);
         }
         catch(Exception exc)
         {

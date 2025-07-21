@@ -6,17 +6,12 @@ import com.github.weisj.jsvg.attributes.ViewBox;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 /**
  *`
@@ -319,7 +314,6 @@ public class SinglePointRenderer implements SettingsEventListener{
                 //Create destination BMP
                 BufferedImage bmp = new BufferedImage((int)symbolBounds.getWidth(), (int)symbolBounds.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-
                 //draw unit from SVG
                 String svgAlpha = "";
                 if(alpha >=0)
@@ -375,9 +369,7 @@ public class SinglePointRenderer implements SettingsEventListener{
                 //g.drawRect(0, 0, (int)bmp.getWidth()-1, (int)bmp.getHeight()-1);
                 g.dispose();
 
-                Point center = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, RectUtilities.makeRectangle2DFromRect(0, 0, symbolBounds.getWidth(), symbolBounds.getHeight()));
-
-                ii = new ImageInfo(bmp, center, symbolBounds);
+                ii = new ImageInfo(bmp, centerPoint, symbolBounds);
 
                 if(cacheEnabled && _unitCache != null && asIcon == false && pixelSize <= 200)
                 {
@@ -502,7 +494,7 @@ public class SinglePointRenderer implements SettingsEventListener{
             }
             iiNew = null;
 
-
+            ii = (ImageInfo) ModifierRenderer.processSpeedLeader(ii, symbolID, modifiers, attributes);
         }
         catch(Exception exc)
         {

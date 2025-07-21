@@ -9,6 +9,7 @@ import armyc2.c5isr.renderer.SinglePointRenderer;
 import armyc2.c5isr.renderer.SinglePointSVGRenderer;
 import armyc2.c5isr.renderer.utilities.*;
 import armyc2.c5isr.web.render.WebRenderer;
+import com.github.weisj.jsvg.attributes.ViewBox;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -16,7 +17,10 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ItemEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -488,7 +492,7 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.AP1_TARGET_NUMBER_EXTENSION,"AP1");
             modifier.put(Modifiers.X_ALTITUDE_DEPTH,"0,10");//X
             modifier.put(Modifiers.K_COMBAT_EFFECTIVENESS,"100");//K
-            modifier.put(Modifiers.Q_DIRECTION_OF_MOVEMENT,"45");//Q
+            modifier.put(Modifiers.Q_DIRECTION_OF_MOVEMENT,"90");//Q
 
             modifier.put(Modifiers.W_DTG_1, SymbolUtilities.getDateLabel(new Date()));//W
             modifier.put(Modifiers.W1_DTG_2, SymbolUtilities.getDateLabel(new Date()));//W1
@@ -1361,7 +1365,7 @@ public class Tester extends javax.swing.JFrame {
                     }
                     long endTime = System.currentTimeMillis();
                     String message = String.valueOf(limit) + " " + msInfo.getName() + " drawn in " + String.valueOf((endTime - startTime)/1000f) + " seconds.";
-                    JOptionPane.showMessageDialog(null,message ,"Speed Test",1);
+                    JOptionPane.showMessageDialog(null,message ,"Speed Test Image",1);
 
                     g2d = (Graphics2D) this.getGraphics();
                     Graphics2D graphics = (Graphics2D) jPanel1.getGraphics();
@@ -1377,7 +1381,39 @@ public class Tester extends javax.swing.JFrame {
                     }
                      endTime = System.currentTimeMillis();
                     message = String.valueOf(limit) + " " + msInfo.getName() + " drawn in " + String.valueOf((endTime - startTime)/1000f) + " seconds.";
-                    JOptionPane.showMessageDialog(null,message ,"Speed Test",1);
+                    JOptionPane.showMessageDialog(null,message ,"Speed Test SVG",1);
+
+                    //SVG to Image Speed Test
+                    svg = null;
+                    com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
+                    com.github.weisj.jsvg.SVGDocument svgDocument = null;
+                    startTime = System.currentTimeMillis();
+                    BufferedImage bmp = null;
+                    for(int i = 0; i < limit; i++)
+                    {
+                        svg = MilStdIconRenderer.getInstance().RenderSVG(symbolID, modifiers, attributes);
+                        //Render Code
+                        //com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
+                        svgDocument = null;
+                        //Create destination BMP
+                        bmp = new BufferedImage((int)svg.getImageBounds().getWidth(), (int)svg.getImageBounds().getHeight(), BufferedImage.TYPE_INT_ARGB);
+                        InputStream stream = new ByteArrayInputStream(svg.getSVG().getBytes(StandardCharsets.UTF_8));
+                        svgDocument = loader.load(stream);
+                        com.github.weisj.jsvg.attributes.ViewBox vb = new ViewBox(0,0,bmp.getWidth(),bmp.getHeight());
+                        Graphics2D g = bmp.createGraphics();
+                        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                        svgDocument.render(null,g,vb);
+                        //g.setPaint(Color.RED);
+                        //g.drawRect(0, 0, (int)bmp.getWidth()-1, (int)bmp.getHeight()-1);
+                        g.dispose();
+                    }
+                    endTime = System.currentTimeMillis();
+                    message = String.valueOf(limit) + " " + msInfo.getName() + " drawn in " + String.valueOf((endTime - startTime)/1000f) + " seconds.";
+                    JOptionPane.showMessageDialog(null,message ,"Speed Test SVG to Image",1);
+                    ImageInfo converted = new ImageInfo(bmp, svg.getSymbolCenterPoint(),svg.getSymbolBounds());
+                    //converted.SaveImageToFile("C:\\temp\\converted.png","png");
+
                 }
                 catch (Exception exc) {
                     ErrorLogger.LogException("Tester", "formMouseClicked", exc);

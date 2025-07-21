@@ -775,6 +775,7 @@ public class ModifierRenderer implements SettingsEventListener
         }
 
         // </editor-fold>
+
         // <editor-fold defaultstate="collapsed" desc="Build DOM Arrow">
         Point2D[] domPoints = null;
         Rectangle2D domBounds = null;
@@ -806,81 +807,6 @@ public class ModifierRenderer implements SettingsEventListener
             }
         }
 
-        // </editor-fold>
-
-        // <editor-fold defaultstate="collapsed" desc="Build Speed Leader">
-        Path2D slPath = null;
-        Rectangle2D slBounds = null;
-        if (SymbolUtilities.hasModifier(symbolID, Modifiers.AJ_SPEED_LEADER) &&
-                (modifiers.containsKey(Modifiers.AJ_SPEED_LEADER)))
-        {
-            String aj = modifiers.get(Modifiers.AJ_SPEED_LEADER);
-            String[] values = aj.split(" ");
-            if(values.length >= 3)
-            {
-                int speed = Integer.parseInt(values[0]);
-                String speedUnit = values[1];
-                int angle = 0;
-                if(values[2].length()==3)
-                    angle = Integer.parseInt(values[2])-90;
-                else
-                    angle = (int)(Integer.parseInt(values[2]) * 0.05625)-90;
-
-                slPath = new Path2D.Double();
-                slPath.moveTo(symbolCenter.getX(), symbolCenter.getY());
-
-                //convert to Knots
-                switch(speedUnit)//KPH, KPS, MPH, NMH, KTS//https://www.aviationhunt.com/speed-converter/
-                {
-                    case "KPH":
-                        speed = (int)(speed * 0.539957);
-                        break;
-                    case "KPS"://https://www.metric-conversions.org/speed/kilometers-per-second-to-knots.htm
-                        speed = (int)(speed * 1943.84);
-                        break;
-                    case "MPH":
-                        speed = (int)(speed * 0.86897);
-                        break;
-                }
-
-                int distance = 0;
-                char frame = SymbolID.getFrameShape(symbolID);
-                int dpi = RendererSettings.getInstance().getDeviceDPI();
-                if(ss == SymbolID.SymbolSet_Air ||
-                        ss == SymbolID.SymbolSet_AirMissile ||
-                        ss == SymbolID.SymbolSet_SignalsIntelligence_Air ||
-                        ss == SymbolID.SymbolSet_SpaceMissile ||
-                        ss == SymbolID.SymbolSet_Space ||
-                        (SymbolID.getVersion(symbolID) <= SymbolID.Version_2525Dch1 && ss == SymbolID.SymbolSet_SignalsIntelligence_Space) ||
-                        (SymbolID.getVersion(symbolID) >= SymbolID.Version_2525E &&
-                                (frame == SymbolID.FrameShape_Air) ||
-                                frame == SymbolID.FrameShape_Space))
-                {//aircraft might be 1/4 inch if its speed is less than 300 knots, 1/2 inch if its speed is between 300 and 600 knots and 3/4 inch if its speed is more than 600 knots.
-                    if(speed < 300)
-                        distance = (int)(dpi * 0.25);
-                    else if (speed < 600)
-                        distance = (int)(dpi * 0.5);
-                    else
-                        distance = (int)(dpi * 0.75);
-                }
-                else//submarine might be 1/4 inch if its speed is less than 15 knots, 1/2 inch if its speed is between 15 and 30 knots and 3/4 inch if its speed is more than 30 knots
-                {
-                    if(speed < 15)
-                        distance = (int)(dpi * 0.25);
-                    else if (speed < 30)
-                        distance = (int)(dpi * 0.5);
-                    else
-                        distance = (int)(dpi * 0.75);
-                }
-                double radians = (angle * (Math.PI / 180));//convert degrees to radians
-                int x2 = (int)(symbolCenter.getX() + distance * Math.cos(radians));
-                int y2 = (int)(symbolCenter.getY() + distance * Math.sin(radians));
-
-                slPath.lineTo(x2,y2);
-                slBounds = slPath.getBounds2D();
-                imageBounds = imageBounds.createUnion(slBounds);
-            }
-        }
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Build Operational Condition Indicator">
@@ -1116,11 +1042,6 @@ public class ModifierRenderer implements SettingsEventListener
                 }
                 ShapeUtilities.offset(domBounds, shiftX, shiftY);
             }
-            if(slBounds != null)
-            {
-                ShapeUtilities.offset(slBounds, shiftX, shiftY);
-                ShapeUtilities.offset(slPath, shiftX, shiftY);
-            }
             if (mobilityBounds != null)
             {
                 //shift mobility points
@@ -1335,10 +1256,6 @@ public class ModifierRenderer implements SettingsEventListener
 
                 domBounds = null;
                 domPoints = null;
-            }
-            if(slBounds != null)
-            {
-                sbSVG.append(Shape2SVG.Convert(slPath, svgStroke, "none", svgStrokeWidth, svgAlpha, svgAlpha, null,null));
             }
 
             newsdi = new SVGSymbolInfo(sbSVG.toString(),centerPoint,symbolBounds,imageBounds);
@@ -1607,14 +1524,6 @@ public class ModifierRenderer implements SettingsEventListener
 
                 domBounds = null;
                 domPoints = null;
-            }
-
-            if(slBounds != null)
-            {
-                stroke = new BasicStroke((float)nsStrokeWidth);
-                g2d.setStroke(stroke);
-                g2d.setColor(RendererUtilities.setColorAlpha(Color.BLACK,alpha));
-                g2d.draw(slPath);
             }
 
             if (ociBounds != null && ociSlashShape != null) {
@@ -1950,6 +1859,148 @@ public class ModifierRenderer implements SettingsEventListener
         }
 
         return path;
+    }
+
+    public static SymbolDimensionInfo processSpeedLeader(SymbolDimensionInfo sdi, String symbolID, Map<String,String> modifiers, Map<String,String> attributes)
+    {
+        SymbolDimensionInfo rsdi = sdi;
+
+        Rectangle2D imageBounds = sdi.getImageBounds();
+        Rectangle2D symbolBounds = sdi.getSymbolBounds();
+        Point2D symbolCenter = sdi.getSymbolCenterPoint();
+        int ss = SymbolID.getSymbolSet(symbolID);
+        int pixelSize = RendererSettings.getInstance().getDefaultPixelSize();
+        int dpi = RendererSettings.getInstance().getDeviceDPI();
+        if(attributes.containsKey(MilStdAttributes.PixelSize))
+            pixelSize = Integer.parseInt(attributes.get(MilStdAttributes.PixelSize));
+        float strokeWidth = 3f;
+        strokeWidth = (float) dpi / 48f;
+        if (strokeWidth < 1f)
+            strokeWidth = 1f;
+
+        Path2D slPath = null;
+        Rectangle2D slBounds = null;
+        try {
+            if (SymbolUtilities.hasModifier(symbolID, Modifiers.AJ_SPEED_LEADER) &&
+                    (modifiers.containsKey(Modifiers.AJ_SPEED_LEADER))) {
+                String aj = modifiers.get(Modifiers.AJ_SPEED_LEADER);
+                String[] values = aj.split(" ");
+                if (values.length >= 3) {
+                    int speed = Integer.parseInt(values[0]);
+                    String speedUnit = values[1];
+                    int angle = 0;
+                    if (values[2].length() == 3)
+                        angle = Integer.parseInt(values[2]) - 90;
+                    else
+                        angle = (int) (Integer.parseInt(values[2]) * 0.05625) - 90;
+
+                    slPath = new Path2D.Double();
+                    slPath.moveTo(symbolCenter.getX(), symbolCenter.getY());
+
+                    //convert to Knots
+                    switch (speedUnit)//KPH, KPS, MPH, NMH, KTS//https://www.aviationhunt.com/speed-converter/
+                    {
+                        case "KPH":
+                            speed = (int) (speed * 0.539957);
+                            break;
+                        case "KPS"://https://www.metric-conversions.org/speed/kilometers-per-second-to-knots.htm
+                            speed = (int) (speed * 1943.84);
+                            break;
+                        case "MPH":
+                            speed = (int) (speed * 0.86897);
+                            break;
+                    }
+
+                    int distance = 0;
+                    char frame = SymbolID.getFrameShape(symbolID);
+                    boolean fast = false;
+                    if (frame == '0' && ss == SymbolID.SymbolSet_Air ||
+                            ss == SymbolID.SymbolSet_AirMissile ||
+                            ss == SymbolID.SymbolSet_SignalsIntelligence_Air ||
+                            ss == SymbolID.SymbolSet_SpaceMissile ||
+                            ss == SymbolID.SymbolSet_Space ||
+                            (SymbolID.getVersion(symbolID) <= SymbolID.Version_2525Dch1 && ss == SymbolID.SymbolSet_SignalsIntelligence_Space))
+                    {
+                        fast = true;
+                    }
+                    else if(frame == SymbolID.FrameShape_Air || frame == SymbolID.FrameShape_Space)
+                    {
+                        fast = true;
+                    }
+
+                    if(fast)
+                    {
+                        if (speed < 300)
+                            distance = (int) (pixelSize * 0.25);
+                        else if (speed < 600)
+                            distance = (int) (pixelSize * 0.5);
+                        else
+                            distance = (int) (pixelSize * 0.75);
+                    } else//submarine might be 1/4 inch if its speed is less than 15 knots, 1/2 inch if its speed is between 15 and 30 knots and 3/4 inch if its speed is more than 30 knots
+                    {
+                        if (speed < 15)
+                            distance = (int) (pixelSize * 0.25);
+                        else if (speed < 30)
+                            distance = (int) (pixelSize * 0.5);
+                        else
+                            distance = (int) (pixelSize * 0.75);
+                    }
+                    double radians = (angle * (Math.PI / 180));//convert degrees to radians
+                    int x2 = (int) (symbolCenter.getX() + distance * Math.cos(radians));
+                    int y2 = (int) (symbolCenter.getY() + distance * Math.sin(radians));
+
+                    slPath.lineTo(x2, y2);
+                    slBounds = slPath.getBounds2D();
+                    imageBounds = imageBounds.createUnion(slBounds);
+                }
+
+                if (sdi instanceof ImageInfo) {
+                    BufferedImage bmp = new BufferedImage((int) Math.ceil(imageBounds.getWidth()), (int) Math.ceil(imageBounds.getHeight()), BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D g2d = bmp.createGraphics();
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                    int alpha = 1;
+                    if (attributes.containsKey(MilStdAttributes.Alpha))
+                        alpha = Integer.parseInt(attributes.get(MilStdAttributes.Alpha));
+                    Color lineColor = RendererUtilities.setColorAlpha(Color.BLACK, alpha);
+                    g2d.setColor(lineColor);
+
+
+                    Stroke stroke = new BasicStroke(strokeWidth);
+
+                    double offsetX = 0;
+                    double offsetY = 0;
+                    if (imageBounds.getX() < 0)
+                        offsetX = imageBounds.getX();
+                    if (imageBounds.getY() < 0)
+                        offsetY = imageBounds.getY();
+
+                    g2d.drawImage(((ImageInfo) sdi).getImage(), null, (int) offsetX, (int) offsetY);
+                    g2d.setStroke(stroke);
+                    g2d.setColor(RendererUtilities.setColorAlpha(Color.BLACK, alpha));
+                    g2d.draw(slPath);
+
+                    ShapeUtilities.offset(symbolBounds, offsetX, offsetY);
+                    ShapeUtilities.offset(imageBounds, offsetX, offsetY);
+                    ShapeUtilities.offset(symbolCenter, offsetX, offsetY);
+
+                    rsdi = new ImageInfo(bmp, symbolCenter, symbolBounds);
+                }
+                else if (sdi instanceof SVGSymbolInfo)
+                {//public static String Convert(Shape shape,String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray, String lineCap)
+                    String svg = ((SVGSymbolInfo) sdi).getSVG();
+
+                    svg += (Shape2SVG.Convert(slPath, "#000000", "none", String.valueOf(strokeWidth),null,null,null, null));
+                    rsdi = new SVGSymbolInfo(svg,symbolCenter,symbolBounds,imageBounds);
+                }
+            }
+        }
+        catch(Exception exc)
+        {
+            ErrorLogger.LogException("ModifierRenderer","processSpeedLineIndicator",exc);
+        }
+
+        return rsdi;
     }
 
     /**
@@ -4970,8 +5021,8 @@ public class ModifierRenderer implements SettingsEventListener
         String modifierValue = null;
         TextInfo tiTemp = null;
 
-        //if(Modifiers.C_QUANTITY in modifiers
-        if (modifiers.containsKey(Modifiers.C_QUANTITY))
+        //if(Modifiers.C_QUANTITY in modifiers moved to left, next to T in Ech1
+        /*if (modifiers.containsKey(Modifiers.C_QUANTITY))
         {
             String text = modifiers.get(Modifiers.C_QUANTITY);
             if(text != null)
@@ -4985,7 +5036,7 @@ public class ModifierRenderer implements SettingsEventListener
                 tiTemp.setLocation(x, y);
                 tiArray.add(tiTemp);
             }
-        }
+        }//*/
 
         //if(Modifiers.X_ALTITUDE_DEPTH in modifiers || Modifiers.Y_LOCATION in modifiers)
         if (modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH) || modifiers.containsKey(Modifiers.Y_LOCATION))
@@ -5101,9 +5152,25 @@ public class ModifierRenderer implements SettingsEventListener
             }
         }
 
-        if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+        if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) ||
+                modifiers.containsKey(Modifiers.C_QUANTITY))
         {
-            modifierValue = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+            modifierValue = null;
+
+            String cm = null,
+                    tm = null;
+
+            if (modifiers.containsKey(Modifiers.C_QUANTITY))
+            {
+                cm = modifiers.get(Modifiers.C_QUANTITY);// xm = modifiers.X;
+            }
+            if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+            {
+                tm = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);// ym = modifiers.Y;
+            }
+
+            modifierValue = cm + " " + tm;
+            modifierValue = modifierValue.trim();
 
             if(modifierValue != null)
             {
@@ -10976,7 +11043,7 @@ public class ModifierRenderer implements SettingsEventListener
     private static String renderTextElements(ArrayList<TextInfo> tiArray, Color color, Color backgroundColor)
     {
         String style = null;
-        String name = RendererSettings.getInstance().getLabelFont().getFontName() + ", sans-serif";//"SansSerif";
+        String name = RendererSettings.getInstance().getLabelFont().getFamily() + ", sans-serif";//"SansSerif";
         String size = String.valueOf(RendererSettings.getInstance().getLabelFont().getSize());
         String weight = null;
         String anchor = null;//"start";

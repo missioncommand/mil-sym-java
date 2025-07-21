@@ -47,7 +47,7 @@ public class Shape2SVG {
         if(textInfo != null)
         {
             String style = null;
-            String name = RendererSettings.getInstance().getLabelFont().getFontName() + ", sans-serif";//"SansSerif";
+            String name = RendererSettings.getInstance().getLabelFont().getFamily() + ", sans-serif";//"SansSerif";
             String size = String.valueOf(RendererSettings.getInstance().getLabelFont().getSize());
             String weight = null;
             String anchor = null;//"start";
