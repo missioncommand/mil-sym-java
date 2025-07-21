@@ -140,10 +140,7 @@ public class ModifierRenderer implements SettingsEventListener
             pixelSize = Integer.parseInt(attributes.get(MilStdAttributes.PixelSize));
         }
 
-        if(pixelSize <= 100)
-            strokeWidth=2.0f;
-        else
-            strokeWidth=2 + ((pixelSize-100)/100f);
+        strokeWidth = Math.max(pixelSize / 50,2);
 
         // <editor-fold defaultstate="collapsed" desc="Build Mobility Modifiers">
         Rectangle2D mobilityBounds = null;
