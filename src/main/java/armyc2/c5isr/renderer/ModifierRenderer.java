@@ -651,12 +651,7 @@ public class ModifierRenderer implements SettingsEventListener
             {
                 ebTop = (int)echelonBounds.getY() - ebHeight - barOffset;
             }
-            else if(SymbolUtilities.hasModifier(symbolID, Modifiers.C_QUANTITY) &&
-                    modifiers.containsKey(Modifiers.C_QUANTITY) && (
-                    SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_LandUnit &&
-                    SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_LandInstallation &&
-                    SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_Activities) &&
-                    SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_LandEquipment)
+            else if(isCOnTop(symbolID))//OR frame in air/space
             {
                 ebTop = (int)symbolBounds.getY() - (int)(ebHeight*2.4);
             }
@@ -11371,6 +11366,28 @@ public class ModifierRenderer implements SettingsEventListener
             }
         }
         return y;
+    }
+
+    private static boolean isCOnTop(String symbolID)
+    {
+        boolean onTop = false;
+
+        int version = SymbolID.getVersion(symbolID);
+        int ss = SymbolID.getSymbolSet(symbolID);
+        char frame = SymbolID.getFrameShape(symbolID);
+
+        if(frame == SymbolID.FrameShape_Air || frame == SymbolID.FrameShape_Space)
+            onTop = true;
+        else if(ss == SymbolID.SymbolSet_Air ||
+                ss == SymbolID.SymbolSet_Space ||
+                ss == SymbolID.SymbolSet_SignalsIntelligence_Air ||
+                        (ss == SymbolID.SymbolSet_SignalsIntelligence_Space && version <= SymbolID.Version_2525Dch1) ||
+                        (ss == SymbolID.SymbolSet_LandEquipment && version <= SymbolID.Version_2525Dch1))
+        {
+            onTop = true;
+        }
+
+        return onTop;
     }
 
     /**
