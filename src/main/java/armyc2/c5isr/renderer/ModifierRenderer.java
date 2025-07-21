@@ -655,7 +655,8 @@ public class ModifierRenderer implements SettingsEventListener
                     modifiers.containsKey(Modifiers.C_QUANTITY) && (
                     SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_LandUnit &&
                     SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_LandInstallation &&
-                    SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_Activities))
+                    SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_Activities) &&
+                    SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_LandEquipment)
             {
                 ebTop = (int)symbolBounds.getY() - (int)(ebHeight*2.4);
             }
