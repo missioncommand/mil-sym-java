@@ -5701,7 +5701,7 @@ no-strike~378.0~248.0~80.0~80.0
 36140300_a~224.55299377441406~296.5379943847656~159.28599548339844~191.28500366210938
 <g id="36140300_a">        <line fill="none" stroke="#000000" stroke-width="10" x1="241" x2="371" y1="482.823" y2="482.823"/>        <line fill="none" stroke="#000000" stroke-width="10" x1="306" x2="306" y1="450.823" y2="485.823"/>        <polygon points="273.094,301.538 335.298,301.538 378.839,345.079 378.839,407.281    335.298,450.823 273.094,450.823 229.553,407.281 229.553,345.079  " stroke="#000000" stroke-width="10"/>    </g>
 0_24_0~153.5~246.5~305.0~305.0
-<g id="0_24_0">            <circle cx="306" cy="399" fill="none" r="144" stroke="#FFFFFF" stroke-linecap="round" stroke-width="17"/>            <circle cx="306" cy="399" fill="#80e0ff" r="144" stroke="#000000" stroke-dasharray="0 14" stroke-linecap="round" stroke-width="17"/>      </g>
+<g id="0_24_0">            <circle cx="306" cy="399" fill="none" r="144" stroke="#FFFFFF" stroke-linecap="round" stroke-width="17"/>            <circle cx="306" cy="399" fill="#80e0ff" r="144" stroke="#000000" stroke-dasharray="0,34"  stroke-linecap="round" stroke-width="17"/>      </g>
 15151~246.984375~296.3125~117.193359375~44.421875
 <g id="15151">        <text font-family="sans-serif" font-size="60" x="244" y="340">CYB</text>    </g>
 25215700~111.0~277.0~390.0~156.0
@@ -5993,7 +5993,7 @@ no-strike~378.0~248.0~80.0~80.0
 10411~254.4630126953125~281.9609069824219~101.97805786132812~56.062042236328125
 <g id="10411">        <polyline fill="none" points="255.708,313.855 306.207,284.855 355.167,313.855  " stroke="#000000" stroke-width="5"/>        <polyline fill="none" points="255.708,335.855 306.207,306.855 355.167,335.855  " stroke="#000000" stroke-width="5"/>    </g>
 0_28_0~117.58200073242188~267.5~377.0~257.0
-<g id="0_28_0">            <rect fill="none" height="240" stroke="#FFFFFF" stroke-linecap="round" stroke-width="17" width="360" x="126.082" y="276"/>            <rect fill="#80e0ff" height="240" stroke="#000000" stroke-dasharray="0 14" stroke-linecap="round" stroke-width="17" width="360" x="126.082" y="276"/>            <g>                      <rect height="21" width="21" x="126.52" y="276.438"/>                      <rect height="21" width="21" x="463.855" y="495.064"/>                      <rect height="21" width="21" x="463.855" y="277.438"/>                      <rect height="21" width="21" x="126.52" y="495.064"/>                </g>      </g>
+<g id="0_28_0">            <rect fill="none" height="240" stroke="#FFFFFF" stroke-linecap="round" stroke-width="17" width="360" x="126.082" y="276"/>            <rect fill="#80e0ff" height="240" stroke="#000000" stroke-dasharray="0,34"  stroke-linecap="round" stroke-width="17" width="360" x="126.082" y="276"/>            <g>                      <rect height="21" width="21" x="126.52" y="276.438"/>                      <rect height="21" width="21" x="463.855" y="495.064"/>                      <rect height="21" width="21" x="463.855" y="277.438"/>                      <rect height="21" width="21" x="126.52" y="495.064"/>                </g>      </g>
 10412~260.140625~448.03125~91.330078125~51.828125
 <g id="10412">        <text font-family="sans-serif" font-size="70" x="257" y="499">SC</text>    </g>
 36130200~216.95689392089844~286.0~177.4341278076172~208.0
