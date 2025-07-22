@@ -140,7 +140,10 @@ public class ModifierRenderer implements SettingsEventListener
             pixelSize = Integer.parseInt(attributes.get(MilStdAttributes.PixelSize));
         }
 
-        strokeWidth = Math.max(pixelSize / 50,2);
+        int dpi = RendererSettings.getInstance().getDeviceDPI();
+        strokeWidth = 1;//dpi/96f;//min DPI
+        strokeWidth = Math.max(pixelSize / 25f,strokeWidth);//dpi base on symbol size
+        strokeWidth = Math.min(strokeWidth,dpi/32f);//max dpi
 
         // <editor-fold defaultstate="collapsed" desc="Build Mobility Modifiers">
         Rectangle2D mobilityBounds = null;
