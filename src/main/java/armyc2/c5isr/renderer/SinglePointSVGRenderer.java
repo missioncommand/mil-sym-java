@@ -659,10 +659,10 @@ public class SinglePointSVGRenderer {
                 if (outlineSymbol) {
                     borderPadding = RendererUtilities.findWidestStrokeWidth(siIcon.getSVG());
                 }
-                top = (int)Math.round(siIcon.getBbox().getY());
-                left = (int)Math.round(siIcon.getBbox().getX());
-                width = (int)Math.round(siIcon.getBbox().getWidth());
-                height = (int)Math.round(siIcon.getBbox().getHeight());
+                top = (int)Math.floor(siIcon.getBbox().getY());
+                left = (int)Math.floor(siIcon.getBbox().getX());
+                width = (int)Math.ceil(siIcon.getBbox().getWidth() + (siIcon.getBbox().getX() - left));
+                height = (int)Math.ceil(siIcon.getBbox().getHeight() + (siIcon.getBbox().getY() - top));
 
                 String strSVGIcon = null;
 
