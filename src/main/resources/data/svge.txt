@@ -806,8 +806,8 @@
 <g id="02132">        <text font-family="sans-serif" font-size="68" x="357" y="447">R</text>        <text font-family="sans-serif" font-size="68" x="354" y="394">M</text>    </g>
 50641~261.296875~293.328125~87.46484375~48.671875
 <g id="50641">        <text font-family="sans-serif" font-size="68" x="261" y="342">XP</text>    </g>
-0_34_1~162.0~252.0~288.0~288.0
-<g id="0_34_1">        <g>                <circle class="st0" cx="306" cy="396" r="144"/>                <circle class="st1" cx="306" cy="396" r="144"/>            </g>    </g>
+0_34_1~153.5~243.5~305.0~304.9117431640625
+<g id="0_34_1">        <ellipse cx="306" cy="396" fill="#80E0FF" rx="144" ry="144" stroke="#000000" stroke-dasharray="24.5874,14.7524" stroke-width="17"/>    </g>
 0_34_0~153.5~243.5~305.0~305.0
 <g id="0_34_0">        <ellipse cx="306" cy="396" fill="#80E0FF" id="_x3C_path_x3E_" rx="144" ry="144" stroke="#000000" stroke-width="17"/>    </g>
 11081~255.984375~298.3125~96.5625~44.421875

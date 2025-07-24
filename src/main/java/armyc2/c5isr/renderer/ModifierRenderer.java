@@ -1924,22 +1924,26 @@ public class ModifierRenderer implements SettingsEventListener
                         fast = true;
                     }
 
+                    float distanceScaler = dpi;//spec does scale by inch, but if the symbol is too big, scale by pixel size
+                    if(dpi < pixelSize)
+                        distanceScaler = pixelSize;
+
                     if(fast)
                     {
                         if (speed < 300)
-                            distance = (int) (pixelSize * 0.25)/300 * speed;
+                            distance = (int) ((distanceScaler * 0.25)/300f * speed);
                         else if (speed < 600)
-                            distance = (int) (pixelSize * 0.5)/600 * speed;
+                            distance = (int) ((distanceScaler * 0.5)/600f * speed);
                         else
-                            distance = (int) (pixelSize * 0.75);
+                            distance = (int) (distanceScaler * 0.75);
                     } else//submarine might be 1/4 inch if its speed is less than 15 knots, 1/2 inch if its speed is between 15 and 30 knots and 3/4 inch if its speed is more than 30 knots
                     {
                         if (speed < 15)
-                            distance = (int) (pixelSize * 0.25)/15 * speed;
+                            distance = (int) ((distanceScaler * 0.25)/15f * speed);
                         else if (speed < 30)
-                            distance = (int) (pixelSize * 0.5)/30 * speed;
+                            distance = (int) ((distanceScaler * 0.5)/30f * speed);
                         else
-                            distance = (int) (pixelSize * 0.75);
+                            distance = (int) (distanceScaler * 0.75);
                     }
                     double radians = (angle * (Math.PI / 180));//convert degrees to radians
                     int x2 = (int) (symbolCenter.getX() + distance * Math.cos(radians));
@@ -1967,9 +1971,11 @@ public class ModifierRenderer implements SettingsEventListener
                     double offsetX = 0;
                     double offsetY = 0;
                     if (imageBounds.getX() < 0)
-                        offsetX = imageBounds.getX();
+                        offsetX = imageBounds.getX() * -1;
                     if (imageBounds.getY() < 0)
-                        offsetY = imageBounds.getY();
+                        offsetY = imageBounds.getY() * -1;
+
+                    ShapeUtilities.offset(slPath, (int)offsetX, (int)offsetY);
 
                     g2d.drawImage(((ImageInfo) sdi).getImage(), null, (int) offsetX, (int) offsetY);
                     g2d.setStroke(stroke);
@@ -11382,7 +11388,9 @@ public class ModifierRenderer implements SettingsEventListener
             else if(frame == '0')
             {
                 if (ss == SymbolID.SymbolSet_Air ||
+                        ss == SymbolID.SymbolSet_AirMissile ||
                         ss == SymbolID.SymbolSet_Space ||
+                        ss == SymbolID.SymbolSet_SpaceMissile ||
                         ss == SymbolID.SymbolSet_SignalsIntelligence_Air ||
                         (ss == SymbolID.SymbolSet_LandEquipment && version <= SymbolID.Version_2525Dch1)) {
                     onTop = true;
