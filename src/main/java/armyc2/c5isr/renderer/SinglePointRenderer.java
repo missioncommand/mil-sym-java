@@ -6,17 +6,12 @@ import com.github.weisj.jsvg.attributes.ViewBox;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 /**
  *`
@@ -319,7 +314,6 @@ public class SinglePointRenderer implements SettingsEventListener{
                 //Create destination BMP
                 BufferedImage bmp = new BufferedImage((int)symbolBounds.getWidth(), (int)symbolBounds.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-
                 //draw unit from SVG
                 String svgAlpha = "";
                 if(alpha >=0)
@@ -375,9 +369,7 @@ public class SinglePointRenderer implements SettingsEventListener{
                 //g.drawRect(0, 0, (int)bmp.getWidth()-1, (int)bmp.getHeight()-1);
                 g.dispose();
 
-                Point center = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, RectUtilities.makeRectangle2DFromRect(0, 0, symbolBounds.getWidth(), symbolBounds.getHeight()));
-
-                ii = new ImageInfo(bmp, center, symbolBounds);
+                ii = new ImageInfo(bmp, centerPoint, symbolBounds);
 
                 if(cacheEnabled && _unitCache != null && asIcon == false && pixelSize <= 200)
                 {
@@ -481,7 +473,10 @@ public class SinglePointRenderer implements SettingsEventListener{
                             sdiTemp = ModifierRenderer.processActivitiesTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
                         break;
                     case SymbolID.SymbolSet_CyberSpace:
-                        sdiTemp = ModifierRenderer.processCyberSpaceTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
+                        if(ver >= SymbolID.Version_2525E)
+                            sdiTemp = ModifierRenderer.processCyberSpaceTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
+                        else
+                            sdiTemp = ModifierRenderer.processCyberSpaceTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
                         break;
                     case SymbolID.SymbolSet_MineWarfare:
                         break;//no modifiers
@@ -499,7 +494,7 @@ public class SinglePointRenderer implements SettingsEventListener{
             }
             iiNew = null;
 
-
+            ii = (ImageInfo) ModifierRenderer.processSpeedLeader(ii, symbolID, modifiers, attributes);
         }
         catch(Exception exc)
         {
@@ -644,10 +639,10 @@ public class SinglePointRenderer implements SettingsEventListener{
                 if (outlineSymbol) {
                     borderPadding = RendererUtilities.findWidestStrokeWidth(siIcon.getSVG());
                 }
-                top = (int)Math.round(siIcon.getBbox().getY());
-                left = (int)Math.round(siIcon.getBbox().getX());
-                width = (int)Math.round(siIcon.getBbox().getWidth());
-                height = (int)Math.round(siIcon.getBbox().getHeight());
+                top = (int)Math.floor(siIcon.getBbox().getY());
+                left = (int)Math.floor(siIcon.getBbox().getX());
+                width = (int)Math.ceil(siIcon.getBbox().getWidth() + (siIcon.getBbox().getX() - left));
+                height = (int)Math.ceil(siIcon.getBbox().getHeight() + (siIcon.getBbox().getY() - top));
                 if(siIcon.getBbox().getMaxX() > 400)
                     svgStart = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" viewBox=\"0 0 612 792\">";
                 else

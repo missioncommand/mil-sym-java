@@ -366,7 +366,7 @@ public class SinglePointSVGRenderer {
                 RectUtilities.shift(symbolBounds,0,(int)-symbolBounds.getY());
 
                 //Add core symbol to SVGSymbolInfo
-                Point2D anchor = new Point2D.Double(symbolBounds.getCenterX(),symbolBounds.getCenterY());
+                Point2D anchor = centerPoint;//new Point2D.Double(symbolBounds.getCenterX(),symbolBounds.getCenterY());
                 si =  new SVGSymbolInfo(sbGroupUnit.toString(), anchor,symbolBounds,symbolBounds);
 
                 hasDisplayModifiers = ModifierRenderer.hasDisplayModifiers(symbolID, modifiers);
@@ -459,7 +459,10 @@ public class SinglePointSVGRenderer {
                             newSDI = ModifierRenderer.processActivitiesTextModifiers(si, symbolID, modifiers, attributes, _fontRenderContext);
                         break;
                     case SymbolID.SymbolSet_CyberSpace:
-                        newSDI = ModifierRenderer.processCyberSpaceTextModifiers(si, symbolID, modifiers, attributes, _fontRenderContext);
+                        if(ver >= SymbolID.Version_2525E)
+                            newSDI = ModifierRenderer.processCyberSpaceTextModifiersE(si, symbolID, modifiers, attributes, _fontRenderContext);
+                        else
+                            newSDI = ModifierRenderer.processCyberSpaceTextModifiers(si, symbolID, modifiers, attributes, _fontRenderContext);
                         break;
                     case SymbolID.SymbolSet_MineWarfare:
                         break;//no modifiers
@@ -476,9 +479,15 @@ public class SinglePointSVGRenderer {
             }
             newSDI = null;//*/
 
+            si = (SVGSymbolInfo)ModifierRenderer.processSpeedLeader(si,symbolID,modifiers,attributes);
+
             int widthOffset = 0;
             if(hasTextModifiers)
-                widthOffset = 2;//add for the text outline
+            {
+                widthOffset =  RendererSettings.getInstance().getTextOutlineWidth();
+                //widthOffset =  (int)Math.ceil(RendererSettings.getInstance().getTextOutlineWidth()/2f);
+                //widthOffset = 2;
+            }
 
             int svgWidth = (int)Math.ceil(si.getImageBounds().getWidth()+widthOffset);
             int svgHeight = (int)Math.ceil(si.getImageBounds().getHeight());
@@ -650,10 +659,10 @@ public class SinglePointSVGRenderer {
                 if (outlineSymbol) {
                     borderPadding = RendererUtilities.findWidestStrokeWidth(siIcon.getSVG());
                 }
-                top = (int)Math.round(siIcon.getBbox().getY());
-                left = (int)Math.round(siIcon.getBbox().getX());
-                width = (int)Math.round(siIcon.getBbox().getWidth());
-                height = (int)Math.round(siIcon.getBbox().getHeight());
+                top = (int)Math.floor(siIcon.getBbox().getY());
+                left = (int)Math.floor(siIcon.getBbox().getX());
+                width = (int)Math.ceil(siIcon.getBbox().getWidth() + (siIcon.getBbox().getX() - left));
+                height = (int)Math.ceil(siIcon.getBbox().getHeight() + (siIcon.getBbox().getY() - top));
 
                 String strSVGIcon = null;
 

@@ -9,6 +9,7 @@ import armyc2.c5isr.renderer.SinglePointRenderer;
 import armyc2.c5isr.renderer.SinglePointSVGRenderer;
 import armyc2.c5isr.renderer.utilities.*;
 import armyc2.c5isr.web.render.WebRenderer;
+import com.github.weisj.jsvg.attributes.ViewBox;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -16,7 +17,10 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ItemEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -405,6 +409,8 @@ public class Tester extends javax.swing.JFrame {
         cbContext.addItem("0-Reality");
         cbContext.addItem("1-Exercise");
         cbContext.addItem("2-Simulation");
+        cbContext.addItem("3-Restricted");
+        cbContext.addItem("4-No-Strike");
         cbContext.setSelectedIndex(0);
         
         cbAffiliation.addItem("0-Pending");
@@ -486,14 +492,14 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.AP1_TARGET_NUMBER_EXTENSION,"AP1");
             modifier.put(Modifiers.X_ALTITUDE_DEPTH,"0,10");//X
             modifier.put(Modifiers.K_COMBAT_EFFECTIVENESS,"100");//K
-            modifier.put(Modifiers.Q_DIRECTION_OF_MOVEMENT,"45");//Q
+            modifier.put(Modifiers.Q_DIRECTION_OF_MOVEMENT,"90");//Q
 
             modifier.put(Modifiers.W_DTG_1, SymbolUtilities.getDateLabel(new Date()));//W
             modifier.put(Modifiers.W1_DTG_2, SymbolUtilities.getDateLabel(new Date()));//W1
             modifier.put(Modifiers.J_EVALUATION_RATING,"J");
             modifier.put(Modifiers.M_HIGHER_FORMATION,"M");
             modifier.put(Modifiers.N_HOSTILE,"ENY");
-            modifier.put(Modifiers.P_IFF_SIF_AIS,"P");
+            modifier.put(Modifiers.P_IFF_SIF_AIS,"Pj");
             modifier.put(Modifiers.Y_LOCATION,"Y");
             
             modifier.put(Modifiers.C_QUANTITY,"C");
@@ -501,10 +507,10 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.F_REINFORCED_REDUCED,"RD");
             modifier.put(Modifiers.L_SIGNATURE_EQUIP,"!");
             modifier.put(Modifiers.AA_SPECIAL_C2_HQ,"AA");
-            modifier.put(Modifiers.G_STAFF_COMMENTS,"G");
+            modifier.put(Modifiers.G_STAFF_COMMENTS,"Gj");
             //symbol.symbolicon A
-            modifier.put(Modifiers.V_EQUIP_TYPE,"V");
-            modifier.put(Modifiers.T_UNIQUE_DESIGNATION_1,"T");
+            modifier.put(Modifiers.V_EQUIP_TYPE,"Vj");
+            modifier.put(Modifiers.T_UNIQUE_DESIGNATION_1,"Tj");
             modifier.put(Modifiers.T1_UNIQUE_DESIGNATION_2,"T1");
             modifier.put(Modifiers.Z_SPEED,"999");//Z
 
@@ -513,6 +519,9 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.AD_PLATFORM_TYPE, "AD");
             modifier.put(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME, "AE");
             modifier.put(Modifiers.AF_COMMON_IDENTIFIER, "AF");
+
+            modifier.put(Modifiers.AJ_SPEED_LEADER, "700 KPH 090");
+
             //TODO
             modifier.put(Modifiers.AO_ENGAGEMENT_BAR, "AO:AOA-AO");
             modifier.put(Modifiers.AR_SPECIAL_DESIGNATOR, "AR");
@@ -1059,6 +1068,7 @@ public class Tester extends javax.swing.JFrame {
                 try
                 {
                     icon = MilStdIconRenderer.getInstance().RenderIcon(symbolID, modifiers, attributes);
+                    MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
                     g2d = (Graphics2D) this.getGraphics();
                     Graphics2D graphics = (Graphics2D)jPanel1.getGraphics();
                     Point2D mouseClickLocation = new Point2D.Double(evt.getPoint().getX(),evt.getPoint().getY());
@@ -1068,7 +1078,6 @@ public class Tester extends javax.swing.JFrame {
                     }
                     else
                     {
-                        MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
                         String message = "RenderIcon - " + symbolID + " returned null.";
                         ErrorLogger.LogMessage("Tester", "formMouseClicked", message);
                     }
@@ -1356,7 +1365,7 @@ public class Tester extends javax.swing.JFrame {
                     }
                     long endTime = System.currentTimeMillis();
                     String message = String.valueOf(limit) + " " + msInfo.getName() + " drawn in " + String.valueOf((endTime - startTime)/1000f) + " seconds.";
-                    JOptionPane.showMessageDialog(null,message ,"Speed Test",1);
+                    JOptionPane.showMessageDialog(null,message ,"Speed Test Image",1);
 
                     g2d = (Graphics2D) this.getGraphics();
                     Graphics2D graphics = (Graphics2D) jPanel1.getGraphics();
@@ -1372,7 +1381,39 @@ public class Tester extends javax.swing.JFrame {
                     }
                      endTime = System.currentTimeMillis();
                     message = String.valueOf(limit) + " " + msInfo.getName() + " drawn in " + String.valueOf((endTime - startTime)/1000f) + " seconds.";
-                    JOptionPane.showMessageDialog(null,message ,"Speed Test",1);
+                    JOptionPane.showMessageDialog(null,message ,"Speed Test SVG",1);
+
+                    //SVG to Image Speed Test
+                    svg = null;
+                    com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
+                    com.github.weisj.jsvg.SVGDocument svgDocument = null;
+                    startTime = System.currentTimeMillis();
+                    BufferedImage bmp = null;
+                    for(int i = 0; i < limit; i++)
+                    {
+                        svg = MilStdIconRenderer.getInstance().RenderSVG(symbolID, modifiers, attributes);
+                        //Render Code
+                        //com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
+                        svgDocument = null;
+                        //Create destination BMP
+                        bmp = new BufferedImage((int)svg.getImageBounds().getWidth(), (int)svg.getImageBounds().getHeight(), BufferedImage.TYPE_INT_ARGB);
+                        InputStream stream = new ByteArrayInputStream(svg.getSVG().getBytes(StandardCharsets.UTF_8));
+                        svgDocument = loader.load(stream);
+                        com.github.weisj.jsvg.attributes.ViewBox vb = new ViewBox(0,0,bmp.getWidth(),bmp.getHeight());
+                        Graphics2D g = bmp.createGraphics();
+                        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                        svgDocument.render(null,g,vb);
+                        //g.setPaint(Color.RED);
+                        //g.drawRect(0, 0, (int)bmp.getWidth()-1, (int)bmp.getHeight()-1);
+                        g.dispose();
+                    }
+                    endTime = System.currentTimeMillis();
+                    message = String.valueOf(limit) + " " + msInfo.getName() + " drawn in " + String.valueOf((endTime - startTime)/1000f) + " seconds.";
+                    JOptionPane.showMessageDialog(null,message ,"Speed Test SVG to Image",1);
+                    ImageInfo converted = new ImageInfo(bmp, svg.getSymbolCenterPoint(),svg.getSymbolBounds());
+                    //converted.SaveImageToFile("C:\\temp\\converted.png","png");
+
                 }
                 catch (Exception exc) {
                     ErrorLogger.LogException("Tester", "formMouseClicked", exc);

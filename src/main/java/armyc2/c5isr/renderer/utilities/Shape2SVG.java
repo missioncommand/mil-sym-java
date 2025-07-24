@@ -25,6 +25,10 @@ public class Shape2SVG {
             return convertPath((Path2D)shape, stroke, fill, strokeWidth, strokeOpacity, fillOpacity, dashArray, lineCap);
         else if(shape instanceof Rectangle2D)
             return convertRect((Rectangle2D)shape, stroke, fill, strokeWidth, strokeOpacity, fillOpacity, dashArray, lineCap);
+        else if(shape instanceof Ellipse2D)
+            return convertEllipse((Ellipse2D)shape, stroke, fill, strokeWidth, strokeOpacity, fillOpacity, dashArray, lineCap);
+        else if(shape instanceof Line2D)
+            return convertLine((Line2D)shape, stroke, fill, strokeWidth, strokeOpacity, fillOpacity, dashArray, lineCap);
         else
             return null;
     }
@@ -43,7 +47,7 @@ public class Shape2SVG {
         if(textInfo != null)
         {
             String style = null;
-            String name = RendererSettings.getInstance().getLabelFont().getFontName() + ", sans-serif";//"SansSerif";
+            String name = RendererSettings.getInstance().getLabelFont().getFamily() + ", sans-serif";//"SansSerif";
             String size = String.valueOf(RendererSettings.getInstance().getLabelFont().getSize());
             String weight = null;
             String anchor = null;//"start";
@@ -372,6 +376,110 @@ public class Shape2SVG {
         {
             sb.append("<rect x=\"" + rect.getX() + "\" y=\"" + rect.getY());
             sb.append("\" width=\"" + rect.getWidth() + "\" height=\"" + rect.getHeight() + "\"");
+
+            if(stroke != null)
+            {
+                sb.append(" stroke=\"" + stroke + "\"");
+
+                if(strokeWidth != null)
+                    sb.append(" stroke-width=\"" + strokeWidth + "\"");
+                else
+                    sb.append(" stroke-width=\"2\"");
+
+                if(lineCap != null &&
+                        (lineCap.equalsIgnoreCase("butt") ||
+                                lineCap.equalsIgnoreCase("round") ||
+                                lineCap.equalsIgnoreCase("square")))
+                {
+                    sb.append(" stroke-linecap=\"").append(lineCap).append("\"");
+                }
+            }
+
+            if(fill != null)
+                sb.append(" fill=\"" + fill + "\"");
+            else
+                sb.append(" fill=\"none\"");
+
+            sb.append("/>");
+
+            return sb.toString();
+        }
+        else
+            return null;
+    }
+
+    /**
+     *
+     * @param line
+     * @param stroke like "#000000
+     * @param fill like "#0000FF" or "none"
+     * @param strokeWidth "#"
+     * @param strokeOpacity "1.0"
+     * @param fillOpacity "1.0"
+     * @param dashArray "4 1 2 3"
+     * @param lineCap "butt", "round", or "square"
+     * @return
+     */
+    private static String convertLine(Line2D line, String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray, String lineCap)
+    {
+        //<line x1="34.89607146049936" y1="3.2455781704774154" x2="44.36527642021904" y2="11.417631765851933" stroke-width="0.999999995" stroke="black" fill="none"></line>
+        StringBuilder sb = new StringBuilder();
+        if(line != null)
+        {
+            sb.append("<line x1=\"" + line.getX1() + "\" y1=\"" + line.getY1());
+            sb.append("\" x2=\"" + line.getX2() + "\" y2=\"" + line.getY2() + "\"");
+
+            if(stroke != null)
+            {
+                sb.append(" stroke=\"" + stroke + "\"");
+
+                if(strokeWidth != null)
+                    sb.append(" stroke-width=\"" + strokeWidth + "\"");
+                else
+                    sb.append(" stroke-width=\"2\"");
+
+                if(lineCap != null &&
+                        (lineCap.equalsIgnoreCase("butt") ||
+                                lineCap.equalsIgnoreCase("round") ||
+                                lineCap.equalsIgnoreCase("square")))
+                {
+                    sb.append(" stroke-linecap=\"").append(lineCap).append("\"");
+                }
+            }
+
+            if(fill != null)
+                sb.append(" fill=\"" + fill + "\"");
+            else
+                sb.append(" fill=\"none\"");
+
+            sb.append("/>");
+
+            return sb.toString();
+        }
+        else
+            return null;
+    }
+
+    /**
+     *
+     * @param ellipse
+     * @param stroke like "#000000
+     * @param fill like "#0000FF" or "none"
+     * @param strokeWidth "#"
+     * @param strokeOpacity "1.0"
+     * @param fillOpacity "1.0"
+     * @param dashArray "4 1 2 3"
+     * @param lineCap "butt", "round", or "square"
+     * @return
+     */
+    private static String convertEllipse(Ellipse2D ellipse, String stroke, String fill, String strokeWidth, String strokeOpacity, String fillOpacity, String dashArray, String lineCap)
+    {
+        StringBuilder sb = new StringBuilder();
+        if(ellipse != null && !ellipse.isEmpty())
+        {
+            //<ellipse cx="39.56581637214194" cy="7.396462536381936" rx="6.485756821725808" ry="6.485756821725808" stroke-width="0.999999995" stroke="black" fill="yellow"></ellipse>
+            sb.append("<ellipse cx=\"" + (ellipse.getX() + ellipse.getWidth()/2f) + "\" cy=\"" + (ellipse.getY() + ellipse.getHeight()/2f) + "\"");
+            sb.append(" rx=\"" + (ellipse.getWidth()/2f) + "\" ry=\"" + (ellipse.getHeight()/2f) + "\"");
 
             if(stroke != null)
             {

@@ -1,9 +1,6 @@
 package armyc2.c5isr.renderer.utilities;
 
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.*;
 
 /**
  *
@@ -41,4 +38,23 @@ public class ShapeUtilities {
         path.transform(AffineTransform.getTranslateInstance(offsetX, offsetY));
     }
 
+    public static Ellipse2D offset(Ellipse2D ellipse, double offsetX, double offsetY)
+    {
+        return new Ellipse2D.Double(ellipse.getX() + offsetX, ellipse.getY() + offsetY, ellipse.getWidth(), ellipse.getHeight());
+    }
+
+    public static Ellipse2D offset(Ellipse2D.Float ellipse, float offsetX, float offsetY)
+    {
+        return new Ellipse2D.Float((float)ellipse.getX() + offsetX, (float)ellipse.getY() + offsetY, (float)ellipse.getWidth(), (float)ellipse.getHeight());
+    }
+
+    public static Line2D offset(Line2D line, double offsetX, double offsetY)
+    {
+        return new Line2D.Double(line.getX1() + offsetX, line.getY1() + offsetY, line.getX2() + offsetX, line.getY2() + offsetY);
+    }
+
+    public static Line2D offset(Line2D.Float line, float offsetX, float offsetY)
+    {
+        return new Line2D.Float((float)line.getX1() + offsetX, (float)line.getY1() + offsetY, (float)line.getX2() + offsetX, (float)line.getY2() + offsetY);
+    }
 }
