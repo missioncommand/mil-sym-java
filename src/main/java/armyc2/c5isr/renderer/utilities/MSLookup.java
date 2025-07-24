@@ -84,6 +84,7 @@ public class MSLookup {
 
             String id = null;
             String ss = null;
+            int intSS = 0;
             String e = null;
             String et = null;
             String est = null;
@@ -124,6 +125,7 @@ public class MSLookup {
 
                 id = ss + ec;
 
+                intSS = Integer.parseInt(ss);
                 if (!ec.equals("000000")) {
                     if (temp.length >= 7) {//Control Measures and METOCS
                         if (temp.length >= 8) {
@@ -141,6 +143,14 @@ public class MSLookup {
                         //_MSLookupD.put(id, new MSInfo(ss, e, et, est, ec));
                         lookup.put(id, new MSInfo(version, ss, e, et, est, ec, populateModifierList(ss, ec, version)));
                     }
+                    list.add(id);
+                }
+                else if(intSS != SymbolID.SymbolSet_ControlMeasure &&
+                        intSS != SymbolID.SymbolSet_Atmospheric &&
+                        intSS != SymbolID.SymbolSet_Oceanographic &&
+                        intSS != SymbolID.SymbolSet_MeteorologicalSpace)
+                {
+                    lookup.put(id, new MSInfo(version, ss, e, et, est, ec, populateModifierList(ss,ec, version)));
                     list.add(id);
                 }
 

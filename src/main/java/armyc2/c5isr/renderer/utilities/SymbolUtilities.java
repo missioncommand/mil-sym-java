@@ -319,13 +319,13 @@ public class SymbolUtilities {
     {
         MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
 
-        if(msi != null  && msi.getDrawRule() != DrawRules.DONOTDRAW)
+        if(msi != null)//  && msi.getDrawRule() != DrawRules.DONOTDRAW)
         {
             ArrayList<String> mods = msi.getModifiers();
 
             if(mods != null && mods.contains(modifier))
                 return true;
-            else if(msi.getSymbolSet()== SymbolID.SymbolSet_ControlMeasure && modifier == Modifiers.AB_FEINT_DUMMY_INDICATOR)
+            else if(msi.getSymbolSet()== SymbolID.SymbolSet_ControlMeasure && modifier.equals(Modifiers.AB_FEINT_DUMMY_INDICATOR))
                 return true;
             else
                 return false;
