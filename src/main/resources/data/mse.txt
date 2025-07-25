@@ -1227,7 +1227,8 @@
 		Disengage		344400	Line	Line24			
 		Evacuate/Evacuation		344500	Line	Line27			
 		Turn		344700	Line	Line10			
-27	Military			110000
+27	Unspecified			000000
+	Military			110000
 		Activity/Task		110200
 			Explosive Ordnance Disposal	110201
 			Field Artillery Observer	110202
