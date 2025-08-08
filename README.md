@@ -15,7 +15,7 @@ The old 2525C renderer has been retired but the libraries and usage information 
 
 MIL-STD-2525
 -----------
-The [MIL-STD-2525] standard defines how to visualize military symbology.  This project provides support for the entire MIL-STD-2525D Change 1 and MIL-STD-2525E.
+The [MIL-STD-2525] standard defines how to visualize military symbology.  This project provides support for the entire MIL-STD-2525D Change 1 and MIL-STD-2525E Change 1.
 
 Project Structure
 ------------
