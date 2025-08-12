@@ -85,6 +85,11 @@ public class ModifierRenderer implements SettingsEventListener
     public static SymbolDimensionInfo processUnitDisplayModifiers(SymbolDimensionInfo sdi, String symbolID, Map<String,String> modifiers, Map<String,String> attributes, FontRenderContext frc)
     {
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
         SymbolDimensionInfo newsdi = null;
@@ -492,7 +497,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             int echelonOffset = 2,
                     outlineOffset = RS.getTextOutlineWidth();
-            Font modifierFont = RS.getLabelFont();
+            //Font modifierFont = RS.getLabelFont();
             tiEchelon = new TextInfo(strEchelon, 0, 0, modifierFont,frc);
             echelonBounds = tiEchelon.getTextBounds();
 
@@ -633,7 +638,7 @@ public class ModifierRenderer implements SettingsEventListener
             strAO = modifiers.get(Modifiers.AO_ENGAGEMENT_BAR);
         if(strAO != null)
         {
-            tiAO = new TextInfo(strAO, 0, 0, _modifierFont,frc);
+            tiAO = new TextInfo(strAO, 0, 0, modifierFont,frc);
             ebTextBounds = tiAO.getTextBounds();
             ebHeight = (int)ebTextBounds.getHeight() + 4;
 
@@ -786,7 +791,7 @@ public class ModifierRenderer implements SettingsEventListener
 
                 boolean isY = (modifiers.containsKey(Modifiers.Y_LOCATION));
 
-                domPoints = createDOMArrowPoints(symbolID, symbolBounds, centerPoint, q, isY,frc);
+                domPoints = createDOMArrowPoints(symbolID, symbolBounds, centerPoint, q, isY,modifierFontHeight);
 
                 domBounds = new Rectangle2D.Double(domPoints[0].getX(), domPoints[0].getY(), 1, 1);
 
@@ -1572,7 +1577,7 @@ public class ModifierRenderer implements SettingsEventListener
      * @returns {Array} of SO.Point. First 3 items are the line. Last three are
      * the arrowhead.
      */
-    private static Point2D[] createDOMArrowPoints(String symbolID, Rectangle2D bounds, Point2D center, float angle, boolean isY, FontRenderContext frc)
+    private static Point2D[] createDOMArrowPoints(String symbolID, Rectangle2D bounds, Point2D center, float angle, boolean isY, float modifierFontHeight)
     {
         Point2D[] arrowPoints = new Point2D.Double[6];
         Point2D pt1 = null;
@@ -1620,7 +1625,7 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if (isY == true && SymbolUtilities.isCBRNEvent(symbolID))//make room for y modifier
                 {
-                    int yModifierOffset = (int) _modifierFontHeight;
+                    int yModifierOffset = (int) modifierFontHeight;
 
                     yModifierOffset += RS.getTextOutlineWidth();
 
@@ -2019,7 +2024,12 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
-        int bufferHorizontal = (int)_modifierFontHeight/2;
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
+        int bufferHorizontal = (int)modifierFontHeight/2;
         int bufferXL = bufferHorizontal;
         int bufferXR = bufferHorizontal;
         int bufferY = 2;
@@ -2059,7 +2069,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -2111,8 +2121,8 @@ public class ModifierRenderer implements SettingsEventListener
             String text = modifiers.get(Modifiers.C_QUANTITY);
             if(text != null)
             {
-                //bounds = armyc2.c5isr.renderer.utilities.RendererUtilities.getTextOutlineBounds(_modifierFont, text, new SO.Point(0,0));
-                tiTemp = new TextInfo(text, 0, 0, _modifierFont, frc);
+                //bounds = armyc2.c5isr.renderer.utilities.RendererUtilities.getTextOutlineBounds(modifierFont, text, new SO.Point(0,0));
+                tiTemp = new TextInfo(text, 0, 0, modifierFont, frc);
                 labelBounds = RectUtilities.toRectangle(tiTemp.getTextBounds());
                 labelWidth = (int)labelBounds.getWidth();
                 x = (int)Math.round((symbolBounds.getX() + (symbolBounds.getWidth() * 0.5f)) - (labelWidth * 0.5f));
@@ -2153,7 +2163,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2184,7 +2194,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2241,7 +2251,7 @@ public class ModifierRenderer implements SettingsEventListener
                 modifierValue = modifierValue.trim();
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2277,7 +2287,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2299,7 +2309,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2343,7 +2353,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2373,7 +2383,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2462,7 +2472,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2493,7 +2503,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2569,7 +2579,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2601,7 +2611,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -2648,6 +2658,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -2663,7 +2678,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -2691,7 +2706,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -2768,12 +2783,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 1);
 
@@ -2788,12 +2803,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont,frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont,frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //just above H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -2814,12 +2829,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont,frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont,frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -2835,12 +2850,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont,frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont,frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //just below center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -1);
 
@@ -2861,12 +2876,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -2882,12 +2897,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below T
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -2);
 
@@ -2942,12 +2957,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below M
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -2965,12 +2980,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -3050,12 +3065,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -3072,7 +3087,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -3110,6 +3125,12 @@ public class ModifierRenderer implements SettingsEventListener
 
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
+
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+        
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -3125,7 +3146,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -3154,7 +3175,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -3231,12 +3252,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -3275,12 +3296,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont,frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont,frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -3319,12 +3340,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont,frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont,frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -3371,12 +3392,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont,frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont,frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -3407,12 +3428,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont,frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont,frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -3433,12 +3454,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -3454,12 +3475,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below T
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -3525,12 +3546,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below M
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -3548,12 +3569,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -3633,12 +3654,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -3655,7 +3676,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -3694,6 +3715,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 0;
@@ -3709,7 +3735,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -3734,7 +3760,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -3794,12 +3820,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && modifierValue.equals("")==false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //below Z/X
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -3825,12 +3851,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && modifierValue.equals("")==false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //below V
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -3846,12 +3872,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && modifierValue.equals("") == false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //center
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -3867,12 +3893,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && modifierValue.equals("") == false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //above V
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -3888,12 +3914,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && modifierValue.equals("") == false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //above P
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -3919,12 +3945,12 @@ public class ModifierRenderer implements SettingsEventListener
                 modifierValue = modifierValue.trim();
                 if (modifierValue.equals("") == false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //above T
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 3);
 
@@ -3952,12 +3978,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && modifierValue.equals("")==false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //below Z/X
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -2);
 
@@ -3983,12 +4009,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && modifierValue.equals("")==false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //below center
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -1);
 
@@ -4004,12 +4030,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && !modifierValue.isEmpty())
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //above vertical center
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, 0, false, 1);
 
@@ -4025,12 +4051,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifierValue != null && modifierValue.equals("") == false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //above V
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -4056,12 +4082,12 @@ public class ModifierRenderer implements SettingsEventListener
                 modifierValue = modifierValue.trim();
                 if (modifierValue.equals("") == false)
                 {
-                    tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                    tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                     labelBounds = tiTemp.getTextBounds();
                     labelWidth = (int)labelBounds.getWidth();
 
                     //on right
-                    x = (int)getLabelXPosition(bounds, labelWidth, true);
+                    x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                     //above T
                     y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 3);
 
@@ -4095,6 +4121,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -4110,7 +4141,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -4135,7 +4166,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -4186,8 +4217,8 @@ public class ModifierRenderer implements SettingsEventListener
             String text = modifiers.get(Modifiers.C_QUANTITY);
             if(text != null)
             {
-                //bounds = armyc2.c5isr.renderer.utilities.RendererUtilities.getTextOutlineBounds(_modifierFont, text, new SO.Point(0,0));
-                tiTemp = new TextInfo(text, 0, 0, _modifierFont, frc);
+                //bounds = armyc2.c5isr.renderer.utilities.RendererUtilities.getTextOutlineBounds(modifierFont, text, new SO.Point(0,0));
+                tiTemp = new TextInfo(text, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
                 x = (int)Math.round((symbolBounds.getX() + (symbolBounds.getWidth() * 0.5f)) - (labelWidth * 0.5f));
@@ -4221,12 +4252,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below P
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -4261,12 +4292,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -4293,12 +4324,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -4328,12 +4359,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && !modifierValue.equals(""))
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -4360,12 +4391,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above T
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -4379,12 +4410,12 @@ public class ModifierRenderer implements SettingsEventListener
             modifierValue = modifiers.get(Modifiers.AD_PLATFORM_TYPE);
 
             if (modifierValue != null && modifierValue.equals("") == false) {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int) labelBounds.getWidth();
 
                 //left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true,0);
 
@@ -4398,12 +4429,12 @@ public class ModifierRenderer implements SettingsEventListener
             modifierValue = modifiers.get(Modifiers.AR_SPECIAL_DESIGNATOR);
 
             if (modifierValue != null && modifierValue.equals("") == false) {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int) labelBounds.getWidth();
 
                 //left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above AD
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true,1);
 
@@ -4417,12 +4448,12 @@ public class ModifierRenderer implements SettingsEventListener
             modifierValue = modifiers.get(Modifiers.W_DTG_1);
 
             if (modifierValue != null && modifierValue.equals("") == false) {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int) labelBounds.getWidth();
 
                 //left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above AR
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true,2);
 
@@ -4453,6 +4484,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -4468,7 +4504,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -4493,7 +4529,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -4542,8 +4578,8 @@ public class ModifierRenderer implements SettingsEventListener
             String text = modifiers.get(Modifiers.C_QUANTITY);
             if(text != null)
             {
-                //bounds = armyc2.c5isr.renderer.utilities.RendererUtilities.getTextOutlineBounds(_modifierFont, text, new SO.Point(0,0));
-                tiTemp = new TextInfo(text, 0, 0, _modifierFont, frc);
+                //bounds = armyc2.c5isr.renderer.utilities.RendererUtilities.getTextOutlineBounds(modifierFont, text, new SO.Point(0,0));
+                tiTemp = new TextInfo(text, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
                 x = (int)Math.round((symbolBounds.getX() + (symbolBounds.getWidth() * 0.5f)) - (labelWidth * 0.5f));
@@ -4584,12 +4620,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //just above center  V/AD/AE
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -4615,12 +4651,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -4652,12 +4688,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -4673,12 +4709,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -4695,12 +4731,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below T
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -4766,12 +4802,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -4801,12 +4837,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -4847,12 +4883,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(!modifierValue.equals(""))
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above G/AQ
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -4902,12 +4938,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -4940,6 +4976,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -4955,7 +4996,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -4980,7 +5021,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -5029,8 +5070,8 @@ public class ModifierRenderer implements SettingsEventListener
             String text = modifiers.get(Modifiers.C_QUANTITY);
             if(text != null)
             {
-                //bounds = armyc2.c5isr.renderer.utilities.RendererUtilities.getTextOutlineBounds(_modifierFont, text, new SO.Point(0,0));
-                tiTemp = new TextInfo(text, 0, 0, _modifierFont, frc);
+                //bounds = armyc2.c5isr.renderer.utilities.RendererUtilities.getTextOutlineBounds(modifierFont, text, new SO.Point(0,0));
+                tiTemp = new TextInfo(text, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
                 x = (int)Math.round((symbolBounds.getX() + (symbolBounds.getWidth() * 0.5f)) - (labelWidth * 0.5f));
@@ -5071,12 +5112,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //just above V/AD/AE
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -5102,12 +5143,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //just above center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 1);
 
@@ -5139,12 +5180,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //H, below G/AQ
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -1);
 
@@ -5176,12 +5217,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //just below V/AD/AE
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -5197,12 +5238,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below T
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -5268,12 +5309,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below H/AF
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -2);
 
@@ -5292,12 +5333,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -5346,12 +5387,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -5391,12 +5432,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above G/AQ
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -5430,6 +5471,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -5445,7 +5491,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -5470,7 +5516,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -5523,12 +5569,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -5551,12 +5597,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -5572,12 +5618,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below center X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -5634,12 +5680,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -5660,12 +5706,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above center X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -5706,12 +5752,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -5752,12 +5798,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -5789,6 +5835,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -5804,7 +5855,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -5830,7 +5881,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -5890,12 +5941,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -5917,12 +5968,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -5950,12 +6001,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //just below center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -1);
 
@@ -5971,12 +6022,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below C/AE
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -2);
 
@@ -5997,12 +6048,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -6058,12 +6109,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(!modifierValue.equals(""))
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below M
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -6084,12 +6135,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -6130,12 +6181,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -6177,12 +6228,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above vertical center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 1);
 
@@ -6215,6 +6266,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -6230,7 +6286,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -6256,7 +6312,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -6331,12 +6387,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -6356,12 +6412,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -6383,12 +6439,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -6404,12 +6460,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -6430,12 +6486,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -6451,12 +6507,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below T
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -6512,12 +6568,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below M
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -6538,12 +6594,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above X/Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -6583,12 +6639,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -6628,12 +6684,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -6668,6 +6724,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -6683,7 +6744,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -6709,7 +6770,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -6756,12 +6817,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 1);
 
@@ -6778,12 +6839,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -1);
 
@@ -6818,12 +6879,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below P
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -2);
 
@@ -6865,12 +6926,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -3);
 
@@ -6888,12 +6949,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -6921,7 +6982,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -6938,7 +6999,7 @@ public class ModifierRenderer implements SettingsEventListener
                 }//*/
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //top left
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -6970,12 +7031,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 3);
 
@@ -7012,6 +7073,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -7027,7 +7093,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -7053,7 +7119,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -7100,12 +7166,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 1);
 
@@ -7122,12 +7188,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -1);
 
@@ -7162,12 +7228,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below P
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -2);
 
@@ -7209,12 +7275,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -3);
 
@@ -7232,12 +7298,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -7265,7 +7331,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -7282,7 +7348,7 @@ public class ModifierRenderer implements SettingsEventListener
                 }//*/
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //top left
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -7314,12 +7380,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 3);
 
@@ -7356,6 +7422,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -7371,7 +7442,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -7397,7 +7468,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -7465,12 +7536,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //on top
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -7489,12 +7560,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below T
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -7510,12 +7581,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //centered below V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -7531,12 +7602,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below X
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -7552,12 +7623,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -7576,12 +7647,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //on top
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -7614,6 +7685,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -7629,7 +7705,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -7655,7 +7731,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -7703,12 +7779,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above vertical center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 1);
 
@@ -7725,12 +7801,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && !modifierValue.equals(""))
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below vertical center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -1);
 
@@ -7765,12 +7841,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below P
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -2);
 
@@ -7812,12 +7888,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below G/H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -3);
 
@@ -7835,7 +7911,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
@@ -7849,7 +7925,7 @@ public class ModifierRenderer implements SettingsEventListener
                 }//*/
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below top left
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -7865,12 +7941,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && !modifierValue.equals(""))
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below top left
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -7917,12 +7993,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //top right
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 3);
 
@@ -7941,12 +8017,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //top right
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -7979,6 +8055,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -7994,7 +8075,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -8020,7 +8101,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -8071,12 +8152,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 1);
 
@@ -8091,12 +8172,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 1);
 
@@ -8118,12 +8199,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -1);
 
@@ -8145,12 +8226,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, -2);
 
@@ -8168,12 +8249,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -8205,12 +8286,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, false, 2);
 
@@ -8244,6 +8325,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -8259,7 +8345,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -8285,7 +8371,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -8336,12 +8422,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above vertical center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -8356,12 +8442,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above vertical center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -8377,12 +8463,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above vertical center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -8404,12 +8490,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below G
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -8431,12 +8517,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -8454,12 +8540,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -8475,12 +8561,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -8512,12 +8598,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -8550,6 +8636,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -8565,7 +8656,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -8591,7 +8682,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -8642,12 +8733,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -8662,12 +8753,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -8689,12 +8780,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -8724,12 +8815,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -8750,12 +8841,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -8787,12 +8878,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below M
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -8810,12 +8901,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -8895,12 +8986,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //top right
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -8934,6 +9025,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 7;
         int bufferXR = 7;
         int bufferY = 2;
@@ -8949,7 +9045,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         ArrayList<TextInfo> tiArray = new ArrayList<TextInfo>(modifiers.size());
 
-        int descent = (int) (_modifierFontDescent + 0.5);
+        int descent = (int) (modifierFontDescent + 0.5);
 
         if (attributes.containsKey(MilStdAttributes.Alpha))
         {
@@ -8975,7 +9071,7 @@ public class ModifierRenderer implements SettingsEventListener
 
         //check if text is too tall:
         boolean byLabelHeight = true;
-        labelHeight = (int) (_modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
+        labelHeight = (int) (modifierFontHeight + 0.5);/* RendererUtilities.measureTextHeight(RendererSettings.getModifierFontName(),
          RendererSettings.getModifierFontSize(),
          RendererSettings.getModifierFontStyle()).fullHeight;*/
 
@@ -9026,12 +9122,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -9046,12 +9142,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //above center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 1);
 
@@ -9073,12 +9169,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null && modifierValue.equals("") == false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //center
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -9094,12 +9190,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -9115,12 +9211,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //below center V
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 0);
 
@@ -9141,12 +9237,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below center H
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -1);
 
@@ -9178,12 +9274,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue.equals("")==false)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //below M
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, -2);
 
@@ -9201,12 +9297,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on left
-                x = (int)getLabelXPosition(bounds, labelWidth, false);
+                x = (int)getLabelXPosition(bounds, labelWidth, false, modifierFontHeight);
                 //above Y
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -9286,12 +9382,12 @@ public class ModifierRenderer implements SettingsEventListener
 
             if(modifierValue != null)
             {
-                tiTemp = new TextInfo(modifierValue, 0, 0, _modifierFont, frc);
+                tiTemp = new TextInfo(modifierValue, 0, 0, modifierFont, frc);
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int)labelBounds.getWidth();
 
                 //on right
-                x = (int)getLabelXPosition(bounds, labelWidth, true);
+                x = (int)getLabelXPosition(bounds, labelWidth, true, modifierFontHeight);
                 //top right
                 y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, true, 2);
 
@@ -9323,6 +9419,11 @@ public class ModifierRenderer implements SettingsEventListener
     public static SymbolDimensionInfo ProcessTGSPWithSpecialModifierLayout(SymbolDimensionInfo sdi, String symbolID, Map<String,String> modifiers, Map<String,String> attributes, Color lineColor, FontRenderContext frc)
     {
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+        
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
@@ -9381,7 +9482,7 @@ public class ModifierRenderer implements SettingsEventListener
         centerPoint = new Point(Math.round(sdi.getSymbolCenterPoint().x), Math.round(sdi.getSymbolCenterPoint().y));
 
         boolean byLabelHeight = false;
-        labelHeight = (int) (_modifierFontHeight + 0.5f);
+        labelHeight = (int) (modifierFontHeight + 0.5f);
 
         int maxHeight = (int)(symbolBounds.getHeight());
         if ((labelHeight * 3) > maxHeight)
@@ -9389,7 +9490,7 @@ public class ModifierRenderer implements SettingsEventListener
             byLabelHeight = true;
         }
 
-        int descent = (int) (_modifierFontDescent + 0.5f);
+        int descent = (int) (modifierFontDescent + 0.5f);
         int yForY = -1;
 
         Rectangle2D labelBounds1 = null;//text.getPixelBounds(null, 0, 0);
@@ -9428,7 +9529,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         //One modifier symbols and modifier goes in center
                         x = (int)(bounds.getMinX() + (int) (bounds.getWidth() * 0.5f));
@@ -9445,7 +9546,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
                     strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         //One modifier symbols and modifier goes in center
                         x = (int)(bounds.getMinX() + (int) (bounds.getWidth() * 0.5f));
@@ -9462,7 +9563,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         //One modifier symbols, top third & center
                         x = (int)(bounds.getMinX() + (int) (bounds.getWidth() * 0.5f));
@@ -9480,7 +9581,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes right of center
                         if (ec == 131800)
@@ -9500,7 +9601,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes right of center
                         x = (int)(bounds.getMinX() + (bounds.getWidth() + bufferXR));
@@ -9518,7 +9619,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)ti.getTextBounds().getWidth();
                         //One modifier symbols and modifier goes just below of center
                         x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5));
@@ -9540,7 +9641,7 @@ public class ModifierRenderer implements SettingsEventListener
                 {
                     strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         x = (int)(bounds.getCenterX() + (bounds.getWidth() * 0.15f));
                         y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.75f));
@@ -9555,7 +9656,7 @@ public class ModifierRenderer implements SettingsEventListener
                 {
                     strText = modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         x = (int)(bounds.getCenterX() - (int) (bounds.getWidth() * 0.15f));
                         x = x - (labelWidth);
@@ -9572,7 +9673,7 @@ public class ModifierRenderer implements SettingsEventListener
                 {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         x = (int)(bounds.getCenterX() + (bounds.getWidth() * 0.15f));
                         y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
@@ -9594,7 +9695,7 @@ public class ModifierRenderer implements SettingsEventListener
                             strText = modifiers.get(Modifiers.AP1_TARGET_NUMBER_EXTENSION);
                     }
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         x = (int)(bounds.getCenterX() + (bounds.getWidth() * 0.15f));
                         y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
@@ -9610,7 +9711,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes right of center
                         x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5 + bufferXR));
@@ -9628,7 +9729,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.C_QUANTITY)) {
                     strText = modifiers.get(Modifiers.C_QUANTITY);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         //subset of NBC, just nuclear
                         x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5));
@@ -9641,7 +9742,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.W_DTG_1)) {
                     strText = modifiers.get(Modifiers.W_DTG_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                         x = (int)bounds.getMinX() - labelWidth - bufferXL;
@@ -9659,7 +9760,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.W1_DTG_2)) {
                     strText = modifiers.get(Modifiers.W1_DTG_2);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                         x = (int)bounds.getMinX() - labelWidth - bufferXL;
@@ -9680,7 +9781,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.N_HOSTILE)) {
                     strText = modifiers.get(Modifiers.N_HOSTILE);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         x = (int)(bounds.getMinX() + bounds.getWidth() + bufferXR);
 
@@ -9698,7 +9799,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
                     strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         x = (int)(bounds.getMinX() + bounds.getWidth() + bufferXR);
                         if (!byLabelHeight) {
@@ -9715,7 +9816,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.W_DTG_1)) {
                     strText = modifiers.get(Modifiers.W_DTG_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                         x = (int)bounds.getMinX() - labelWidth - bufferXL;
@@ -9734,7 +9835,7 @@ public class ModifierRenderer implements SettingsEventListener
                 {//nuclear event or nuclear fallout producing event
                     strText = modifiers.get(Modifiers.V_EQUIP_TYPE);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //subset of nbc, just nuclear
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
@@ -9748,7 +9849,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         x = (int)bounds.getMinX() - labelWidth - bufferXL;
                         if (!byLabelHeight) {
@@ -9764,7 +9865,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.Y_LOCATION)) {
                     strText = modifiers.get(Modifiers.Y_LOCATION);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         //just NBC
                         //x = bounds.getX() + (bounds.getWidth() * 0.5);
@@ -9787,7 +9888,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.C_QUANTITY)) {
                     strText = modifiers.get(Modifiers.C_QUANTITY);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         //subset of NBC, just nuclear
                         x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5));
@@ -9804,7 +9905,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
                     strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5));
                         x = x - (int) (labelWidth * 0.5);
@@ -9820,7 +9921,7 @@ public class ModifierRenderer implements SettingsEventListener
                 {
                     strText = modifiers.get(Modifiers.W_DTG_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         x = (int)(bounds.getMinX() + (int) (bounds.getWidth() * 0.5));
                         x = x - (int) (labelWidth * 0.5);
@@ -9834,8 +9935,8 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.N_HOSTILE)) {
                     strText = modifiers.get(Modifiers.N_HOSTILE);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
-                        TextInfo ti2 = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+                        TextInfo ti2 = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         x = (int)(bounds.getMinX() + (bounds.getWidth()) + bufferXR);//right
                         //x = x + labelWidth;//- (labelbounds.getWidth * 0.75);
@@ -9866,8 +9967,8 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
                     strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
-                        TextInfo ti2 = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+                        TextInfo ti2 = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         x = (int)(bounds.getMinX() + (bounds.getWidth()) + bufferXR);//right
                         y = centerPoint.y;
@@ -9880,8 +9981,8 @@ public class ModifierRenderer implements SettingsEventListener
                     if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                         strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                         if (strText != null) {
-                            ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
-                            TextInfo ti2 = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                            ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+                            TextInfo ti2 = new TextInfo(strText, 0, 0, modifierFont, frc);
                             labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                             x = (int)(bounds.getMinX() + (bounds.getWidth()) + bufferXR);//right
                             y = centerPoint.y - labelHeight;
@@ -9898,7 +9999,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)) {
                     strText = modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.7));
                         y = (int)bounds.getMinY() + labelHeight;// + (bounds.getHeight * 0.5);
@@ -9915,7 +10016,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes top right of symbol
                         x = (int)(bounds.getMinX() + (bounds.getWidth() + bufferXR));
@@ -9933,7 +10034,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes top right of symbol
                         x = (int)(bounds.getMinX() - labelWidth - bufferXL);
@@ -9951,7 +10052,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)) {
                     strText = modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes top right of symbol
                         x = (int)(bounds.getMinX() + (bounds.getWidth() + bufferXR));
@@ -9969,7 +10070,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)) {
                     strText = modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes upper right of center
                         x = (int)(bounds.getX() + (bounds.getWidth() * 0.65f));
@@ -9988,7 +10089,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
                     strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes upper right of center
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
@@ -10006,7 +10107,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.W_DTG_1)) {
                     strText = modifiers.get(Modifiers.W_DTG_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText + " - ", 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText + " - ", 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes top right of symbol
                         x = (int)(bounds.getMinX() + (bounds.getWidth() + bufferXR));
@@ -10019,7 +10120,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.W1_DTG_2)) {
                     strText = modifiers.get(Modifiers.W1_DTG_2);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes top right of symbol
                         x = (int)(bounds.getMinX() + (bounds.getWidth() + bufferXR));
@@ -10032,7 +10133,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes top right of symbol
                         x = (int)(bounds.getMinX() + (bounds.getWidth() + bufferXR));
@@ -10048,7 +10149,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
                     strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes upper right of center
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
@@ -10066,7 +10167,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                     if (strText != null) {
-                        ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         //One modifier symbols and modifier goes upper right of center
                         x = (int)(bounds.getX() + (bounds.getWidth() + bufferXR));
@@ -10095,13 +10196,13 @@ public class ModifierRenderer implements SettingsEventListener
                 else
                     strText += "?";
 
-                ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                 labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                 //One modifier symbols and modifier goes in center
                 x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5f));
                 x = x - (int) (labelWidth * 0.5f);
                 y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.5f));
-                y = y + (int) ((labelHeight - _modifierFontDescent) * 0.5f);
+                y = y + (int) ((labelHeight - modifierFontDescent) * 0.5f);
 
                 ti.setLocation(Math.round(x), Math.round(y));
                 arrMods.add(ti);
@@ -10112,13 +10213,13 @@ public class ModifierRenderer implements SettingsEventListener
                 if(modX != null)
                     strText = modX;
 
-                ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                 labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                 //One modifier symbols and modifier goes in center
                 x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5f));
                 x = x - (int) (labelWidth * 0.5f);
                 y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.5f));
-                y = y + (int) ((labelHeight - _modifierFontDescent) * 0.5f);
+                y = y + (int) ((labelHeight - modifierFontDescent) * 0.5f);
 
                 ti.setLocation(Math.round(x), Math.round(y));
                 arrMods.add(ti);
@@ -10129,7 +10230,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if(modX != null)
                     strText = modX;
 
-                ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                 labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                 //One modifier symbols and modifier goes in center
                 x = (int)(bounds.getMinX() + (int) (bounds.getWidth() * 0.5f));
@@ -10146,7 +10247,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if(modX != null)
                     strText = modX;
 
-                ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                 labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                 //One modifier symbols and modifier goes in center
                 x = (int)(bounds.getMinX() + (int) (bounds.getWidth() * 0.5f));
@@ -10178,7 +10279,7 @@ public class ModifierRenderer implements SettingsEventListener
 
                 //boolean isY = modifiers.containsKey(Modifiers.Y_LOCATION);
 
-                domPoints = createDOMArrowPoints(symbolID, tempBounds, sdi.getSymbolCenterPoint(), q, false, frc);
+                domPoints = createDOMArrowPoints(symbolID, tempBounds, sdi.getSymbolCenterPoint(), q, false, modifierFontHeight);
 
                 domBounds = new Rectangle2D.Double(domPoints[0].getX(), domPoints[0].getY(), 1, 1);
 
@@ -10208,7 +10309,7 @@ public class ModifierRenderer implements SettingsEventListener
 
             fdiBounds = new Rectangle2D.Double(fdiLeft.getX(), fdiTop.getY(), fdiRight.getX() - fdiLeft.getX(), fdiLeft.getY() - fdiTop.getY());
 
-            ti = new TextInfo("TEST", 0, 0, _modifierFont, frc);
+            ti = new TextInfo("TEST", 0, 0, modifierFont, frc);
             if (ti != null && SymbolUtilities.isCBRNEvent(symbolID))
             {
                 int shiftY = (int)Math.round(bounds.getY() - ti.getTextBounds().getHeight() - 2);
@@ -10473,6 +10574,11 @@ public class ModifierRenderer implements SettingsEventListener
         ImageInfo ii = null;
         SVGSymbolInfo ssi = null;
 
+        Font modifierFont = getFont(attributes);
+        float[] hd = getFontHeightandDescent(modifierFont);
+        float modifierFontHeight = hd[0];
+        float modifierFontDescent = hd[1];
+
         int bufferXL = 6;
         int bufferXR = 4;
         int bufferY = 2;
@@ -10518,14 +10624,14 @@ public class ModifierRenderer implements SettingsEventListener
 
         boolean byLabelHeight = false;
 
-        labelHeight = Math.round(_modifierFontHeight + 0.5f);
+        labelHeight = Math.round(modifierFontHeight + 0.5f);
         int maxHeight = (int)(symbolBounds.getHeight());
         if ((labelHeight * 3) > maxHeight)
         {
             byLabelHeight = true;
         }
 
-        int descent = (int) (_modifierFontDescent + 0.5f);
+        int descent = (int) (modifierFontDescent + 0.5f);
         int yForY = -1;
 
         Rectangle2D labelBounds1 = null;//text.getPixelBounds(null, 0, 0);
@@ -10561,7 +10667,7 @@ public class ModifierRenderer implements SettingsEventListener
                 strText = modifiers.get(Modifiers.N_HOSTILE);
                 if(strText != null)
                 {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                    ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                     x = (int)(bounds.getMinX() + bounds.getWidth() + bufferXR);
 
@@ -10587,7 +10693,7 @@ public class ModifierRenderer implements SettingsEventListener
                 strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                 if(strText != null)
                 {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                    ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                     labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                     x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5f));
@@ -10603,7 +10709,7 @@ public class ModifierRenderer implements SettingsEventListener
                 strText = modifiers.get(Modifiers.H1_ADDITIONAL_INFO_2);
                 if(strText != null)
                 {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                    ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                     labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                     x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5));
@@ -10623,7 +10729,7 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(strText != null)
                 {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                    ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                     labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                     x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5));
@@ -10639,7 +10745,7 @@ public class ModifierRenderer implements SettingsEventListener
                 strText = modifiers.get(Modifiers.W_DTG_1);
                 if(strText != null)
                 {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                    ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                     labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                     x = (int)(bounds.getMinX() - labelWidth - bufferXL);
@@ -10654,7 +10760,7 @@ public class ModifierRenderer implements SettingsEventListener
                 strText = modifiers.get(Modifiers.W1_DTG_2);
                 if(strText != null)
                 {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                    ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                     labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                     x = (int)bounds.getMinX() - labelWidth - bufferXL;
@@ -10671,7 +10777,7 @@ public class ModifierRenderer implements SettingsEventListener
                 strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
                 if(strText != null)
                 {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                    ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                     x = (int)(bounds.getMinX() + bounds.getWidth() + bufferXR);
                     y = (int)bounds.getMinY() + labelHeight - descent;
@@ -10685,7 +10791,7 @@ public class ModifierRenderer implements SettingsEventListener
                 strText = modifiers.get(Modifiers.T1_UNIQUE_DESIGNATION_2);
                 if(strText != null)
                 {
-                    ti = new TextInfo(strText, 0, 0, _modifierFont, frc);
+                    ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                     labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
 
                     //points
@@ -10713,7 +10819,7 @@ public class ModifierRenderer implements SettingsEventListener
 
                 fdiBounds = new Rectangle2D.Double(fdiLeft.getX(), fdiTop.getY(), fdiRight.getX() - fdiLeft.getX(), fdiLeft.getY() - fdiTop.getY());
 
-                ti = new TextInfo("TEST", 0, 0, _modifierFont, frc);
+                ti = new TextInfo("TEST", 0, 0, modifierFont, frc);
                 if (ti != null)
                 {
                     int shiftY = (int)Math.round(bounds.getY() - ti.getTextBounds().getHeight() - 2);
@@ -11091,7 +11197,7 @@ public class ModifierRenderer implements SettingsEventListener
     {
         /*for (TextInfo textInfo : tiArray)
          {
-         ctx.drawText(textInfo.getText(), textInfo.getLocation().x, textInfo.getLocation().y, _modifierFont);
+         ctx.drawText(textInfo.getText(), textInfo.getLocation().x, textInfo.getLocation().y, modifierFont);
          }*/
 
         int size = tiArray.length;
@@ -11124,9 +11230,9 @@ public class ModifierRenderer implements SettingsEventListener
         if (tbm == RendererSettings.TextBackgroundMethod_OUTLINE_QUICK)
         {
             //draw text outline
-            //_modifierFont.setStyle(Style.FILL);
-//            _modifierFont.setStrokeWidth(RS.getTextOutlineWidth());
-//            _modifierFont.setColor(outlineColor.toInt());
+            //modifierFont.setStyle(Style.FILL);
+//            modifierFont.setStrokeWidth(RS.getTextOutlineWidth());
+//            modifierFont.setColor(outlineColor.toInt());
             if (outlineWidth > 0)
             {
                 g2d.setColor(outlineColor);
@@ -11276,10 +11382,10 @@ public class ModifierRenderer implements SettingsEventListener
      * @param onRight if true, label on right side of symbol. On left if false.
      * @returns
      */
-    private static double getLabelXPosition(Rectangle2D bounds, int labelWidth, boolean onRight)
+    private static double getLabelXPosition(Rectangle2D bounds, int labelWidth, boolean onRight, float modifierFontHeight)
     {
         double x = 0;
-        int buffer = (int)_modifierFontHeight/2;
+        int buffer = (int)modifierFontHeight/2;
         if(onRight)
         {
             x = bounds.getX() + bounds.getWidth() + buffer;
@@ -11501,6 +11607,86 @@ public class ModifierRenderer implements SettingsEventListener
             }
         }
         return false;
+    }
+
+    /**
+     * Rerturns either the default font from RendererSettings or font based on properties
+     * set in MilStdAttributes.
+     * @param attributes
+     * @return
+     */
+    private static Font getFont(Map<String,String> attributes)
+    {
+        Font f = null;
+
+        String ff = RendererSettings.getInstance().getLabelFontName();
+        int fstyle = RendererSettings.getInstance().getLabelFontType();
+        int fsize = RendererSettings.getInstance().getLabelFontSize();
+        String temp = null;
+
+
+        if(attributes.containsKey(MilStdAttributes.FontFamily) ||
+                attributes.containsKey(MilStdAttributes.FontStyle) ||
+                attributes.containsKey(MilStdAttributes.FontSize))
+        {
+            if(attributes.containsKey(MilStdAttributes.FontStyle))
+            {
+                temp = attributes.get(MilStdAttributes.FontStyle);
+                if (temp != null && !temp.isEmpty()) {
+                    fstyle = Integer.parseInt(temp);
+                }
+            }
+            if(attributes.containsKey(MilStdAttributes.FontSize))
+            {
+                temp = attributes.get(MilStdAttributes.FontSize);
+                if (temp != null && !temp.isEmpty()) {
+                    fsize = Integer.parseInt(temp);
+                }
+            }
+            if(attributes.containsKey(MilStdAttributes.FontFamily))
+            {
+                temp = attributes.get(MilStdAttributes.FontFamily);
+                if (temp != null && !temp.isEmpty()) {
+                    ff =  temp;//Typeface.create(temp,fstyle);
+                }
+            }
+        }
+        else
+            return _modifierFont;
+
+        try
+        {
+            f = new Font(ff, fstyle, fsize);
+        }
+        catch(Exception exc)
+        {
+            String message = "font creation error, returning \"" + ff + "\" font, " + fsize + "pt. Check font name and type.";
+            ErrorLogger.LogMessage("RendererSettings", "getLabelFont", message);
+            ErrorLogger.LogMessage("RendererSettings", "getLabelFont", exc.getMessage());
+            return new Font("arial", Font.BOLD, 12);
+        }
+
+        return f;
+
+    }
+
+    private static float[] getFontHeightandDescent(Font font)
+    {
+        float[] hd = {0f,0f};
+
+        if(font != null)
+        {
+            BufferedImage bmp = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = bmp.createGraphics();
+            FontMetrics fm = g2d.getFontMetrics(font);
+            hd[0] = fm.getHeight();
+            hd[1] = fm.getMaxDescent();
+            g2d.dispose();
+            bmp = null;
+            g2d = null;
+        }
+
+        return hd;
     }
 
 }

@@ -1384,6 +1384,7 @@ public class Tester extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,message ,"Speed Test SVG",1);
 
                     //SVG to Image Speed Test
+                    /*
                     svg = null;
                     com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
                     com.github.weisj.jsvg.SVGDocument svgDocument = null;
@@ -1413,6 +1414,7 @@ public class Tester extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,message ,"Speed Test SVG to Image",1);
                     ImageInfo converted = new ImageInfo(bmp, svg.getSymbolCenterPoint(),svg.getSymbolBounds());
                     //converted.SaveImageToFile("C:\\temp\\converted.png","png");
+                    //*/
 
                 }
                 catch (Exception exc) {

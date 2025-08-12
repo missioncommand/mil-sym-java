@@ -151,6 +151,17 @@ public class MilStdAttributes {
     public static final String PatternScale = "PATTERNSCALE";
 
     /**
+     * like "arial"
+     */
+    public static final String FontFamily = "FONTFAMILY";
+    /**
+     * Like Font.BOLD
+     */
+    public static final String FontStyle = "FONTSTYLE";
+
+    public static final String FontSize = "FONTSIZE";
+
+    /**
      * No Longer relevant
      * @return {@link ArrayList}
      * @deprecated see {@link #GetAttributesList(String)}
