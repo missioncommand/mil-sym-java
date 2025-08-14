@@ -47,8 +47,8 @@ public class Shape2SVG {
         if(textInfo != null)
         {
             String style = null;
-            String name = RendererSettings.getInstance().getLabelFont().getFamily() + ", sans-serif";//"SansSerif";
-            String size = String.valueOf(RendererSettings.getInstance().getLabelFont().getSize());
+            String name = textInfo.getFontName() + ", sans-serif";//"SansSerif";
+            String size = String.valueOf(textInfo.getFontSize());
             String weight = null;
             String anchor = null;//"start";
             String text = textInfo.getText();
@@ -73,7 +73,7 @@ public class Shape2SVG {
                 }
             }
 
-            if(RendererSettings.getInstance().getLabelFont().isBold())
+            if(textInfo.getFontStyle() == Font.BOLD)
                 weight = "bold";
 
             sb.append("<text x=\"" + location.getX() + "\" y=\"" + location.getY() + "\"");

@@ -1278,7 +1278,7 @@ public class ModifierRenderer implements SettingsEventListener
             ebColor = RendererUtilities.setColorAlpha(ebColor,alpha);
 
             g2d.setColor(lineColor);
-            g2d.setFont(RS.getLabelFont());
+            g2d.setFont(modifierFont);
 
             ArrayList<TextInfo> tiArray = new ArrayList<>();
             if (echelonBounds != null) {
@@ -2630,7 +2630,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
          //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -3105,7 +3105,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -3694,7 +3694,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -4102,7 +4102,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -4465,7 +4465,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -4957,7 +4957,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -5452,7 +5452,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -5816,7 +5816,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -6247,7 +6247,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -6704,7 +6704,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -7052,7 +7052,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -7401,7 +7401,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -7666,7 +7666,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -8036,7 +8036,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -8306,7 +8306,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -8617,7 +8617,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -9006,7 +9006,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -9402,7 +9402,7 @@ public class ModifierRenderer implements SettingsEventListener
         // </editor-fold>
 
         //Shift Points and Draw
-        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes);
+        newsdi = shiftUnitPointsAndDraw(tiArray,sdi,attributes, modifierFont);
 
         // <editor-fold defaultstate="collapsed" desc="Cleanup">
         tiArray = null;
@@ -10486,7 +10486,7 @@ public class ModifierRenderer implements SettingsEventListener
                 ssi = (SVGSymbolInfo)sdi;
                 StringBuilder sbSVG = new StringBuilder();
                 sbSVG.append(ssi.getSVG());
-                sbSVG.append(renderTextElements(arrMods,textColor,textBackgroundColor));
+                sbSVG.append(renderTextElements(arrMods,textColor,textBackgroundColor, modifierFont));
 
                 // <editor-fold defaultstate="collapsed" desc="DOM arrow">
                 if (domBounds != null)
@@ -10973,7 +10973,7 @@ public class ModifierRenderer implements SettingsEventListener
                 ssi = (SVGSymbolInfo)sdi;
                 StringBuilder sbSVG = new StringBuilder();
                 sbSVG.append(ssi.getSVG());
-                sbSVG.append(renderTextElements(arrMods,textColor,textBackgroundColor));
+                sbSVG.append(renderTextElements(arrMods,textColor,textBackgroundColor, modifierFont));
 
                 //<editor-fold defaultstate="collapsed" desc="Draw FDI">
                 if (fdiBounds != null)
@@ -11018,7 +11018,7 @@ public class ModifierRenderer implements SettingsEventListener
 
     }
 
-    private static SymbolDimensionInfo shiftUnitPointsAndDraw(ArrayList<TextInfo> tiArray, SymbolDimensionInfo sdi, Map<String,String> attributes)
+    private static SymbolDimensionInfo shiftUnitPointsAndDraw(ArrayList<TextInfo> tiArray, SymbolDimensionInfo sdi, Map<String,String> attributes, Font modifierFont)
     {
 
         ImageInfo ii = null;
@@ -11102,6 +11102,7 @@ public class ModifierRenderer implements SettingsEventListener
                 ii = (ImageInfo) sdi;
                 BufferedImage bmp = new BufferedImage((int) imageBounds.getWidth(), (int) Math.round(imageBounds.getHeight()), BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2d = (Graphics2D) bmp.getGraphics();
+                g2d.setFont(modifierFont);
                 //old
                 //Bitmap bmp = Bitmap.createBitmap(imageBounds.getWidth(), imageBounds.getheight(), Config.ARGB_8888);
                 //Canvas ctx = new Canvas(bmp);
@@ -11121,8 +11122,8 @@ public class ModifierRenderer implements SettingsEventListener
             {
                 ssi = (SVGSymbolInfo)sdi;
                 StringBuilder sb = new StringBuilder();
-                sb.append(renderTextElements(tiArray,textColor,textBackgroundColor));
                 sb.append(ssi.getSVG());
+                sb.append(renderTextElements(tiArray,textColor,textBackgroundColor, modifierFont));
                 newsdi = new SVGSymbolInfo(sb.toString(),centerPoint,symbolBounds,imageBounds);
             }
 
@@ -11130,7 +11131,7 @@ public class ModifierRenderer implements SettingsEventListener
         return newsdi;
     }
 
-    private static String renderTextElement(ArrayList<TextInfo> tiArray, Color color, Color backgroundColor)
+    private static String renderTextElement(ArrayList<TextInfo> tiArray, Color color, Color backgroundColor, Font modifierFont)
     {
         StringBuilder sbSVG = new StringBuilder();
 
@@ -11148,14 +11149,16 @@ public class ModifierRenderer implements SettingsEventListener
         return sbSVG.toString();
     }
 
-    private static String renderTextElements(ArrayList<TextInfo> tiArray, Color color, Color backgroundColor)
+    private static String renderTextElements(ArrayList<TextInfo> tiArray, Color color, Color backgroundColor, Font modifierFont)
     {
         String style = null;
-        String name = RendererSettings.getInstance().getLabelFont().getFamily() + ", sans-serif";//"SansSerif";
-        String size = String.valueOf(RendererSettings.getInstance().getLabelFont().getSize());
+        String name = modifierFont.getName();//RendererSettings.getInstance().getLabelFont().getFamily() + ", sans-serif";//"SansSerif";
+        if(!name.endsWith("serif"))
+            name += ", sans-serif";
+        String size = String.valueOf(modifierFont.getSize());//String.valueOf(RendererSettings.getInstance().getLabelFont().getSize());
         String weight = null;
         String anchor = null;//"start";
-        if(RendererSettings.getInstance().getLabelFont().isBold())
+        if(modifierFont.isBold())
             weight = "bold";
         StringBuilder sbSVG = new StringBuilder();
 
@@ -11223,7 +11226,7 @@ public class ModifierRenderer implements SettingsEventListener
         if(color.getAlpha() != 255 && outlineColor.getAlpha()==255)
             outlineColor = RendererUtilities.setColorAlpha(outlineColor,color.getAlpha()/255f);
 
-        g2d.setFont(RendererSettings.getInstance().getLabelFont());
+        //g2d.setFont(RendererSettings.getInstance().getLabelFont());
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
@@ -11538,6 +11541,9 @@ public class ModifierRenderer implements SettingsEventListener
 
             //echelon or mobility,
             if (SymbolID.getAmplifierDescriptor(symbolID) > 0 || modifiers.containsKey(Modifiers.Q_DIRECTION_OF_MOVEMENT))
+                hasModifiers = true;
+
+            if(modifiers.containsKey(Modifiers.AJ_SPEED_LEADER))
                 hasModifiers = true;
 
             if(modifiers.containsKey(Modifiers.AO_ENGAGEMENT_BAR))

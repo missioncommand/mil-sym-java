@@ -614,6 +614,13 @@ public class Tester extends javax.swing.JFrame {
         Map<String,String> attributes = new HashMap<>();
         attributes.put(MilStdAttributes.PixelSize, "50");
         //attributes.put(MilStdAttributes.FillColor, "#00FF00");
+
+        //font override check
+        /*
+        attributes.put(MilStdAttributes.FontFamily,"sans-serif");
+        attributes.put(MilStdAttributes.FontStyle,String.valueOf(Font.BOLD));
+        attributes.put(MilStdAttributes.FontSize,"12");//*/
+
         return attributes;
     }
 
@@ -1351,6 +1358,12 @@ public class Tester extends javax.swing.JFrame {
                 String pixelSize = String.valueOf(cbPixelSize.getSelectedItem());
 
                 attributes.put(MilStdAttributes.PixelSize, pixelSize);
+
+                //font override check
+                /*attributes.put(MilStdAttributes.FontFamily,"arial");
+                attributes.put(MilStdAttributes.FontStyle,String.valueOf(Font.BOLD));
+                attributes.put(MilStdAttributes.FontSize,"12");//*/
+
 
                 ErrorLogger.setLevel(Level.WARNING,true);
 
