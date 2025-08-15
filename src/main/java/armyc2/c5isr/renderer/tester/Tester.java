@@ -614,6 +614,13 @@ public class Tester extends javax.swing.JFrame {
         Map<String,String> attributes = new HashMap<>();
         attributes.put(MilStdAttributes.PixelSize, "50");
         //attributes.put(MilStdAttributes.FillColor, "#00FF00");
+
+        //font override check
+        /*
+        attributes.put(MilStdAttributes.FontFamily,"sans-serif");
+        attributes.put(MilStdAttributes.FontStyle,String.valueOf(Font.BOLD));
+        attributes.put(MilStdAttributes.FontSize,"12");//*/
+
         return attributes;
     }
 
@@ -1352,6 +1359,12 @@ public class Tester extends javax.swing.JFrame {
 
                 attributes.put(MilStdAttributes.PixelSize, pixelSize);
 
+                //font override check
+                /*attributes.put(MilStdAttributes.FontFamily,"arial");
+                attributes.put(MilStdAttributes.FontStyle,String.valueOf(Font.BOLD));
+                attributes.put(MilStdAttributes.FontSize,"12");//*/
+
+
                 ErrorLogger.setLevel(Level.WARNING,true);
 
                 Graphics2D g2d;
@@ -1384,6 +1397,7 @@ public class Tester extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,message ,"Speed Test SVG",1);
 
                     //SVG to Image Speed Test
+                    /*
                     svg = null;
                     com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
                     com.github.weisj.jsvg.SVGDocument svgDocument = null;
@@ -1413,6 +1427,7 @@ public class Tester extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,message ,"Speed Test SVG to Image",1);
                     ImageInfo converted = new ImageInfo(bmp, svg.getSymbolCenterPoint(),svg.getSymbolBounds());
                     //converted.SaveImageToFile("C:\\temp\\converted.png","png");
+                    //*/
 
                 }
                 catch (Exception exc) {

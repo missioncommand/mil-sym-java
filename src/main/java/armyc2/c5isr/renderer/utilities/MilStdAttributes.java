@@ -151,6 +151,17 @@ public class MilStdAttributes {
     public static final String PatternScale = "PATTERNSCALE";
 
     /**
+     * like "arial"
+     */
+    public static final String FontFamily = "FONTFAMILY";
+    /**
+     * Like Font.BOLD
+     */
+    public static final String FontStyle = "FONTSTYLE";
+
+    public static final String FontSize = "FONTSIZE";
+
+    /**
      * No Longer relevant
      * @return {@link ArrayList}
      * @deprecated see {@link #GetAttributesList(String)}
@@ -187,13 +198,16 @@ public class MilStdAttributes {
         //list.add(IconColor);
         list.add(PixelSize);
 
-        if(SymbolUtilities.isMultiPoint(symbolID)==false) {
+        if(!SymbolUtilities.isMultiPoint(symbolID)) {
             list.add(KeepUnitRatio);
             list.add(OutlineSymbol);
             list.add(OutlineColor);
             list.add(DrawAsIcon);
             if(SymbolUtilities.hasModifier(symbolID,Modifiers.AO_ENGAGEMENT_BAR))
                 list.add(EngagementBarColor);
+            list.add(FontFamily);
+            list.add(FontStyle);
+            list.add(FontStyle);
         }
         else
         {
@@ -249,6 +263,12 @@ public class MilStdAttributes {
                 return "Distance Units";
             case AltitudeUnits:
                 return "Altitude Units";
+            case FontFamily:
+                return "Font Family";
+            case FontStyle:
+                return "Font Style";
+            case FontSize:
+                return "Font Size";
             default:
                 return "unrecognized attribute";
         }
@@ -297,6 +317,12 @@ public class MilStdAttributes {
                 return DistanceUnits;
             case "ALTITUDEUNITS":
                 return AltitudeUnits;
+            case "FONTFAMILY":
+                return FontFamily;
+            case "FONTSTYLE":
+                return FontStyle;
+            case "FONTSIZE":
+                return FontSize;
             default:
                 return null;
         }

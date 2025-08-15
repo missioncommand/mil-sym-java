@@ -12,6 +12,9 @@ import java.awt.geom.Rectangle2D;
  * 
  */
 public class TextInfo {
+	String _fontName = "arial";
+	int _fontSize = 12;
+	int _fontStyle = Font.BOLD;
 	String _text = "";
 	Point2D _location = null;
 	Rectangle2D _bounds = null;
@@ -28,6 +31,18 @@ public class TextInfo {
 		_bounds = font.getStringBounds(text, frc);
 		_descent = _bounds.getHeight() + _bounds.getY();
 		_aboveBaseHeight = _bounds.getY() * -1;
+
+		if(font != null) {
+			_fontName = font.getFamily();//Output: "Helvetica"
+			//_fontName = font.getFontName();//Output: "Helvetica Bold"
+			_fontSize = font.getSize();
+			if(font.isBold())
+				_fontStyle = Font.BOLD;
+			if(font.isItalic())
+				_fontStyle = Font.ITALIC;
+			if(font.isPlain())
+				_fontStyle = Font.PLAIN;
+		}
 
 	}
 
@@ -80,5 +95,20 @@ public class TextInfo {
 	public double getDescent()
 	{
 		return _descent;
+	}
+
+	public String getFontName()
+	{
+		return _fontName;
+	}
+
+	public int getFontSize()
+	{
+		return _fontSize;
+	}
+
+	public int getFontStyle()
+	{
+		return _fontStyle;
 	}
 }
