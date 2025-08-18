@@ -520,7 +520,8 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME, "AE");
             modifier.put(Modifiers.AF_COMMON_IDENTIFIER, "AF");
 
-            modifier.put(Modifiers.AJ_SPEED_LEADER, "700 KPH 090");
+            //modifier.put(Modifiers.AJ_SPEED_LEADER, "700 KPH 090");
+            modifier.put(Modifiers.AJ_SPEED_LEADER, "600 KPH 045");
 
             //TODO
             modifier.put(Modifiers.AO_ENGAGEMENT_BAR, "AO:AOA-AO");
