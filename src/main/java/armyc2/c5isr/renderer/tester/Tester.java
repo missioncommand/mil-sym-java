@@ -1149,7 +1149,7 @@ public class Tester extends javax.swing.JFrame {
                 return;
         }
 
-        modifierTest();
+        //modifierTest();
     }//GEN-LAST:event_formMouseClicked
 
     private void RenderMultiPoint() {
