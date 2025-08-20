@@ -101,13 +101,14 @@ public class RendererSettings {
      * Text modifiers/amplifiers will collapse vertically towards the center to eliminate
      * empty space from modifiers that weren't populated.
      */
-    public static int ModifierPlacement_FLEXIBLE = 0;
+    public static int ModifierPlacement_FLEXIBLE = 1;
     /**
      * Same as flexible but the modifier letter is put at the beginning of the value string
      * to prevent confusion from modifiers not being in their strict location.
      * if P (IFF/SIF) is set to "2:1234", it would be rendered as "P:2:1234"
      */
-    public static int ModifierPlacement_FLEXIBLE_PREFIX = 0;
+    //public static int ModifierPlacement_FLEXIBLE_PREFIX = 2;
+
     private static int _ModifierPlacementApproach = 0;
 
     public static int OperationalConditionModifierType_SLASH = 0;
@@ -818,9 +819,9 @@ public class RendererSettings {
         return _ModifierPlacementApproach;
     }
 
-    public void setSPModifierPlacement(int modifierPacementApproach)
+    public void setSPModifierPlacement(int modifierPlacementApproach)
     {
-        _ModifierPlacementApproach = modifierPacementApproach;
+        _ModifierPlacementApproach = modifierPlacementApproach;
     }
 
     /**

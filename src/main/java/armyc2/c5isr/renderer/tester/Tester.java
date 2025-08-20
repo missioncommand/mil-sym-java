@@ -9,7 +9,6 @@ import armyc2.c5isr.renderer.SinglePointRenderer;
 import armyc2.c5isr.renderer.SinglePointSVGRenderer;
 import armyc2.c5isr.renderer.utilities.*;
 import armyc2.c5isr.web.render.WebRenderer;
-import com.github.weisj.jsvg.attributes.ViewBox;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -17,15 +16,9 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ItemEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -532,7 +525,7 @@ public class Tester extends javax.swing.JFrame {
             //*/
             //modifier.put(Modifiers.CN_CPOF_NAME_LABEL, "CPOF'D");
 
-            if(msInfo.getSymbolSet()==25) {
+            if(msInfo != null && msInfo.getSymbolSet()==25) {
                 int drawRule = msInfo.getDrawRule();
                 // Points
                 if (drawRule == DrawRules.POINT17) {
@@ -575,6 +568,8 @@ public class Tester extends javax.swing.JFrame {
                     modifier.put(Modifiers.X_ALTITUDE_DEPTH, "0,10,100,200");
                 }
             }
+            if(msInfo == null)
+                ErrorLogger.LogMessage("PopulateModifier: " + "No MSInfo for " + symbolID);
             /*
             modifier.putMap(new HashMap<String, String>());//reset
             if(SymbolUtilities.isWarfighting(symbol.getSymbolID()))
@@ -1153,6 +1148,8 @@ public class Tester extends javax.swing.JFrame {
             else
                 return;
         }
+
+        modifierTest();
     }//GEN-LAST:event_formMouseClicked
 
     private void RenderMultiPoint() {
@@ -1324,6 +1321,135 @@ public class Tester extends javax.swing.JFrame {
             btnDrawMP.setEnabled(SymbolUtilities.isMultiPoint(symbolID));
         } 
     }//GEN-LAST:event_msTreeValueChanged
+
+    public void modifierTest()
+    {
+
+        List<Modifier> mods = new ArrayList<>();
+        mods.add(new Modifier(Modifiers.B_ECHELON,"BBBB",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.C_QUANTITY,"C",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.G_STAFF_COMMENTS,"G",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.H_ADDITIONAL_INFO_1,"H",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.J_EVALUATION_RATING,"J",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.K_COMBAT_EFFECTIVENESS,"K",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.L_SIGNATURE_EQUIP,"L",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.M_HIGHER_FORMATION,"M",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.N_HOSTILE,"N",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.P_IFF_SIF_AIS,"P",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.T_UNIQUE_DESIGNATION_1,"T",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.V_EQUIP_TYPE,"V",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.W1_DTG_2,"W",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.X_ALTITUDE_DEPTH,"X",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.Y_LOCATION,"Y",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.Z_SPEED,"Z",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.AD_PLATFORM_TYPE,"AD",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME,"AE",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.AF_COMMON_IDENTIFIER,"AF",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.AR_SPECIAL_DESIGNATOR,"AR",0,0,false,0,0));
+        mods.add(new Modifier(Modifiers.AS_COUNTRY,"AS",0,0,false,0,0));
+
+        List<Modifier> modsFull = new ArrayList<>();
+        mods.addAll(mods);
+
+        Map<String,String> modifiers = null;
+        Map<String,String> attributes = new HashMap<>();
+
+        attributes.put(MilStdAttributes.ModifierPlacement,"1");
+        attributes.put(MilStdAttributes.PixelSize,"100");
+
+        List<String> symbolIDs = new ArrayList<>();
+        //symbolIDs.add("110301000011000000000000000000");
+        int[] versions = {11,13};
+        int[] ss = {0,1,2,5,6,10,11,15,20,27,30,35,36,40};//,45,46}
+        int[] affiliations = {0,1,2,3,4,5,6};
+        char[] frames = {'0','1','2','3','4','5','6','7','8','9','A'};
+
+        String testCode = "110301000011000000000000000840";
+        for (int version : versions)
+        {
+            testCode = SymbolID.setVersion(testCode, version);
+            for (int s : ss)
+            {
+                testCode = SymbolID.setSymbolSet(testCode,s);
+                for (int a : affiliations)
+                {
+                    testCode = SymbolID.setAffiliation(testCode,a);
+
+                    if(testCode.startsWith("11"))
+                        symbolIDs.add(testCode);
+                    else
+                    {
+                        for (char f : frames)
+                        {
+                            testCode = SymbolID.setFrameShape(testCode,f);
+                            symbolIDs.add(testCode);
+                        }
+                    }
+                }
+            }
+        }
+
+        for(String id : symbolIDs)
+        {
+            modifiers = populateModifiers(id);
+            attributes.put(MilStdAttributes.ModifierPlacement,"0");
+            ImageInfo ii = MilStdIconRenderer.getInstance().RenderIcon(id,modifiers,attributes);
+            if(ii != null)
+                ii.SaveImageToFile("C:\\Temp\\ModifierTest\\" + id + "-0.png","png");
+            else
+                ErrorLogger.LogMessage("ModifierTest: ii null for " + id);
+
+            attributes.put(MilStdAttributes.ModifierPlacement,"1");
+            ii = MilStdIconRenderer.getInstance().RenderIcon(id,modifiers,attributes);
+            if(ii != null)
+                ii.SaveImageToFile("C:\\Temp\\ModifierTest\\" + id + "-1.png","png");
+            else
+                ErrorLogger.LogMessage("ModifierTest: ii null for " + id);
+
+            for(int i = 0; i < 3; i++)//We'll remove 3 random modifiers
+            {
+                int mod = getRandomNumber(0,modifiers.size());
+                modifiers.remove(mods.get(i).getID());
+            }
+
+            ii = MilStdIconRenderer.getInstance().RenderIcon(id,modifiers,attributes);
+            if(ii != null)
+                ii.SaveImageToFile("C:\\Temp\\ModifierTest\\" + id + "-3.png","png");
+            else
+                ErrorLogger.LogMessage("ModifierTest: ii null for " + id);
+
+            for(int i = 0; i < 3; i++)//We'll remove 3 random modifiers
+            {
+                int mod = getRandomNumber(0,modifiers.size());
+                modifiers.remove(mods.get(i).getID());
+            }
+            modifiers.remove(Modifiers.V_EQUIP_TYPE);
+            modifiers.remove(Modifiers.H_ADDITIONAL_INFO_1);
+            modifiers.remove(Modifiers.AF_COMMON_IDENTIFIER);
+            modifiers.remove(Modifiers.C_QUANTITY);
+
+            ii = MilStdIconRenderer.getInstance().RenderIcon(id,modifiers,attributes);
+            if(ii != null)
+                ii.SaveImageToFile("C:\\Temp\\ModifierTest\\" + id + "-6.png","png");
+            else
+                ErrorLogger.LogMessage("ModifierTest: ii null for " + id);
+
+            modifiers.remove(Modifiers.M_HIGHER_FORMATION);
+            modifiers.remove(Modifiers.T_UNIQUE_DESIGNATION_1);
+            modifiers.remove(Modifiers.G_STAFF_COMMENTS);
+            modifiers.remove(Modifiers.AQ_GUARDED_UNIT);
+
+            ii = MilStdIconRenderer.getInstance().RenderIcon(id,modifiers,attributes);
+            if(ii != null)
+                ii.SaveImageToFile("C:\\Temp\\ModifierTest\\" + id + "-9.png","png");
+            else
+                ErrorLogger.LogMessage("ModifierTest: ii null for " + id);
+        }
+    }
+
+    public int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
 
     private void btnSpeedTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpeedTestActionPerformed
 
