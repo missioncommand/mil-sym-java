@@ -575,13 +575,13 @@ public class SymbolUtilities {
                             retColor = AffiliationColors.FriendlyUnitFillColor;//0x00ffff;	// Cyan
                             break;
                         case SymbolID.StandardIdentity_Affiliation_Hostile_Faker:
-                            retColor = AffiliationColors.HostileUnitLineColor;//Color.RED;//0xff0000;	// Red
+                            retColor = AffiliationColors.HostileUnitFillColor;//Color.RED;//0xff0000;	// Red
                             break;
                         case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:
                             if(symStd >= SymbolID.Version_2525E)
-                                retColor = AffiliationColors.SuspectUnitLineColor;//255,188,1
+                                retColor = AffiliationColors.SuspectUnitFillColor;//255,188,1
                             else
-                                retColor = AffiliationColors.HostileUnitLineColor;//Color.RED;//0xff0000;	// Red
+                                retColor = AffiliationColors.HostileUnitFillColor;//Color.RED;//0xff0000;	// Red
                             break;
                         case SymbolID.StandardIdentity_Affiliation_Neutral:
                             retColor = AffiliationColors.NeutralUnitFillColor;//0x7fff00;	// Light Green
