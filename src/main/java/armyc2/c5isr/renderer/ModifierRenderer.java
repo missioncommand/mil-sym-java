@@ -5229,8 +5229,8 @@ public class ModifierRenderer implements SettingsEventListener
                     y = -3;
                     if(!strict)
                     {
-                        if(!modifiers.containsKey(Modifiers.Z_SPEED)  ||
-                                modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                        if(!(modifiers.containsKey(Modifiers.Z_SPEED)  ||
+                                modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)))
                             y++;
                         if(!modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
                             y++;
