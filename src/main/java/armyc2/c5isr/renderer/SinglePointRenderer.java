@@ -147,6 +147,7 @@ public class SinglePointRenderer implements SettingsEventListener{
             boolean icon = false;
             boolean asIcon = false;
             boolean noFrame = false;
+            FontRenderContext frc = null;
 
             int ver = SymbolID.getVersion(symbolID);
 
@@ -384,9 +385,17 @@ public class SinglePointRenderer implements SettingsEventListener{
             hasDisplayModifiers = ModifierRenderer.hasDisplayModifiers(symbolID, modifiers);
             hasTextModifiers = ModifierRenderer.hasTextModifiers(symbolID, modifiers);
             //process display modifiers
+            if(hasDisplayModifiers || hasTextModifiers)
+            {
+                BufferedImage buffer = new BufferedImage(2,2,BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = buffer.createGraphics();
+                frc = g2d.getFontRenderContext();
+                //FontMetrics fm =
+            }
+
             if (hasDisplayModifiers)
             {
-                sdiTemp = ModifierRenderer.processUnitDisplayModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
+                sdiTemp = ModifierRenderer.processUnitDisplayModifiers(ii, symbolID, modifiers, attributes, frc);
                 iiNew = (sdiTemp instanceof ImageInfo ? (ImageInfo)sdiTemp : null);
                 sdiTemp = null;
             }
@@ -400,91 +409,7 @@ public class SinglePointRenderer implements SettingsEventListener{
             //process text modifiers
             if (hasTextModifiers)
             {
-                int ss = SymbolID.getSymbolSet(symbolID);
-                switch(ss)
-                {
-                    case SymbolID.SymbolSet_LandUnit:
-                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:
-                        if(ver >= SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processLandUnitTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else
-                            sdiTemp = ModifierRenderer.processLandUnitTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_LandEquipment:
-                    case SymbolID.SymbolSet_SignalsIntelligence_Land:
-                        if(ver >= SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processLandEquipmentTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else
-                            sdiTemp = ModifierRenderer.processLandEquipmentTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_LandInstallation:
-                        if(ver >= SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processLandInstallationTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else
-                            sdiTemp = ModifierRenderer.processLandInstallationTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_DismountedIndividuals:
-                        sdiTemp = ModifierRenderer.processDismountedIndividualsTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_Space:
-                    case SymbolID.SymbolSet_SpaceMissile:
-                    case SymbolID.SymbolSet_Air:
-                    case SymbolID.SymbolSet_AirMissile:
-                    case SymbolID.SymbolSet_SignalsIntelligence_Air:
-                        if(ver >= SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processAirSpaceUnitTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else
-                            sdiTemp = ModifierRenderer.processAirSpaceUnitTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_SignalsIntelligence_Space:
-                        if(ver < SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processAirSpaceUnitTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else//SIGINT in 2525E+ uses modifer places based on frame shape
-                        {
-                            char frameShape = SymbolID.getFrameShape(symbolID);
-                            if(frameShape == SymbolID.FrameShape_Space || frameShape == SymbolID.FrameShape_Air)
-                                sdiTemp = ModifierRenderer.processAirSpaceUnitTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                            else if(frameShape == SymbolID.FrameShape_LandEquipment_SeaSurface)//sea surface, but can't tell which so default land equip
-                                sdiTemp = ModifierRenderer.processLandEquipmentTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                            else if(frameShape == SymbolID.FrameShape_SeaSubsurface)
-                                sdiTemp = ModifierRenderer.processSeaSubSurfaceTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                            else//default land equipment
-                                sdiTemp = ModifierRenderer.processLandEquipmentTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        }
-                        break;
-                    case SymbolID.SymbolSet_SeaSurface:
-                    case SymbolID.SymbolSet_SignalsIntelligence_SeaSurface:
-                        if(ver >= SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processSeaSurfaceTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else
-                            sdiTemp = ModifierRenderer.processSeaSurfaceTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_SeaSubsurface:
-                    case SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface:
-                        if(ver >= SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processSeaSubSurfaceTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else
-                            sdiTemp = ModifierRenderer.processSeaSubSurfaceTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_Activities:
-                        if(ver >= SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processActivitiesTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else
-                            sdiTemp = ModifierRenderer.processActivitiesTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_CyberSpace:
-                        if(ver >= SymbolID.Version_2525E)
-                            sdiTemp = ModifierRenderer.processCyberSpaceTextModifiersE(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        else
-                            sdiTemp = ModifierRenderer.processCyberSpaceTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                        break;
-                    case SymbolID.SymbolSet_MineWarfare:
-                        break;//no modifiers
-                    case SymbolID.SymbolSet_Unknown:
-                    default: //in theory, will never get here
-                        sdiTemp = ModifierRenderer.processUnknownTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
-                }
-
+                sdiTemp = ModifierRenderer.ProcessSPTextModifiers(ii, symbolID, modifiers, attributes, frc);
             }
 
             iiNew = (sdiTemp instanceof ImageInfo ? (ImageInfo)sdiTemp : null);
@@ -784,15 +709,21 @@ public class SinglePointRenderer implements SettingsEventListener{
             //process display modifiers
             if (asIcon == false && (hasTextModifiers || hasDisplayModifiers))
             {
+
+                BufferedImage buffer = new BufferedImage(2,2,BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = buffer.createGraphics();
+                FontRenderContext frc = g2d.getFontRenderContext();
+                //FontMetrics fm =
+
                 SymbolDimensionInfo sdiTemp = null;
                 Color cLineColor = RendererUtilities.getColorFromHexString(lineColor);
                 if (SymbolUtilities.isSPWithSpecialModifierLayout(symbolID))//(SymbolUtilitiesD.isTGSPWithSpecialModifierLayout(symbolID))
                 {
-                    sdiTemp = ModifierRenderer.ProcessTGSPWithSpecialModifierLayout(ii, symbolID, modifiers, attributes, cLineColor,_fontRenderContext);
+                    sdiTemp = ModifierRenderer.ProcessTGSPWithSpecialModifierLayout(ii, symbolID, modifiers, attributes, cLineColor,frc);
                 }
                 else
                 {
-                    sdiTemp = ModifierRenderer.ProcessTGSPModifiers(ii, symbolID, modifiers, attributes, cLineColor, _fontRenderContext);
+                    sdiTemp = ModifierRenderer.ProcessTGSPModifiers(ii, symbolID, modifiers, attributes, cLineColor, frc);
                 }
                 iiNew = (sdiTemp instanceof ImageInfo ? (ImageInfo)sdiTemp : null);
             }

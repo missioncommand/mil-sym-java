@@ -179,10 +179,10 @@ public class Shape2SVG {
 
 
 
-            sb.append("<text x=\"" + location.getX() + "\" y=\"" + location.getY() + "\"");
+            sb.append("<text x=\"").append(location.getX()).append("\" y=\"").append(location.getY()).append("\"");
 
             if(anchor != null)
-                sb.append(" text-anchor=\"" + anchor + "\"");
+                sb.append(" text-anchor=\"").append(anchor).append("\"");
 
             //sb.append(" text-anchor=\"" + anchor + "\"");//always start for single points and default SVG behavior
 
@@ -194,42 +194,65 @@ public class Shape2SVG {
             String seStroke = "",
                     seFill = "";
 
+            StringBuilder sbStroke = null;
+            StringBuilder sbFill = null;
 
 
             if(stroke != null)
             {
-                seStroke = sb.toString();
+                /*seStroke = sb.toString();
 
                 seStroke += " stroke=\"" + stroke + "\"";
-                /*else
-                    seStroke = se + ' stroke="' + stroke.replace(/#/g,"&#35;") + '"';*/
 
                 if(strokeWidth != null)
                     seStroke += " stroke-width=\"" + strokeWidth + "\"";
                 seStroke += " fill=\"none\"";
                 seStroke += ">";
                 seStroke += text;
-                seStroke += "</text>";
+                seStroke += "</text>";//*/
+
+                sbStroke = new StringBuilder(sb.toString());
+                sbStroke.append(" stroke=\"").append(stroke).append("\"");
+                if(strokeWidth != null)
+                    sbStroke.append(" stroke-width=\"").append(strokeWidth).append("\"");
+                sbStroke.append(" fill=\"none\"");
+                sbStroke.append(">");
+                sbStroke.append(text);
+                sbStroke.append("</text>");
             }
 
             if(fill != null)
             {
+                /*
                 seFill = sb.toString();
-
-
                 seFill += " fill=\"" + fill + "\"";
                 seFill += ">";
                 seFill += text;
-                seFill += "</text>";
+                seFill += "</text>";//*/
+
+                sbFill = new StringBuilder(sb.toString());
+                sbFill.append(" fill=\"").append(fill).append("\"");
+                sbFill.append(">");
+                sbFill.append(text);
+                sbFill.append("</text>");
             }
 
             sb = new StringBuilder();
-            if(stroke != null && fill != null)
-                sb.append(seStroke + "\n" + seFill).append("\n");
+            /*if(stroke != null && fill != null)
+                sb.append(seStroke).append("\n").append(seFill).append("\n");
             else if(fill != null)
                 sb.append(seFill);
             else
+                return null;//*/
+
+            if(sbStroke != null && sbFill != null)
+                sb.append(sbStroke).append("\n").append(sbFill).append("\n");
+            else if(fill != null)
+                sb.append(sbFill);
+            else
                 return null;
+
+
             return sb.toString();
         }
         return null;
@@ -282,19 +305,19 @@ public class Shape2SVG {
             int type = pitr.currentSegment(coords);
             if(type==PathIterator.SEG_LINETO)
             {
-                sbPath.append("L" + coords[0] + " " + coords[1]);
+                sbPath.append("L").append(coords[0]).append(" ").append(coords[1]);
             }
             else if(type==PathIterator.SEG_MOVETO)
             {
-                sbPath.append("M" + coords[0] + " " + coords[1]);
+                sbPath.append("M").append(coords[0]).append(" ").append(coords[1]);
             }
             else if(type==PathIterator.SEG_QUADTO)
             {
-                sbPath.append("Q" + coords[0] + " " + coords[1] + " " + coords[2] + " " + coords[3]);
+                sbPath.append("Q").append(coords[0]).append(" ").append(coords[1]).append(" ").append(coords[2]).append(" ").append(coords[3]);
             }
             else if(type==PathIterator.SEG_CUBICTO)
             {
-                sbPath.append("C" + coords[0] + " " + coords[1] + " " + coords[2] + " " + coords[3] + " " + coords[4] + " " + coords[5]);
+                sbPath.append("C").append(coords[0]).append(" ").append(coords[1]).append(" ").append(coords[2]).append(" ").append(coords[3]).append(" ").append(coords[4]).append(" ").append(coords[5]);
             }
             else if(type==PathIterator.SEG_CLOSE)
             {
@@ -317,7 +340,7 @@ public class Shape2SVG {
             else
                 sbLine.append(" stroke-width=\"2\"");
 
-            if(strokeOpacity != null && strokeOpacity != "1.0")
+            if(strokeOpacity != null && !strokeOpacity.equals("1.0"))
             {
                 sbLine.append(" stroke-opacity=\"").append(strokeOpacity).append("\"");
             }
@@ -374,15 +397,15 @@ public class Shape2SVG {
         StringBuilder sb = new StringBuilder();
         if(rect != null && rect.isEmpty() != true)
         {
-            sb.append("<rect x=\"" + rect.getX() + "\" y=\"" + rect.getY());
-            sb.append("\" width=\"" + rect.getWidth() + "\" height=\"" + rect.getHeight() + "\"");
+            sb.append("<rect x=\"").append(rect.getX()).append("\" y=\"").append(rect.getY());
+            sb.append("\" width=\"").append(rect.getWidth()).append("\" height=\"").append(rect.getHeight()).append("\"");
 
             if(stroke != null)
             {
-                sb.append(" stroke=\"" + stroke + "\"");
+                sb.append(" stroke=\"").append(stroke).append("\"");
 
                 if(strokeWidth != null)
-                    sb.append(" stroke-width=\"" + strokeWidth + "\"");
+                    sb.append(" stroke-width=\"").append(strokeWidth).append("\"");
                 else
                     sb.append(" stroke-width=\"2\"");
 
@@ -396,7 +419,7 @@ public class Shape2SVG {
             }
 
             if(fill != null)
-                sb.append(" fill=\"" + fill + "\"");
+                sb.append(" fill=\"").append(fill).append("\"");
             else
                 sb.append(" fill=\"none\"");
 
@@ -426,15 +449,15 @@ public class Shape2SVG {
         StringBuilder sb = new StringBuilder();
         if(line != null)
         {
-            sb.append("<line x1=\"" + line.getX1() + "\" y1=\"" + line.getY1());
-            sb.append("\" x2=\"" + line.getX2() + "\" y2=\"" + line.getY2() + "\"");
+            sb.append("<line x1=\"").append(line.getX1()).append("\" y1=\"").append(line.getY1());
+            sb.append("\" x2=\"").append(line.getX2()).append("\" y2=\"").append(line.getY2()).append("\"");
 
             if(stroke != null)
             {
-                sb.append(" stroke=\"" + stroke + "\"");
+                sb.append(" stroke=\"").append(stroke).append("\"");
 
                 if(strokeWidth != null)
-                    sb.append(" stroke-width=\"" + strokeWidth + "\"");
+                    sb.append(" stroke-width=\"").append(strokeWidth).append("\"");
                 else
                     sb.append(" stroke-width=\"2\"");
 
@@ -448,7 +471,7 @@ public class Shape2SVG {
             }
 
             if(fill != null)
-                sb.append(" fill=\"" + fill + "\"");
+                sb.append(" fill=\"").append(fill).append("\"");
             else
                 sb.append(" fill=\"none\"");
 
@@ -478,15 +501,15 @@ public class Shape2SVG {
         if(ellipse != null && !ellipse.isEmpty())
         {
             //<ellipse cx="39.56581637214194" cy="7.396462536381936" rx="6.485756821725808" ry="6.485756821725808" stroke-width="0.999999995" stroke="black" fill="yellow"></ellipse>
-            sb.append("<ellipse cx=\"" + (ellipse.getX() + ellipse.getWidth()/2f) + "\" cy=\"" + (ellipse.getY() + ellipse.getHeight()/2f) + "\"");
-            sb.append(" rx=\"" + (ellipse.getWidth()/2f) + "\" ry=\"" + (ellipse.getHeight()/2f) + "\"");
+            sb.append("<ellipse cx=\"").append(ellipse.getX() + ellipse.getWidth() / 2f).append("\" cy=\"").append(ellipse.getY() + ellipse.getHeight() / 2f).append("\"");
+            sb.append(" rx=\"").append(ellipse.getWidth() / 2f).append("\" ry=\"").append(ellipse.getHeight() / 2f).append("\"");
 
             if(stroke != null)
             {
-                sb.append(" stroke=\"" + stroke + "\"");
+                sb.append(" stroke=\"").append(stroke).append("\"");
 
                 if(strokeWidth != null)
-                    sb.append(" stroke-width=\"" + strokeWidth + "\"");
+                    sb.append(" stroke-width=\"").append(strokeWidth).append("\"");
                 else
                     sb.append(" stroke-width=\"2\"");
 
@@ -500,7 +523,7 @@ public class Shape2SVG {
             }
 
             if(fill != null)
-                sb.append(" fill=\"" + fill + "\"");
+                sb.append(" fill=\"").append(fill).append("\"");
             else
                 sb.append(" fill=\"none\"");
 

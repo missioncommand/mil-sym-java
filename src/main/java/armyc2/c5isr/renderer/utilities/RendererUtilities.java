@@ -112,6 +112,29 @@ public class RendererUtilities {
      */
     public static String colorToHexString(Color color, Boolean withAlpha)
     {
+        if (color != null)
+        {
+            String r = Integer.toHexString(color.getRed());
+            String g = Integer.toHexString(color.getGreen());
+            String b = Integer.toHexString(color.getBlue());
+            String a = Integer.toHexString(color.getAlpha());
+
+            // Pad with leading zeros if needed
+            if (r.length() == 1) r = "0" + r;
+            if (g.length() == 1) g = "0" + g;
+            if (b.length() == 1) b = "0" + b;
+            if (a.length() == 1) a = "0" + a;
+
+            if(withAlpha)
+                return "#" + a + r + g + b;
+            else
+                return "#" + r + g + b;
+        }
+        return "";
+    }//*/
+
+    /*public static String colorToHexString(Color color, Boolean withAlpha)
+    {
         String hex = "";
         if (color != null)
         {
@@ -126,6 +149,8 @@ public class RendererUtilities {
         }
         return hex;
     }
+
+     //*/
 
     /**
      *
@@ -254,7 +279,7 @@ public class RendererUtilities {
         String fillOpacity = "";
 
         int ss = SymbolID.getSymbolSet(symbolID);
-
+        int ver = SymbolID.getVersion(symbolID);
         int affiliation = SymbolID.getAffiliation(symbolID);
         String defaultFillColor = null;
         returnSVG = svg;
@@ -286,8 +311,9 @@ public class RendererUtilities {
                     SymbolID.getFrameShape(symbolID)==SymbolID.FrameShape_LandInstallation)
             {
                 int i1 = returnSVG.indexOf("<rect") + 5;
-                if(SymbolID.getAffiliation(symbolID)==SymbolID.StandardIdentity_Affiliation_Neutral)
+                if(ver >= SymbolID.Version_2525E && affiliation == SymbolID.StandardIdentity_Affiliation_AssumedFriend)
                     i1 = returnSVG.indexOf("<rect",i1) + 5;
+                //make sure installation indicator matches line color
                 returnSVG = returnSVG.substring(0,i1) + " fill=\"" + hexStrokeColor + "\"" + returnSVG.substring(i1);
             }
         }
@@ -295,8 +321,9 @@ public class RendererUtilities {
                 SymbolID.getFrameShape(symbolID)==SymbolID.FrameShape_LandInstallation)
         {
             int i1 = returnSVG.indexOf("<rect") + 5;
-            if(SymbolID.getAffiliation(symbolID)==SymbolID.StandardIdentity_Affiliation_Neutral)
+            if(ver >= SymbolID.Version_2525E && affiliation == SymbolID.StandardIdentity_Affiliation_AssumedFriend)
                 i1 = returnSVG.indexOf("<rect",i1) + 5;
+            //No line color change so make sure installation indicator stays black
             returnSVG = returnSVG.substring(0,i1) + " fill=\"#000000\"" + returnSVG.substring(i1);
         }
 
