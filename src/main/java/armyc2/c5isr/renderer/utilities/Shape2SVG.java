@@ -194,42 +194,65 @@ public class Shape2SVG {
             String seStroke = "",
                     seFill = "";
 
+            StringBuilder sbStroke = null;
+            StringBuilder sbFill = null;
 
 
             if(stroke != null)
             {
-                seStroke = sb.toString();
+                /*seStroke = sb.toString();
 
                 seStroke += " stroke=\"" + stroke + "\"";
-                /*else
-                    seStroke = se + ' stroke="' + stroke.replace(/#/g,"&#35;") + '"';*/
 
                 if(strokeWidth != null)
                     seStroke += " stroke-width=\"" + strokeWidth + "\"";
                 seStroke += " fill=\"none\"";
                 seStroke += ">";
                 seStroke += text;
-                seStroke += "</text>";
+                seStroke += "</text>";//*/
+
+                sbStroke = new StringBuilder(sb.toString());
+                sbStroke.append(" stroke=\"").append(stroke).append("\"");
+                if(strokeWidth != null)
+                    sbStroke.append(" stroke-width=\"").append(strokeWidth).append("\"");
+                sbStroke.append(" fill=\"none\"");
+                sbStroke.append(">");
+                sbStroke.append(text);
+                sbStroke.append("</text>");
             }
 
             if(fill != null)
             {
+                /*
                 seFill = sb.toString();
-
-
                 seFill += " fill=\"" + fill + "\"";
                 seFill += ">";
                 seFill += text;
-                seFill += "</text>";
+                seFill += "</text>";//*/
+
+                sbFill = new StringBuilder(sb.toString());
+                sbFill.append(" fill=\"").append(fill).append("\"");
+                sbFill.append(">");
+                sbFill.append(text);
+                sbFill.append("</text>");
             }
 
             sb = new StringBuilder();
-            if(stroke != null && fill != null)
+            /*if(stroke != null && fill != null)
                 sb.append(seStroke).append("\n").append(seFill).append("\n");
             else if(fill != null)
                 sb.append(seFill);
             else
+                return null;//*/
+
+            if(sbStroke != null && sbFill != null)
+                sb.append(sbStroke).append("\n").append(sbFill).append("\n");
+            else if(fill != null)
+                sb.append(sbFill);
+            else
                 return null;
+
+
             return sb.toString();
         }
         return null;
