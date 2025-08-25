@@ -147,6 +147,7 @@ public class SinglePointRenderer implements SettingsEventListener{
             boolean icon = false;
             boolean asIcon = false;
             boolean noFrame = false;
+            FontRenderContext frc = null;
 
             int ver = SymbolID.getVersion(symbolID);
 
@@ -384,9 +385,17 @@ public class SinglePointRenderer implements SettingsEventListener{
             hasDisplayModifiers = ModifierRenderer.hasDisplayModifiers(symbolID, modifiers);
             hasTextModifiers = ModifierRenderer.hasTextModifiers(symbolID, modifiers);
             //process display modifiers
+            if(hasDisplayModifiers || hasTextModifiers)
+            {
+                BufferedImage buffer = new BufferedImage(2,2,BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = buffer.createGraphics();
+                frc = g2d.getFontRenderContext();
+                //FontMetrics fm =
+            }
+
             if (hasDisplayModifiers)
             {
-                sdiTemp = ModifierRenderer.processUnitDisplayModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
+                sdiTemp = ModifierRenderer.processUnitDisplayModifiers(ii, symbolID, modifiers, attributes, frc);
                 iiNew = (sdiTemp instanceof ImageInfo ? (ImageInfo)sdiTemp : null);
                 sdiTemp = null;
             }
@@ -400,7 +409,7 @@ public class SinglePointRenderer implements SettingsEventListener{
             //process text modifiers
             if (hasTextModifiers)
             {
-                sdiTemp = ModifierRenderer.ProcessSPTextModifiers(ii, symbolID, modifiers, attributes, _fontRenderContext);
+                sdiTemp = ModifierRenderer.ProcessSPTextModifiers(ii, symbolID, modifiers, attributes, frc);
             }
 
             iiNew = (sdiTemp instanceof ImageInfo ? (ImageInfo)sdiTemp : null);
@@ -700,15 +709,21 @@ public class SinglePointRenderer implements SettingsEventListener{
             //process display modifiers
             if (asIcon == false && (hasTextModifiers || hasDisplayModifiers))
             {
+
+                BufferedImage buffer = new BufferedImage(2,2,BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = buffer.createGraphics();
+                FontRenderContext frc = g2d.getFontRenderContext();
+                //FontMetrics fm =
+
                 SymbolDimensionInfo sdiTemp = null;
                 Color cLineColor = RendererUtilities.getColorFromHexString(lineColor);
                 if (SymbolUtilities.isSPWithSpecialModifierLayout(symbolID))//(SymbolUtilitiesD.isTGSPWithSpecialModifierLayout(symbolID))
                 {
-                    sdiTemp = ModifierRenderer.ProcessTGSPWithSpecialModifierLayout(ii, symbolID, modifiers, attributes, cLineColor,_fontRenderContext);
+                    sdiTemp = ModifierRenderer.ProcessTGSPWithSpecialModifierLayout(ii, symbolID, modifiers, attributes, cLineColor,frc);
                 }
                 else
                 {
-                    sdiTemp = ModifierRenderer.ProcessTGSPModifiers(ii, symbolID, modifiers, attributes, cLineColor, _fontRenderContext);
+                    sdiTemp = ModifierRenderer.ProcessTGSPModifiers(ii, symbolID, modifiers, attributes, cLineColor, frc);
                 }
                 iiNew = (sdiTemp instanceof ImageInfo ? (ImageInfo)sdiTemp : null);
             }

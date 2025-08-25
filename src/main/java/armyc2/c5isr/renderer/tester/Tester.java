@@ -609,7 +609,8 @@ public class Tester extends javax.swing.JFrame {
     {
         Map<String,String> attributes = new HashMap<>();
         attributes.put(MilStdAttributes.PixelSize, "50");
-        //attributes.put(MilStdAttributes.FillColor, "#00FF00");
+        attributes.put(MilStdAttributes.ModifierPlacement,String.valueOf(RendererSettings.ModifierPlacement_FLEXIBLE));
+        //attributes.put(MilStdAttributes.FillColor, "#8000FF00");
 
         //font override check
         /*
@@ -829,7 +830,7 @@ public class Tester extends javax.swing.JFrame {
 
         lblFrameShape.setText("Frame Shape:");
 
-        cbFrameShape.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0-Unknown", "1-Space", "2-Air", "3-Land U", "4-Land E/Sea", "5-Land Inst", "6-Dis. Ind.", "7-Sea Sub.", "8-Activity", "9-Cyber" }));
+        cbFrameShape.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0-Unknown", "1-Space", "2-Air", "3-Land U", "4-Land Equip", "5-Land Inst", "6-Dis. Ind.", "7-Sea Sub.", "8-Activity", "9-Cyber", "A-SeaSurface" }));
         cbFrameShape.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 cbFrameShapePropertyChange(evt);
@@ -1063,6 +1064,10 @@ public class Tester extends javax.swing.JFrame {
                 //attributes.put(MilStdAttributes.IconColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));
                 //attributes.put(MilStdAttributes.LineColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));//*/
 
+                //new line color, no fill
+                //attributes.put(MilStdAttributes.FillColor,"#00000000");
+                //attributes.put(MilStdAttributes.LineColor,RendererUtilities.colorToHexString(SymbolUtilities.getFillColorOfAffiliation(symbolID),false));
+
                 String pixelSize = String.valueOf(cbPixelSize.getSelectedItem());
 
                 attributes.put(MilStdAttributes.PixelSize,pixelSize);
@@ -1145,8 +1150,6 @@ public class Tester extends javax.swing.JFrame {
                     RenderMultiPoint();
                 }
             }
-            else
-                return;
         }
 
         //modifierTest();

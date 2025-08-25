@@ -3,6 +3,8 @@ package armyc2.c5isr.renderer;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
+import java.awt.font.LineMetrics;
 import java.awt.font.TextLayout;
 import java.awt.geom.Path2D;
 import java.awt.geom.Arc2D;
@@ -4526,10 +4528,10 @@ public class ModifierRenderer implements SettingsEventListener
         String svgFill = RendererUtilities.colorToHexString(color,false);
         String svgStrokeWidth = String.valueOf(RendererSettings.getInstance().getSVGTextOutlineWidth());
         sbSVG.append("\n<g");
-        sbSVG.append(" font-family=\"" + name + '"');
-        sbSVG.append(" font-size=\"" + size + "px\"");
+        sbSVG.append(" font-family=\"").append(name).append('"');
+        sbSVG.append(" font-size=\"").append(size).append("px\"");
         if(weight != null)
-            sbSVG.append(" font-weight=\"" + weight + "\"");
+            sbSVG.append(" font-weight=\"").append(weight).append("\"");
         sbSVG.append(" alignment-baseline=\"alphabetic\"");//
         sbSVG.append(">");
 
@@ -4760,7 +4762,7 @@ public class ModifierRenderer implements SettingsEventListener
         if(attributes != null && attributes.containsKey(MilStdAttributes.ModifierPlacement))
         {
             String mp = attributes.get(MilStdAttributes.ModifierPlacement);
-            if(SymbolUtilities.isNumber(mp))
+            if(mp.equals("0") || mp.equals("1") || mp.equals("2"))
             {
                 p = Integer.parseInt(mp);
                 if(p == 0)
@@ -7261,15 +7263,39 @@ public class ModifierRenderer implements SettingsEventListener
 
         if(font != null)
         {
+            FontRenderContext frc = new FontRenderContext(null, true, false);
+            LineMetrics lm = font.getLineMetrics("Tj",frc);
+            hd[0] = (float)Math.ceil(lm.getHeight());
+            hd[1] = (float)Math.ceil(lm.getDescent());
+        }
+
+        return hd;
+    }
+
+    private static float[] getFontHeightandDescent(Font font, FontMetrics fm)
+    {
+        float[] hd = {0f,0f};
+
+        if(fm == null)
+        {
+
             BufferedImage bmp = new BufferedImage(2, 2, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = bmp.createGraphics();
-            FontMetrics fm = g2d.getFontMetrics(font);
+            fm = g2d.getFontMetrics(font);
+            //hd = getFontHeightandDescent(font, fm);
             hd[0] = fm.getHeight();
             hd[1] = fm.getMaxDescent();
             g2d.dispose();
             bmp = null;
             g2d = null;
+
         }
+
+        /*if(font != null && fm != null)
+        {
+            hd[0] = fm.getHeight();
+            hd[1] = fm.getMaxDescent();
+        }//*/
 
         return hd;
     }

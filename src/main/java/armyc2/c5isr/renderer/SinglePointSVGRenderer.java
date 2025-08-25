@@ -138,6 +138,7 @@ public class SinglePointSVGRenderer {
             boolean icon = false;
             boolean asIcon = false;
             boolean noFrame = false;
+            FontRenderContext frc = null;
 
             int ver = SymbolID.getVersion(symbolID);
 
@@ -371,10 +372,18 @@ public class SinglePointSVGRenderer {
 
                 hasDisplayModifiers = ModifierRenderer.hasDisplayModifiers(symbolID, modifiers);
                 hasTextModifiers = ModifierRenderer.hasTextModifiers(symbolID, modifiers);
+
+                if(hasDisplayModifiers || hasDisplayModifiers)
+                {
+                    BufferedImage buffer = new BufferedImage(2,2,BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D g2d = buffer.createGraphics();
+                    frc = g2d.getFontRenderContext();
+                    //FontMetrics fm =
+                }
                 //process display modifiers
                 if (hasDisplayModifiers)
                 {
-                    newSDI = ModifierRenderer.processUnitDisplayModifiers(si, symbolID, modifiers, attributes, _fontRenderContext);
+                    newSDI = ModifierRenderer.processUnitDisplayModifiers(si, symbolID, modifiers, attributes, frc);
                     if(newSDI != null)
                     {
                         si = (SVGSymbolInfo) newSDI;
@@ -386,7 +395,7 @@ public class SinglePointSVGRenderer {
             //process text modifiers
             if (hasTextModifiers)
             {
-                newSDI = ModifierRenderer.ProcessSPTextModifiers(si, symbolID, modifiers, attributes, _fontRenderContext);
+                newSDI = ModifierRenderer.ProcessSPTextModifiers(si, symbolID, modifiers, attributes, frc);
             }
 
             if (newSDI != null)
@@ -711,15 +720,20 @@ public class SinglePointSVGRenderer {
             //process display modifiers
             if (asIcon == false && (hasTextModifiers || hasDisplayModifiers))
             {
+                BufferedImage buffer = new BufferedImage(2,2,BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = buffer.createGraphics();
+                FontRenderContext frc = g2d.getFontRenderContext();
+                //FontMetrics fm =
+
                 SymbolDimensionInfo sdiTemp = null;
                 Color cLineColor = RendererUtilities.getColorFromHexString(lineColor);
                 if (SymbolUtilities.isSPWithSpecialModifierLayout(symbolID))//(SymbolUtilitiesD.isTGSPWithSpecialModifierLayout(symbolID))
                 {
-                    sdiTemp = ModifierRenderer.ProcessTGSPWithSpecialModifierLayout(si, symbolID, modifiers, attributes, cLineColor,_fontRenderContext);
+                    sdiTemp = ModifierRenderer.ProcessTGSPWithSpecialModifierLayout(si, symbolID, modifiers, attributes, cLineColor,frc);
                 }
                 else
                 {
-                    sdiTemp = ModifierRenderer.ProcessTGSPModifiers(si, symbolID, modifiers, attributes, cLineColor, _fontRenderContext);
+                    sdiTemp = ModifierRenderer.ProcessTGSPModifiers(si, symbolID, modifiers, attributes, cLineColor, frc);
                 }
                 siNew = (sdiTemp instanceof SVGSymbolInfo ? (SVGSymbolInfo)sdiTemp : null);
             }

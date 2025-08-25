@@ -112,6 +112,29 @@ public class RendererUtilities {
      */
     public static String colorToHexString(Color color, Boolean withAlpha)
     {
+        if (color != null)
+        {
+            String r = Integer.toHexString(color.getRed());
+            String g = Integer.toHexString(color.getGreen());
+            String b = Integer.toHexString(color.getBlue());
+            String a = Integer.toHexString(color.getAlpha());
+
+            // Pad with leading zeros if needed
+            if (r.length() == 1) r = "0" + r;
+            if (g.length() == 1) g = "0" + g;
+            if (b.length() == 1) b = "0" + b;
+            if (a.length() == 1) a = "0" + a;
+
+            if(withAlpha)
+                return "#" + a + r + g + b;
+            else
+                return "#" + r + g + b;
+        }
+        return "";
+    }//*/
+
+    /*public static String colorToHexString(Color color, Boolean withAlpha)
+    {
         String hex = "";
         if (color != null)
         {
@@ -126,6 +149,8 @@ public class RendererUtilities {
         }
         return hex;
     }
+
+     //*/
 
     /**
      *
