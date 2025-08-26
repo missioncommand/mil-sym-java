@@ -3,7 +3,6 @@ package armyc2.c5isr.renderer;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
 import java.awt.font.LineMetrics;
 import java.awt.font.TextLayout;
 import java.awt.geom.Path2D;
@@ -19,7 +18,6 @@ import java.util.List;
 
 
 import armyc2.c5isr.renderer.utilities.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import java.awt.geom.AffineTransform;
 
