@@ -161,6 +161,17 @@ public class MilStdAttributes {
 
     public static final String FontSize = "FONTSIZE";
 
+
+    /**
+     * Strict ("0") for always placing their labels in the specified location
+     * even if there's empty space from other labels that weren't populated
+     * Flexible ("1") to collapse label vertically to the center to eliminate
+     * empty space from labels that weren't populated.
+     * Does not apply to Control Measures or METOCS
+     * Set with values like:
+     * RendererSettings.ModifierPlacement_STRICT ("0")
+     * RendererSettings.ModifierPlacement_FLEXIBLE ("1")
+     */
     public static final String ModifierPlacement = "MODIFIERPLACEMENT";
 
     /**
