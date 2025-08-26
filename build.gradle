@@ -27,7 +27,7 @@ java {
 
 
 group = 'armyc2.c5isr.renderer'
-version = '2.2.0'
+version = '2.3.0'
 
 repositories {
     mavenCentral()
