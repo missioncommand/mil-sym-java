@@ -757,6 +757,8 @@ public final class clsUtility {
                                 case TacticalLines.RANGE_FAN:
                                 case TacticalLines.RANGE_FAN_SECTOR:
                                 case TacticalLines.RADAR_SEARCH:
+                                case TacticalLines.BS_3D_RADARC:
+                                case TacticalLines.BS_3D_CAKE:
                                 case TacticalLines.BBS_AREA:
                                 case TacticalLines.BBS_RECTANGLE:
                                     shape.setFillColor(null);
@@ -1196,11 +1198,15 @@ public final class clsUtility {
                 case TacticalLines.RANGE_FAN_FILL:
                 case TacticalLines.RANGE_FAN_SECTOR:
                 case TacticalLines.RADAR_SEARCH:
+                case TacticalLines.BS_3D_RADARC:
+                case TacticalLines.BS_3D_CAKE:
                 case TacticalLines.PAA_RECTANGULAR:
                 case TacticalLines.RECTANGULAR_TARGET:
                 case TacticalLines.FSA_RECTANGULAR:
                 case TacticalLines.SHIP_AOI_RECTANGULAR:
                 case TacticalLines.DEFENDED_AREA_RECTANGULAR:
+                case TacticalLines.BS_3D_ROUTE:
+                case TacticalLines.BS_3D_TRACK:
                 case TacticalLines.FFA_RECTANGULAR:
                 case TacticalLines.RFA_RECTANGULAR:
                 case TacticalLines.NFA_RECTANGULAR:
@@ -1216,6 +1222,8 @@ public final class clsUtility {
                 case TacticalLines.TVAR_RECTANGULAR:
                 case TacticalLines.KILLBOXBLUE_RECTANGULAR:
                 case TacticalLines.KILLBOXPURPLE_RECTANGULAR:
+                case TacticalLines.BS_ORBIT:
+                case TacticalLines.BS_POLYARC:
                     return true;
                 default:
                     return false;

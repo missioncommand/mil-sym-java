@@ -180,7 +180,7 @@ public class MultiPointHandler {
      * @return the upper left corner of the MBR containing the geographic
      * coordinates
      */
-    private static Point2D getGeoUL(ArrayList<Point2D> geoCoords) {
+    static Point2D getGeoUL(ArrayList<Point2D> geoCoords) {
         Point2D ptGeo = null;
         try {
             int j = 0;
@@ -229,7 +229,7 @@ public class MultiPointHandler {
         }
         return ptGeo;
     }
-    private static String getBboxFromCoords(ArrayList<Point2D> geoCoords) {
+    static String getBboxFromCoords(ArrayList<Point2D> geoCoords) {
         //var ptGeo = null;
         String bbox = null;
         try {
@@ -282,7 +282,7 @@ public class MultiPointHandler {
         return bbox;
     }
 
-    private static boolean crossesIDL(ArrayList<Point2D> geoCoords) {
+    static boolean crossesIDL(ArrayList<Point2D> geoCoords) {
         boolean result = false;
         Point2D pt2d = getControlPoint(geoCoords);
         double left = pt2d.getX();
@@ -422,7 +422,7 @@ public class MultiPointHandler {
      * @param origScale
      * @return
      */
-    private static double getReasonableScale(String bbox, double origScale) {
+    static double getReasonableScale(String bbox, double origScale) {
         try {
             String[] bounds = bbox.split(",");
             double left = Double.valueOf(bounds[0]);
@@ -1550,7 +1550,7 @@ public class MultiPointHandler {
      * @param symbol An existing MilStdSymbol
      * @return
      */
-    private static boolean populateModifiers(Map<String,String> saModifiers, Map<String,String> saAttributes, MilStdSymbol symbol) {
+    static boolean populateModifiers(Map<String,String> saModifiers, Map<String,String> saAttributes, MilStdSymbol symbol) {
         Map<String,String> modifiers = new HashMap<>();
         Map<String,String> attributes = saAttributes;
 
@@ -1920,7 +1920,7 @@ public class MultiPointHandler {
         return jstr;
     }
 
-    private static Color getIdealTextBackgroundColor(Color fgColor) {
+    static Color getIdealTextBackgroundColor(Color fgColor) {
         //ErrorLogger.LogMessage("SymbolDraw","getIdealtextBGColor", "in function", Level.SEVERE);
         try {
             //an array of three elements containing the
@@ -2258,7 +2258,7 @@ public class MultiPointHandler {
         return JSONed.toString();
     }
 
-    private static String bitmapToString(BufferedImage bitmap) {
+    static String bitmapToString(BufferedImage bitmap) {
         /*final int COMPRESSION_QUALITY = 100;
         String encodedImage;
         ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
@@ -2366,6 +2366,9 @@ public class MultiPointHandler {
         return normalize;
     }
 
+    /**
+     * @deprecated
+     */
     private static Boolean IsOnePointSymbolCode(String symbolCode) {
         String basicCode = SymbolUtilities.getBasicSymbolID(symbolCode);
         //TODO: Revisit for basic shapes

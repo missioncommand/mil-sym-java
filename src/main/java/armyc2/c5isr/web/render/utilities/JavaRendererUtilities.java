@@ -1,8 +1,7 @@
 package armyc2.c5isr.web.render.utilities;
 
 
-import armyc2.c5isr.renderer.utilities.MilStdAttributes;
-import armyc2.c5isr.renderer.utilities.Modifiers;
+import armyc2.c5isr.renderer.utilities.*;
 
 
 import java.awt.geom.Point2D;
@@ -273,61 +272,19 @@ public class JavaRendererUtilities {
 
     }//*/
 
-    /**
-     * Checks symbolID and if the relevant modifiers are present
-     *
-     * @param symbolCode
-     * @param modifiers
-     * @return
-     * @deprecated
-     */
-    public static boolean is3dSymbol(String symbolCode, Map<String,String> modifiers) {
-        boolean returnValue = false;
-
+    public static boolean is3dSymbol(String symbolCode) {
         try {
-            String symbolId = symbolCode.substring(4, 10);
-
-            if (symbolId.equals("ACAI--") || // Airspace Coordination Area Irregular
-                    symbolId.equals("ACAR--") || // Airspace Coordination Area Rectangular
-                    symbolId.equals("ACAC--") || // Airspace Coordination Area Circular
-                    symbolId.equals("AKPC--") || // Kill box circular
-                    symbolId.equals("AKPR--") || // Kill box rectangular
-                    symbolId.equals("AKPI--") || // Kill box irregular
-                    symbolId.equals("ALC---") || // Air corridor
-                    symbolId.equals("ALM---") || // 
-                    symbolId.equals("ALS---") || // SAAFR
-                    symbolId.equals("ALU---") || // UAV
-                    symbolId.equals("ALL---") || // Low level transit route
-                    symbolId.equals("AAR---")
-                    || symbolId.equals("AAF---")
-                    || symbolId.equals("AAH---")
-                    || symbolId.equals("AAM---") || // MEZ
-                    symbolId.equals("AAML--") || // LOMEZ
-                    symbolId.equals("AAMH--")) {
-
-                try {
-                    if (modifiers != null) {
-
-                        // These guys store array values.  Put in appropriate data strucutre
-                        // for MilStdSymbol.
-                        if (modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)) {
-                            String[] altitudes = modifiers.get(Modifiers.X_ALTITUDE_DEPTH).split(",");
-                            if (altitudes.length < 2) {
-                                returnValue = false;
-                            } else {
-                                returnValue = true;
-                            }
-                        }
-
-                    }
-                } catch (Exception exc) {
-                    System.err.println(exc.getMessage());
-                }
-            }
+            MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolCode);
+            int drawRule = msi.getDrawRule();
+            return drawRule == DrawRules.AREA1
+                    || drawRule == DrawRules.AREA10
+                    || drawRule == DrawRules.RECTANGULAR1
+                    || drawRule == DrawRules.CIRCULAR1
+                    || drawRule == DrawRules.CORRIDOR1;
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return returnValue;
+        return false;
     }
 
     /**
