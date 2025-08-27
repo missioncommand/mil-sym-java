@@ -412,7 +412,7 @@ public final class clsUtilityCPOF {
                         tg.Pixels.add(ptTemp);
                     }
                     break;
-                case TacticalLines.BS_3D_ROUTE:
+                case TacticalLines.BS_ROUTE:
                     ArrayList<String> am = new ArrayList<>(Arrays.asList(tg.get_AM().split(",")));
                     while (am.size() < tg.LatLongs.size() - 1) {
                         am.add(am.get(am.size() - 1));
@@ -461,7 +461,8 @@ public final class clsUtilityCPOF {
                         pt00.style = 5;
                         tg.Pixels.add(pt00);
                     }
-                case TacticalLines.BS_3D_TRACK:
+                    break;
+                case TacticalLines.BS_TRACK:
                     am = new ArrayList<>(Arrays.asList(tg.get_AM().split(",")));
                     while (am.size() < tg.LatLongs.size() - 1) {
                         am.add(am.get(am.size() - 1));
@@ -832,7 +833,7 @@ public final class clsUtilityCPOF {
                 if (currentPt.style == 5 || currentPt.style == 10) {
                     beginLine = true;
                     //unless there are doubled points with style=5
-                    if ((linetype == TacticalLines.RANGE_FAN_FILL || linetype == TacticalLines.BS_3D_ROUTE || linetype == TacticalLines.BS_3D_TRACK) && k < tg.Pixels.size() - 1) {
+                    if ((linetype == TacticalLines.RANGE_FAN_FILL || linetype == TacticalLines.BS_ROUTE || linetype == TacticalLines.BS_TRACK) && k < tg.Pixels.size() - 1) {
                         shapes.add(shape);
                         shape = new Shape2(Shape2.SHAPE_TYPE_POLYLINE);
                     }
@@ -987,7 +988,7 @@ public final class clsUtilityCPOF {
             tg1.Pixels.add(tg.Pixels.get(1));
             tg1.set_LineType(TacticalLines.RANGE_FAN_FILL);
 
-            if (tg.get_LineType() == TacticalLines.RANGE_FAN_SECTOR || tg.get_LineType() == TacticalLines.RADAR_SEARCH || tg.get_LineType() == TacticalLines.BS_3D_RADARC || tg.get_LineType() == TacticalLines.BS_3D_CAKE) {
+            if (tg.get_LineType() == TacticalLines.RANGE_FAN_SECTOR || tg.get_LineType() == TacticalLines.RADAR_SEARCH || tg.get_LineType() == TacticalLines.BS_RADARC || tg.get_LineType() == TacticalLines.BS_CAKE) {
                 tg1.set_LRMM(tg.get_LRMM());
                 return tg1;
             } else if (tg.get_LineType() == TacticalLines.RANGE_FAN) {
@@ -1604,8 +1605,8 @@ public final class clsUtilityCPOF {
                 case TacticalLines.ASR_ONEWAY:
                 case TacticalLines.ASR_TWOWAY:
                 case TacticalLines.ASR_ALT:
-                case TacticalLines.ROUTE_ONEWAY:
-                case TacticalLines.ROUTE_ALT:
+                case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
+                case TacticalLines.TRAFFIC_ROUTE_ALT:
                 case TacticalLines.DHA_REVD:
                 case TacticalLines.DHA:
                 case TacticalLines.KILL_ZONE:
@@ -1620,7 +1621,7 @@ public final class clsUtilityCPOF {
                     return true;
                 case TacticalLines.MSR: //post clip these so there are identical points regardless whether segment data is set 10-5-16
                 case TacticalLines.ASR:
-                case TacticalLines.ROUTE:
+                case TacticalLines.TRAFFIC_ROUTE:
                 case TacticalLines.BOUNDARY:
                     return false;
                 default:
@@ -1727,9 +1728,9 @@ public final class clsUtilityCPOF {
             case TacticalLines.ASR_ONEWAY:
             case TacticalLines.ASR_TWOWAY:
             case TacticalLines.ASR_ALT:
-            case TacticalLines.ROUTE:
-            case TacticalLines.ROUTE_ONEWAY:
-            case TacticalLines.ROUTE_ALT:
+            case TacticalLines.TRAFFIC_ROUTE:
+            case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
+            case TacticalLines.TRAFFIC_ROUTE_ALT:
                 //undo any fill
                 Shape2 shape = null;
                 if (shapes != null && shapes.size() > 0) {
@@ -2133,8 +2134,8 @@ public final class clsUtilityCPOF {
                 case TacticalLines.ASR_ONEWAY:
                 case TacticalLines.ASR_TWOWAY:
                 case TacticalLines.ASR_ALT:
-                case TacticalLines.ROUTE_ONEWAY:
-                case TacticalLines.ROUTE_ALT:
+                case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
+                case TacticalLines.TRAFFIC_ROUTE_ALT:
                     //added because of segment data 4-22-13
                     //removed from this case block since we now post-clip these because of segment color data 10-5-16
 //                case TacticalLines.MSR:

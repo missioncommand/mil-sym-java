@@ -29,11 +29,11 @@ public final class TacticalLines {
     public static final int BS_BBOX=15000004;
 
     public static final int BS_ORBIT = 16000001;
-    public static final int BS_3D_ROUTE = 16000002;
-    public static final int BS_3D_RADARC = 16000003;
+    public static final int BS_ROUTE = 16000002;
+    public static final int BS_RADARC = 16000003;
     public static final int BS_POLYARC = 16000004;
-    public static final int BS_3D_CAKE = 16000005;
-    public static final int BS_3D_TRACK = 16000006;
+    public static final int BS_CAKE = 16000005;
+    public static final int BS_TRACK = 16000006;
 
     public static final int PZ = 22138000;
     public static final int LZ = 22137000;
@@ -162,8 +162,8 @@ public final class TacticalLines {
     public static final int ASR_ONEWAY = 25330401;
     public static final int ASR_ALT = 25330403;
     public static final int ASR_TWOWAY = 25330402;
-    public static final int ROUTE_ONEWAY = 25330501;
-    public static final int ROUTE_ALT = 25330502;
+    public static final int TRAFFIC_ROUTE_ONEWAY = 25330501;
+    public static final int TRAFFIC_ROUTE_ALT = 25330502;
     public static final int BEARING = 26400000;
     public static final int BEARING_EW = 220101;
     public static final int BEARING_J = 220107;
@@ -503,7 +503,7 @@ public final class TacticalLines {
     public static final int GENERIC_AREA = 25120700;
     public static final int HOL = 25141800;
     public static final int BHL = 2514190;
-    public static final int ROUTE = 25330500;
+    public static final int TRAFFIC_ROUTE = 25330500;
     public static final int FPOL = 25344100;
     public static final int RPOL = 25344200;
 

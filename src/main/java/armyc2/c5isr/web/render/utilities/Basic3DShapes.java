@@ -24,7 +24,7 @@ public class Basic3DShapes {
      * <p>
      * Modifiers: width ({@link Modifiers#AM_DISTANCE}), and min and max altitude ({@link Modifiers#X_ALTITUDE_DEPTH}).
      */
-    public static final int ROUTE = TacticalLines.BS_3D_ROUTE;
+    public static final int ROUTE = TacticalLines.BS_ROUTE;
 
     /**
      * Anchor Points: This shape requires at least three anchor points
@@ -38,7 +38,7 @@ public class Basic3DShapes {
      * <p>
      * Modifiers: min radius and max radius ({@link Modifiers#AM_DISTANCE}), left and right azimuth ({@link Modifiers#AN_AZIMUTH}), and min and max altitude ({@link Modifiers#X_ALTITUDE_DEPTH}).
      */
-    public static final int RADARC = TacticalLines.BS_3D_RADARC;
+    public static final int RADARC = TacticalLines.BS_RADARC;
 
     /**
      * Anchor Points: This shape requires at least three anchor points
@@ -54,7 +54,7 @@ public class Basic3DShapes {
      * <p>
      * Modifiers (for each radarc): min radius and max radius ({@link Modifiers#AM_DISTANCE}), left and right azimuth ({@link Modifiers#AN_AZIMUTH}), and min and max altitude ({@link Modifiers#X_ALTITUDE_DEPTH}).
      */
-    public static final int CAKE = TacticalLines.BS_3D_CAKE;
+    public static final int CAKE = TacticalLines.BS_CAKE;
 
     /**
      * A collection of routes
@@ -63,5 +63,5 @@ public class Basic3DShapes {
      * <p>
      * Modifiers (for each segment): left and right width ({@link Modifiers#AM_DISTANCE}), and min and max altitude ({@link Modifiers#X_ALTITUDE_DEPTH}).
      */
-    public static final int TRACK = TacticalLines.BS_3D_TRACK;
+    public static final int TRACK = TacticalLines.BS_TRACK;
 }

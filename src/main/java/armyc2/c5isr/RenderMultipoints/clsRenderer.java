@@ -7,7 +7,6 @@ import armyc2.c5isr.JavaLineArray.CELineArray;
 import armyc2.c5isr.JavaLineArray.POINT2;
 
 import java.awt.*;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -323,7 +322,7 @@ public final class clsRenderer {
                     tg.set_AN(strAN);
                 }
             }
-            if (lineType == TacticalLines.BS_3D_CAKE) {
+            if (lineType == TacticalLines.BS_CAKE) {
                 ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
                 ArrayList<Double> AN = milStd.getModifiers_AM_AN_X(Modifiers.AN_AZIMUTH);
                 if (AM != null) {
@@ -373,7 +372,7 @@ public final class clsRenderer {
                     tg.set_LRMM(strLeftRightMinMax);
                 }
             }
-            if (lineType == TacticalLines.BS_3D_RADARC) {
+            if (lineType == TacticalLines.BS_RADARC) {
                 ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
                 ArrayList<Double> AN = milStd.getModifiers_AM_AN_X(Modifiers.AN_AZIMUTH);
                 if (AM != null) {
@@ -444,8 +443,8 @@ public final class clsRenderer {
             switch (lineType) {
                 case TacticalLines.PBS_CIRCLE:
                 case TacticalLines.BBS_POINT:
-                case TacticalLines.BS_3D_ROUTE:
-                case TacticalLines.BS_3D_TRACK:
+                case TacticalLines.BS_ROUTE:
+                case TacticalLines.BS_TRACK:
                 case TacticalLines.BS_ORBIT:
                     ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
                     if (AM != null && AM.size() > 0) {
@@ -461,7 +460,7 @@ public final class clsRenderer {
                 default:
                     break;
             }
-            if (lineType == TacticalLines.BS_3D_TRACK) {
+            if (lineType == TacticalLines.BS_TRACK) {
                 ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
                 if (AM != null) {
                     String strAM = "";
@@ -1683,8 +1682,8 @@ public final class clsRenderer {
                 case TacticalLines.RANGE_FAN:
                 case TacticalLines.RANGE_FAN_SECTOR:
                 case TacticalLines.RADAR_SEARCH:
-                case TacticalLines.BS_3D_RADARC:
-                case TacticalLines.BS_3D_CAKE:
+                case TacticalLines.BS_RADARC:
+                case TacticalLines.BS_CAKE:
                     if (tg.get_FillColor() == null || tg.get_FillColor().getAlpha() < 2) {
                         break;
                     }
@@ -2082,8 +2081,8 @@ public final class clsRenderer {
                     case TacticalLines.RANGE_FAN:
                     case TacticalLines.RANGE_FAN_SECTOR:
                     case TacticalLines.RADAR_SEARCH:
-                    case TacticalLines.BS_3D_RADARC:
-                    case TacticalLines.BS_3D_CAKE:
+                    case TacticalLines.BS_RADARC:
+                    case TacticalLines.BS_CAKE:
                         if (tg.get_FillColor() == null || tg.get_FillColor().getAlpha() < 2) {
                             break;
                         }
@@ -2194,11 +2193,11 @@ public final class clsRenderer {
                 case 310800:
                     return TacticalLines.CSA;
                 case 330500:
-                    return TacticalLines.ROUTE;
+                    return TacticalLines.TRAFFIC_ROUTE;
                 case 330501:
-                    return TacticalLines.ROUTE_ONEWAY;
+                    return TacticalLines.TRAFFIC_ROUTE_ONEWAY;
                 case 330502:
-                    return TacticalLines.ROUTE_ALT;
+                    return TacticalLines.TRAFFIC_ROUTE_ALT;
                 case 344100:
                     return TacticalLines.FPOL;
                 case 344200:

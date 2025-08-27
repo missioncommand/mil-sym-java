@@ -513,9 +513,9 @@ public class Modifier2 {
                 case TacticalLines.ASR_ALT:
                     label = "ASR";
                     break;
-                case TacticalLines.ROUTE:
-                case TacticalLines.ROUTE_ONEWAY:
-                case TacticalLines.ROUTE_ALT:
+                case TacticalLines.TRAFFIC_ROUTE:
+                case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
+                case TacticalLines.TRAFFIC_ROUTE_ALT:
                     label = "ROUTE";
                     break;
                 case TacticalLines.LDLC:
@@ -1980,9 +1980,9 @@ public class Modifier2 {
                 case TacticalLines.ASR_ONEWAY:
                 case TacticalLines.ASR_TWOWAY:
                 case TacticalLines.ASR_ALT:
-                case TacticalLines.ROUTE:
-                case TacticalLines.ROUTE_ONEWAY:
-                case TacticalLines.ROUTE_ALT:
+                case TacticalLines.TRAFFIC_ROUTE:
+                case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
+                case TacticalLines.TRAFFIC_ROUTE_ALT:
                 case TacticalLines.DHA_REVD:
                 case TacticalLines.DHA:
                 case TacticalLines.KILL_ZONE:
@@ -2738,17 +2738,17 @@ public class Modifier2 {
                     break;
                 case TacticalLines.MSR_ONEWAY:
                 case TacticalLines.ASR_ONEWAY:
-                case TacticalLines.ROUTE_ONEWAY:
+                case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
                 case TacticalLines.MSR_TWOWAY:
                 case TacticalLines.ASR_TWOWAY:
                 case TacticalLines.MSR_ALT:
                 case TacticalLines.ASR_ALT:
-                case TacticalLines.ROUTE_ALT:
+                case TacticalLines.TRAFFIC_ROUTE_ALT:
                     stringWidth = (int) (1.5 * (double) metrics.stringWidth(label + TSpace + tg.get_Name()));
                     double arrowOffset = 10 * DPIScaleFactor;
                     if (linetype == TacticalLines.MSR_TWOWAY || linetype == TacticalLines.ASR_TWOWAY)
                         arrowOffset = 25 * DPIScaleFactor;
-                    boolean isAlt = linetype == TacticalLines.MSR_ALT || linetype == TacticalLines.ASR_ALT || linetype == TacticalLines.ROUTE_ALT;
+                    boolean isAlt = linetype == TacticalLines.MSR_ALT || linetype == TacticalLines.ASR_ALT || linetype == TacticalLines.TRAFFIC_ROUTE_ALT;
                     if (isAlt) {
                         stringWidth2 = (int) (1.5 * (double) metrics.stringWidth("ALT"));
                         if (stringWidth2 > stringWidth) {
@@ -2874,7 +2874,7 @@ public class Modifier2 {
                     break;
                 case TacticalLines.MSR:
                 case TacticalLines.ASR:
-                case TacticalLines.ROUTE:
+                case TacticalLines.TRAFFIC_ROUTE:
                     //AddIntegralModifier(tg, label + tg.get_Name(), aboveMiddle, -1*csFactor, middleSegment, middleSegment + 1,false);
                     foundSegment = false;
                     //acevedo - 11/30/2017 - adding option to render only 2 labels.
