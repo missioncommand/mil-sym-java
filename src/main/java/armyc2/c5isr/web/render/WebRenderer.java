@@ -5,6 +5,7 @@ package armyc2.c5isr.web.render;
 
 
 import armyc2.c5isr.renderer.utilities.*;
+import armyc2.c5isr.web.render.utilities.Basic3DShapes;
 import armyc2.c5isr.web.render.utilities.JavaRendererUtilities;
 
 import java.awt.*;
@@ -66,7 +67,7 @@ public final class WebRenderer /* extends Applet */ {
 
 
     /**
-     * Renders all multi-point symbols, creating KML that can be used to draw
+     * Renders all multi-point symbols, creating KML, GeoJSON or SVG that can be used to draw
      * it on a Google map.  Multipoint symbols cannot be draw the same 
      * at different scales. For instance, graphics with arrow heads will need to 
      * redraw arrowheads when you zoom in on it.  Similarly, graphics like a 
@@ -101,8 +102,8 @@ public final class WebRenderer /* extends Applet */ {
      * @param modifiers {@link Map}, keyed using constants from Modifiers.
      * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
      * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
-     * @param format An enumeration: 2 for GeoJSON.
-     * @return A JSON string representation of the graphic.
+     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}
+     * @return A KML, GeoJSON or SVG string representation of the graphic.
      */
     public static String RenderSymbol(String id, String name, String description,
                                       String symbolCode, String controlPoints, String altitudeMode,
@@ -156,7 +157,7 @@ public final class WebRenderer /* extends Applet */ {
 
 
     /**
-     * Renders all multi-point symbols, creating KML or JSON for the user to
+     * Renders all multi-point symbols, creating KML, GeoJSON or SVG for the user to
      * parse and render as they like.
      * This function requires the bounding box to help calculate the new
      * locations.
@@ -180,8 +181,8 @@ public final class WebRenderer /* extends Applet */ {
      * @param modifiers {@link Map}, keyed using constants from Modifiers.
      * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
      * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
-     * @param format An enumeration: 2 for GeoJSON.
-     * @return A JSON (1) or KML (0) string representation of the graphic.
+	 * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}
+     * @return A KML, GeoJSON or SVG string representation of the graphic.
      */
     public static String RenderSymbol2D(String id, String name, String description, String symbolCode, String controlPoints,
             int pixelWidth, int pixelHeight, String bbox, Map<String,String> modifiers,
@@ -233,8 +234,8 @@ public final class WebRenderer /* extends Applet */ {
 	 * @param modifiers     keyed using constants from Modifiers.
 	 *                      Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
 	 * @param attributes    keyed using constants from MilStdAttributes.
-	 * @param format        An enumeration: 2 for GeoJSON.
-	 * @return A JSON string representation of the graphic.
+	 * @param format        {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}
+	 * @return A KML, GeoJSON or SVG string representation of the graphic.
 	 */
 	public static String RenderMilStd3dSymbol(String id, String name, String description,
 											  String symbolCode, String controlPoints, String altitudeMode,
@@ -299,11 +300,7 @@ public final class WebRenderer /* extends Applet */ {
 	 *            lat and lon by a comma, separating coordinates by a space. The
 	 *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
 	 * @param altitudeMode
-	 *            Indicates whether the symbol should interpret altitudes as
-	 *            above sea level or above ground level. Options are
-	 *            "clampToGround", "relativeToGround" (from surface of earth),
-	 *            "absolute" (sea level), "relativeToSeaFloor" (from the bottom
-	 *            of major bodies of water).
+	 *            ignored
 	 * @param scale
 	 *            A number corresponding to how many meters one meter of our map
 	 *            represents. A value "50000" would mean 1:50K which means for
@@ -385,11 +382,7 @@ public final class WebRenderer /* extends Applet */ {
 	 *            lat and lon by a comma, separating coordinates by a space. The
 	 *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
 	 * @param altitudeMode
-	 *            Indicates whether the symbol should interpret altitudes as
-	 *            above sea level or above ground level. Options are
-	 *            "clampToGround", "relativeToGround" (from surface of earth),
-	 *            "absolute" (sea level), "relativeToSeaFloor" (from the bottom
-	 *            of major bodies of water).
+	 *            ignored
 	 * @param scale
 	 *            A number corresponding to how many meters one meter of our map
 	 *            represents. A value "50000" would mean 1:50K which means for
@@ -428,7 +421,7 @@ public final class WebRenderer /* extends Applet */ {
 	}
 
 	/**
-	 * Renders multipoint basic shapes, creating KML that can be used to draw
+	 * Renders multipoint basic shapes, creating KML, GeoJSON or SVG that can be used to draw
 	 * it on a Google map.
 	 * @param id A unique identifier used to identify the symbol by Google map.
 	 * The id will be the folder name that contains the graphic.
@@ -437,6 +430,49 @@ public final class WebRenderer /* extends Applet */ {
 	 * @param description a brief description about the graphic being made and
 	 * what it represents.
 	 * @param basicShapeType {@link armyc2.c5isr.JavaLineArray.BasicShapes}
+	 * @param controlPoints The vertices of the graphics that make up the
+	 * graphic.  Passed in the format of a string, using decimal degrees
+	 * separating lat and lon by a comma, separating coordinates by a space.
+	 * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
+	 * @param altitudeMode ignored
+	 * @param scale A number corresponding to how many meters one meter of our
+	 * map represents. A value "50000" would mean 1:50K which means for every
+	 * meter of our map it represents 50000 meters of real world distance.
+	 * @param bbox The viewable area of the map.  Passed in the format of a
+	 * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required
+	 * but can speed up rendering in some cases.
+	 * example: "-50.4,23.6,-42.2,24.2"
+	 * @param modifiers keyed using constants from Modifiers.
+	 * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
+	 * @param attributes keyed using constants from MilStdAttributes.
+	 * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}
+	 * @return A KML, GeoJSON or SVG string representation of the graphic.
+	 */
+	public static String RenderBasicShape(String id, String name, String description, int basicShapeType,
+										  String controlPoints, String altitudeMode,
+										  double scale, String bbox, Map<String, String> modifiers, Map<String, String> attributes, int format) {
+		String output = "";
+		try {
+			if (SymbolUtilities.isBasicShape(basicShapeType))
+				output = MultiPointHandler.RenderBasicShape(id, name, description, basicShapeType, controlPoints,
+						scale, bbox, modifiers, attributes, format);
+		} catch (Exception ea) {
+			output = "{\"type\":'error',error:'There was an error creating the MilStdSymbol - " + ea.toString() + "'}";
+			ErrorLogger.LogException("WebRenderer", "RenderBasicShape", ea, Level.WARNING);
+		}
+		return output;
+	}
+
+	/**
+	 * Renders basic 3D shapes, creating KML or GeoJSON that can be used to draw
+	 * it on a Google map.
+	 * @param id A unique identifier used to identify the symbol by Google map.
+	 * The id will be the folder name that contains the graphic.
+	 * @param name a string used to display to the user as the name of the
+	 * graphic being created.
+	 * @param description a brief description about the graphic being made and
+	 * what it represents.
+	 * @param basicShapeType {@link Basic3DShapes}
 	 * @param controlPoints The vertices of the graphics that make up the
 	 * graphic.  Passed in the format of a string, using decimal degrees
 	 * separating lat and lon by a comma, separating coordinates by a space.
@@ -453,28 +489,12 @@ public final class WebRenderer /* extends Applet */ {
 	 * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required
 	 * but can speed up rendering in some cases.
 	 * example: "-50.4,23.6,-42.2,24.2"
-	 * @param modifiers keyed using constants from Modifiers.
+	 * @param modifiers {@link Map}, keyed using constants from Modifiers.
 	 * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
-	 * @param attributes keyed using constants from MilStdAttributes.
-	 * @param format An enumeration: 2 for GeoJSON.
-	 * @return A JSON string representation of the graphic.
+	 * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
+	 * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link #OUTPUT_FORMAT_GEOJSON}
+	 * @return A KML or GeoJSON string representation of the graphic.
 	 */
-	public static String RenderBasicShape(String id, String name, String description, int basicShapeType,
-										  String controlPoints, String altitudeMode,
-										  double scale, String bbox, Map<String, String> modifiers, Map<String, String> attributes, int format) {
-		String output = "";
-		try {
-			JavaRendererUtilities.addAltModeToModifiersString(attributes, altitudeMode);
-			if (SymbolUtilities.isBasicShape(basicShapeType))
-				output = MultiPointHandler.RenderBasicShape(id, name, description, basicShapeType, controlPoints,
-						scale, bbox, modifiers, attributes, format);
-		} catch (Exception ea) {
-			output = "{\"type\":'error',error:'There was an error creating the MilStdSymbol - " + ea.toString() + "'}";
-			ErrorLogger.LogException("WebRenderer", "RenderBasicShape", ea, Level.WARNING);
-		}
-		return output;
-	}
-
 	public static String RenderBasic3DShape(String id, String name, String description, int basicShapeType,
 											String controlPoints, String altitudeMode,
 											double scale, String bbox, Map<String, String> modifiers, Map<String, String> attributes, int format) {
