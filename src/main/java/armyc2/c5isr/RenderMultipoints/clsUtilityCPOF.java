@@ -83,7 +83,7 @@ public final class clsUtilityCPOF {
             POINT2 pt1 = new POINT2(0, 0);
             radius.value = new double[1];
             width.value = new double[1];
-            attitude.value = new double[1];
+            attitude.value = new double[2];
             length.value = new double[1];
             switch (lineType) {
                 case TacticalLines.CIRCULAR:
