@@ -672,6 +672,8 @@ public final class clsUtilityCPOF {
                     RangeFanOrientation(tg, lineType, converter);
                     break;
                 case TacticalLines.RADAR_SEARCH:
+                case TacticalLines.BS_RADARC:
+                case TacticalLines.BS_CAKE:
                     GetSectorRangeFan(tg, converter);
                     break;
                 case TacticalLines.RANGE_FAN_FILL:  //circular range fan calls Change1TacticalAreas twice
@@ -833,7 +835,7 @@ public final class clsUtilityCPOF {
                 if (currentPt.style == 5 || currentPt.style == 10) {
                     beginLine = true;
                     //unless there are doubled points with style=5
-                    if ((linetype == TacticalLines.RANGE_FAN_FILL || linetype == TacticalLines.BS_ROUTE || linetype == TacticalLines.BS_TRACK) && k < tg.Pixels.size() - 1) {
+                    if ((linetype == TacticalLines.RANGE_FAN_FILL || linetype == TacticalLines.BS_ROUTE || linetype == TacticalLines.BS_TRACK || linetype == TacticalLines.BS_CAKE) && k < tg.Pixels.size() - 1) {
                         shapes.add(shape);
                         shape = new Shape2(Shape2.SHAPE_TYPE_POLYLINE);
                     }
@@ -988,7 +990,7 @@ public final class clsUtilityCPOF {
             tg1.Pixels.add(tg.Pixels.get(1));
             tg1.set_LineType(TacticalLines.RANGE_FAN_FILL);
 
-            if (tg.get_LineType() == TacticalLines.RANGE_FAN_SECTOR || tg.get_LineType() == TacticalLines.RADAR_SEARCH || tg.get_LineType() == TacticalLines.BS_RADARC || tg.get_LineType() == TacticalLines.BS_CAKE) {
+            if (tg.get_LineType() == TacticalLines.RANGE_FAN_SECTOR || tg.get_LineType() == TacticalLines.RADAR_SEARCH) {
                 tg1.set_LRMM(tg.get_LRMM());
                 return tg1;
             } else if (tg.get_LineType() == TacticalLines.RANGE_FAN) {
