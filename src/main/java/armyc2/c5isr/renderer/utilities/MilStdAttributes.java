@@ -220,7 +220,7 @@ public class MilStdAttributes {
                 list.add(EngagementBarColor);
             list.add(FontFamily);
             list.add(FontStyle);
-            list.add(FontStyle);
+            list.add(FontSize);
             list.add(ModifierPlacement);
         }
         else

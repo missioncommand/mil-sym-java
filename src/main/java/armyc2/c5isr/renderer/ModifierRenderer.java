@@ -2738,21 +2738,22 @@ public class ModifierRenderer implements SettingsEventListener
         List<Modifier> mods = getLabelPositionIndexes(symbolID, modifiers, attributes);
 
         Modifier mod = null;
-        for(int i = 0; i < mods.size(); i++)
-        {
-            mod = mods.get(i);
+        if(mods != null) {
+            for (int i = 0; i < mods.size(); i++) {
+                mod = mods.get(i);
 
-            tiTemp = new TextInfo(mod.getText(), 0, 0, modifierFont, frc);
-            labelBounds = tiTemp.getTextBounds();
-            labelWidth = (int)labelBounds.getWidth();
+                tiTemp = new TextInfo(mod.getText(), 0, 0, modifierFont, frc);
+                labelBounds = tiTemp.getTextBounds();
+                labelWidth = (int) labelBounds.getWidth();
 
-            //on left
-            x = (int)getLabelXPosition(bounds, labelWidth, mod.getIndexX(), modifierFontHeight);
-            //above center V
-            y = (int)getLabelYPosition(bounds, labelHeight, descent, bufferText, mod.getCentered(), mod.getIndexY());
+                //on left
+                x = (int) getLabelXPosition(bounds, sdi.getSymbolCenterPoint(), labelWidth, mod.getIndexX(), modifierFontHeight);
+                //above center V
+                y = (int) getLabelYPosition(bounds, labelHeight, descent, bufferText, mod.getCentered(), mod.getIndexY());
 
-            tiTemp.setLocation(x, y);
-            tiArray.add(tiTemp);
+                tiTemp.setLocation(x, y);
+                tiArray.add(tiTemp);
+            }
         }
 
         // </editor-fold>
@@ -6942,12 +6943,13 @@ public class ModifierRenderer implements SettingsEventListener
     /**
      *
      * @param bounds bounds of the core icon
+     * @param centerPoint the center/anchor point of the symbol.
      * @param labelWidth height of the label to be placed
      * @param location if 1, label on right side of symbol. On left if -1, center if 0.
      * @param modifierFontHeight
      * @returns
      */
-    private static double getLabelXPosition(Rectangle2D bounds, int labelWidth, int location, float modifierFontHeight)
+    private static double getLabelXPosition(Rectangle2D bounds, Point2D centerPoint, int labelWidth, int location, float modifierFontHeight)
     {
         double x = 0;
         int buffer = (int)modifierFontHeight/2;
@@ -6962,7 +6964,10 @@ public class ModifierRenderer implements SettingsEventListener
         }
         else if(location == 0)
         {
-            x = (int)Math.round((bounds.getX() + (bounds.getWidth() * 0.5f)) - (labelWidth * 0.5f));
+            if(centerPoint != null)
+                x = (int)Math.round(centerPoint.getX() - (labelWidth * 0.5));
+            else
+                x = (int)Math.round((bounds.getX() + (bounds.getWidth() * 0.5f)) - (labelWidth * 0.5f));
         }
 
         return x;
