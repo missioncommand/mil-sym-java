@@ -657,7 +657,9 @@ public class ModifierRenderer implements SettingsEventListener
             {
                 ebTop = (int)echelonBounds.getY() - ebHeight - barOffset;
             }
-            else if(isCOnTop(symbolID) && modifiers.containsKey(Modifiers.C_QUANTITY))//OR frame in air/space
+            else if((isCOnTop(symbolID) && modifiers.containsKey(Modifiers.C_QUANTITY)) ||
+                    SymbolID.getContext(symbolID) == SymbolID.StandardIdentity_Context_Exercise ||
+                    SymbolID.getContext(symbolID) == SymbolID.StandardIdentity_Context_Simulation)
             {
                 ebTop = (int)symbolBounds.getY() - (int)(ebHeight*2.4);
             }
@@ -721,12 +723,12 @@ public class ModifierRenderer implements SettingsEventListener
                 y = (int)Math.round(symbolBounds.getMinY() - amOffset);
                 x = (int)(echelonBounds.getMinX() + echelonBounds.getWidth() + amOffset);
             }
-            if (ebBounds != null
+            /*if (ebBounds != null
                     && ((ebBounds.getMinX() + ebBounds.getWidth() > symbolBounds.getMinX() + symbolBounds.getWidth())))
             {
                 y = (int)Math.round(symbolBounds.getMinY() - amOffset);
                 x = (int)(ebBounds.getMinX() + ebBounds.getWidth() + amOffset + RendererSettings.getInstance().getTextOutlineWidth());
-            }
+            }//*/
             else
             {
                 y = (int)Math.round(symbolBounds.getMinY() - amOffset);
