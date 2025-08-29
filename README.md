@@ -12,7 +12,7 @@ This is a continuation of that effort and this library aims to support 2525D, 25
 The old 2525C renderer has been retired but the libraries and usage information are still available here:  
 [2525C Renderer Overview](https://github.com/missioncommand/mil-sym-java/wiki/2525C-Renderer-Overview)
 
-### Ports
+Ports
 -----------
 [Java](https://github.com/missioncommand/mil-sym-java)  
 [Android](https://github.com/missioncommand/mil-sym-android)  
