@@ -13,7 +13,7 @@ The old 2525C renderer has been retired but the libraries and usage information 
 [2525C Renderer Overview](https://github.com/missioncommand/mil-sym-java/wiki/2525C-Renderer-Overview)
 
 ### Ports
----
+-----------
 [Java](https://github.com/missioncommand/mil-sym-java)  
 [Android](https://github.com/missioncommand/mil-sym-android)  
 [TypeScript](https://github.com/missioncommand/mil-sym-ts)  
