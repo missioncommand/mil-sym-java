@@ -373,7 +373,7 @@ public class Shape3DHandler {
                 Color textColor = mSymbol.getTextColor();
                 if (textColor == null) textColor = mSymbol.getLineColor();
 
-                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor, altitudeMode);
+                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor, altitudeMode, mSymbol.get_WasClipped());
                 jsonOutput.append(jsonContent);
             } else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON) {
                 jsonOutput.append("{\"type\":\"FeatureCollection\",\"features\":");
@@ -706,7 +706,7 @@ public class Shape3DHandler {
                 if (textColor == null)
                     textColor = mSymbol.getLineColor();
 
-                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor, altitudeMode);
+                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor, altitudeMode, mSymbol.get_WasClipped());
                 jsonOutput.append(jsonContent);
             } else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON) {
                 jsonOutput.append("{\"type\":\"FeatureCollection\",\"features\":");
@@ -777,21 +777,21 @@ public class Shape3DHandler {
                                  IPointConversion ipc,
                                  boolean normalize,
                                  Color textColor,
-                                 String altitudeMode) {
+                                 String altitudeMode,
+                                 boolean wasClipped) {
         java.lang.StringBuilder kml = new java.lang.StringBuilder();
-
         ShapeInfo3D tempModifier = null;
-
-        String cdataStart = "<![CDATA[";
-        String cdataEnd = "]]>";
-
         int len = shapes.size();
         kml.append("<Folder id=\"" + id + "\">");
-        kml.append("<name>" + cdataStart + name + cdataEnd + "</name>");
+        kml.append("<name>" + name + "</name>");
         kml.append("<visibility>1</visibility>");
+        kml.append("<description>" + description + "</description>");
+        kml.append("<ExtendedData>");
+        kml.append("<Data name=\"symbolID\"><value>" + symbolCode + "</value></Data>");
+        kml.append("<Data name=\"wasClipped\"><value>" + wasClipped + "</value></Data>");
+        kml.append("</ExtendedData>");
         for (int i = 0; i < len; i++) {
-
-            String shapesToAdd = ShapeToKMLString(name, description, symbolCode, shapes.get(i), ipc, normalize, altitudeMode);
+            String shapesToAdd = ShapeToKMLString(shapes.get(i), ipc, normalize, altitudeMode);
             kml.append(shapesToAdd);
         }
 
@@ -813,34 +813,19 @@ public class Shape3DHandler {
         return kml.toString();
     }
 
-    private static String ShapeToKMLString(String name,
-                                           String description,
-                                           String symbolCode,
-                                           ShapeInfo3D shapeInfo,
+    private static String ShapeToKMLString(ShapeInfo3D shapeInfo,
                                            IPointConversion ipc,
                                            boolean normalize,
                                            String altitudeMode) {
-
         java.lang.StringBuilder kml = new java.lang.StringBuilder();
-
         Color lineColor = null;
         Color fillColor = null;
         String googleLineColor = null;
         String googleFillColor = null;
-
-        //String lineStyleId = "lineColor";
-
         BasicStroke stroke = null;
         int lineWidth = 4;
 
-        symbolCode = JavaRendererUtilities.normalizeSymbolCode(symbolCode);
-
-        String cdataStart = "<![CDATA[";
-        String cdataEnd = "]]>";
-
-        kml.append("<Placemark>");//("<Placemark id=\"" + id + "_mg" + "\">");
-        kml.append("<description>" + cdataStart + "<b>" + name + "</b><br/>" + "\n" + description + cdataEnd + "</description>");
-        //kml.append("<Style id=\"" + lineStyleId + "\">");
+        kml.append("<Placemark>");
         kml.append("<Style>");
 
         lineColor = shapeInfo.getLineColor();

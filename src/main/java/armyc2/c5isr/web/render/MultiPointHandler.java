@@ -721,7 +721,7 @@ public class MultiPointHandler {
                 if(textColor==null)
                     textColor=mSymbol.getLineColor();
 
-                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor);
+                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor, mSymbol.get_WasClipped());
                 jsonOutput.append(jsonContent);
             } else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON)
             {
@@ -1303,7 +1303,7 @@ public class MultiPointHandler {
                 if(textColor==null)
                     textColor=mSymbol.getLineColor();
 
-                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor);
+                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor, mSymbol.get_WasClipped());
                 jsonOutput.append(jsonContent);
             } else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON) {
                 jsonOutput.append("{\"type\":\"FeatureCollection\",\"features\":");
@@ -1814,28 +1814,29 @@ public class MultiPointHandler {
 
     }
 
-    private static String KMLize(String id, String name,
-            String description,
-            String symbolCode,
-            ArrayList<ShapeInfo> shapes,
-            ArrayList<ShapeInfo> modifiers,
-            IPointConversion ipc,
-            boolean normalize, Color textColor) {
-
+    private static String KMLize(String id,
+                                 String name,
+                                 String description,
+                                 String symbolCode,
+                                 ArrayList<ShapeInfo> shapes,
+                                 ArrayList<ShapeInfo> modifiers,
+                                 IPointConversion ipc,
+                                 boolean normalize,
+                                 Color textColor,
+                                 boolean wasClipped) {
         java.lang.StringBuilder kml = new java.lang.StringBuilder();
-
         ShapeInfo tempModifier = null;
-
-        String cdataStart = "<![CDATA[";
-        String cdataEnd = "]]>";
-
         int len = shapes.size();
         kml.append("<Folder id=\"" + id + "\">");
-        kml.append("<name>" + cdataStart + name + cdataEnd + "</name>");
+        kml.append("<name>" + name + "</name>");
         kml.append("<visibility>1</visibility>");
+        kml.append("<description>" + description + "</description>");
+        kml.append("<ExtendedData>");
+        kml.append("<Data name=\"symbolID\"><value>" + symbolCode + "</value></Data>");
+        kml.append("<Data name=\"wasClipped\"><value>" + wasClipped + "</value></Data>");
+        kml.append("</ExtendedData>");
         for (int i = 0; i < len; i++) {
-
-            String shapesToAdd = ShapeToKMLString(name, description, symbolCode, shapes.get(i), ipc, normalize);
+            String shapesToAdd = ShapeToKMLString(shapes.get(i), ipc, normalize);
             kml.append(shapesToAdd);
         }
 
@@ -2384,33 +2385,18 @@ public class MultiPointHandler {
         return false;
     }
 
-    private static String ShapeToKMLString(String name,
-            String description,
-            String symbolCode,
-            ShapeInfo shapeInfo,
-            IPointConversion ipc,
-            boolean normalize) {
-
+    private static String ShapeToKMLString(ShapeInfo shapeInfo,
+                                           IPointConversion ipc,
+                                           boolean normalize) {
         java.lang.StringBuilder kml = new java.lang.StringBuilder();
-
         Color lineColor = null;
         Color fillColor = null;
         String googleLineColor = null;
         String googleFillColor = null;
-
-        //String lineStyleId = "lineColor";
-
         BasicStroke stroke = null;
         int lineWidth = 4;
 
-        symbolCode = JavaRendererUtilities.normalizeSymbolCode(symbolCode);
-
-        String cdataStart = "<![CDATA[";
-        String cdataEnd = "]]>";
-
-        kml.append("<Placemark>");//("<Placemark id=\"" + id + "_mg" + "\">");
-        kml.append("<description>" + cdataStart + "<b>" + name + "</b><br/>" + "\n" + description + cdataEnd + "</description>");
-        //kml.append("<Style id=\"" + lineStyleId + "\">");
+        kml.append("<Placemark>");
         kml.append("<Style>");
 
         lineColor = shapeInfo.getLineColor();
@@ -2509,26 +2495,6 @@ public class MultiPointHandler {
                 kml.append("<tessellate>1</tessellate>");
                 kml.append("<coordinates>");
 
-                //this section is a workaround for a google earth bug. Issue 417 was closed
-                //for linestrings but they did not fix the smae issue for fills. If Google fixes the issue
-                //for fills then this section will need to be commented or it will induce an error.
-                double lastLongitude = Double.MIN_VALUE;
-                if (normalize == false && IsOnePointSymbolCode(symbolCode)) {
-                    int n = shape.size();
-                    //for (int j = 0; j < shape.size(); j++) 
-                    for (int j = 0; j < n; j++) {
-                        Point2D coord = (Point2D) shape.get(j);
-                        Point2D geoCoord = ipc.PixelsToGeo(coord);
-                        double longitude = geoCoord.getX();
-                        if (lastLongitude != Double.MIN_VALUE) {
-                            if (Math.abs(longitude - lastLongitude) > 180d) {
-                                normalize = true;
-                                break;
-                            }
-                        }
-                        lastLongitude = longitude;
-                    }
-                }
                 int n = shape.size();
                 //for (int j = 0; j < shape.size(); j++) 
                 for (int j = 0; j < n; j++) {
@@ -3539,7 +3505,7 @@ public class MultiPointHandler {
                 if(textColor==null)
                     textColor=mSymbol.getLineColor();
 
-                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor);
+                jsonContent = KMLize(id, name, description, symbolCode, shapes, modifiers, ipc, normalize, textColor, mSymbol.get_WasClipped());
                 jsonOutput.append(jsonContent);
             } else if (format == WebRenderer.OUTPUT_FORMAT_GEOJSON)
             {
