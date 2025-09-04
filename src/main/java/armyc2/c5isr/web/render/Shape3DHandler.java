@@ -784,7 +784,7 @@ public class Shape3DHandler {
         String cdataStart = "<![CDATA[";
         String cdataEnd = "]]>";
         int len = shapes.size();
-        kml.append("<Folder id=\"").append(cdataStart).append(id).append(cdataEnd).append("\">");
+        kml.append("<Folder id=\"").append(id).append("\">");
         kml.append("<name>").append(cdataStart).append(name).append(cdataEnd).append("</name>");
         kml.append("<visibility>1</visibility>");
         kml.append("<description>").append(cdataStart).append(description).append(cdataEnd).append("</description>");
