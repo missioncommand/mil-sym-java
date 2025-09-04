@@ -128,14 +128,14 @@ public final class WebRenderer /* extends Applet */ {
 				if (ErrorLogger.getLevel().intValue() <= Level.FINER.intValue()) {
 					System.out.println("");
 					StringBuilder sb = new StringBuilder();
-					sb.append("\nID: " + id + "\n");
-					sb.append("Name: " + name + "\n");
-					sb.append("Description: " + description + "\n");
-					sb.append("SymbolID: " + symbolCode + "\n");
-					sb.append("Scale: " + String.valueOf(scale) + "\n");
-					sb.append("BBox: " + bbox + "\n");
-					sb.append("Coords: " + controlPoints + "\n");
-					sb.append("Modifiers: " + modifiers + "\n");
+					sb.append("\nID: ").append(id).append("\n");
+					sb.append("Name: ").append(name).append("\n");
+					sb.append("Description: ").append(description).append("\n");
+					sb.append("SymbolID: ").append(symbolCode).append("\n");
+					sb.append("Scale: ").append(String.valueOf(scale)).append("\n");
+					sb.append("BBox: ").append(bbox).append("\n");
+					sb.append("Coords: ").append(controlPoints).append("\n");
+					sb.append("Modifiers: ").append(modifiers).append("\n");
 					ErrorLogger.LogMessage("WebRenderer", "RenderSymbol", sb.toString(), Level.FINER);
 				}
 				if (ErrorLogger.getLevel().intValue() <= Level.FINEST.intValue()) {
@@ -250,14 +250,14 @@ public final class WebRenderer /* extends Applet */ {
 			if (ErrorLogger.getLevel().intValue() <= Level.FINER.intValue()) {
 				System.out.println("");
 				StringBuilder sb = new StringBuilder();
-				sb.append("\nID: " + id + "\n");
-				sb.append("Name: " + name + "\n");
-				sb.append("Description: " + description + "\n");
-				sb.append("SymbolID: " + symbolCode + "\n");
-				sb.append("Scale: " + String.valueOf(scale) + "\n");
-				sb.append("BBox: " + bbox + "\n");
-				sb.append("Coords: " + controlPoints + "\n");
-				sb.append("Modifiers: " + modifiers + "\n");
+				sb.append("\nID: ").append(id).append("\n");
+				sb.append("Name: ").append(name).append("\n");
+				sb.append("Description: ").append(description).append("\n");
+				sb.append("SymbolID: ").append(symbolCode).append("\n");
+				sb.append("Scale: ").append(String.valueOf(scale)).append("\n");
+				sb.append("BBox: ").append(bbox).append("\n");
+				sb.append("Coords: ").append(controlPoints).append("\n");
+				sb.append("Modifiers: ").append(modifiers).append("\n");
 				ErrorLogger.LogMessage("WebRenderer", "RenderMilStd3dSymbol", sb.toString(), Level.FINER);
 			}
 			if (ErrorLogger.getLevel().intValue() <= Level.FINEST.intValue()) {

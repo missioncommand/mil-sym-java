@@ -326,24 +326,24 @@ public final class clsRenderer {
                 ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
                 ArrayList<Double> AN = milStd.getModifiers_AM_AN_X(Modifiers.AN_AZIMUTH);
                 if (AM != null) {
-                    String strAM = "";
+                    StringBuilder strAM = new StringBuilder();
                     for (j = 0; j < AM.size(); j++) {
-                        strAM += AM.get(j).toString();
+                        strAM.append(AM.get(j).toString());
                         if (j < AM.size() - 1) {
-                            strAM += ",";
+                            strAM.append(",");
                         }
                     }
-                    tg.set_AM(strAM);
+                    tg.set_AM(strAM.toString());
                 }
                 if (AN != null) {
-                    String strAN = "";
+                    StringBuilder strAN = new StringBuilder();
                     for (j = 0; j < AN.size(); j++) {
-                        strAN += AN.get(j);
+                        strAN.append(AN.get(j));
                         if (j < AN.size() - 1) {
-                            strAN += ",";
+                            strAN.append(",");
                         }
                     }
-                    tg.set_AN(strAN);
+                    tg.set_AN(strAN.toString());
                 }
                 if (AM != null && AN != null) {
                     int numSectors = AN.size() / 2;
@@ -352,48 +352,48 @@ public final class clsRenderer {
                     double min = 0;
                     double max = 0;
                     //construct left,right,min,max from the arraylists
-                    String strLeftRightMinMax = "";
+                    StringBuilder strLeftRightMinMax = new StringBuilder();
                     for (j = 0; j < numSectors; j++) {
                         left = AN.get(2 * j);
                         right = AN.get(2 * j + 1);
                         min = AM.get(2 * j);
                         max = AM.get(2 * j + 1);
-                        strLeftRightMinMax += left + "," + right + "," + min + "," + max;
+                        strLeftRightMinMax.append(left).append(",").append(right).append(",").append(min).append(",").append(max);
                         if (j < numSectors - 1) {
-                            strLeftRightMinMax += ",";
+                            strLeftRightMinMax.append(",");
                         }
 
                     }
                     int len = strLeftRightMinMax.length();
                     String c = strLeftRightMinMax.substring(len - 1, len);
                     if (c.equals(",")) {
-                        strLeftRightMinMax = strLeftRightMinMax.substring(0, len - 1);
+                        strLeftRightMinMax = new StringBuilder(strLeftRightMinMax.substring(0, len - 1));
                     }
-                    tg.set_LRMM(strLeftRightMinMax);
+                    tg.set_LRMM(strLeftRightMinMax.toString());
                 }
             }
             if (lineType == TacticalLines.BS_RADARC) {
                 ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
                 ArrayList<Double> AN = milStd.getModifiers_AM_AN_X(Modifiers.AN_AZIMUTH);
                 if (AM != null) {
-                    String strAM = "";
+                    StringBuilder strAM = new StringBuilder();
                     for (j = 0; j < AM.size() && j < 2; j++) {
-                        strAM += AM.get(j).toString();
+                        strAM.append(AM.get(j).toString());
                         if (j < AM.size() - 1) {
-                            strAM += ",";
+                            strAM.append(",");
                         }
                     }
-                    tg.set_AM(strAM);
+                    tg.set_AM(strAM.toString());
                 }
                 if (AN != null) {
-                    String strAN = "";
+                    StringBuilder strAN = new StringBuilder();
                     for (j = 0; j < AN.size() && j < 2; j++) {
-                        strAN += AN.get(j);
+                        strAN.append(AN.get(j));
                         if (j < AN.size() - 1) {
-                            strAN += ",";
+                            strAN.append(",");
                         }
                     }
-                    tg.set_AN(strAN);
+                    tg.set_AN(strAN.toString());
                 }
                 if (AM != null && AN != null) {
                     double left = 0;
@@ -418,14 +418,14 @@ public final class clsRenderer {
                     tg.set_AM(strAM);
                 }
                 if (AN != null) {
-                    String strAN = "";
+                    StringBuilder strAN = new StringBuilder();
                     for (j = 0; j < AN.size() && j < 2; j++) {
-                        strAN += AN.get(j);
+                        strAN.append(AN.get(j));
                         if (j < AN.size() - 1) {
-                            strAN += ",";
+                            strAN.append(",");
                         }
                     }
-                    tg.set_AN(strAN);
+                    tg.set_AN(strAN.toString());
                 }
             }
             switch (lineType) {
@@ -463,14 +463,14 @@ public final class clsRenderer {
             if (lineType == TacticalLines.BS_TRACK) {
                 ArrayList<Double> AM = milStd.getModifiers_AM_AN_X(Modifiers.AM_DISTANCE);
                 if (AM != null) {
-                    String strAM = "";
+                    StringBuilder strAM = new StringBuilder();
                     for (j = 0; j < AM.size(); j++) {
-                        strAM += AM.get(j).toString();
+                        strAM.append(AM.get(j).toString());
                         if (j < AM.size() - 1) {
-                            strAM += ",";
+                            strAM.append(",");
                         }
                     }
-                    tg.set_AM(strAM);
+                    tg.set_AM(strAM.toString());
                 }
             }
             if (lineType == TacticalLines.PBS_RECTANGLE || lineType == TacticalLines.PBS_SQUARE) {

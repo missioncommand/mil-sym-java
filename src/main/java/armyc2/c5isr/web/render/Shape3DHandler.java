@@ -400,8 +400,8 @@ public class Shape3DHandler {
         } catch (Exception exc) {
             String st = JavaRendererUtilities.getStackTrace(exc);
             jsonOutput = new StringBuilder();
-            jsonOutput.append("{\"type\":\"error\",\"error\":\"There was an error creating the 3D MilStdSymbol " + symbolCode + ": " + "- ");
-            jsonOutput.append(exc.getMessage() + " - ");
+            jsonOutput.append("{\"type\":\"error\",\"error\":\"There was an error creating the 3D MilStdSymbol ").append(symbolCode).append(": ").append("- ");
+            jsonOutput.append(exc.getMessage()).append(" - ");
             jsonOutput.append(st);
             jsonOutput.append("\"}");
 
@@ -737,7 +737,7 @@ public class Shape3DHandler {
             String st = JavaRendererUtilities.getStackTrace(exc);
             jsonOutput = new StringBuilder();
             jsonOutput.append("{\"type\":\"error\",\"error\":\"There was an error creating the 3D MilStdSymbol " + symbolCode + ": " + "- ");
-            jsonOutput.append(exc.getMessage() + " - ");
+            jsonOutput.append(exc.getMessage()).append(" - ");
             jsonOutput.append(st);
             jsonOutput.append("\"}");
 
@@ -782,13 +782,13 @@ public class Shape3DHandler {
         java.lang.StringBuilder kml = new java.lang.StringBuilder();
         ShapeInfo3D tempModifier = null;
         int len = shapes.size();
-        kml.append("<Folder id=\"" + id + "\">");
-        kml.append("<name>" + name + "</name>");
+        kml.append("<Folder id=\"").append(id).append("\">");
+        kml.append("<name>").append(name).append("</name>");
         kml.append("<visibility>1</visibility>");
-        kml.append("<description>" + description + "</description>");
+        kml.append("<description>").append(description).append("</description>");
         kml.append("<ExtendedData>");
-        kml.append("<Data name=\"symbolID\"><value>" + symbolCode + "</value></Data>");
-        kml.append("<Data name=\"wasClipped\"><value>" + wasClipped + "</value></Data>");
+        kml.append("<Data name=\"symbolID\"><value>").append(symbolCode).append("</value></Data>");
+        kml.append("<Data name=\"wasClipped\"><value>").append(wasClipped).append("</value></Data>");
         kml.append("</ExtendedData>");
         for (int i = 0; i < len; i++) {
             String shapesToAdd = ShapeToKMLString(shapes.get(i), ipc, normalize, altitudeMode);
@@ -841,9 +841,9 @@ public class Shape3DHandler {
             googleLineColor = JavaRendererUtilities.ARGBtoABGR(googleLineColor);
 
             kml.append("<LineStyle>");
-            kml.append("<color>" + googleLineColor + "</color>");
+            kml.append("<color>").append(googleLineColor).append("</color>");
             kml.append("<colorMode>normal</colorMode>");
-            kml.append("<width>" + String.valueOf(lineWidth) + "</width>");
+            kml.append("<width>").append(String.valueOf(lineWidth)).append("</width>");
             kml.append("</LineStyle>");
         }
 
@@ -855,11 +855,11 @@ public class Shape3DHandler {
             if (fillColor != null) {
                 googleFillColor = Integer.toHexString(shapeInfo.getFillColor().getRGB());
                 googleFillColor = JavaRendererUtilities.ARGBtoABGR(googleFillColor);
-                kml.append("<color>" + googleFillColor + "</color>");
+                kml.append("<color>").append(googleFillColor).append("</color>");
                 kml.append("<colorMode>normal</colorMode>");
             }
             if (fillPattern != null) {
-                kml.append("<shader>" + MultiPointHandler.bitmapToString(fillPattern) + "</shader>");
+                kml.append("<shader>").append(MultiPointHandler.bitmapToString(fillPattern)).append("</shader>");
             }
 
             kml.append("<fill>1</fill>");
@@ -883,7 +883,7 @@ public class Shape3DHandler {
             if (lineColor != null && fillColor == null) {
                 kml.append("<Polygon>");
                 kml.append("<tessellate>1</tessellate>");
-                kml.append("<altitudeMode>" + altitudeMode + "</altitudeMode>");
+                kml.append("<altitudeMode>").append(altitudeMode).append("</altitudeMode>");
                 kml.append("<outerBoundaryIs><LinearRing><coordinates>");
                 int n = shape.size();
                 //for (int j = 0; j < shape.size(); j++)
@@ -915,7 +915,7 @@ public class Shape3DHandler {
                 if (i == 0) {
                     kml.append("<Polygon>");
                     kml.append("<tessellate>1</tessellate>");
-                    kml.append("<altitudeMode>" + altitudeMode + "</altitudeMode>");
+                    kml.append("<altitudeMode>").append(altitudeMode).append("</altitudeMode>");
                 }
                 //kml.append("<outerBoundaryIs>");
                 if (i == 1 && len > 1) {
@@ -1000,23 +1000,23 @@ public class Shape3DHandler {
 
         if (kmlScale > 0 && text != null && text.equals("") == false) {
             kml.append("<Placemark>");//("<Placemark id=\"" + id + "_lp" + i + "\">");
-            kml.append("<name>" + cdataStart + text + cdataEnd + "</name>");
+            kml.append("<name>").append(cdataStart).append(text).append(cdataEnd).append("</name>");
             kml.append("<Style>");
             kml.append("<IconStyle>");
-            kml.append("<scale>" + kmlScale + "</scale>");
-            kml.append("<heading>" + angle + "</heading>");
+            kml.append("<scale>").append(kmlScale).append("</scale>");
+            kml.append("<heading>").append(angle).append("</heading>");
             kml.append("<Icon>");
             kml.append("<href></href>");
             kml.append("</Icon>");
             kml.append("</IconStyle>");
             kml.append("<LabelStyle>");
-            kml.append("<color>" + color + "</color>");
-            kml.append("<scale>" + String.valueOf(kmlScale) + "</scale>");
+            kml.append("<color>").append(color).append("</color>");
+            kml.append("<scale>").append(String.valueOf(kmlScale)).append("</scale>");
             kml.append("</LabelStyle>");
             kml.append("</Style>");
             kml.append("<Point>");
             kml.append("<extrude>0</extrude>");
-            kml.append("<altitudeMode>" + altitudeMode + "</altitudeMode>");
+            kml.append("<altitudeMode>").append(altitudeMode).append("</altitudeMode>");
             kml.append("<coordinates>");
             kml.append(longitude);
             kml.append(",");
@@ -1111,15 +1111,15 @@ public class Shape3DHandler {
         properties.append("\"properties\":{");
         properties.append("\"label\":\"\",");
         if (lineColor != null) {
-            properties.append("\"strokeColor\":\"" + RendererUtilities.colorToHexString(lineColor, false) + "\",");
-            properties.append("\"lineOpacity\":" + String.valueOf(lineColor.getAlpha() / 255f) + ",");
+            properties.append("\"strokeColor\":\"").append(RendererUtilities.colorToHexString(lineColor, false)).append("\",");
+            properties.append("\"lineOpacity\":").append(String.valueOf(lineColor.getAlpha() / 255f)).append(",");
         }
         if (fillColor != null) {
-            properties.append("\"fillColor\":\"" + RendererUtilities.colorToHexString(fillColor, false) + "\",");
-            properties.append("\"fillOpacity\":" + String.valueOf(fillColor.getAlpha() / 255f) + ",");
+            properties.append("\"fillColor\":\"").append(RendererUtilities.colorToHexString(fillColor, false)).append("\",");
+            properties.append("\"fillOpacity\":").append(String.valueOf(fillColor.getAlpha() / 255f)).append(",");
         }
         if (shapeInfo.getPatternFillImage() != null) {
-            properties.append("\"fillPattern\":\"" + MultiPointHandler.bitmapToString(shapeInfo.getPatternFillImage()) + "\",");
+            properties.append("\"fillPattern\":\"").append(MultiPointHandler.bitmapToString(shapeInfo.getPatternFillImage())).append("\",");
         }
         if (stroke.getDashArray() != null) {
             sda = "\"strokeDasharray\":" + Arrays.toString(stroke.getDashArray()) + ",";
@@ -1127,22 +1127,22 @@ public class Shape3DHandler {
         }
 
         int lineCap = stroke.getEndCap();
-        properties.append("\"lineCap\":" + lineCap + ",");
+        properties.append("\"lineCap\":").append(lineCap).append(",");
 
         String strokeWidth = String.valueOf(lineWidth);
-        properties.append("\"strokeWidth\":" + strokeWidth + ",");
-        properties.append("\"strokeWeight\":" + strokeWidth + "");
+        properties.append("\"strokeWidth\":").append(strokeWidth).append(",");
+        properties.append("\"strokeWeight\":").append(strokeWidth);
         properties.append("},");
 
 
         properties.append("\"style\":{");
         if (lineColor != null) {
-            properties.append("\"stroke\":\"" + RendererUtilities.colorToHexString(lineColor, false) + "\",");
-            properties.append("\"line-opacity\":" + String.valueOf(lineColor.getAlpha() / 255f) + ",");
+            properties.append("\"stroke\":\"").append(RendererUtilities.colorToHexString(lineColor, false)).append("\",");
+            properties.append("\"line-opacity\":").append(String.valueOf(lineColor.getAlpha() / 255f)).append(",");
         }
         if (fillColor != null) {
-            properties.append("\"fill\":\"" + RendererUtilities.colorToHexString(fillColor, false) + "\",");
-            properties.append("\"fill-opacity\":" + String.valueOf(fillColor.getAlpha() / 255f) + ",");
+            properties.append("\"fill\":\"").append(RendererUtilities.colorToHexString(fillColor, false)).append("\",");
+            properties.append("\"fill-opacity\":").append(String.valueOf(fillColor.getAlpha() / 255f)).append(",");
         }
         if (stroke.getDashArray() != null) {
             float[] da = stroke.getDashArray();
@@ -1163,7 +1163,7 @@ public class Shape3DHandler {
         else if (lineCap == BasicStroke.CAP_BUTT) properties.append("\"stroke-linecap\":\"butt\",");
 
         strokeWidth = String.valueOf(lineWidth);
-        properties.append("\"stroke-width\":" + strokeWidth);
+        properties.append("\"stroke-width\":").append(strokeWidth);
         properties.append("}");
 
 
@@ -1331,7 +1331,7 @@ public class Shape3DHandler {
             JSONed.append("\",\"pointRadius\":0,\"fontColor\":\"");
             JSONed.append(RendererUtilities.colorToHexString(textColor, false));
             JSONed.append("\",\"fontSize\":\"");
-            JSONed.append(String.valueOf(RS.getMPLabelFont().getSize()) + "pt\"");
+            JSONed.append(String.valueOf(RS.getMPLabelFont().getSize())).append("pt\"");
             JSONed.append(",\"fontFamily\":\"");
             JSONed.append(RS.getMPLabelFont().getName());
             JSONed.append(", sans-serif");

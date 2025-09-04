@@ -1827,13 +1827,13 @@ public class MultiPointHandler {
         java.lang.StringBuilder kml = new java.lang.StringBuilder();
         ShapeInfo tempModifier = null;
         int len = shapes.size();
-        kml.append("<Folder id=\"" + id + "\">");
-        kml.append("<name>" + name + "</name>");
+        kml.append("<Folder id=\"").append(id).append("\">");
+        kml.append("<name>").append(name).append("</name>");
         kml.append("<visibility>1</visibility>");
-        kml.append("<description>" + description + "</description>");
+        kml.append("<description>").append(description).append("</description>");
         kml.append("<ExtendedData>");
-        kml.append("<Data name=\"symbolID\"><value>" + symbolCode + "</value></Data>");
-        kml.append("<Data name=\"wasClipped\"><value>" + wasClipped + "</value></Data>");
+        kml.append("<Data name=\"symbolID\"><value>").append(symbolCode).append("</value></Data>");
+        kml.append("<Data name=\"wasClipped\"><value>").append(wasClipped).append("</value></Data>");
         kml.append("</ExtendedData>");
         for (int i = 0; i < len; i++) {
             String shapesToAdd = ShapeToKMLString(shapes.get(i), ipc, normalize);
