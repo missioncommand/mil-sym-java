@@ -1834,8 +1834,8 @@ public class MultiPointHandler {
         kml.append("<visibility>1</visibility>");
         kml.append("<description>").append(cdataStart).append(description).append(cdataEnd).append("</description>");
         kml.append("<ExtendedData>");
-        kml.append("<Data name=\"symbolID\"><value>").append(cdataStart).append(symbolCode).append(cdataEnd).append("</value></Data>");
-        kml.append("<Data name=\"wasClipped\"><value>").append(cdataStart).append(wasClipped).append(cdataEnd).append("</value></Data>");
+        kml.append("<Data name=\"symbolID\"><value>").append(symbolCode).append("</value></Data>");
+        kml.append("<Data name=\"wasClipped\"><value>").append(wasClipped).append("</value></Data>");
         kml.append("</ExtendedData>");
         for (int i = 0; i < len; i++) {
             String shapesToAdd = ShapeToKMLString(shapes.get(i), ipc, normalize);
