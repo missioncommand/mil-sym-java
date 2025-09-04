@@ -1243,6 +1243,7 @@ public class Tester extends javax.swing.JFrame {
         String bbox = String.valueOf(pc.getLeftLon()) + "," + String.valueOf(pc.getLowerLat()) + "," + String.valueOf(pc.getRightLon()) + "," + String.valueOf(pc.getUpperLat());
 
         String svg = null;
+        String kml = null;
         String result = null;
         String result3D = null;
 
@@ -1256,6 +1257,8 @@ public class Tester extends javax.swing.JFrame {
         try
         {
             result = WebRenderer.RenderSymbol2D("id",msi.getName(),msi.getPath(),symbolID,points,pc.getPixelWidth(),pc.getPixelHeight(),bbox,modifiers,attributes,format);
+
+            kml = WebRenderer.RenderSymbol2D("id",msi.getName(),msi.getPath(),symbolID,points,pc.getPixelWidth(),pc.getPixelHeight(),bbox,modifiers,attributes,WebRenderer.OUTPUT_FORMAT_KML);
 
             svg = WebRenderer.RenderSymbol2D("id",msi.getName(),msi.getPath(),symbolID,points,pc.getPixelWidth(),pc.getPixelHeight(),bbox,modifiers,attributes,WebRenderer.OUTPUT_FORMAT_GEOSVG);
 
@@ -1272,6 +1275,7 @@ public class Tester extends javax.swing.JFrame {
         }
 
         ErrorLogger.LogMessage("Tester","renderWebFormat - 2D",result);
+        ErrorLogger.LogMessage("Tester","renderWebFormat - 2D kml",kml);
         ErrorLogger.LogMessage("Tester","renderWebFormat - 3D",result3D);
         ErrorLogger.LogMessage("Tester","renderWebFormat - 2D GeoSVG",svg);
         copyToClipboard(svg);
