@@ -1134,7 +1134,7 @@ public final class clsUtilityGE {
                 case TacticalLines.BOUNDARY:
                 case TacticalLines.MSR:
                 case TacticalLines.ASR:
-                case TacticalLines.ROUTE:
+                case TacticalLines.TRAFFIC_ROUTE:
                     break;
                 default:
                     return false;

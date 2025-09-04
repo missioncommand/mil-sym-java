@@ -323,7 +323,7 @@ public final class countsupport
                     break;
                 case TacticalLines.MSR_ALT:
                 case TacticalLines.ASR_ALT:
-                case TacticalLines.ROUTE_ALT:
+                case TacticalLines.TRAFFIC_ROUTE_ALT:
                     count = vblCounter * 9;
                     break;
                 case TacticalLines.MSR_TWOWAY:
@@ -332,7 +332,7 @@ public final class countsupport
                     break;
                 case TacticalLines.MSR_ONEWAY:
                 case TacticalLines.ASR_ONEWAY:
-                case TacticalLines.ROUTE_ONEWAY:
+                case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
                     count = vblCounter * 6;
                     break;
                 case TacticalLines.WF:

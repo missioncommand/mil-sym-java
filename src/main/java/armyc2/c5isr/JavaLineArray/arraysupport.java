@@ -2929,8 +2929,8 @@ public final class arraysupport {
                 case TacticalLines.ASR_ONEWAY:
                 case TacticalLines.ASR_TWOWAY:
                 case TacticalLines.ASR_ALT:
-                case TacticalLines.ROUTE_ONEWAY:
-                case TacticalLines.ROUTE_ALT:
+                case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
+                case TacticalLines.TRAFFIC_ROUTE_ALT:
                     nCounter = (int) vblSaveCounter;
                     pLinePoints[vblSaveCounter - 1].style = 5;
                     for (j = 0; j < vblSaveCounter - 1; j++) {
@@ -2965,7 +2965,7 @@ public final class arraysupport {
                             nCounter++;
                         }
 
-                        if (lineType == TacticalLines.MSR_ALT || lineType == TacticalLines.ASR_ALT || lineType == TacticalLines.ROUTE_ALT) {
+                        if (lineType == TacticalLines.MSR_ALT || lineType == TacticalLines.ASR_ALT || lineType == TacticalLines.TRAFFIC_ROUTE_ALT) {
                             lineutility.GetArrowHead4Double(pt3, pt2, (int) d, (int) d,
                                     pArrowPoints, 0);
 

@@ -45,7 +45,7 @@ public final class clsRenderer2 {
         try
         {
             int linetype=tg.get_LineType();
-            if(linetype != TacticalLines.MSR && linetype != TacticalLines.ASR && linetype != TacticalLines.ROUTE)
+            if(linetype != TacticalLines.MSR && linetype != TacticalLines.ASR && linetype != TacticalLines.TRAFFIC_ROUTE)
                 return;
             
             HashMap<Integer, Color> hmap= clsUtility.getMSRSegmentColors(tg);
@@ -297,7 +297,7 @@ public final class clsRenderer2 {
                 
                 if (CELineArray.CIsChannel(lineType) == 0)
                 {
-                    if(lineType==TacticalLines.ASR || lineType==TacticalLines.MSR || lineType==TacticalLines.ROUTE)
+                    if(lineType==TacticalLines.ASR || lineType==TacticalLines.MSR || lineType==TacticalLines.TRAFFIC_ROUTE)
                     {
                         getMSRShapes(tg,shapes);
                     }
@@ -314,7 +314,7 @@ public final class clsRenderer2 {
             //set CELineArray.shapes properties
             if(bolMeTOC<=0)
             {
-                if(lineType!=TacticalLines.ASR && lineType!=TacticalLines.MSR && lineType!=TacticalLines.ROUTE)
+                if(lineType!=TacticalLines.ASR && lineType!=TacticalLines.MSR && lineType!=TacticalLines.TRAFFIC_ROUTE)
                     clsUtility.SetShapeProperties(tg,shapes,bi);
             }
 

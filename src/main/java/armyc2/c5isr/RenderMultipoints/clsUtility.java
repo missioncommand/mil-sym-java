@@ -460,9 +460,9 @@ public final class clsUtility {
             case TacticalLines.ASR_ONEWAY:
             case TacticalLines.ASR_TWOWAY:
             case TacticalLines.ASR_ALT:
-            case TacticalLines.ROUTE:
-            case TacticalLines.ROUTE_ONEWAY:
-            case TacticalLines.ROUTE_ALT:
+            case TacticalLines.TRAFFIC_ROUTE:
+            case TacticalLines.TRAFFIC_ROUTE_ONEWAY:
+            case TacticalLines.TRAFFIC_ROUTE_ALT:
             case TacticalLines.HCONVOY:
             case TacticalLines.CONVOY:
             case TacticalLines.MFP:
@@ -911,7 +911,7 @@ public final class clsUtility {
                 case TacticalLines.BOUNDARY:
                 case TacticalLines.MSR:
                 case TacticalLines.ASR:
-                case TacticalLines.ROUTE:
+                case TacticalLines.TRAFFIC_ROUTE:
                     String strH=tg.get_H();
                     if(strH != null && !strH.isEmpty())
                     {
