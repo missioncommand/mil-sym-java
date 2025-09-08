@@ -116,7 +116,8 @@ public final class WebRenderer /* extends Applet */ {
 			if (!altitudeMode.equals("clampToGround")
 					&& (format == WebRenderer.OUTPUT_FORMAT_KML || format == WebRenderer.OUTPUT_FORMAT_GEOJSON)
 					&& JavaRendererUtilities.is3dSymbol(symbolCode)
-					&& modifiers.get(Modifiers.X_ALTITUDE_DEPTH) != null) {
+					&& modifiers.get(Modifiers.X_ALTITUDE_DEPTH) != null
+					&& !modifiers.get(Modifiers.X_ALTITUDE_DEPTH).isEmpty()) {
 				output = RenderMilStd3dSymbol(id, name, description, symbolCode, controlPoints, altitudeMode, scale, bbox, modifiers, attributes, format);
 			}
 
