@@ -499,7 +499,10 @@ public class Tester extends javax.swing.JFrame {
             
             modifier.put(Modifiers.F_REINFORCED_REDUCED,"RD");
             modifier.put(Modifiers.L_SIGNATURE_EQUIP,"!");
-            modifier.put(Modifiers.AA_SPECIAL_C2_HQ,"AA");
+
+            if(SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_LandUnit && SymbolID.getEntityCode(symbolID)==110000)
+                modifier.put(Modifiers.AA_SPECIAL_C2_HQ,"AA");
+
             modifier.put(Modifiers.G_STAFF_COMMENTS,"Gj");
             //symbol.symbolicon A
             modifier.put(Modifiers.V_EQUIP_TYPE,"Vj");
