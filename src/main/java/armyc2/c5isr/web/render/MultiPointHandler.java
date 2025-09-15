@@ -1380,7 +1380,7 @@ public class MultiPointHandler {
             return null;
         double maxWidth = Math.abs(ipc.GeoToPixels(new Point2D.Double(180, 0)).getX() - ipc.GeoToPixels(new Point2D.Double(0, 0)).getX());
         double maxHeight = Math.abs(ipc.GeoToPixels(new Point2D.Double(0, 90)).getY() - ipc.GeoToPixels(new Point2D.Double(0, -90)).getY());
-        double overScanScale = RendererSettings.getInstance().get_overscanScale();
+        double overScanScale = RendererSettings.getInstance().getOverscanScale();
         if (rect.width * overScanScale > maxWidth) {
             overScanScale = maxWidth / rect.width;
         }
