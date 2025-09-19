@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
@@ -546,6 +547,54 @@ public class RendererUtilities {
     {
         int distance = (int)(Math.sqrt(Math.pow((pt2.getX() - pt1.getX()) ,2) + Math.pow((pt2.getY() - pt1.getY()) ,2)));
         return distance;
+    }
+
+    /**
+     * A starting point for calculating map scale.
+     * The User may prefer a different calculation depending on how their maps works.
+     * @param mapPixelWidth Width of your map in pixels
+     * @param eastLon East Longitude of your map
+     * @param westLon West Longitude of your map
+     * @return Map scale value to use in the RenderSymbol function {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}
+     */
+    public static double calculateMapScale(int mapPixelWidth, double eastLon, double westLon)
+    {
+        return calculateMapScale(mapPixelWidth,eastLon,westLon,RendererSettings.getInstance().getDeviceDPI());
+    }
+
+    /**
+     * A starting point for calculating map scale.
+     * The User may prefer a different calculation depending on how their maps works.
+     * @param mapPixelWidth Width of your map in pixels
+     * @param eastLon East Longitude of your map
+     * @param westLon West Longitude of your map
+     * @param dpi Dots Per Inch of your device
+     * @return Map scale value to use in the RenderSymbol function {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}
+     */
+    public static double calculateMapScale(int mapPixelWidth, double eastLon, double westLon, int dpi)
+    {
+        double INCHES_PER_METER = 39.3700787;
+        double METERS_PER_DEG = 40075017.0 / 360.0; // Earth's circumference in meters / 360 degrees
+
+        try
+        {
+            double sizeSquare = Math.abs(eastLon - westLon);
+            if (sizeSquare > 180)
+                sizeSquare = 360 - sizeSquare;
+
+            // physical screen length (in meters) = pixels in screen / pixels per inch / inch per meter
+            double screenLength = mapPixelWidth / dpi / INCHES_PER_METER;
+            // meters on screen = degrees on screen * meters per degree
+            double metersOnScreen = sizeSquare * METERS_PER_DEG;
+
+            double scale = metersOnScreen/screenLength;
+            return scale;
+        }
+        catch(Exception exc)
+        {
+            ErrorLogger.LogException("RendererUtilities","calculateMapScale",exc,Level.WARNING);
+        }
+        return 0;
     }
 
     // Overloaded method to return non-outline symbols as normal.
