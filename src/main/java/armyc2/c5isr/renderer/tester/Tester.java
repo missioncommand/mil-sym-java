@@ -73,6 +73,13 @@ public class Tester extends javax.swing.JFrame {
             MSInfo mi = new MSInfo(13,"10", "Sustainment","TEST","","165700",miBase.getModifiers());
             SVGInfo si = new SVGInfo("10165700", new Rectangle2D.Double(198.0,365.0,215.0,64.0),"<g id=\"10165700\"><text font-family=\"sans-serif\" fill=\"red\" font-size=\"89\" x=\"192\" y=\"428\">MWR</text></g>");
             MilStdIconRenderer.getInstance().AddCustomSymbol(mi,si);
+
+            //SectorModUtils test
+            SectorModUtils smu = SectorModUtils.getInstance();
+            String name = smu.getName(11,1,1,"01");
+            ArrayList<String[]> al = smu.getSectorModList(11,1,1);
+            name = smu.getName(15,0,1,"100");
+            //ErrorLogger.LogMessage(name);
         }
         catch(Exception exc)
         {

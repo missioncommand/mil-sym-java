@@ -1,0 +1,674 @@
+00 Common	1	
+Unmanned Aircraft (UA)/ Unmanned Aerial Vehicle (UAV)/Unmanned Aircraft System (UAS)/Drone	Mobility	100
+Robotic	Mobility	101
+Fixed Wing	Mobility	102
+Rotary Wing	Mobility	103
+Tilt-Rotor	Mobility	104
+VSTOL/VTOL or Helicopter Equipped	Mobility	105
+Attack/Strike	Capability	106
+Armored	Capability	107
+Ballistic Missile/Ballistic Missile Defense Shooter	Capability	108
+Bridge/Bridging	Capability	109
+Cargo	Capability	110
+Utility	Capability	111
+Light	Capability	112
+Medium	Capability	113
+Heavy	Capability	114
+Cyberspace	Capability	115
+Command Post Node	Capability	116
+Joint Network Node	Capability	117
+Retransmission Site	Capability	118
+Brigade	Support Level	119
+Close Protection	Capability	120
+Combat	Capability	121
+Command and Control	Capability	122
+Crowd and Riot Control	Capability	123
+Explosive Ordnance Disposal	Capability	124
+Intelligence Surveillance Reconnaissance	Capability	125
+Maintenance	Capability	126
+Medevac/Medic/Medical	Capability	127
+Search and Rescue	Capability	128
+Security	Capability	129
+Sniper	Capability	130
+Special Operations Forces	Capability	131
+Special Weapons and Tactics (SWAT)	Capability	132
+Guided Missile	Capability	133
+Other Guided Missile	Capability	134
+Petroleum/Petroleum Oil and Lubricants	Capability	135
+Water	Capability	136
+Weapon(s)	Capability	137
+Chemical	CBRN	138
+Radiological	CBRN	140
+Nuclear	CBRN	141
+Decontamination	CBRN	142
+Civilian	Organization	143
+Government Organization/ Government Organization Member	Organization	144
+Accident	Composite Loss or Incident Qualifier	145
+Assassination	Crime	146
+Execution	Crime	147
+Kidnapping	Crime	148
+Piracy	Crime	149
+Rape	Crime	150
+Antisubmarine Warfare	Mission Area	151
+Escort	Mission Area	152
+Mine Countermeasures	Mission Area	153
+Mine Warfare	Mission Area	154
+Surface Warfare	Mission area	155
+Command	Support Level	156
+Company	Support Level	157
+Platoon/Detachment	Support Level	158
+Regiment/Group	Support Level	159
+Section	Support Level	160
+Squad	Support Level	161
+Team/Crew	Support Level	162
+Battalion	Support Level	163
+Directed Energy	Capability	164
+Hijacker	Crime	165
+Electromagnetic Warfare	Capability	166
+Laboratory	Capability	168
+Non-Governmental Organization	Organization	170
+Railway	Capability	171
+Clear	Capability	174
+Jamming	Capability	175
+Wired	Capability	176
+Wireless	Capability	177
+Low Altitude	Capability	178
+Medium Altitude	Capability	179
+Reserve		182
+00 Common	2	
+Airborne	Mobility	100
+Bicycle Equipped	Mobility	101
+Railway	Capability	102
+Ski	Mobility	103
+Tracked	Mobility	104
+Wheeled (Limited Cross Country)	Mobility	105
+Wheeled X (Cross Country)	Mobility	106
+Fixed Wing	Mobility	107
+Rotary Wing	Mobility	108
+Robotic	Mobility	109
+Autonomous Control	Capability	110
+Remotely Piloted	Capability	111
+Expendable	Capability	112
+Mountain	Capability	113
+Long Range	Capability	114
+Medium Range	Capability	115
+Short Range	Capability	116
+Close Range	Capability	117
+Heavy	Capability	118
+Medium	Capability	119
+Light and Medium	Capability	120
+Light	Capability	121
+Cyberspace	Capability	122
+Security Force Assistance	Capability	123
+Medical Bed	Capability	124
+Multifunctional	Capability	125
+Laboratory	Capability	127
+Over-snow (prime mover)	Capability	129
+Supply	Capability	131
+Electromagnetic Warfare	Capability	133
+Jamming	Capability	134
+Reserve		135
+01 air	1	
+Unspecified		0
+Bomber	Military Aircraft Type	2
+Fighter	Military Aircraft Type	4
+Tanker	Aircraft Type	6
+Passenger	Aircraft Type	9
+Ultra Light	Aircraft Type	10
+Airborne Command Post (ACP)	Military Aircraft Type	11
+Airborne Early Warning (AEW)	Military Aircraft Type	12
+Electronic Combat (EC)/Jammer	Military Mission Area	16
+Patrol	Mission Area	17
+Reconnaissance	Mission Area	18
+Trainer	Mission Area	19
+Photographic (Reconnaissance)	Mission Area	20
+Personnel Recovery	Mission Area	21
+Communications	Mission Area	23
+Electronic Support (ES)	Military Mission Area	24
+Very Important Person (VIP) Transport	Mission Area	29
+Combat Search and Rescue (CSAR)	Military Mission Area	30
+Antisurface Warfare	Military Mission Area	32
+Fighter/Bomber	Military Aircraft Type	33
+Intensive Care	Mission Area	34
+Electromagnetic Attack (EA)	Military Mission Area	35
+Multi-Mission	Mission Area	36
+ASW Helo - LAMPS	Mission Area	38
+ASW Helo - SH-60R	Mission Area	39
+01 air	2	
+Unspecified		0
+Boom-Only	Re-Fueling Capability	4
+Drogue-Only	Re-Fueling Capability	5
+Boom and Drogue	Re-Fueling Capability	6
+Downlinked	Track Link Availability	11
+02 Air Missile	1	
+Unspecified		0
+Air	Launch Origin	1
+Surface	Launch Origin	2
+Subsurface	Launch Origin	3
+Space	Launch Origin	4
+Anti-Ballistic	Missile Class	5
+Ballistic	Missile Class	6
+Cruise	Missile Class	7
+Interceptor	Missile Class	8
+Hypersonic	Missile Class	9
+02 Air Missile	2	
+Unspecified		0
+Air	Missile Destination	1
+Surface	Missile Destination	2
+Subsurface	Missile Destination	3
+Space	Missile Destination	4
+Launched	Missile Status	5
+Patriot	Missile Type-BMD	7
+Standard Missile-2 (SM-2)	Missile Type-AAW	8
+Standard Missile-6 (SM-6)	Missile Type-AAW	9
+Evolved Sea Sparrow Missile (ESSM)	Missile Type-AAW	10
+Rolling Airframe Missile (RAM)	Missile Type-AAW	11
+Short Range	Missile Range	12
+Medium Range	Missile Range	13
+Intermediate Range	Missile Range	14
+Long Range	Missile Range	15
+Intercontinental	Missile Range	16
+05 Space	1	
+Unspecified		0
+Low Earth Orbit (LEO)	Orbit	1
+Medium Earth Orbit (MEO)	Orbit	2
+High Earth Orbit (HEO)	Orbit	3
+Geosynchronous Orbit (GSO)	Orbit	4
+Geostationary Orbit (GO)	Orbit	5
+Molniya Orbit (MO)	Orbit	6
+05 Space	2	
+Unspecified		0
+Optical	Sensor	1
+Infrared	Sensor	2
+Radar	Sensor	3
+Signals Intelligence (SIGINT)	Sensor	4
+High Power Microwave (ASAT)	Capability	7
+Laser (ASAT)	Capability	8
+Mine (ASAT)	Capability	9
+Maintenance	Capability	10
+Refuel	Capability	11
+Tug	Capability	12
+06 Space Missile	1	
+Unspecified		0
+Ballistic	Missile Class	1
+Space	Launch Origin	2
+Interceptor	Missile Class	3
+Hypersonic	Missile Class	4
+06 Space Missile	2	
+Unspecified		0
+Short Range	Missile Range	1
+Medium Range	Missile Range	2
+Intermediate Range	Missile Range	3
+Long Range	Missile Range	4
+Intercontinental	Missile Range	5
+Arrow	Missile Type-BMD	6
+Ground-Based Interceptor (GBI)	Missile Type-BMD	7
+Patriot	Missile Type-BMD	8
+Standard Missile Terminal Phase (SM-T)	Missile Type-BMD	9
+Standard Missile - 3 (SM-3)	Missile Type-BMD	10
+Terminal High Altitude Area Defense (THAAD)	Missile Type-BMD	11
+Space	Launch Origin	12
+Close Range (CRBM)	Missile Range	13
+Debris	Missile Type-BMD	14
+Unknown	Missile Type-BMD	15
+10 Land Unit	1	
+Unspecified		0
+Tactical Satellite Communications	Capability	1
+Area	Capability	2
+Biological	Capability	4
+Border	Capability	5
+Communications Contingency Package	Capability	11
+Construction	Capability	12
+Cross Cultural Communication	Capability	13
+Detention	Capability	16
+Direct Communications	Capability	17
+Diving	Capability	18
+Division	Capability	19
+Dog	Capability	20
+Drilling	Capability	21
+Electro-Optical	Capability	22
+Enhanced	Capability	23
+Fire Direction Center	Capability	25
+Force	Capability	26
+Forward	Capability	27
+Ground Station Module	Capability	28
+Landing Support	Capability	29
+Meteorological	Capability	32
+Missile	Capability	34
+Mobile Advisor and Support	Capability	35
+Mobile Subscriber Equipment	Capability	36
+Mobility Support	Capability	37
+Multinational	Capability	39
+Multinational Specialized Unit	Capability	40
+Multiple Rocket Launcher	Capability	41
+NATO Medical Role 1	Capability	42
+NATO Medical Role 2	Capability	43
+NATO Medical Role 3	Capability	44
+NATO Medical Role 4	Capability	45
+Naval	Capability	46
+Operations	Capability	49
+Radar	Capability	50
+Radio Frequency Identification (RFID) Interrogator/Sensor	Capability	51
+Sensor	Capability	55
+Signal Intelligence	Capability	57
+Single Rocket Launcher	Capability	59
+Smoke	Capability	60
+Sound Ranging	Capability	62
+Survey	Capability	65
+Tactical Exploitation	Capability	66
+Target Acquisition	Capability	67
+Topographic/Geospatial	Capability	68
+Video Imagery (Combat Camera)	Capability	70
+Mobility Assault	Capability	71
+Amphibious Warfare Ship	Capability	72
+Load Handling System	Capability	73
+Palletized Load System	Capability	74
+Support	Capability	77
+Route, Reconnaissance, and Clearance	Capability	79
+Assault	Capability	84
+Criminal Investigation Division	Capability	86
+Digital	Capability	87
+Network or Network Operations	Capability	88
+Airfield, Aerial Port of Debarkation, or Aerial Port of Embarkation	Capability	89
+Pipeline	Capability	90
+Postal	Capability	91
+Theater	Support Level	94
+Army or Theater Army	Support Level	95
+Corps	Support Level	96
+Headquarters or headquarters staff element	Support Level	98
+Multi-Domain Operations	Capability	99
+Electric Generation	Capability	A1
+Intercept	Capability	A3
+Intermodal	Capability	A4
+Non-Combative Generic Vessel	Capability	A6
+Search	Capability	A7
+10 Land Unit	2	
+Unspecified		0
+Arctic	Mobility	2
+Battle Damage Repair	Capability	3
+Casualty Staging	Capability	5
+Clearing	Capability	6
+Control	Capability	8
+Decontamination	Capability	9
+Demolition	Capability	10
+Dental	Capability	11
+Digital	Capability	12
+Enhanced Position Location Reporting System (EPLRS)	Capability	13
+High Altitude	Capability	16
+Intermodal	Capability	17
+Intensive Care	Capability	18
+Launcher	Capability	21
+Low Altitude	Capability	23
+Medium Altitude	Capability	25
+High to Medium Altitude	Capability	28
+Multi-Channel	Capability	29
+Optical (Flash)	Capability	30
+Pack Animal	Capability	31
+Patient Evacuation Coordination	Capability	32
+Preventive Maintenance	Capability	33
+Psychological	Capability	34
+Radio Relay Line of Sight	Capability	35
+Recovery	Capability	37
+Maintenance	Capability	38
+Rescue Coordination Center	Capability	39
+Riverine	Mobility	40
+Single Channel	Capability	41
+Strategic	Capability	44
+Support	Capability	45
+Tactical	Capability	46
+Towed	Mobility	47
+Troop	Capability	48
+Vertical or Short Take-Off and Landing (VTOL/VSTOL)	Mobility	49
+Veterinary	Capability	50
+High to Low Altitude	Capability	52
+Medium to Low Altitude	Capability	53
+Attack	Capability	54
+Refuel	Capability	55
+Utility	Capability	56
+Combat Search and Rescue	Capability	57
+Guerrilla	Capability	58
+Air Assault	Mobility	59
+Amphibious	Mobility	60
+Very Heavy	Capability	61
+Barge, Self-Propelled	Mobility	64
+Barge, Not Self-Propelled	Mobility	65
+Launch	Mobility	66
+Landing Craft	Mobility	67
+Landing Ship	Mobility	68
+Service Craft/Yard	Mobility	69
+Tug Harbor	Mobility	70
+Ocean Going Tug Boat	Mobility	71
+Surface Deployment and Distribution Command	Capability	72
+Noncombatant Generic Vessel	Mobility	73
+Composite	Capability	74
+Shelter	Capability	75
+Surgical	Capability	81
+Blood	Capability	82
+Combat and Operational Stress Control	Capability	83
+Jamming	Capability	84
+Optometry	Capability	86
+Preventive Medicine	Capability	87
+Air Defense	Capability	89
+Intercept	Capability	91
+Search	Capability	93
+Fire Direction Center	Capability	94
+Construction	Capability	95
+Dog	Capability	96
+11 Land Civilian Unit/Organization	1	
+Unspecified		0
+Murder Victims	Crime	3
+Displaced Persons/Refugees/Evacuees	Organization	9
+Foreign Fighter(s)	Organization	10
+Gang Member or Gang	Organization	11
+Leader or Leadership	Organization	13
+Unwilling/Coerced Recruit	Organization	15
+Willing Recruit	Organization	16
+Religious or Religious Organization	Organization	17
+Targeted Individual or Organization	Organization	18
+Terrorist or Terrorist Organization	Organization	19
+Speaker	Organization	20
+Other	Composite Loss	23
+Loot	Crime	24
+11 Land Civilian Unit/Organization	2	
+Unspecified		0
+Leader or Leadership	Organization	1
+15 Land Equipment	1	
+Unspecified		0
+Biological	Sensor Type	1
+Early Warning Radar	Sensor Type	3
+Intrusion	Sensor Type	4
+Upgraded Early Warning Radar	Sensor Type	7
+Multi-purpose Blade	Capability	12
+Tank-width Mine Plow	Capability	13
+15 Land Equipment	2	
+Unspecified		0
+Tractor Trailer	Capability	6
+20 Land Installations	1	
+Unspecified		0
+Biological	CBRN Type	1
+Coal	Electric Power Type	6
+Geothermal	Electric Power Type	7
+Hydroelectric	Electric Power Type	8
+Natural Gas	Electric Power Type	9
+Civilian Telephone	Telecommunication Type	12
+Civilian Television	Telecommunication Type	13
+Displaced Persons/Refugees/Evacuees Camp		15
+Training Camp		16
+20 Land Installations	2	
+Unspecified		0
+Biological Warfare Production	Capability	1
+Chemical Warfare Production	Capability	2
+Nuclear Warfare Production	Capability	3
+Radiological Warfare Production	Capability	4
+Atomic Energy Reactor	Capability	5
+Nuclear Material Production	Capability	6
+Nuclear Material Storage	Capability	7
+Weapons Grade Production	Capability	8
+Transportation	Capability	10
+Displaced Persons/Refugees/Evacuees Camp		11
+Training Camp		12
+25 Control Measures	1	
+Unspecified		0
+Wheeled limited cross country	Mobility	1
+Wheeled cross country	Mobility	2
+Tracked	Mobility	3
+Wheeled and tracked combination	Mobility	4
+Towed	Mobility	5
+Rail	Mobility	6
+Pack Animals	Mobility	9
+Sled	Mobility	8
+Pack Animals	Mobility	9
+Barge	Mobility	10
+Amphibious	Mobility	11
+No Vehicles	Mobility	12
+Unspecified Mine	Obstacles	13
+Antipersonnel Mine	Obstacles	14
+Antipersonnel Mine with Directional Effects	Obstacles	15
+Antitank Mine	Obstacles	16
+Antitank Mine with Antihandling Device	Obstacles	17
+Wide Area Antitank Mine	Obstacles	18
+Mine Cluster	Obstacles	19
+Antipersonnel Mine and Antipersonnel Mine with Directional Effects	Obstacles	20
+Antipersonnel Mine and Antitank Mine	Obstacles	21
+Antipersonnel Mine and Antitank Mine with Antihandling Device	Obstacles	22
+Antipersonnel Mine and Wide Area Antitank Mine	Obstacles	23
+Antipersonnel Mine and Mine Cluster	Obstacles	24
+Antipersonnel Mine with Directional Effects and Antitank Mine	Obstacles	25
+Antipersonnel Mine with Directional Effects and Antitank Mine with Antihandling Device	Obstacles	26
+Antipersonnel Mine with Directional Effects and Wide Area Antitank Mine	Obstacles	27
+Antipersonnel Mine with Directional Effects and Mine Cluster	Obstacles	28
+Antitank Mine and Antitank Mine with Antihandling Device	Obstacles	29
+Antitank Mine and Wide Area Antitank Mine	Obstacles	30
+Antitank Mine and Mine Cluster	Obstacles	31
+Antitank Mine with Antihandling Device and Wide Area Antitank Mine	Obstacles	32
+Antitank Mine with Antihandling Device and Mine Cluster	Obstacles	33
+Wide Area Antitank Mine and Mine Cluster	Obstacles	34
+Antipersonnel Mine, Antipersonnel Mine with Directional Effects, and Antitank Mine	Obstacles	35
+Antipersonnel Mine, Antipersonnel Mine with Directional Effects, and Antitank Mine with Antihandling Device	Obstacles	36
+Antipersonnel Mine, Antipersonnel Mine with Directional Effects, and Wide Area Antitank Mine	Obstacles	37
+Antipersonnel Mine, Antipersonnel Mine with Directional Effects, and Mine Cluster	Obstacles	38
+Antipersonnel Mine, Antitank Mine, and Antitank Mine with Antihandling Device	Obstacles	39
+Antipersonnel Mine, Antitank Mine, and Wide Area Antitank Mine	Obstacles	40
+Antipersonnel Mine, Antitank Mine, and Mine Cluster	Obstacles	41
+Antipersonnel Mine, Antitank Mine with Antihandling Device, and Wide Area Antitank Mine	Obstacles	42
+Antipersonnel Mine, Antitank Mine with Antihandling Device, and Mine Cluster	Obstacles	43
+Antipersonnel Mine, Wide Area Antitank Mine, and Mine Cluster	Obstacles	44
+Antipersonnel Mine with Directional Effects, Antitank Mine, and Antitank Mine with Antihandling Device	Obstacles	45
+Antipersonnel Mine with Directional Effects, Antitank Mine, and Wide Area Antitank Mine	Obstacles	46
+Antipersonnel Mine with Directional Effects, Antitank Mine, and Mine Cluster	Obstacles	47
+Antipersonnel Mine with Directional Effects, Antitank Mine with Antihandling Device, and Wide Area Antitank Mine	Obstacles	48
+Antipersonnel Mine with Directional Effects, Antitank Mine with Antihandling Device, and Mine Cluster	Obstacles	49
+Antipersonnel Mine with Directional Effects, Wide Area Antitank Mine, and Mine Cluster	Obstacles	50
+25 Control Measures	2	
+Unspecified		0
+27 Dismounted Individual	1	
+Unspecified		0
+Field Artillery Observer		11
+Joint Fire Support		12
+Liaison		13
+Messenger		14
+Military Police		15
+Observer		16
+Designated Marksman		17
+Signaler		20
+Reconnaissance		21
+Infantry		22
+Commander (CDR)		23
+Second in Command (SIC)		24
+Demolition		25
+Police		26
+Individual		46
+27 Dismounted Individual	2	
+Unspecified		0
+Video Imagery (Combat Camera)		3
+Functional Staff Area J1		4
+Functional Staff Area J2		5
+Functional Staff Area J3		6
+Functional Staff Area J4		7
+Functional Staff Area J5		8
+Functional Staff Area J6		9
+Functional Staff Area J7		10
+Functional Staff Area J8		11
+Functional Staff Area J9		12
+Rank OF-1		14
+Rank OF-2		15
+Rank OF-3		16
+Rank OF-4		17
+Rank OF-5		18
+Rank OF-6		19
+Rank OF-7		20
+Rank OF-8		21
+Rank OF-9		22
+Rank OF-10		23
+Rank E-1		25
+Rank E-2		26
+Rank E-3		27
+Rank E-4		28
+Rank E-5		29
+Rank E-6		30
+Rank E-7		31
+Rank E-8		32
+Rank E-9		33
+Rank WO-1		34
+Rank WO-2		35
+Rank WO-3		36
+Rank WO-4		37
+Rank WO-5		38
+30 Sea Surface	1	
+Unspecified	Mission Area	0
+Antiair Warfare	Mission Area	2
+Missile Defense	Mission Area	8
+Remote Multi-mission Vehicle (RMV)	Mission Area	11
+Torpedo	Weapons Capability	17
+Ballistic Missile Defense, Long-Range Surveillance and Track (LRS&T)	Mission Area	21
+Sea-Base X-Band	Mission Area	22
+30 Sea Surface	2	
+Unspecified		0
+Nuclear Powered	Ship Propulsion	1
+Dock	Cargo Capacity	5
+Logistics	Cargo Capacity	6
+Tank	Cargo Capacity	7
+Vehicle	Cargo Capacity	8
+Fast	Ship Mobility	9
+Air-Cushioned (US)	Ship Mobility	10
+Air-Cushioned (NATO)	Ship Mobility	11
+Hydrofoil	Ship Mobility	12
+35 Sea Subsurface	1	
+Unspecified		0
+Auxiliary	Mission Area	2
+Possible Submarine Low 1	Submarine Confidence	13
+Possible Submarine Low 2	Submarine Confidence	14
+Possible Submarine High 3	Submarine Confidence	15
+Possible Submarine High 4	Submarine Confidence	16
+Probable Submarine	Submarine Confidence	17
+Certain Submarine	Submarine Confidence	18
+Anti-torpedo Torpedo	Weapons Capability	19
+35 Sea Subsurface	2	
+Unspecified		0
+Air Independent Propulsion	Ship Propulsion	1
+Diesel Electric, General	Ship Propulsion	2
+Diesel - Type 1	Ship Propulsion	3
+Diesel - Type 2	Ship Propulsion	4
+Diesel - Type 3	Ship Propulsion	5
+Nuclear Powered, General	Ship Propulsion	6
+Nuclear - Type 1	Ship Propulsion	7
+Nuclear - Type 2	Ship Propulsion	8
+Nuclear - Type 3	Ship Propulsion	9
+Nuclear - Type 4	Ship Propulsion	10
+Nuclear - Type 5	Ship Propulsion	11
+Nuclear - Type 6	Ship Propulsion	12
+Nuclear - Type 7	Ship Propulsion	13
+36 Mine Warfare	1	
+Unspecified		0
+36 Mine Warfare	2	
+Unspecified		0
+40 Activities	1	
+Unspecified		0
+House-to-House	Military Information Support Operations	4
+Murder	Crime	6
+Written Military Information Support Operations	Military Information Support Operations	9
+Pirate	Crime	10
+FALSE	IED Category	11
+Find	IED Category	12
+Found and Cleared	IED Category	13
+Hoax (Decoy)	IED Category	14
+Attempted	Incident Qualifier	15
+Incident	Incident Qualifier	17
+Theft	Crime	18
+Eviction	Incident Qualifier	21
+Raid	Incident Qualifier	22
+Meeting		24
+40 Activities	2	
+Unspecified		0
+Meeting		4
+50 SIGINT	1	
+Unspecified		0
+Anti-Aircraft Fire Control	Radar	1
+Airborne Search and Bombing	Radar	2
+Airborne Intercept	Radar	3
+Altimeter	Radar	4
+Airborne Reconnaissance and Mapping	Radar	5
+Air Traffic Control	Radar	6
+Beacon Transponder (not IFF)	Radar	7
+Battlefield Surveillance	Radar	8
+Controlled Approach	Radar	9
+Controlled Intercept	Radar	10
+Cellular/Mobile	Communications	11
+Coastal Surveillance	Radar	12
+Decoy/Mimic	Radar	13
+Data Transmission	Radar	14
+Earth Surveillance	Radar	15
+Early Warning	Radar	16
+Fire Control	Radar	17
+Ground Mapping	Radar	18
+Height Finding	Radar	19
+Harbor Surveillance	Radar	20
+Identification, Friend or Foe (Interrogator)	Radar	21
+Instrument Landing System	Radar	22
+Ionospheric Sounding	Radar	23
+Identification, Friend or Foe (Transponder)	Radar	24
+Barrage Jammer	Jammer	25
+Click Jammer	Jammer	26
+Deceptive Jammer	Jammer	27
+Frequency Swept Jammer	Jammer	28
+Jammer (general)	Jammer	29
+Noise Jammer	Jammer	30
+Pulsed Jammer	Jammer	31
+Repeater Jammer	Jammer	32
+Spot Noise Jammer	Jammer	33
+Transponder Jammer	Jammer	34
+Missile Acquisition	Radar	35
+Missile Control	Jammer	36
+Missile Downlink	Air Radar	37
+Meteorological	Radar	38
+Multi-Function	Jammer	39
+Missile Guidance	Radar	40
+Missile Homing	Radar	41
+Missile Tracking	Jammer	42
+Navigational/General	Jammer	43
+Navigational/Distance Measuring Equipment	Jammer	44
+Navigation/Terrain Following	Jammer	45
+Navigational/Weather Avoidance	Jammer	46
+Omni-Line of Sight (LOS)	Jammer	47
+Proximity Use	Air Radar	48
+Point-to-Point Line of Sight (LOS)	Communications	49
+Instrumentation	Radar	50
+Range Only	Radar	51
+Sonobuoy	Radar	52
+Satellite Downlink	Communications	53
+Space	Radar	54
+Surface Search	Radar	55
+Shell Tracking	Land Radar	56
+Satellite Uplink	Communications	57
+Target Acquisition	Radar	58
+Target Illumination	Radar	59
+Tropospheric Scatter	Communications	60
+Target Tracking	Radar	61
+Unknown	Radar	62
+Video Remoting	Radar	63
+Experimental	Radar	64
+50 SIGINT	2	
+Unspecified		0
+60 Cyberspace	1	
+Unspecified		0
+Defensive Cyberspace	Capability	1
+Offensive Cyberspace	Capability	2
+Social	Capability	3
+Radio Frequency	Capability	6
+Continuity of Operations	Capability	8
+Internet Service Provider (ISP)	Capability	9
+Finance	Capability	10
+Out of Band	Capability	11
+Cloud	Service	12
+Data		13
+Service		14
+60 Cyberspace	2	
+Unspecified		0
+Secured	Capability	1
+Open	Capability	2
+Response Actions	Capability	3
+Internal Defense Measures	Capability	5
+Advanced Persistent Threat	Capability	6
+Nation State		7
+Nation State Sponsored		8
+Service		10
