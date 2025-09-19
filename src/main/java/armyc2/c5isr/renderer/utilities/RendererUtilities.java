@@ -310,9 +310,7 @@ public class RendererUtilities {
             if((SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_LandInstallation && SymbolID.getFrameShape(symbolID)=='0') ||
                     SymbolID.getFrameShape(symbolID)==SymbolID.FrameShape_LandInstallation)
             {
-                int i1 = returnSVG.indexOf("<rect") + 5;
-                if(ver >= SymbolID.Version_2525E && affiliation == SymbolID.StandardIdentity_Affiliation_AssumedFriend)
-                    i1 = returnSVG.indexOf("<rect",i1) + 5;
+                int i1 = findInstIndIndex(returnSVG)+5;
                 //make sure installation indicator matches line color
                 returnSVG = returnSVG.substring(0,i1) + " fill=\"" + hexStrokeColor + "\"" + returnSVG.substring(i1);
             }
@@ -320,9 +318,7 @@ public class RendererUtilities {
         else if((SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_LandInstallation && SymbolID.getFrameShape(symbolID)=='0') ||
                 SymbolID.getFrameShape(symbolID)==SymbolID.FrameShape_LandInstallation)
         {
-            int i1 = returnSVG.indexOf("<rect") + 5;
-            if(ver >= SymbolID.Version_2525E && affiliation == SymbolID.StandardIdentity_Affiliation_AssumedFriend)
-                i1 = returnSVG.indexOf("<rect",i1) + 5;
+                int i1 = findInstIndIndex(returnSVG)+5;
             //No line color change so make sure installation indicator stays black
             returnSVG = returnSVG.substring(0,i1) + " fill=\"#000000\"" + returnSVG.substring(i1);
         }
@@ -523,6 +519,27 @@ public class RendererUtilities {
             largest = strokeWidths.descendingSet().first();
         }
         return largest * OUTLINE_SCALING_FACTOR;
+    }
+
+    public static int findInstIndIndex(String svg)
+    {
+        int start = -1;
+        int stop = -1;
+
+        start = svg.indexOf("<rect");
+        stop = svg.indexOf(">",start);
+
+        String rect = svg.substring(start,stop+1);
+        if(rect.contains("fill"))//no set fill so it's the indicator
+        {
+            return start;
+        }
+        else //it's the next rect
+        {
+            start = svg.indexOf("<rect",stop);
+        }
+
+        return start;
     }
 
     public static int getDistanceBetweenPoints(Point2D pt1, Point2D pt2)
