@@ -3216,7 +3216,7 @@ public final class lineutility {
                             dIntLocation1x = dIntLocation2x;
                         } else {
                             dIntLocation1x
-                                    = (double) pLinePoints[i].x + ((k * spikeLength - spikeLength) * dPrinter / length)
+                                    = (double) pLinePoints[i].x + ((k * spikeLength - spikeLength / 2) * dPrinter / length)
                                     * (double) (pLinePoints[i + 1].x - pLinePoints[i].x);
                         }
 
