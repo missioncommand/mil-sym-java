@@ -155,12 +155,33 @@ public class SymbolID {
     public static final int SymbolSet_Atmospheric = 45;
     public static final int SymbolSet_Oceanographic = 46;
     public static final int SymbolSet_MeteorologicalSpace = 47;
+
+    /**
+     * in 2525E+, there is only SymbolSet_SignalsIntelligence and the frame shape position is required to be populated.
+     * Valid frames are space, air, land, land equipment, sea surface, sea subsurface and cyberspace.
+     */
     public static final int SymbolSet_SignalsIntelligence = 50;
+    /**
+     * 2525D/Dch1 only
+     */
     public static final int SymbolSet_SignalsIntelligence_Space = 50;
+    /**
+     * 2525D/Dch1 only
+     */
     public static final int SymbolSet_SignalsIntelligence_Air = 51;
+    /**
+     * 2525D/Dch1 only
+     */
     public static final int SymbolSet_SignalsIntelligence_Land = 52;
+    /**
+     * 2525D/Dch1 only
+     */
     public static final int SymbolSet_SignalsIntelligence_SeaSurface = 53;
+    /**
+     * 2525D/Dch1 only
+     */
     public static final int SymbolSet_SignalsIntelligence_SeaSubsurface = 54;
+
     public static final int SymbolSet_CyberSpace = 60;
 
     public static final int SymbolSet_InvalidSymbol = 98;
