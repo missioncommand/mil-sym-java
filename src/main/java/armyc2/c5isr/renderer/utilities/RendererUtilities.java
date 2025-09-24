@@ -531,7 +531,7 @@ public class RendererUtilities {
         stop = svg.indexOf(">",start);
 
         String rect = svg.substring(start,stop+1);
-        if(rect.contains("fill"))//no set fill so it's the indicator
+        if(!rect.contains("fill"))//no set fill so it's the indicator
         {
             return start;
         }
