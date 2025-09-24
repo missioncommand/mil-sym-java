@@ -2749,7 +2749,7 @@ public class ModifierRenderer implements SettingsEventListener
                 labelWidth = (int) labelBounds.getWidth();
 
                 //on left
-                x = (int) getLabelXPosition(bounds, sdi.getSymbolCenterPoint(), labelWidth, mod.getIndexX(), modifierFontHeight);
+                x = (int) getLabelXPosition(bounds, labelWidth, mod.getIndexX(), modifierFontHeight);
                 //above center V
                 y = (int) getLabelYPosition(bounds, labelHeight, descent, bufferText, mod.getCentered(), mod.getIndexY());
 
@@ -6961,15 +6961,13 @@ public class ModifierRenderer implements SettingsEventListener
 
 
     /**
-     *
-     * @param bounds bounds of the core icon
-     * @param centerPoint the center/anchor point of the symbol.
-     * @param labelWidth height of the label to be placed
-     * @param location if 1, label on right side of symbol. On left if -1, center if 0.
+     * @param bounds             bounds of the core icon
+     * @param labelWidth         height of the label to be placed
+     * @param location           if 1, label on right side of symbol. On left if -1, center if 0.
      * @param modifierFontHeight
      * @returns
      */
-    private static double getLabelXPosition(Rectangle2D bounds, Point2D centerPoint, int labelWidth, int location, float modifierFontHeight)
+    private static double getLabelXPosition(Rectangle2D bounds, int labelWidth, int location, float modifierFontHeight)
     {
         double x = 0;
         int buffer = (int)modifierFontHeight/2;
@@ -6984,10 +6982,7 @@ public class ModifierRenderer implements SettingsEventListener
         }
         else if(location == 0)
         {
-            if(centerPoint != null)
-                x = (int)Math.round(centerPoint.getX() - (labelWidth * 0.5));
-            else
-                x = (int)Math.round((bounds.getX() + (bounds.getWidth() * 0.5f)) - (labelWidth * 0.5f));
+            x = (int)Math.round((bounds.getX() + (bounds.getWidth() * 0.5f)) - (labelWidth * 0.5f));
         }
 
         return x;
