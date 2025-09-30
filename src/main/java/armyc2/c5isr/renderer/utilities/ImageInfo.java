@@ -349,7 +349,7 @@ public class ImageInfo implements SymbolDimensionInfo{
 		}
 		catch(Exception exc)
 		{
-			ErrorLogger.LogException("PNGInfo", "getImageAsByteArray", exc);
+			ErrorLogger.LogException("ImageInfo", "getImageAsByteArray", exc);
 		}
 		return byteArray;
 	}

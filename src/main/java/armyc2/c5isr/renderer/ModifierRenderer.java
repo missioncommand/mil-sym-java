@@ -7287,8 +7287,8 @@ public class ModifierRenderer implements SettingsEventListener
         catch(Exception exc)
         {
             String message = "font creation error, returning \"" + ff + "\" font, " + fsize + "pt. Check font name and type.";
-            ErrorLogger.LogMessage("RendererSettings", "getLabelFont", message);
-            ErrorLogger.LogMessage("RendererSettings", "getLabelFont", exc.getMessage());
+            ErrorLogger.LogMessage("ModifierRenderer", "getFont", message);
+            ErrorLogger.LogMessage("ModifierRenderer", "getFont", exc.getMessage());
             return new Font("arial", Font.BOLD, 12);
         }
 

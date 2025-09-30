@@ -46,7 +46,7 @@ public class SinglePointSVGRenderer {
         }
         catch(Exception exc)
         {
-            ErrorLogger.LogException("SinglePointRenderer", "init", exc);
+            ErrorLogger.LogException("SinglePointSVGRenderer", "init", exc);
         }
     }
 
@@ -216,7 +216,7 @@ public class SinglePointSVGRenderer {
             }
             catch (Exception excModifiers)
             {
-                ErrorLogger.LogException("MilStdIconRenderer", "RenderUnit", excModifiers);
+                ErrorLogger.LogException("SinglePointSVGRenderer", "RenderUnit", excModifiers);
             }
             // </editor-fold>
 
@@ -451,7 +451,7 @@ public class SinglePointSVGRenderer {
         }
         catch(Exception exc)
         {
-            ErrorLogger.LogException("SinglePointRenderer","renderUnit",exc);
+            ErrorLogger.LogException("SinglePointSVGRenderer","renderUnit",exc);
         }
 
         return si;
@@ -781,7 +781,7 @@ public class SinglePointSVGRenderer {
         }
         catch (Exception exc)
         {
-            ErrorLogger.LogException("MilStdIconRenderer", "RenderSP", exc);
+            ErrorLogger.LogException("SinglePointSVGRenderer", "RenderSP", exc);
             return null;
         }
         return si;

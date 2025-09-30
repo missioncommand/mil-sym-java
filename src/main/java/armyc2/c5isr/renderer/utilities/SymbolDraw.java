@@ -1183,7 +1183,7 @@ public class SymbolDraw {
         }
         catch(Exception exc)
         {
-            ErrorLogger.LogException("JavaRenderer", "CreateModifierShapeInfo", exc);
+            ErrorLogger.LogException("SymbolDraw", "CreateModifierShapeInfo", exc);
             return null;
         }
     }

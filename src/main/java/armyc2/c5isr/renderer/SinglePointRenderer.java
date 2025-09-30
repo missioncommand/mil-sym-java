@@ -193,7 +193,7 @@ public class SinglePointRenderer implements SettingsEventListener{
             }
             catch (Exception excModifiers)
             {
-                ErrorLogger.LogException("MilStdIconRenderer", "RenderUnit", excModifiers);
+                ErrorLogger.LogException("SinglePointRenderer", "RenderUnit2", excModifiers);
             }
             // </editor-fold>
 
@@ -749,7 +749,7 @@ public class SinglePointRenderer implements SettingsEventListener{
         }
         catch (Exception exc)
         {
-            ErrorLogger.LogException("MilStdIconRenderer", "RenderSP", exc);
+            ErrorLogger.LogException("SinglePointRenderer", "RenderSP2", exc);
             return null;
         }
         return ii;
@@ -851,7 +851,7 @@ public class SinglePointRenderer implements SettingsEventListener{
         }
         catch (Exception excModifiers)
         {
-            ErrorLogger.LogException("MilStdIconRenderer", "RenderSP", excModifiers);
+            ErrorLogger.LogException("SinglePointRenderer", "RenderModifier2", excModifiers);
         }
 
         try
@@ -976,7 +976,7 @@ public class SinglePointRenderer implements SettingsEventListener{
         }
         catch (Exception exc)
         {
-            ErrorLogger.LogException("MilStdIconRenderer", "RenderSP", exc);
+            ErrorLogger.LogException("SinglePointRenderer", "RenderModifier2", exc);
         }
         return null;
     }

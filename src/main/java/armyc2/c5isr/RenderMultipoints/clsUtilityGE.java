@@ -1061,7 +1061,7 @@ public final class clsUtilityGE {
         }
         catch(Exception exc)
         {
-            ErrorLogger.LogException("clsRenderer" ,"removeTrailingPoints",
+            ErrorLogger.LogException(_className ,"removeTrailingPoints",
                     new RendererException("Failed inside removeTrailingPoints", exc));
         }
     }

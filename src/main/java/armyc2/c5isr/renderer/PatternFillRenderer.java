@@ -94,7 +94,7 @@ public class PatternFillRenderer {
             ViewBox vb = new ViewBox(0, 0, spacing, spacing);
             svgDocument.render(null, resGraphics, vb);
         } else {
-            ErrorLogger.LogMessage("PatternFillRendererD", "MakeHatchPatternFill", "null SVGDocument");
+            ErrorLogger.LogMessage("PatternFillRenderer", "MakeHatchPatternFill", "null SVGDocument");
         }
         resGraphics.dispose();
         return resBI;
@@ -143,7 +143,7 @@ public class PatternFillRenderer {
         }
         catch(IOException ioe)
         {
-            ErrorLogger.LogException("PatterFillRenderer","LoadBMPFromDAtaURL", ioe);
+            ErrorLogger.LogException("PatterFillRenderer","LoadBIFromDataURL", ioe);
         }
         return null;
     }

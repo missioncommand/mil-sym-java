@@ -199,7 +199,7 @@ public class RendererUtilities {
 
                     if(int1 == -1 || int2 == -1)
                     {
-                        ErrorLogger.LogMessage("SymbolUtilities", "getColorFromHexString", "Bad hex value: " + hexOriginal, Level.WARNING);
+                        ErrorLogger.LogMessage("RendererUtilities", "getColorFromHexString", "Bad hex value: " + hexOriginal, Level.WARNING);
                         return null;
                     }
 
