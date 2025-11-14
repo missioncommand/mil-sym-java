@@ -373,7 +373,7 @@ public class SinglePointSVGRenderer {
                 hasDisplayModifiers = ModifierRenderer.hasDisplayModifiers(symbolID, modifiers);
                 hasTextModifiers = ModifierRenderer.hasTextModifiers(symbolID, modifiers);
 
-                if(hasDisplayModifiers || hasDisplayModifiers)
+                if(hasDisplayModifiers || hasTextModifiers)
                 {
                     BufferedImage buffer = new BufferedImage(2,2,BufferedImage.TYPE_INT_ARGB);
                     Graphics2D g2d = buffer.createGraphics();
