@@ -1157,8 +1157,8 @@ public class SymbolUtilities {
     public static Point getCMSymbolAnchorPoint(String symbolID, Rectangle2D bounds)
     {
 
-        double centerX = bounds.getWidth()/2;
-        double centerY = bounds.getHeight()/2;
+        double centerX = (bounds.getWidth()/2) - 1;//-1 because width might be 37 but the points are only 0 - 36
+        double centerY = (bounds.getHeight()/2) - 1;
 
         int ss = SymbolID.getSymbolSet(symbolID);
         int ec = SymbolID.getEntityCode(symbolID);
@@ -1176,7 +1176,7 @@ public class SymbolUtilities {
                 case DrawRules.POINT5://entry point
                 case DrawRules.POINT6://ground zero
                 case DrawRules.POINT7://missile detection point
-                    centerY = bounds.getHeight();
+                    centerY = bounds.getHeight()-1;
                     break;
                 case DrawRules.POINT4://drop point  //almost bottom and center
                     centerY = (bounds.getHeight() * 0.80);

@@ -2883,8 +2883,7 @@ public class ModifierRenderer implements SettingsEventListener
         }
 
         if(ss == SymbolID.SymbolSet_ControlMeasure) {
-            if (ec == 130500 //contact point
-                    || ec == 130700) //decision point
+            if (ec == 130500) //contact point
             {
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
                     strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
@@ -2901,7 +2900,39 @@ public class ModifierRenderer implements SettingsEventListener
                         arrMods.add(ti);
                     }
                 }
-            } else if (ec == 212800)//harbor
+                if (modifiers.containsKey(Modifiers.W_DTG_1)) {
+                    strText = modifiers.get(Modifiers.W_DTG_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+                        labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
+
+                        x = (int)(bounds.getMinX() - labelWidth - bufferXL);
+                        y = (int)(bounds.getMinY() + labelHeight - descent);
+
+                        ti.setLocation(x, y);
+                        arrMods.add(ti);
+                    }
+                }
+            }
+            if (ec == 130700) //decision point
+            {
+                if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
+                    strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+                        labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
+                        //One modifier symbols and modifier goes in center
+                        x = (int)(bounds.getMinX() + (int) (bounds.getWidth() * 0.5f));
+                        x = x - (int) (labelWidth * 0.5f);
+                        y = (int)(bounds.getMinY() + (int) (bounds.getHeight() * 0.5f));
+                        y = y + (int) (labelHeight * 0.5f);
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+            }
+            else if (ec == 212800)//harbor
             {
                 if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
                     strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
@@ -3780,7 +3811,7 @@ public class ModifierRenderer implements SettingsEventListener
                 //Render modifiers//////////////////////////////////////////////////
                 BufferedImage bmp = new BufferedImage((int) imageBounds.getWidth(), (int) Math.round(imageBounds.getHeight()), BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2d = (Graphics2D) bmp.getGraphics();
-
+                g2d.setFont(modifierFont);
                 //render////////////////////////////////////////////////////////
                 //draw original icon with potential modifiers.
                 g2d.drawImage((Image) ii.getImage(), (int) symbolBounds.getX(), (int) symbolBounds.getY(), null);
@@ -4277,6 +4308,7 @@ public class ModifierRenderer implements SettingsEventListener
                 //Render modifiers//////////////////////////////////////////////////
                 BufferedImage bmp = new BufferedImage((int) imageBounds.getWidth(), (int) Math.round(imageBounds.getHeight()), BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2d = (Graphics2D) bmp.getGraphics();
+                g2d.setFont(modifierFont);
 
                 //draw original icon with potential modifiers.
                 g2d.drawImage((Image) ii.getImage(), (int) symbolBounds.getX(), (int) symbolBounds.getY(), null);

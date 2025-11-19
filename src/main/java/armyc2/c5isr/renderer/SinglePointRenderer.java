@@ -628,29 +628,30 @@ public class SinglePointRenderer implements SettingsEventListener{
                     w = symbolBounds.getWidth();
                     h = symbolBounds.getHeight();
 
-                    if(h/(h+borderPadding) > 0.10)
+                    if(borderPadding > 0)
                     {
-                        borderPadding = (float)(h * 0.1);
-                    }
-                    else if(w/(w+borderPadding) > 0.10)
-                    {
-                        borderPadding = (float)(w * 0.1);
+                        if (h / (h + borderPadding) > 0.10) {
+                            borderPadding = (float) (h * 0.1);
+                        } else if (w / (w + borderPadding) > 0.10) {
+                            borderPadding = (float) (w * 0.1);
+                        }
                     }
 
                 }
 
                 //Draw glyphs to bitmap
-                BufferedImage bmp = new BufferedImage((int)(symbolBounds.getWidth() + Math.round(borderPadding)), (int)(symbolBounds.getHeight() + Math.round(borderPadding)), BufferedImage.TYPE_INT_ARGB);
-
-
-                symbolBounds = RectUtilities.toRectangle(0, 0, bmp.getWidth(), bmp.getHeight());
 
                 //grow size SVG to accommodate the outline we added
                 int offset = 0;
                 if(outlineSymbol) {
-                    RectUtilities.grow(rect, 4);
-                    offset = 4;
+                    RectUtilities.grow(rect, Math.round(borderPadding / (float)ratio));
+                    offset = (int)borderPadding;
                 }
+
+
+                symbolBounds = RectUtilities.toRectangle(0, 0, (int)(symbolBounds.getWidth() + Math.round(borderPadding)*2), (int)(symbolBounds.getHeight() + Math.round(borderPadding)*2));
+                BufferedImage bmp = new BufferedImage((int)symbolBounds.getWidth(), (int)symbolBounds.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
 
                 String svgAlpha = "";
                 if(alpha >=0)
@@ -680,8 +681,10 @@ public class SinglePointRenderer implements SettingsEventListener{
                 //g.drawRect(0, 0, (int)bmp.getWidth()-1, (int)bmp.getHeight()-1);
                 g.dispose();
 
-
-                Point centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, RectUtilities.makeRectangle2DFromRect(offset, offset, symbolBounds.getWidth(), symbolBounds.getHeight()));
+                Rectangle2D bounds = RectUtilities.makeRectangle2DFromRect(offset, offset, symbolBounds.getWidth()-offset, symbolBounds.getHeight()-offset);
+                Point centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, bounds);
+                if(offset > 0)
+                    centerPoint.setLocation(centerPoint.x + offset, centerPoint.y + offset);
 
                 ii = new ImageInfo(bmp, centerPoint, symbolBounds);
 
