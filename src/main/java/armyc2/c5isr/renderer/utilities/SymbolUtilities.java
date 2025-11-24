@@ -1206,6 +1206,8 @@ public class SymbolUtilities {
                         centerY = (bounds.getHeight() * 0.7);
                     else if (ec == 212500)//Electromagnetic - Magnetic Anomaly Detections (MAD)
                         centerY = (bounds.getHeight() * 0.4);
+                    else if (ec/100 == 2135)//2525E sonobuoys
+                        centerY = (bounds.getHeight() * 0.75);
                     break;
                 default:
             }
@@ -1221,6 +1223,12 @@ public class SymbolUtilities {
                     break;
                 case 280201: //Antipersonnel Mine with Directional Effects
                     centerX = bounds.getWidth() * 0.43;
+                    break;
+                case 182300: //Orbit - Figure Eight
+                case 182400: //Orbit - Race Track
+                case 182500: //Orbit - Random Closed
+                    if(SymbolID.getVersion(symbolID) >= SymbolID.Version_2525E)
+                        centerY = bounds.getHeight() * 0.27;
                     break;
             }
         }
