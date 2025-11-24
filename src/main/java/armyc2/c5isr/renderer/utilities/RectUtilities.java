@@ -63,13 +63,13 @@ public class RectUtilities {
 			return (Rectangle) b;
 		} else {
 			return new Rectangle((int) b.getX(), (int) b.getY(),
-					(int) b.getWidth(), (int) b.getHeight());
+					(int) (b.getWidth()+0.5), (int) (b.getHeight()+0.5));
 		}
 	}
 
 	public static Rectangle toRectangle(double x, double y, double w, double h) {
 		return new Rectangle((int) x, (int) y,
-				(int) w, (int) h);
+				(int)(w + 0.5), (int)(h + 0.5));
 	}
 
 	public static Rectangle2D toRectangle2D(double x, double y, double w, double h) {
