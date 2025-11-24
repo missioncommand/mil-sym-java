@@ -508,7 +508,7 @@ public class SinglePointSVGRenderer {
             if(msi!=null){drawRule = msi.getDrawRule();}
             if(RendererSettings.getInstance().getActionPointDefaultFill()) {
                 if (SymbolUtilities.isActionPoint(symbolID) || //action points
-                        drawRule == DrawRules.POINT10 || //Sonobuoy
+                        ec/100 == 2135 || //sonobuoy
                         ec == 180100 || ec == 180200 || ec == 180400) //ACP, CCP, PUP
                 {
                     if (SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_ControlMeasure) {
@@ -556,6 +556,11 @@ public class SinglePointSVGRenderer {
             {
                 if(msi.getDrawRule() == DrawRules.POINT1)//Action Points
                     pixelSize = (int)Math.ceil((pixelSize/1.5f) * 2.0f);
+                else if(SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_ControlMeasure &&
+                        ec/100 == 2135)//Sonobuoy
+                {
+                    pixelSize = (int)Math.ceil((pixelSize/1.5f) * 2.0f);
+                }
                 else
                     pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.2f);
             }
