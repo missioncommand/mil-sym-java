@@ -3352,6 +3352,7 @@ public class ModifierRenderer implements SettingsEventListener
             }
             else if(e == 21 && et == 35)//sonobuoys
             {
+                boolean is2525E = (SymbolID.getVersion(symbolID) >= SymbolID.Version_2525E);
                 //H sitting on center of circle to the right
                 //T above H
                 centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID,RectUtilities.copyRect(bounds));
@@ -3364,6 +3365,11 @@ public class ModifierRenderer implements SettingsEventListener
                         x = (int)(bounds.getMinX() + (bounds.getWidth()) + bufferXR);//right
                         y = centerPoint.y;
 
+                        if(is2525E) {
+                            x = x - (int)(bounds.getWidth() * 0.2);
+                            y = (int) (bounds.getY() + (bounds.getHeight() / 2));
+                        }
+
                         ti.setLocation(Math.round(x), Math.round(y));
                         arrMods.add(ti);
                     }
@@ -3375,8 +3381,12 @@ public class ModifierRenderer implements SettingsEventListener
                             ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                             TextInfo ti2 = new TextInfo(strText, 0, 0, modifierFont, frc);
                             labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
-                            x = (int)(bounds.getMinX() + (bounds.getWidth()) + bufferXR);//right
+                            x = (int)(bounds.getMinX() + (bounds.getWidth()) + bufferXR - (int)(bounds.getWidth() * 0.2) );//right
                             y = centerPoint.y - labelHeight;
+
+                            if(is2525E) {
+                                y = (int) (bounds.getY() + (bounds.getHeight() / 2)) - labelHeight;
+                            }
 
                             ti.setLocation(Math.round(x), Math.round(y));
                             arrMods.add(ti);
