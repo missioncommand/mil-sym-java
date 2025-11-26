@@ -523,18 +523,22 @@ public class SinglePointRenderer implements SettingsEventListener{
 
             }
 
-            if(keepUnitRatio)
+            /*if(keepUnitRatio)
             {
-                if(msi.getDrawRule() == DrawRules.POINT1)//Action Points
-                    pixelSize = (int)Math.ceil((pixelSize/1.5f) * 2.0f);
-                else if(SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_ControlMeasure &&
-                        ec/100 == 2135)//Sonobuoy
+                if(SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_ControlMeasure)
                 {
-                    pixelSize = (int)Math.ceil((pixelSize/1.5f) * 2.0f);
+                    if(msi.getDrawRule() == DrawRules.POINT1)//Action Points
+                        pixelSize = (int)Math.ceil((pixelSize/1.5f) * 2.0f);
+                    else if(ec/100 == 2135)//Sonobuoy
+                    {
+                        pixelSize = (int)Math.ceil((pixelSize/1.5f) * 2.0f);
+                    }
+                    else
+                        pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.2f);
                 }
                 else
                     pixelSize = (int)Math.ceil((pixelSize/1.5f) * 1.2f);
-            }
+            }//*/
 
 
 
@@ -580,6 +584,26 @@ public class SinglePointRenderer implements SettingsEventListener{
 
                 String strSVGIcon = null;
 
+                if(keepUnitRatio)
+                {
+                    double scaler = Math.max(width/(float)height, height/(float)width);
+                    if (scaler < 1.2)
+                        scaler = 1.2;
+                    if (scaler > 2)
+                        scaler = 2;
+
+                    if(!SymbolUtilities.isCBRNEvent(symbolID))
+                        pixelSize = (int) Math.ceil((pixelSize / 1.5f) * scaler);
+
+                    /*
+                    double min = Math.min(width/(float)height, height/(float)width);
+                    if (min < 0.6)//Rectangle
+                        pixelSize = (int) Math.ceil((pixelSize / 1.5f) * 2.0f);
+                    else if(min < 0.85)
+                        pixelSize = (int) Math.ceil((pixelSize / 1.5f) * 1.8f);
+                    else //more of a square
+                        pixelSize = (int) Math.ceil((pixelSize / 1.5f) * 1.2f);//*/
+                }
 
                 if(hasAPFill) //Action Point(s), Sonobuoys, ACP, CCP, PUP
                 {
