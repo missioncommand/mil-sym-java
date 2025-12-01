@@ -14,9 +14,11 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ItemEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import java.io.File;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
@@ -65,7 +67,7 @@ public class Tester extends javax.swing.JFrame {
             RendererSettings.getInstance().setCacheEnabled(false);
             //RendererSettings.getInstance().setOperationalConditionModifierType(RendererSettings.OperationalConditionModifierType_SLASH);
             //RendererSettings.getInstance().setDrawAffiliationModifierAsLabel(false);
-            RendererSettings.getInstance().setActionPointDefaultFill(true);
+            //RendererSettings.getInstance().setActionPointDefaultFill(false);
             //RendererSettings.getInstance().setOutlineSPControlMeasures(false);
             RendererSettings.getInstance().setScaleMainIcon(true);
             //Test adding of custom symbol
@@ -80,6 +82,8 @@ public class Tester extends javax.swing.JFrame {
             ArrayList<String[]> al = smu.getSectorModList(11,1,1);
             name = smu.getName(15,0,1,"100");
             //ErrorLogger.LogMessage(name);
+
+            //DrawAllIcons();
         }
         catch(Exception exc)
         {
@@ -1081,18 +1085,25 @@ public class Tester extends javax.swing.JFrame {
                 String pixelSize = String.valueOf(cbPixelSize.getSelectedItem());
 
                 attributes.put(MilStdAttributes.PixelSize,pixelSize);
-                
+                boolean drawCenter = true;
                 Graphics2D g2d;
                 try
                 {
+                    //modifiers.put(Modifiers.X_ALTITUDE_DEPTH,"0000");//TEST
                     icon = MilStdIconRenderer.getInstance().RenderIcon(symbolID, modifiers, attributes);
                     MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
                     g2d = (Graphics2D) this.getGraphics();
                     Graphics2D graphics = (Graphics2D)jPanel1.getGraphics();
                     Point2D mouseClickLocation = new Point2D.Double(evt.getPoint().getX(),evt.getPoint().getY());
                     if(icon != null) {
+
+                        if(drawCenter)
+                            DrawCenterBorder(icon);
+
                         SymbolDraw.Draw(icon, g2d, (int) (mouseClickLocation.getX() - icon.getSymbolCenterX()), (int) (mouseClickLocation.getY() - icon.getSymbolCenterY()));
-                        //icon.SaveImageToFile("C:\\temp\\test.png","png");
+
+
+                        icon.SaveImageToFile("C:\\temp\\test.png","png");
                     }
                     else
                     {
@@ -1164,6 +1175,96 @@ public class Tester extends javax.swing.JFrame {
 
         //modifierTest();
     }//GEN-LAST:event_formMouseClicked
+
+    private void DrawCenterBorder(ImageInfo ii)
+    {
+        Graphics2D g2d =  ii.getImage().createGraphics();
+
+        //CENTER
+        g2d.setColor(new Color(255,0,0,255));
+        Point center = ii.getSymbolCenterPoint();
+        Ellipse2D point = new Ellipse2D.Double(center.x-1,center.y-1,2,2);//ellipse is built in a rectangle
+        g2d.draw(point);
+        g2d.fill(point);
+
+        //Symbol BORDER
+        Rectangle2D bbox =  ii.getSymbolBounds();
+        bbox.setRect(bbox.getX(),bbox.getY(),bbox.getWidth()-1,bbox.getHeight()-1);
+        g2d.setColor(new Color(0,0,255,128));
+        g2d.draw(bbox);
+
+        //Image BORDER
+        g2d.setColor(new Color(0,255,0,80));
+        g2d.drawLine(0,0,ii.getImage().getWidth()-1,0);
+        g2d.drawLine(ii.getImage().getWidth()-1,0,ii.getImage().getWidth()-1,ii.getImage().getHeight()-1);
+        g2d.drawLine(ii.getImage().getWidth(),ii.getImage().getHeight()-1,0,ii.getImage().getHeight()-1);
+        g2d.drawLine(0,ii.getImage().getHeight()-1,0,0);//*/
+
+        g2d = null;
+    }
+
+    private void DrawAllIcons()
+    {
+
+        int[] versions = {SymbolID.Version_2525Dch1, SymbolID.Version_2525Ech1};
+        Map<String,String> modifiers = new HashMap<>();
+        Map<String,String> attributes = new HashMap<>();
+
+        attributes.put(MilStdAttributes.ModifierPlacement,String.valueOf(RendererSettings.ModifierPlacement_FLEXIBLE));
+        attributes.put(MilStdAttributes.PixelSize,"50");
+        String id = null;
+        ImageInfo ii = null;
+
+        String topFolderPath = "C:\\Temp\\AllIcons\\"; // change to your desired path
+
+        // Create a File object
+        File folder = new File(topFolderPath);
+
+        // Check if the folder exists
+        if (!folder.exists()) {
+            // Try to create the folder
+            boolean created = folder.mkdirs();
+        }
+
+        for (int version : versions)
+        {
+            List<String> list = MSLookup.getInstance().getIDList(version);
+
+            String folderPath = "C:\\Temp\\AllIcons\\" + version + "\\"; // change to your desired path
+
+            // Create a File object
+            folder = new File(folderPath);
+
+            // Check if the folder exists
+            if (!folder.exists()) {
+                // Try to create the folder
+                boolean created = folder.mkdirs();
+            }
+
+            for (String s : list)
+            {
+                id = buildSymbolID(s);
+                id = SymbolID.setVersion(id, version);
+                MSInfo msi = MSLookup.getInstance().getMSLInfo(id);
+                if(msi != null && msi.getDrawRule() != DrawRules.DONOTDRAW)
+                {
+                    ii = MilStdIconRenderer.getInstance().RenderIcon(id, modifiers, attributes);
+                    if (ii != null) {
+                        try {
+                            ii.SaveImageToFile("C:\\Temp\\AllIcons\\" + version + "\\" + id + ".png", "png");
+                        } catch (Exception exc) {
+                            ErrorLogger.LogException("Tester", "DrawAllIcons", exc);
+                        }
+                    } else
+                        ErrorLogger.LogMessage("DrawAllIcons: ii null for " + id);
+                }
+                else if (msi == null)
+                    ErrorLogger.LogMessage("MSI null for " + id);
+                ii = null;
+                id = null;
+            }
+        }
+    }
 
     private void RenderMultiPoint() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)msTree.getLastSelectedPathComponent();
