@@ -4203,6 +4203,13 @@ public class ModifierRenderer implements SettingsEventListener
                     y = (int) ((bounds.getHeight() * 0.55));//633333333
                     y = (int)bounds.getMinY() + y;
 
+                    int ec = SymbolID.getEntityCode(symbolID);
+                    if((ec >= 281800 && ec <= 281809) || ec == 321100)
+                    {
+                        y = (int) ((bounds.getHeight() * 0.63));
+                        y = (int)bounds.getMinY() + y;
+                    }
+
                     ti.setLocation(x, y);
                     arrMods.add(ti);
                 }
