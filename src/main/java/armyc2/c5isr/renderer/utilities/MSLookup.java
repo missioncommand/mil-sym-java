@@ -160,9 +160,75 @@ public class MSLookup {
                 line = br.readLine();
             }
 
-        } catch (Exception exc) {
+            if(version < SymbolID.Version_2525E)//add handful of SymbolID.Version_2525D codes to lookup
+            {
+                AddVersion10Symbols(lookup);
+            }
+
+        }
+        catch (Exception exc)
+        {
             System.out.println(exc.getMessage());
         }
+
+    }
+
+    private void AddVersion10Symbols(Map<String,MSInfo> lookup)
+    {
+        String id = null;
+        String ss = null;
+        int intSS = 0;
+        String e = null;
+        String et = null;
+        String est = null;
+        String ec = null;
+        String g = null;
+        String dr = null;
+        String m = null;
+        String[] modifiers = null;
+
+        String[] units = {"120300", "161900", "162200", "162600", "162700", "163400", "163800", "163900", "164100", "164700"};
+        String[] similar = {"120200", "161800", "161800", "161800", "161800", "161800", "161800", "161800", "161800", "161800"};
+        String[] unitNames = {"Amphibious",
+                "NATO Supply Class II",
+                "NATO Supply Class V",
+                "Pipeline",
+                "Postal",
+                "Supply",
+                "US Supply Class II",
+                "US Supply Class III",
+                "US Supply Class IV",
+                "Water"};
+
+        MSInfo msiTemp = null;
+        ss = "10";
+        for(int i = 0; i < units.length; i++)
+        {
+            msiTemp = lookup.get("10" + similar[i]);
+            String[] path = msiTemp.getPath().split("/");
+
+            ss = path[0];
+            if(path.length>2)
+                e = path[1];
+            if(path.length>3)
+                et = path[2];
+
+            if(e == null || e.equals(""))
+                e = unitNames[i];
+            else if(et == null || et.equals(""))
+                et = unitNames[i];
+            else
+                est = unitNames[i];
+
+            ec = units[i];
+
+            lookup.put(10 + ec, new MSInfo(SymbolID.Version_2525D, "10", e, et, est, ec, populateModifierList("10",ec, SymbolID.Version_2525Dch1)));
+        }
+        est = "";
+
+        lookup.put("25214000", new MSInfo(SymbolID.Version_2525D, "25", "Maritime Control Points", "Forward Observer - Spotter Position", est, "214000", "Point","Point2",populateModifierList("25","214000", SymbolID.Version_2525Dch1)));
+        //3 point Bridge not implemented
+        //lookup.put("25271400", new MSInfo(SymbolID.Version_2525D, "25", "Protection Areas", "Bridge", est, "271400", "Line","Line16",populateModifierList("25","271400", SymbolID.Version_2525Dch1)));
 
     }
 

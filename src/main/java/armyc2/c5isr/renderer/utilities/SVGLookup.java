@@ -290,6 +290,7 @@ public class SVGLookup {
                 case 111005:
                 case 111500:
                 case 120100:
+                case 120300:
                 case 120400:
                 case 120401:
                 case 120402:
