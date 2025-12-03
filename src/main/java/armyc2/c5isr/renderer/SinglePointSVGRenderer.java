@@ -404,7 +404,8 @@ public class SinglePointSVGRenderer {
             }
             newSDI = null;//*/
 
-            si = (SVGSymbolInfo)ModifierRenderer.processSpeedLeader(si,symbolID,modifiers,attributes);
+            if(modifiers != null)
+                si = (SVGSymbolInfo)ModifierRenderer.processSpeedLeader(si,symbolID,modifiers,attributes);
 
             int widthOffset = 0;
             if(hasTextModifiers)

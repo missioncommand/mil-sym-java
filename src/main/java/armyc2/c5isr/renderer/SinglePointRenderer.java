@@ -419,7 +419,8 @@ public class SinglePointRenderer implements SettingsEventListener{
             }
             iiNew = null;
 
-            ii = (ImageInfo) ModifierRenderer.processSpeedLeader(ii, symbolID, modifiers, attributes);
+            if(modifiers != null)
+                ii = (ImageInfo) ModifierRenderer.processSpeedLeader(ii, symbolID, modifiers, attributes);
         }
         catch(Exception exc)
         {
