@@ -407,7 +407,7 @@ public class Tester extends javax.swing.JFrame {
     private void setCBItems()
     {
         cbVersion.addItem("11-2525D");
-        cbVersion.addItem("13-2525E");
+        cbVersion.addItem("15-2525E");
         cbVersion.setSelectedIndex(0);
         
         cbContext.addItem("0-Reality");
