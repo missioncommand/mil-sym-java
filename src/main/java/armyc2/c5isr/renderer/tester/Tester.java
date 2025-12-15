@@ -1303,7 +1303,16 @@ public class Tester extends javax.swing.JFrame {
         //font change test
         //RendererSettings.getInstance().setMPLabelFont("Times New Roman",Font.BOLD,32);
 
+        //ErrorLogger.LogMessage("ScaleAwareText: " + ms.isTextScaleSensitive());
+        //ErrorLogger.LogMessage("ScaleAwareDetails: " + ms.isSymbolScaleSensitive());
+        //ErrorLogger.LogMessage("wasClipped: " + ms.getWasClipped());
+
         ms = render(ms, pConverter, null);
+
+        ErrorLogger.LogMessage("ScaleAwareText: " + ms.isTextScaleSensitive());
+        ErrorLogger.LogMessage("ScaleAwareDetails: " + ms.isSymbolScaleSensitive());
+        ErrorLogger.LogMessage("wasClipped: " + ms.getWasClipped());
+
         Graphics2D graphics = (Graphics2D) this.getGraphics();
         //Graphics2D graphics = (Graphics2D)jPanel1.getGraphics();
         try
