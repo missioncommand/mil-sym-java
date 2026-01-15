@@ -506,6 +506,37 @@ public class RendererUtilities {
         return returnSVG;
     }
 
+    /**
+     * Sets SVG stroke-dasharray when action points are in planned status
+     * @param symbolID
+     * @param siIcon
+     * @return
+     */
+    public static SVGInfo setAffiliationDashArray(String symbolID, SVGInfo siIcon)
+    {
+        String svg = siIcon.getSVG();
+        int status = SymbolID.getStatus(symbolID);
+        int aff = SymbolID.getAffiliation(symbolID);
+        SVGInfo returnVal = siIcon;
+        if(status == SymbolID.Status_Planned_Anticipated_Suspect)
+        {
+            if(SymbolUtilities.isActionPoint(symbolID))
+            {
+                svg = svg.replaceFirst("<rect ","<rect stroke-dasharray=\"20 19\" ");
+                svg = svg.replaceFirst("<polygon ","<polygon stroke-dasharray=\"20 20\" ");
+                returnVal = new SVGInfo(siIcon.getID(),siIcon.getBbox(), svg);
+            }
+        }
+        /*else if(aff == SymbolID.StandardIdentity_Affiliation_Pending ||
+                aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend ||
+                aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)
+        {
+            //Dot pattern if Control Measures use it?
+        }//*/
+
+        return returnVal;
+    }
+
     public static float findWidestStrokeWidth(String svg) {
         Pattern pattern = Pattern.compile("(stroke-width=\")(\\d+\\.?\\d*)\"");
         Matcher m = pattern.matcher(svg);

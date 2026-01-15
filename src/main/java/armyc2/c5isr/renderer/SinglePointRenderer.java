@@ -616,6 +616,9 @@ public class SinglePointRenderer implements SettingsEventListener{
                     siIcon = new SVGInfo(siIcon.getID(),siIcon.getBbox(), siIcon.getSVG().replaceAll("fill=\"none\"","fill=\"" + apFill + "\""));
                 }
 
+                //Set dash array depending on affiliation and status
+                siIcon = RendererUtilities.setAffiliationDashArray(symbolID, siIcon);
+
                 //update line and fill color of frame SVG
                 if(msi.getSymbolSet() == SymbolID.SymbolSet_ControlMeasure && (lineColor != null || fillColor != null)) {
                     if (outlineSymbol) {

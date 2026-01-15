@@ -3067,8 +3067,7 @@ public class ModifierRenderer implements SettingsEventListener
                         ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         x = (int)(bounds.getCenterX() + (bounds.getWidth() * 0.15f));
-                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
-                        y = y + (int) (labelHeight * 0.5f);
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.30f));
 
                         ti.setLocation(Math.round(x), Math.round(y));
                         arrMods.add(ti);
@@ -3089,8 +3088,7 @@ public class ModifierRenderer implements SettingsEventListener
                         ti = new TextInfo(strText, 0, 0, modifierFont, frc);
 
                         x = (int)(bounds.getCenterX() + (bounds.getWidth() * 0.15f));
-                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
-                        y = y + (int) (labelHeight * 0.5f);
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.30f));
 
                         ti.setLocation(Math.round(x), Math.round(y));
                         arrMods.add(ti);
@@ -3572,10 +3570,12 @@ public class ModifierRenderer implements SettingsEventListener
 
                         //One modifier symbols and modifier goes upper right of center
                         x = (int)(bounds.getX() + (bounds.getWidth() + bufferXR));
-//                  x = x - (labelBounds.width * 0.5);
-                        y = (int)(bounds.getY() + (bounds.getHeight() * 0.25f));
-                        y = y + (int) (labelHeight * 0.5f);
-                        
+
+                        if(!RendererSettings.getInstance().getOutlineSPControlMeasures() &&
+                                !(attributes.containsKey(MilStdAttributes.OutlineSymbol) && Boolean.parseBoolean(attributes.get(MilStdAttributes.OutlineSymbol))))
+                            x += bufferXR;
+
+                        y = (int)(bounds.getY() + (bounds.getHeight() * 0.30f));
 
                         ti.setLocation(Math.round(x), Math.round(y));
                         arrMods.add(ti);
