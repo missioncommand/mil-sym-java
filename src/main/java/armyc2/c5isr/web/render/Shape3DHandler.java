@@ -252,8 +252,17 @@ public class Shape3DHandler {
 //            NormalizeGECoordsToGEExtents(0, 360, geoCoords2);
 //        }
 
+        boolean useDashArray = true;
+        boolean useFillPattern = true;
+        if(symbolAttributes != null)
+        {
+            if(symbolAttributes.containsKey(MilStdAttributes.UseDashArray))
+                useDashArray = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UseDashArray));
+            if(symbolAttributes.containsKey(MilStdAttributes.UsePatternFill))
+                useFillPattern = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UsePatternFill));
+        }
         //disable clipping
-        if (MultiPointHandler.ShouldClipSymbol(symbolCode) == false)
+        if (MultiPointHandler.ShouldClipSymbol(symbolCode, useDashArray, useFillPattern) == false)
             if (MultiPointHandler.crossesIDL(geoCoords) == false) {
                 rect = null;
                 bboxCoords = null;

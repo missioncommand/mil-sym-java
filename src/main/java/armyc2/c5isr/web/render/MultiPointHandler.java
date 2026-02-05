@@ -306,11 +306,26 @@ public class MultiPointHandler {
      * @param symbolID
      * @return
      */
-    public static Boolean ShouldClipSymbol(String symbolID) {
+    public static Boolean ShouldClipSymbol(String symbolID)
+    {
+        return ShouldClipSymbol(symbolID, true, true);
+    }
+
+    /**
+     * Checks if a symbol is one with decorated lines which puts a strain on
+     * google earth when rendering like FLOT. These complicated lines should be
+     * clipped when possible.
+     *
+     * @param symbolID
+     * @param useDashArray default true, some symbols don't need to be clipped uf using dash array MilStdAttribute
+     * @param useFillPattern default true, some symbols don't need to be clipped uf using fill pattern MilStdAttribute
+     * @return
+     */
+    public static Boolean ShouldClipSymbol(String symbolID, boolean useDashArray, boolean useFillPattern) {
         //TODO: need to reevaluate this function to make sure we clip the right symbols.
         int status = SymbolID.getStatus(symbolID);
 
-        if (SymbolUtilities.isTacticalGraphic(symbolID) && status == SymbolID.Status_Planned_Anticipated_Suspect) {
+        if (SymbolUtilities.isTacticalGraphic(symbolID) && status == SymbolID.Status_Planned_Anticipated_Suspect && !useDashArray) {
             return true;
         }
 
@@ -318,18 +333,17 @@ public class MultiPointHandler {
             return true;
         }
 
-        int id = Integer.valueOf(SymbolUtilities.getBasicSymbolID(symbolID));
-        //TODO: needs to be reworked
-        if(id == 25341100 || //Task Fix
+        boolean shouldClip = false;
+        int id = Integer.parseInt(SymbolUtilities.getBasicSymbolID(symbolID));
+        if(//One of these decorated lines or lines that can potentially have a large # of points
                 id == 25260200 || //CFL
                 id == 25110100 || //Boundary
                 id == 25110200 || //Light Line (LL)
                 id == 25110300 || //Engineer Work Line (EWL)
                 id == 25140100 || //FLOT
-                id == 25140200 ||  //Line of contact is now just two flots
+                id == 25140200 || //Line of contact is now just two flots
                 id == 25151000 || //Fortified Area
-                id == 25151100 || //Limited Access Area
-                id == 25172000 || //Weapons Free Zone
+
                 id == 25151202 || //Battle Position/Prepared but not Occupied
                 id == 25151203 || //Strong Point
                 id == 25141200 || //Probable Line of Deployment (PLD)
@@ -364,27 +378,14 @@ public class MultiPointHandler {
                 id == 25290309 || //Triple Strand Concertina
 
                 id == 25341100 || //Obstacles Effect Fix now Mission Tasks Fix
-                id == 25290400 || //Mine Cluster
+
                 id == 25282003 || //Aviation / Overhead Wire
-                id == 25270602 || //Bypass Difficult
+                //id == 25270602 || //Bypass Difficult
                 id == 25271500 || //Ford Easy
                 id == 25271600 || //Ford Difficult
 
                 id == 25290900 || //Fortified Line
 
-                id == 25271700 || //Biological Contaminated Area
-                id == 25271800 || //Chemical Contaminated Area
-                id == 25271900 || //Nuclear Contaminated Area
-                id == 25272000 || //Radiological Contaminated Area
-
-                id == 25240301 || //No Fire Area (NFA) - Irregular
-                id == 25240302 || //No Fire Area (NFA) - Rectangular
-                id == 25240303 || //No Fire Area (NFA) - Circular
-
-
-                id == 25240701 || //Linear Target
-                id == 25240702 || //Linear Smoke Target
-                id == 25240703 || //Final Protective Fire (FPF)
                 id == 25151800 || //Encirclement
 
                 id == 25330300 || //MSR
@@ -398,19 +399,41 @@ public class MultiPointHandler {
                 id == 25330403 || //AMSR / Alternating Traffic
 
                 id == 25151205 || //Retain
-                id == 25341500 || //Isolate
-
-                id == 25340600 || //counterattack.
-                id == 25340700 || //counterattack by fire.
-                //id == G*G*PA----****X || //AoA for Feint - appears to be gone in 2525D
-                id == 25271200 || //Blown Bridges Planned
-                id == 25271202 || //Blown Bridges Explosives, State of Readiness 1 (Safe)
-                id == 25341200) // Follow and Assume
+                id == 25341500 //Isolate
+                )
         {
-            return true;
-        } else {
-            return false;
+            shouldClip = true;//decorated lines
         }
+        if(!useFillPattern){
+
+            if(
+                id == 25151100 || //Limited Access Area //no longer needed with pattern fill
+                id == 25172000 || //Weapons Free Zone //no longer needed with pattern fill
+                id == 25271700 || //Biological Contaminated Area //no longer needed with pattern fill
+                id == 25271800 || //Chemical Contaminated Area //no longer needed with pattern fill
+                id == 25271900 || //Nuclear Contaminated Area //no longer needed with pattern fill
+                id == 25272000 || //Radiological Contaminated Area //no longer needed with pattern fill
+
+                id == 25240301 || //No Fire Area (NFA) - Irregular //no longer needed with pattern fill
+                id == 25240302 || //No Fire Area (NFA) - Rectangular //no longer needed with pattern fill
+                id == 25240303  //No Fire Area (NFA) - Circular //no longer needed with pattern fill
+            )
+                shouldClip = true;//not using fill pattern so clip to not draw more lines than we have to
+        }
+        if(!useDashArray){
+
+            if(
+                id == 25290400 || //Mine Cluster //not needed using dash array.
+                id == 25340600 || //counterattack. //not needed using dash array.
+                id == 25340700 || //counterattack by fire. //not needed using dash array.
+                id == 25271200 || //Blown Bridges Planned //not needed using dash array.
+                id == 25271202 || //Blown Bridges Explosives, State of Readiness 1 (Safe) //not needed using dash array.
+                id == 25341200 // Follow and Assume //not needed using dash array.
+            )
+                shouldClip = true;//not using dash array so clip to not draw more lines than we have to
+        }
+
+        return shouldClip;
     }
 
     /**
@@ -424,6 +447,10 @@ public class MultiPointHandler {
      */
     static double getReasonableScale(String bbox, double origScale) {
         try {
+
+            if(!RendererSettings.getInstance().getAutoAdjustScale())
+                return origScale;
+
             String[] bounds = bbox.split(",");
             double left = Double.valueOf(bounds[0]);
             double right = Double.valueOf(bounds[2]);
@@ -674,8 +701,17 @@ public class MultiPointHandler {
 //            NormalizeGECoordsToGEExtents(0, 360, geoCoords2);
 //        }
 
+        boolean useDashArray = true;
+        boolean useFillPattern = true;
+        if(symbolAttributes != null)
+        {
+            if(symbolAttributes.containsKey(MilStdAttributes.UseDashArray))
+                useDashArray = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UseDashArray));
+            if(symbolAttributes.containsKey(MilStdAttributes.UsePatternFill))
+                useFillPattern = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UsePatternFill));
+        }
         //disable clipping
-        if (ShouldClipSymbol(symbolCode) == false) 
+        if (ShouldClipSymbol(symbolCode, useDashArray, useFillPattern) == false)
             if(crossesIDL(geoCoords)==false)
             {
                 rect = null;
@@ -690,11 +726,11 @@ public class MultiPointHandler {
             //String fillColor = null;
             MilStdSymbol mSymbol = new MilStdSymbol(symbolCode, null, geoCoords, null);
 
-            if (format == WebRenderer.OUTPUT_FORMAT_GEOSVG){
+            /*if (format == WebRenderer.OUTPUT_FORMAT_GEOSVG){
                 // Use dash array and hatch pattern fill for SVG output
                 symbolAttributes.put(MilStdAttributes.UseDashArray, "true");
                 symbolAttributes.put(MilStdAttributes.UsePatternFill, "true");
-            }
+            }//*/
 
             if (symbolModifiers != null || symbolAttributes != null) {
                 populateModifiers(symbolModifiers, symbolAttributes, mSymbol);
@@ -1020,8 +1056,17 @@ public class MultiPointHandler {
 //            NormalizeGECoordsToGEExtents(0, 360, geoCoords2);
 //        }
 
+        boolean useDashArray = true;
+        boolean useFillPattern = true;
+        if(symbolAttributes != null)
+        {
+            if(symbolAttributes.containsKey(MilStdAttributes.UseDashArray))
+                useDashArray = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UseDashArray));
+            if(symbolAttributes.containsKey(MilStdAttributes.UsePatternFill))
+                useFillPattern = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UsePatternFill));
+        }
         //disable clipping
-        if (ShouldClipSymbol(symbolCode) == false) 
+        if (ShouldClipSymbol(symbolCode, useDashArray, useFillPattern) == false)
             if(crossesIDL(geoCoords)==false)
             {
                 rect = null;
@@ -1240,11 +1285,11 @@ public class MultiPointHandler {
         try {
             MilStdSymbol mSymbol = new MilStdSymbol(symbolCode, null, geoCoords, null);
 
-            if (format == WebRenderer.OUTPUT_FORMAT_GEOSVG){
+            /*if (format == WebRenderer.OUTPUT_FORMAT_GEOSVG){
                 // Use dash array and hatch pattern fill for SVG output
                 symbolAttributes.put(MilStdAttributes.UseDashArray, "true");
                 symbolAttributes.put(MilStdAttributes.UsePatternFill, "true");
-            }
+            }//*/
 
             if (symbolModifiers != null && symbolModifiers.equals("") == false) {
                 populateModifiers(symbolModifiers, symbolAttributes, mSymbol);
@@ -1270,7 +1315,18 @@ public class MultiPointHandler {
 //            {
 //                ((PointConversion)ipc).set_normalize(false);
 //            }
-            if (ShouldClipSymbol(symbolCode)  || crossesIDL(geoCoords)) 
+
+            boolean useDashArray = true;
+            boolean useFillPattern = true;
+            if(symbolAttributes != null)
+            {
+                if(symbolAttributes.containsKey(MilStdAttributes.UseDashArray))
+                    useDashArray = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UseDashArray));
+                if(symbolAttributes.containsKey(MilStdAttributes.UsePatternFill))
+                    useFillPattern = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UsePatternFill));
+            }
+
+            if (ShouldClipSymbol(symbolCode, useDashArray, useFillPattern)  || crossesIDL(geoCoords))
             {
                 Point2D lt=new Point2D.Double(left,top);
                 //temp = ipc.GeoToPixels(new Point2D.Double(left, top));
