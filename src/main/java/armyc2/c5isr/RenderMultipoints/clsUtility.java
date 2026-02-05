@@ -89,7 +89,7 @@ public final class clsUtility {
                 case TacticalLines.RAD:
                     hatchStyle=Hatch_BackwardDiagonal;
                     hatchColor = Color.yellow;
-                    hatchLineThickness = 3 + (tg.get_LineThickness() - 3) * (float) tg.get_patternScale();
+                    hatchLineThickness = (3 + (tg.get_LineThickness() - 3)) * (float) tg.get_patternScale();
                     break;
                 case TacticalLines.WFZ_REVD:
                 case TacticalLines.WFZ:
