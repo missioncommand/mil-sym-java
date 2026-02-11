@@ -52,9 +52,9 @@ public final class clsUtility {
             int j=0,hatch2=0;
             Shape2 shape2=null;
             int index=0;
-            float hatchLineThickness = 1.5f + ((tg.get_LineThickness() / 2f) - 1.5f) * (float) tg.get_patternScale();
+            float hatchLineThickness = (tg.get_LineThickness() * 0.75f) * (float) tg.get_patternScale();//1.5f + ((tg.get_LineThickness() / 2f) - 1.5f) * (float) tg.get_patternScale();
             Color hatchColor = tg.get_LineColor();
-            int hatchSpacing = (int) (hatchLineThickness * 10);
+            int hatchSpacing = (int) (hatchLineThickness * 6);//(int) (hatchLineThickness * 10);
 
 //            if(armyc2.c5isr.JavaTacticalRenderer.clsUtility.isClosedPolygon(lineType)==false)
 //                if(armyc2.c5isr.JavaTacticalRenderer.clsUtility.IsChange1Area(lineType, null)==false)
@@ -89,8 +89,8 @@ public final class clsUtility {
                 case TacticalLines.RAD:
                     hatchStyle=Hatch_BackwardDiagonal;
                     hatchColor = Color.yellow;
-                    hatchLineThickness = 1.5f + (tg.get_LineThickness() - 1.5f) * (float) tg.get_patternScale();
-                    hatchSpacing = (int) (hatchLineThickness * 4);
+                    hatchLineThickness = (tg.get_LineThickness() * 0.85f) * (float) tg.get_patternScale();
+                    //hatchSpacing = (int) (hatchLineThickness * 5);
                     break;
                 case TacticalLines.WFZ_REVD:
                 case TacticalLines.WFZ:

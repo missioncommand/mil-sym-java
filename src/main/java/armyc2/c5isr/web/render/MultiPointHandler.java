@@ -317,8 +317,8 @@ public class MultiPointHandler {
      * clipped when possible.
      *
      * @param symbolID
-     * @param useDashArray default true, some symbols don't need to be clipped uf using dash array MilStdAttribute
-     * @param useFillPattern default true, some symbols don't need to be clipped uf using fill pattern MilStdAttribute
+     * @param useDashArray default true, some symbols don't need to be clipped if using dash array MilStdAttribute
+     * @param useFillPattern default true, some symbols don't need to be clipped if using fill pattern MilStdAttribute
      * @return
      */
     public static Boolean ShouldClipSymbol(String symbolID, boolean useDashArray, boolean useFillPattern) {
