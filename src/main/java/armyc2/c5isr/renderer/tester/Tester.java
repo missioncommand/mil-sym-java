@@ -1307,7 +1307,11 @@ public class Tester extends javax.swing.JFrame {
         //ErrorLogger.LogMessage("ScaleAwareDetails: " + ms.isSymbolScaleSensitive());
         //ErrorLogger.LogMessage("wasClipped: " + ms.getWasClipped());
 
-        ms = render(ms, pConverter, null);
+        //TEST CLIPPING
+        //Rectangle2D clipBounds = new Rectangle(0,0,pConverter.getPixelWidth()/2, pConverter.getPixelHeight()/2);
+        Rectangle2D clipBounds = null;
+
+        ms = render(ms, pConverter, clipBounds);
 
         ErrorLogger.LogMessage("ScaleAwareText: " + ms.isTextScaleSensitive());
         ErrorLogger.LogMessage("ScaleAwareDetails: " + ms.isSymbolScaleSensitive());
@@ -1361,6 +1365,9 @@ public class Tester extends javax.swing.JFrame {
         //lowerLeftX,lowerLeftY,upperRightX,upperRightY."
         //example: "-50.4,23.6,-42.2,24.2"
         String bbox = String.valueOf(pc.getLeftLon()) + "," + String.valueOf(pc.getLowerLat()) + "," + String.valueOf(pc.getRightLon()) + "," + String.valueOf(pc.getUpperLat());
+
+        //clipped bbox
+        //bbox = String.valueOf(pc.getLeftLon()) + "," + String.valueOf(pc.getLowerLat()) + "," + String.valueOf(pc.getLeftLon() + (pc.getRightLon() - pc.getLeftLon())/2 + "," + String.valueOf(pc.getLowerLat() + (pc.getUpperLat() - pc.getLowerLat())/2));
 
         String svg = null;
         String kml = null;
