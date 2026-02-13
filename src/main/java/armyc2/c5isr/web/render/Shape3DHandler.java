@@ -252,21 +252,6 @@ public class Shape3DHandler {
 //            NormalizeGECoordsToGEExtents(0, 360, geoCoords2);
 //        }
 
-        boolean useDashArray = true;
-        boolean useFillPattern = true;
-        if(symbolAttributes != null)
-        {
-            if(symbolAttributes.containsKey(MilStdAttributes.UseDashArray))
-                useDashArray = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UseDashArray));
-            if(symbolAttributes.containsKey(MilStdAttributes.UsePatternFill))
-                useFillPattern = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UsePatternFill));
-        }
-        //disable clipping
-        if (MultiPointHandler.ShouldClipSymbol(symbolCode, useDashArray, useFillPattern) == false)
-            if (MultiPointHandler.crossesIDL(geoCoords) == false) {
-                rect = null;
-                bboxCoords = null;
-            }
 
         tgl.set_SymbolId(symbolCode);// "GFGPSLA---****X" AMBUSH symbol code
         tgl.set_Pixels(null);
@@ -287,6 +272,13 @@ public class Shape3DHandler {
             } else {
                 mSymbol.setFillColor(null);
             }
+
+            //disable clipping
+            if (MultiPointHandler.ShouldClipSymbol(symbolCode, mSymbol.getUseDashArray(), mSymbol.getUseFillPattern()) == false)
+                if (MultiPointHandler.crossesIDL(geoCoords) == false) {
+                    rect = null;
+                    bboxCoords = null;
+                }
 
             if (bboxCoords == null) {
                 Rectangle clipBounds = MultiPointHandler.getOverscanClipBounds(rect, ipc);
@@ -1387,7 +1379,7 @@ public class Shape3DHandler {
     }
 
     /**
-     * copy of {@link MultiPointHandler#normalizePoints(ArrayList, IPointConversion)} with Point3D
+     * copy of MultiPointHandler#normalizePoints(ArrayList, IPointConversion) with Point3D
      */
     static Boolean normalizePoints(ArrayList<Point3D> shape, IPointConversion ipc) {
         ArrayList geoCoords = new ArrayList();

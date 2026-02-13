@@ -701,23 +701,6 @@ public class MultiPointHandler {
 //            NormalizeGECoordsToGEExtents(0, 360, geoCoords2);
 //        }
 
-        boolean useDashArray = true;
-        boolean useFillPattern = true;
-        if(symbolAttributes != null)
-        {
-            if(symbolAttributes.containsKey(MilStdAttributes.UseDashArray))
-                useDashArray = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UseDashArray));
-            if(symbolAttributes.containsKey(MilStdAttributes.UsePatternFill))
-                useFillPattern = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UsePatternFill));
-        }
-        //disable clipping
-        if (ShouldClipSymbol(symbolCode, useDashArray, useFillPattern) == false)
-            if(crossesIDL(geoCoords)==false)
-            {
-                rect = null;
-                bboxCoords = null;
-            }   
-        
         tgl.set_SymbolId(symbolCode);// "GFGPSLA---****X" AMBUSH symbol code
         tgl.set_Pixels(null);
 
@@ -737,6 +720,14 @@ public class MultiPointHandler {
             } else {
                 mSymbol.setFillColor(null);
             }
+
+            //disable clipping
+            if (ShouldClipSymbol(symbolCode, mSymbol.getUseDashArray(), mSymbol.getUseFillPattern()) == false)
+                if(crossesIDL(geoCoords)==false)
+                {
+                    rect = null;
+                    bboxCoords = null;
+                }
 
             if (bboxCoords == null) {
                 Rectangle clipBounds = getOverscanClipBounds(rect, ipc);
@@ -1056,22 +1047,6 @@ public class MultiPointHandler {
 //            NormalizeGECoordsToGEExtents(0, 360, geoCoords2);
 //        }
 
-        boolean useDashArray = true;
-        boolean useFillPattern = true;
-        if(symbolAttributes != null)
-        {
-            if(symbolAttributes.containsKey(MilStdAttributes.UseDashArray))
-                useDashArray = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UseDashArray));
-            if(symbolAttributes.containsKey(MilStdAttributes.UsePatternFill))
-                useFillPattern = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UsePatternFill));
-        }
-        //disable clipping
-        if (ShouldClipSymbol(symbolCode, useDashArray, useFillPattern) == false)
-            if(crossesIDL(geoCoords)==false)
-            {
-                rect = null;
-                bboxCoords=null;
-            }
         tgl.set_SymbolId(symbolCode);// "GFGPSLA---****X" AMBUSH symbol code
         tgl.set_Pixels(null);
         
@@ -1093,6 +1068,14 @@ public class MultiPointHandler {
                 fillColor = Integer.toHexString(fc.getRGB());
 
             }
+
+            //disable clipping
+            if (ShouldClipSymbol(symbolCode, mSymbol.getUseDashArray(), mSymbol.getUseFillPattern()) == false)
+                if(crossesIDL(geoCoords)==false)
+                {
+                    rect = null;
+                    bboxCoords=null;
+                }
 
             if (bboxCoords == null) {
                 Rectangle clipBounds = getOverscanClipBounds(rect, ipc);
@@ -1316,17 +1299,8 @@ public class MultiPointHandler {
 //                ((PointConversion)ipc).set_normalize(false);
 //            }
 
-            boolean useDashArray = true;
-            boolean useFillPattern = true;
-            if(symbolAttributes != null)
-            {
-                if(symbolAttributes.containsKey(MilStdAttributes.UseDashArray))
-                    useDashArray = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UseDashArray));
-                if(symbolAttributes.containsKey(MilStdAttributes.UsePatternFill))
-                    useFillPattern = Boolean.parseBoolean(symbolAttributes.get(MilStdAttributes.UsePatternFill));
-            }
 
-            if (ShouldClipSymbol(symbolCode, useDashArray, useFillPattern)  || crossesIDL(geoCoords))
+            if (ShouldClipSymbol(symbolCode, mSymbol.getUseDashArray(), mSymbol.getUseFillPattern())  || crossesIDL(geoCoords))
             {
                 Point2D lt=new Point2D.Double(left,top);
                 //temp = ipc.GeoToPixels(new Point2D.Double(left, top));
