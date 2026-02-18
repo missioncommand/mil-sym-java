@@ -96,6 +96,13 @@ public class SVGLookup {
                 svg = br.readLine();
 
 
+                //increase icon stroke width for high dpi screens
+                //ldpi <=120, mdpi >= 160, hdpi >= 240, xhdpi >= 320, xxhdpi >= 480, xxxhdpi >= 640
+                /*if(svg != null && id.length() == 8 && !id.startsWith("25") && !id.startsWith("4")) {
+                   //int dpi = RendererSettings.getInstance().getDeviceDPI();
+                    svg = RendererUtilities.increaseStrokeWidth(svg, 2);
+                }//*/
+
                 lookup.put(id, new SVGInfo(id, bbox, svg));
 
                 //read next line for next loop

@@ -574,6 +574,47 @@ public class RendererUtilities {
         return start;
     }
 
+    /**
+     * Takes an SVG string and increases all stroke-width values by 2.
+     * @param svgString The raw SVG content.
+     * @param increaseBy the number to add to the current stroke value
+     * @return The modified SVG content.
+     */
+    public static String increaseStrokeWidth(String svgString, int increaseBy) {
+        Pattern pattern = Pattern.compile("stroke-width=\"([^\"]+)\"");
+        Matcher matcher = pattern.matcher(svgString);
+        StringBuilder sb = new StringBuilder();
+        int lastEnd = 0;
+
+        while (matcher.find()) {
+            // 1. Append everything from the last match up to the current match
+            sb.append(svgString.substring(lastEnd, matcher.start()));
+
+            String replacement;
+            try {
+                // 2. Calculate the new value
+                double currentValue = Double.parseDouble(matcher.group(1));
+                double newValue = currentValue + increaseBy;
+                String formattedValue = (newValue == (long) newValue)
+                        ? String.valueOf((long) newValue)
+                        : String.valueOf(newValue);
+
+                replacement = "stroke-width=\"" + formattedValue + "\"";
+            } catch (NumberFormatException e) {
+                // Fallback to original text if not a number
+                replacement = matcher.group(0);
+            }
+
+            // 3. Append the replacement and update our position
+            sb.append(replacement);
+            lastEnd = matcher.end();
+        }
+
+        // 4. Append any remaining text after the last match
+        sb.append(svgString.substring(lastEnd));
+        return sb.toString();
+    }
+
     public static int getDistanceBetweenPoints(Point2D pt1, Point2D pt2)
     {
         int distance = (int)(Math.sqrt(Math.pow((pt2.getX() - pt1.getX()) ,2) + Math.pow((pt2.getY() - pt1.getY()) ,2)));
