@@ -595,7 +595,7 @@ public class MSInfo {
                 break;
             case DrawRules.AREA14:
                 points[0] = 3;
-                if (version == SymbolID.Version_2525D)
+                if (version == SymbolID.Version_2525D)//TODO: remove, only version that supports 4 points
                     points[1] = 4;
                 else
                     points[1] = 3;

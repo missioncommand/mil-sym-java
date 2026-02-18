@@ -223,7 +223,7 @@ public class Tester extends javax.swing.JFrame {
         DefaultMutableTreeNode msn15 = new DefaultMutableTreeNode(new MSNodeInfo("15","Land Equipment"));
         DefaultMutableTreeNode msn52 = new DefaultMutableTreeNode(new MSNodeInfo("52","Land SIGINT"));
         DefaultMutableTreeNode msn20 = new DefaultMutableTreeNode(new MSNodeInfo("20","Land Installation"));
-        DefaultMutableTreeNode msn27 = new DefaultMutableTreeNode(new MSNodeInfo("20","Dismounted Individual"));
+        DefaultMutableTreeNode msn27 = new DefaultMutableTreeNode(new MSNodeInfo("27","Dismounted Individual"));
         DefaultMutableTreeNode msn30 = new DefaultMutableTreeNode(new MSNodeInfo("30","Sea Surface"));
         DefaultMutableTreeNode msn53 = new DefaultMutableTreeNode(new MSNodeInfo("53","Sea Surface SIGINT"));
         DefaultMutableTreeNode msn35 = new DefaultMutableTreeNode(new MSNodeInfo("35","Sea Subsurface"));
@@ -406,9 +406,11 @@ public class Tester extends javax.swing.JFrame {
     
     private void setCBItems()
     {
-        cbVersion.addItem("11-2525D");
-        cbVersion.addItem("15-2525E");
-        cbVersion.setSelectedIndex(0);
+        cbVersion.addItem("10-APP6D");//formerly 2525D
+        cbVersion.addItem("11-2525Dch1");
+        cbVersion.addItem("15-2525Ech1");
+        cbVersion.addItem("16-APP6Ev2");
+        cbVersion.setSelectedIndex(1);
         
         cbContext.addItem("0-Reality");
         cbContext.addItem("1-Exercise");

@@ -109,6 +109,11 @@ public class SymbolID {
 
 
     //Version, 1-2 (Can't start with zero, will be 10 at a minimum)
+    public static final int Version_APP6D = 10;
+    /**
+     * @deprecated 2525D(10) will be treated like APP6D(also 10)
+     * For 2525D use 2525Dch1(11)
+     */
     public static final int Version_2525D = 10;
     public static final int Version_2525Dch1 = 11;
     /**
