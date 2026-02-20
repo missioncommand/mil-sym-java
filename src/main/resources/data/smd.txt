@@ -1,4 +1,4 @@
-01 Air	1		10,11
+01 Air	1	10,11
 Unspecified		0	10,11
 Attack/Strike	Military Aircraft Type	1	10,11
 Bomber	Military Aircraft Type	2	10,11
@@ -42,7 +42,7 @@ ASW Helo - LAMPS	Mission Area	38	10,11
 ASW Helo - SH-60R	Mission Area	39	10,11
 Hijacker	Crime	40	11
 Cyberspace	Capability	41	11
-01 Air	2		10,11
+01 Air	2	10,11
 Unspecified		0	10,11
 Heavy	Cargo/Transport Capacity	1	10,11
 Medium	Cargo/Transport Capacity	2	10,11
@@ -56,7 +56,7 @@ Medium Range	Range	9	10,11
 Long Range	Range	10	10,11
 Downlinked	Track Link Availability	11	10,11
 Cyberspace	Capability	12	11
-02 Air Missile	1		10,11
+02 Air Missile	1	10,11
 Unspecified		0	10,11
 Air	Launch Origin	1	10,11
 Surface	Launch Origin	2	10,11
@@ -66,7 +66,7 @@ Anti-Ballistic	Missile Class	5	10,11
 Ballistic	Missile Class	6	10,11
 Cruise	Missile Class	7	10,11
 Interceptor	Missile Class	8	10,11
-02 Air Missile	2		10,11
+02 Air Missile	2	10,11
 Unspecified		0	10,11
 Air	Missile Destination	1	10,11
 Surface	Missile Destination	2	10,11
@@ -84,7 +84,7 @@ Medium Range	Missile Range	13	10,11
 Intermediate Range	Missile Range	14	10,11
 Long Range	Missile Range	15	10,11
 Intercontinental	Missile Range	16	10,11
-05 Space	1		10,11
+05 Space	1	10,11
 Unspecified		0	10,11
 Low Earth Orbit (LEO)	Orbit	1	10,11
 Medium Earth Orbit (MEO)	Orbit	2	10,11
@@ -93,19 +93,19 @@ Geosynchronous Orbit (GSO)	Orbit	4	10,11
 Geostationary Orbit (GO)	Orbit	5	10,11
 Molniya Orbit (MO)	Orbit	6	10,11
 Cyberspace	Capability	7	11
-05 Space	2		10,11
+05 Space	2	10,11
 Unspecified		0	10,11
 Optical	Sensor	1	10,11
 Infrared	Sensor	2	10,11
 Radar	Sensor	3	10,11
 Signals Intelligence (SIGINT)	Sensor	4	10,11
 Cyberspace	Capability	5	11
-06 Space Missile	1		10,11
+06 Space Missile	1	10,11
 Unspecified		0	10,11
 Ballistic	Missile Class	1	10,11
 Space	Launch Origin	2	10,11
 Interceptor	Missile Class	3	10,11
-06 Space Missile	2		10,11
+06 Space Missile	2	10,11
 Unspecified		0	10,11
 Short Range	Missile Range	1	10,11
 Medium Range	Missile Range	2	10,11
@@ -122,7 +122,7 @@ Space	Launch Origin	12	10,11
 Close Range (CRBM)	Missile Range	13	10,11
 Debris	Missile Type-BMD	14	10,11
 Unknown	Missile Type-BMD	15	10,11
-10 Land Unit	1		10,11
+10 Land Unit	1	10,11
 Unspecified		0	10,11
 Tactical Satellite Communications	Capability	1	10,11
 Area	Capability	2	10,11
@@ -220,7 +220,7 @@ Army or Theater Army	Capability	95	10,11
 Corps	Capability	96	10,11
 Brigade	Capability	97	10,11
 Headquarters or headquarters staff element	Capability	98	10,11
-10 Land Unit	2		10,11
+10 Land Unit	2	10,11
 Unspecified		0	10,11
 Airborne	Mobility	1	10,11
 Arctic	Mobility	2	10,11
@@ -300,7 +300,7 @@ Shelter	Capability	75	10,11
 Light and Medium	Capability	76	10,11
 Tracked	Mobility	77	10,11
 Security Force Assistance	Capability	78	10,11
-11 Land civilian unit/organization	1		10,11
+11 Land civilian unit/organization	1	10,11
 Unspecified		0	10,11
 Assassination	Crime	1	10,11
 Execution (Wrongful Killing)	Crime	2	10,11
@@ -328,11 +328,11 @@ Other	Composite Loss	23	10,11
 Loot	Crime	24	10,11
 Hijacker	Crime	25	11
 Cyberspace	Capability	26	11
-11 Land civilian unit/organization	2		10,11
+11 Land civilian unit/organization	2	10,11
 Unspecified		0	10,11
 Leader or Leadership	Organization	1	10,11
 Cyberspace	Capability	2	11
-15 Land Equipment	1		10,11
+15 Land Equipment	1	10,11
 Unspecified		0	10,11
 Biological	Sensor Type	1	10,11
 Chemical	Sensor Type	2	10,11
@@ -357,7 +357,7 @@ MedEvac	Capability	20	10,11
 Utility	Capability	22	10,11
 Water	Capability	23	10,11
 Robotic	Capability	24	11
-15 Land Equipment	2		10,11
+15 Land Equipment	2	10,11
 Unspecified		0	10,11
 Cyberspace	Capability	1	11
 Light	Capability	2	10,11
@@ -368,7 +368,7 @@ Tractor Trailer	Capability	6	10,11
 Wheeled LTD	Capability	7	10,11
 Wheeled X	Capability	8	10,11
 Robotic	Capability	9	11
-20 Land Installations	1		10,11
+20 Land Installations	1	10,11
 Unspecified		0	10,11
 Biological	CBRN Type	1	10,11
 Chemical	CBRN Type	2	10,11
@@ -387,7 +387,7 @@ Cyberspace	Capability	14	11
 Retransmission Site	Telecommunications Type	14	10
 Joint Network Node	Telecommunication Type	13	10
 Command Post Node	Telecommunication Type	13	10
-20 Land Installations	2		10,11
+20 Land Installations	2	10,11
 Unspecified		0	10,11
 Biological Warfare Production	Capability	1	10,11
 Chemical Warfare Production	Capability	2	10,11
@@ -398,7 +398,7 @@ Nuclear Material Production	Capability	6	10,11
 Nuclear Material Storage	Capability	7	10,11
 Weapons Grade Production	Capability	8	10,11
 Cyberspace	Capability	9	11
-25 Control Measure	1		10,11
+25 Control Measure	1	10,11
 Unspecified		0	10,11
 Wheeled limited cross country	Mobility	1	10,11
 Wheeled cross country	Mobility	2	10,11
@@ -450,7 +450,7 @@ Wide Area Antitank Mine and Mine Cluster	Obstacles	34	10,11
 "Antipersonnel Mine with Directional Effects, Antitank Mine with Antihandling Device, and Wide Area Antitank Mine"	Obstacles	48	10,11
 "Antipersonnel Mine with Directional Effects, Antitank Mine with Antihandling Device, and Mine Cluster"	Obstacles	49	10,11
 "Antipersonnel Mine with Directional Effects, Wide Area Antitank Mine, and Mine Cluster"	Obstacles	50	10,11
-27 Dismounted Individual	1		10
+27 Dismounted Individual	1	10
 Unspecified		0	10
 Close Protection		1	10
 Crowd and Riot Control		2	10
@@ -507,7 +507,7 @@ Battalion		52	10
 Regiment/Group		53	10
 Brigade		54	10
 Division		55	10
-27 Dismounted Individual	2		10
+27 Dismounted Individual	2	10
 Unspecified		0	10
 Airborne		1	10
 Bicycle Equipped		2	10
@@ -547,7 +547,7 @@ Rank WO-2		35	10
 Rank WO-3		36	10
 Rank WO-4		37	10
 Rank WO-5		38	10
-30 Sea Surface	1		10,11
+30 Sea Surface	1	10,11
 Unspecified	Mission Area	0	10,11
 Own Ship	Mission Area	1	10,11
 Antiair Warfare	Mission Area	2	10,11
@@ -574,7 +574,7 @@ Sea-Base X-Band	Mission Area	22	10,11
 Hijacking/Hijacked	Crime	23	10,11
 Hijacker	Crime	24	11
 Cyberspace	Capability	25	11
-30 Sea Surface	2		10,11
+30 Sea Surface	2	10,11
 Unspecified		0	10,11
 Nuclear Powered	Ship Propulsion	1	10,11
 Heavy	Ship Capacity	2	10,11
@@ -592,7 +592,7 @@ Autonomous Control	USV Control	13	10,11
 Remotely Piloted	USV Control	14	10,11
 Expendable	USV Control	15	10,11
 Cyberspace	Capability	16	11
-35 Sea Subsurface	1		10,11
+35 Sea Subsurface	1	10,11
 Unspecified		0	10,11
 Antisubmarine Warfare	Mission Area	1	10,11
 Auxiliary	Mission Area	2	10,11
@@ -616,7 +616,7 @@ Anti-torpedo Torpedo	Weapons Capability	19	10,11
 Hijacking/Hijacked	Crime	20	10,11
 Hijacker	Crime	21	11
 Cyberspace	Capability	22	11
-35 Sea Subsurface	2		10,11
+35 Sea Subsurface	2	10,11
 Unspecified		0	10,11
 Air Independent Propulsion	Ship Propulsion	1	10,11
 "Diesel Electric, General"	Ship Propulsion	2	10,11
@@ -635,19 +635,17 @@ Autonomous Control	UUV Control	14	10,11
 Remotely Piloted	UUV Control	15	10,11
 Expendable	UUV Control	16	10,11
 Cyberspace	Capability	17	11
-40 Activities	1		10,11
+40 Activities	1	10,11
 Unspecified		0	10,11
 Assassination	Crime	1	10,11
 Execution (Wrongful Killing)	Crime	2	10,11
 Hijacking/Hijacked	Crime	3	10,11
 House-to-House	Military Information Suppor Operationst	4	10,11
-			10,11
 Kidnapping	Crime	5	10,11
 Murder	Crime	6	10,11
 Piracy	Crime	7	10,11
 Rape	Crime	8	10,11
 Written Military Information Support Operations	Military Information Suppor Operationst	9	10,11
-			10,11
 Pirate	Crime	10	10,11
 FALSE	IED Category	11	10,11
 Find	IED Category	12	10,11
@@ -659,11 +657,11 @@ Incident	Incident Qualifier	17	10,11
 Theft	Crime	18	10,11
 Hijacker	Crime	19	11
 Cyberspace	Capability	20	11
-40 Activities	2		10,11
+40 Activities	2	10,11
 Unspecified		0	10,11
 Cyberspace	Capability	1	11
 Security Force Assistance	Capability	2	10,11
-50 SIGINT	1		10,11
+50 SIGINT	1	10,11
 Unspecified		0	10,11
 Anti-Aircraft Fire Control	Radar	1	10,11
 Airborne Search and Bombing	Radar	2	10,11
@@ -730,10 +728,10 @@ Unknown	Radar	62	10,11
 Video Remoting	Radar	63	10,11
 Experimental	Radar	64	10,11
 Cyberspace	Capability	65	10,11
-50 SIGINT	2		10,11
+50 SIGINT	2	10,11
 Unspecified		0	10,11
 Cyberspace	Capability	1	10,11
-60 Cyberspace	1		10,11
+60 Cyberspace	1	10,11
 Unspecified		0	10,11
-60 Cyberspace	2		10,11
+60 Cyberspace	2	10,11
 Unspecified		0	10,11

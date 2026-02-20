@@ -1,4 +1,4 @@
-00 Common	1		15,16
+00 Common	1	15,16
 Unmanned Aircraft (UA)/ Unmanned Aerial Vehicle (UAV)/Unmanned Aircraft System (UAS)/Drone	Mobility	100	15,16
 Robotic	Mobility	101	15,16
 Fixed Wing	Mobility	102	15,16
@@ -75,7 +75,7 @@ Wireless	Capability	177	15,16
 Low Altitude	Capability	178	15,16
 Medium Altitude	Capability	179	15,16
 Reserve		182	15,16
-00 Common	2		15,16
+00 Common	2	15,16
 Airborne	Mobility	100	15,16
 Bicycle Equipped	Mobility	101	15,16
 Railway	Capability	102	15,16
@@ -108,7 +108,7 @@ Supply	Capability	131	15,16
 Electromagnetic Warfare	Capability	133	15,16
 Jamming	Capability	134	15,16
 Reserve		135	15,16
-01 air	1		15,16
+01 air	1	15,16
 Unspecified		0	15,16
 Bomber	Military Aircraft Type	2	15,16
 Fighter	Military Aircraft Type	4	15,16
@@ -130,7 +130,7 @@ Electronic Support (ES)	Military Mission Area	24	15
 Electronic Support Measures	Military Mission Area	24	16
 Very Important Person (VIP) Transport	Mission Area	29	15,16
 Combat Search and Rescue (CSAR)	Military Mission Area	30	15,16
-Suppression of Enemy Air Defence	31	16
+Suppression of Enemy Air Defence		31	16
 Antisurface Warfare	Military Mission Area	32	15
 Fighter/Bomber	Military Aircraft Type	33	15,16
 Intensive Care	Mission Area	34	15,16
@@ -139,13 +139,13 @@ Multi-Mission	Mission Area	36	15,16
 ASW Helo - LAMPS	Mission Area	38	15,16
 ASW Helo - SH-60R	Mission Area	39	15,16
 Maritime Patrol Aircraft (MPA)	Military Mission Area	42	16
-01 air	2		15,16
+01 air	2	15,16
 Unspecified		0	15,16
 Boom-Only	Re-Fueling Capability	4	15,16
 Drogue-Only	Re-Fueling Capability	5	15,16
 Boom and Drogue	Re-Fueling Capability	6	15,16
 Downlinked	Track Link Availability	11	15,16
-02 Air Missile	1		15,16
+02 Air Missile	1	15,16
 Unspecified		0	15,16
 Air	Launch Origin	1	15,16
 Surface	Launch Origin	2	15,16
@@ -156,7 +156,7 @@ Ballistic	Missile Class	6	15,16
 Cruise	Missile Class	7	15,16
 Interceptor	Missile Class	8	15,16
 Hypersonic	Missile Class	9	15,16
-02 Air Missile	2		15,16
+02 Air Missile	2	15,16
 Unspecified		0	15,16
 Air	Missile Destination	1	15,16
 Surface	Missile Destination	2	15,16
@@ -173,7 +173,7 @@ Medium Range	Missile Range	13	15,16
 Intermediate Range	Missile Range	14	15,16
 Long Range	Missile Range	15	15,16
 Intercontinental	Missile Range	16	15,16
-05 Space	1		15,16
+05 Space	1	15,16
 Unspecified		0	15,16
 Low Earth Orbit (LEO)	Orbit	1	15,16
 Medium Earth Orbit (MEO)	Orbit	2	15,16
@@ -181,7 +181,7 @@ High Earth Orbit (HEO)	Orbit	3	15,16
 Geosynchronous Orbit (GSO)	Orbit	4	15,16
 Geostationary Orbit (GO)	Orbit	5	15,16
 Molniya Orbit (MO)	Orbit	6	15,16
-05 Space	2		15,16
+05 Space	2	15,16
 Unspecified		0	15,16
 Optical	Sensor	1	15,16
 Infrared	Sensor	2	15,16
@@ -193,13 +193,13 @@ Mine (ASAT)	Capability	9	15,16
 Maintenance	Capability	10	15,16
 Refuel	Capability	11	15,16
 Tug	Capability	12	15,16
-06 Space Missile	1		15,16
+06 Space Missile	1	15,16
 Unspecified		0	15,16
 Ballistic	Missile Class	1	15,16
 Space	Launch Origin	2	15,16
 Interceptor	Missile Class	3	15,16
 Hypersonic	Missile Class	4	15,16
-06 Space Missile	2		15,16
+06 Space Missile	2	15,16
 Unspecified		0	15,16
 Short Range	Missile Range	1	15,16
 Medium Range	Missile Range	2	15,16
@@ -216,7 +216,7 @@ Space	Launch Origin	12	15,16
 Close Range (CRBM)	Missile Range	13	15,16
 Debris	Missile Type-BMD	14	15,16
 Unknown	Missile Type-BMD	15	15,16
-10 Land Unit	1		15,16
+10 Land Unit	1	15,16
 Unspecified		0	15,16
 Tactical Satellite Communications	Capability	1	15,16
 Area	Capability	2	15,16
@@ -291,7 +291,7 @@ Intercept	Capability	A3	15,16
 Intermodal	Capability	A4	15,16
 Non-Combative Generic Vessel	Capability	A6	15,16
 Search	Capability	A7	15,16
-10 Land Unit	2		15,16
+10 Land Unit	2	15,16
 Unspecified		0	15,16
 Arctic	Mobility	2	15,16
 Battle Damage Repair	Capability	3	15,16
@@ -363,7 +363,7 @@ Search	Capability	93	15,16
 Fire Direction Center	Capability	94	15,16
 Construction	Capability	95	15,16
 Dog	Capability	96	15,16
-11 Land Civilian Unit/Organization	1		15,16
+11 Land Civilian Unit/Organization	1	15,16
 Unspecified		0	15,16
 Murder Victims	Crime	3	15,16
 Displaced Persons/Refugees/Evacuees	Organization	9	15,16
@@ -378,10 +378,10 @@ Terrorist or Terrorist Organization	Organization	19	15,16
 Speaker	Organization	20	15,16
 Other	Composite Loss	23	15,16
 Loot	Crime	24	15,16
-11 Land Civilian Unit/Organization	2		15,16
+11 Land Civilian Unit/Organization	2	15,16
 Unspecified		0	15,16
 Leader or Leadership	Organization	1	15
-15 Land Equipment	1		15,16
+15 Land Equipment	1	15,16
 Unspecified		0	15,16
 Biological	Sensor Type	1	15
 Early Warning Radar	Sensor Type	3	15,16
@@ -389,10 +389,10 @@ Intrusion	Sensor Type	4	15,16
 Upgraded Early Warning Radar	Sensor Type	7	15,16
 Multi-purpose Blade	Capability	12	15,16
 Tank-width Mine Plow	Capability	13	15,16
-15 Land Equipment	2		15,16
+15 Land Equipment	2	15,16
 Unspecified		0	15,16
 Tractor Trailer	Capability	6	15,16
-20 Land Installations	1		15,16
+20 Land Installations	1	15,16
 Unspecified		0	15,16
 Biological	CBRN Type	1	15
 Coal	Electric Power Type	6	15,16
@@ -403,7 +403,7 @@ Civilian Telephone	Telecommunication Type	12	15,16
 Civilian Television	Telecommunication Type	13	15,16
 Displaced Persons/Refugees/Evacuees Camp		15	15,16
 Training Camp		16	15,16
-20 Land Installations	2		15,16
+20 Land Installations	2	15,16
 Unspecified		0	15,16
 Biological Warfare Production	Capability	1	15,16
 Chemical Warfare Production	Capability	2	15,16
@@ -416,7 +416,7 @@ Weapons Grade Production	Capability	8	15,16
 Transportation	Capability	10	15
 Displaced Persons/Refugees/Evacuees Camp		11	15,16
 Training Camp		12	15,16
-25 Control Measures	1		15,16
+25 Control Measures	1	15,16
 Unspecified		0	15,16
 Wheeled limited cross country	Mobility	1	15,16
 Wheeled cross country	Mobility	2	15,16
@@ -468,9 +468,9 @@ Antipersonnel Mine with Directional Effects, Antitank Mine, and Mine Cluster	Obs
 Antipersonnel Mine with Directional Effects, Antitank Mine with Antihandling Device, and Wide Area Antitank Mine	Obstacles	48	15,16
 Antipersonnel Mine with Directional Effects, Antitank Mine with Antihandling Device, and Mine Cluster	Obstacles	49	15,16
 Antipersonnel Mine with Directional Effects, Wide Area Antitank Mine, and Mine Cluster	Obstacles	50	15,16
-25 Control Measures	2		15,16
+25 Control Measures	2	15,16
 Unspecified		0	15,16
-27 Dismounted Individual	1		15,16
+27 Dismounted Individual	1	15,16
 Unspecified		0	15,16
 Field Artillery Observer		11	15,16
 Joint Fire Support		12	15,16
@@ -487,7 +487,7 @@ Second in Command (SIC)		24	15,16
 Demolition		25	15,16
 Police		26	15,16
 Individual		46	15,16
-27 Dismounted Individual	2		15,16
+27 Dismounted Individual	2	15,16
 Unspecified		0	15,16
 Video Imagery (Combat Camera)		3	15,16
 Functional Staff Area J1		4	15,16
@@ -544,16 +544,16 @@ Rank WO-2		35	15,16
 Rank WO-3		36	15,16
 Rank WO-4		37	15,16
 Rank WO-5		38	15,16
-30 Sea Surface	1		15,16
+30 Sea Surface	1	15,16
 Unspecified	Mission Area	0	15,16
-Own Ship	1	16
+Own Ship		1	16
 Antiair Warfare	Mission Area	2	15
 Missile Defense	Mission Area	8	15
 Remote Multi-mission Vehicle (RMV)	Mission Area	11	15,16
 Torpedo	Weapons Capability	17	15,16
 Ballistic Missile Defense, Long-Range Surveillance and Track (LRS&T)	Mission Area	21	15,16
 Sea-Base X-Band	Mission Area	22	15,16
-30 Sea Surface	2		15,16
+30 Sea Surface	2	15,16
 Unspecified		0	15,16
 Nuclear Powered	Ship Propulsion	1	15,16
 Dock	Cargo Capacity	5	15,16
@@ -564,7 +564,7 @@ Fast	Ship Mobility	9	15,16
 Air-Cushioned (US)	Ship Mobility	10	15,16
 Air-Cushioned (NATO)	Ship Mobility	11	15,16
 Hydrofoil	Ship Mobility	12	15,16
-35 Sea Subsurface	1		15,16
+35 Sea Subsurface	1	15,16
 Unspecified		0	15,16
 Auxiliary	Mission Area	2	15,16
 Possible Submarine Low 1	Submarine Confidence	13	15,16
@@ -574,7 +574,7 @@ Possible Submarine High 4	Submarine Confidence	16	15,16
 Probable Submarine	Submarine Confidence	17	15,16
 Certain Submarine	Submarine Confidence	18	15,16
 Anti-torpedo Torpedo	Weapons Capability	19	15,16
-35 Sea Subsurface	2		15,16
+35 Sea Subsurface	2	15,16
 Unspecified		0	15,16
 Air Independent Propulsion	Ship Propulsion	1	15,16
 Diesel Electric, General	Ship Propulsion	2	15,16
@@ -589,11 +589,11 @@ Nuclear - Type 4	Ship Propulsion	10	15,16
 Nuclear - Type 5	Ship Propulsion	11	15,16
 Nuclear - Type 6	Ship Propulsion	12	15,16
 Nuclear - Type 7	Ship Propulsion	13	15,16
-36 Mine Warfare	1		15,16
+36 Mine Warfare	1	15,16
 Unspecified		0	15,16
-36 Mine Warfare	2		15,16
+36 Mine Warfare	2	15,16
 Unspecified		0	15,16
-40 Activities	1		15,16
+40 Activities	1	15,16
 Unspecified		0	15,16
 House-to-House	Military Information Support Operations	4	15,16
 Murder	Crime	6	15,16
@@ -610,11 +610,11 @@ Eviction	Incident Qualifier	21	15,16
 Raid	Incident Qualifier	22	15,16
 Gang	Organization	23	16
 Meeting		24	15,16
-40 Activities	2		15,16
+40 Activities	2	15,16
 Unspecified		0	15,16
 Gang	Organization	3	16
 Meeting		4	15,16
-50 SIGINT	1		15,16
+50 SIGINT	1	15,16
 Unspecified		0	15,16
 Anti-Aircraft Fire Control	Radar	1	15,16
 Airborne Search and Bombing	Radar	2	15,16
@@ -680,9 +680,9 @@ Target Tracking	Radar	61	15,16
 Unknown	Radar	62	15,16
 Video Remoting	Radar	63	15,16
 Experimental	Radar	64	15,16
-50 SIGINT	2		15,16
+50 SIGINT	2	15,16
 Unspecified		0	15,16
-60 Cyberspace	1		15,16
+60 Cyberspace	1	15,16
 Unspecified		0	15,16
 Defensive Cyberspace	Capability	1	15,16
 Offensive Cyberspace	Capability	2	15,16
@@ -695,7 +695,7 @@ Out of Band	Capability	11	15,16
 Cloud	Service	12	15,16
 Data		13	15,16
 Service		14	15
-60 Cyberspace	2		15,16
+60 Cyberspace	2	15,16
 Unspecified		0	15,16
 Secured	Capability	1	15,16
 Open	Capability	2	15,16

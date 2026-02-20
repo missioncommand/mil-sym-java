@@ -1291,6 +1291,11 @@
 			Natural Space Debris Big	350203	10	Point	Point2		Always Black
 27	Unspecified			000000	10
 	Military			110000	10
+		Service Branch		110100	10
+			Infantry	110101	10
+			Medical	110102	10
+			Reconnaissance	110103	10
+			Signal	110104	10
 		Activity/Task		110200	10
 			Explosive Ordnance Disposal	110201	10
 			Field Artillery Observer	110202	10
@@ -1334,6 +1339,9 @@
 			Non-Lethal Weapon	110401	10
 			Non-Lethal Grenade Launcher	110402	10
 			Taser	110403	10
+	Civilian			120000	10
+		Activity/Task		120100	10
+			Police	120101	10
 30	Unspecified			0	10,11
 	Military			110000	10,11
 	Military Combatant			120000	10,11
