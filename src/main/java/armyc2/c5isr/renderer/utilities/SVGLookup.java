@@ -292,6 +292,7 @@ public class SVGLookup {
         {
             switch(SymbolID.getEntityCode(symbolID))
             {
+                case 110501:
                 case 111000:
                 case 111001:
                 case 111002:
@@ -400,6 +401,21 @@ public class SVGLookup {
                     break;
             }
         }
+        else if(ss == SymbolID.SymbolSet_DismountedIndividuals)
+        {
+            switch (SymbolID.getEntityCode(symbolID))
+            {
+                case 110101:
+                case 110102:
+                case 110103:
+                case 110104:
+                    //do thing to append correct number
+                    mainIconID += getPostFixForIcon(symbolID);
+                    break;
+                default:
+                    break;
+            }
+        }
         else if(ss == SymbolID.SymbolSet_Activities)
         {
             switch (SymbolID.getEntityCode(symbolID))
@@ -422,7 +438,6 @@ public class SVGLookup {
                 ss != SymbolID.SymbolSet_Space &&
                 ss != SymbolID.SymbolSet_SpaceMissile &&
                 ss != SymbolID.SymbolSet_LandCivilianUnit_Organization &&
-                ss != SymbolID.SymbolSet_DismountedIndividuals &&
                 ss != SymbolID.SymbolSet_ControlMeasure &&
                 ss != SymbolID.SymbolSet_SeaSurface &&
                 ss != SymbolID.SymbolSet_SeaSubsurface &&
