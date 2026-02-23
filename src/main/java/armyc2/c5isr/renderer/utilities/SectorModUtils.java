@@ -161,9 +161,11 @@ public class SectorModUtils
     public ArrayList<String[]> getSectorModList(int version, int symbolSet, int location)
     {
         StringBuilder sb = new StringBuilder();
-        int ver = SymbolID.Version_2525Dch1;
-        if(version >= SymbolID.Version_2525E )
+        int ver = version;
+        if(version == SymbolID.Version_2525E)
             ver = SymbolID.Version_2525Ech1;
+        if(version == SymbolID.Version_APP6Ech1)
+            ver = SymbolID.Version_APP6Ech2;
 
         int ss = symbolSet;
         if (ss > 50 && ss < 60)
@@ -192,9 +194,11 @@ public class SectorModUtils
     public String getName(int version, int symbolSet, int location, String code)
     {
         StringBuilder sb = new StringBuilder();
-        int ver = SymbolID.Version_2525Dch1;
-        if(version >= SymbolID.Version_2525E )
+        int ver = version;
+        if(version == SymbolID.Version_2525E)
             ver = SymbolID.Version_2525Ech1;
+        if(version == SymbolID.Version_APP6Ech1)
+            ver = SymbolID.Version_APP6Ech2;
 
         int ss = symbolSet;
         if (ss > 50 && ss < 60)
