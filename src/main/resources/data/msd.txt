@@ -1307,17 +1307,6 @@
 			Security	110208	10
 			Sniper	110209	10
 			Special Operation Forces	110210	10
-			Designated Marksman 	110211	10
-			Medic 	110212	10
-			Signaler	110213	10
-			Reconnaissance 	110214	10
-			Infantry 	110215	10
-			Close Protection 	110216	10
-			Crowd and Riot Control 	110217	10
-			SWAT 	110218	10
-			Demolition 	110219	10
-			Commander  (CDR)	110220	10
-			Second in Command  (SIC)	110221	10
 		Lethal Weapons		110300	10
 			Rifle 	110301	10
 			Single Shot Rifle	110302	10

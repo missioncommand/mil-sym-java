@@ -203,10 +203,14 @@ public class Tester extends javax.swing.JFrame {
 
         DefaultMutableTreeNode root = (DefaultMutableTreeNode)msTree.getModel().getRoot();
 
-        if(version < SymbolID.Version_2525E)
-            root.setUserObject("2525D");
-        else if(version >= SymbolID.Version_2525E)
-            root.setUserObject("2525E");
+        if(version == SymbolID.Version_APP6D)
+            root.setUserObject("APP6D");
+        if(version < SymbolID.Version_2525Dch1)
+            root.setUserObject("2525Dch1");
+        else if(version == SymbolID.Version_2525Ech1)
+            root.setUserObject("2525Ech1");
+        else if(version == SymbolID.Version_APP6Ech2)
+            root.setUserObject("APP6Ev2");
 
         
         DefaultMutableTreeNode msn00 = new DefaultMutableTreeNode(new MSNodeInfo("00","Unknown"));
@@ -216,7 +220,7 @@ public class Tester extends javax.swing.JFrame {
         DefaultMutableTreeNode msn05 = new DefaultMutableTreeNode(new MSNodeInfo("05","Space"));
         DefaultMutableTreeNode msn06 = new DefaultMutableTreeNode(new MSNodeInfo("06","Space Missile"));
         DefaultMutableTreeNode msn50 = new DefaultMutableTreeNode(new MSNodeInfo("50","Space SIGINT"));
-        if(version >= SymbolID.Version_2525E)
+        if(version == SymbolID.Version_2525E || version == SymbolID.Version_2525Ech1)
             msn50 = new DefaultMutableTreeNode(new MSNodeInfo("50","SIGINT"));
         DefaultMutableTreeNode msn10 = new DefaultMutableTreeNode(new MSNodeInfo("10","Land Unit"));
         DefaultMutableTreeNode msn11 = new DefaultMutableTreeNode(new MSNodeInfo("11","Land Civ"));
@@ -373,25 +377,26 @@ public class Tester extends javax.swing.JFrame {
         root.add(msn00);
         root.add(msn01);
         root.add(msn02);
-        if(version < SymbolID.Version_2525E)
+        if(version == SymbolID.Version_2525Dch1)
             root.add(msn51);
         root.add(msn05);
         root.add(msn06);
-        root.add(msn50);
+        if(version == SymbolID.Version_2525Dch1 || version == SymbolID.Version_2525Ech1)
+            root.add(msn50);
         root.add(msn10);
         root.add(msn11);
         root.add(msn15);
-        if(version < SymbolID.Version_2525E)
+        if(version == SymbolID.Version_2525Dch1)
             root.add(msn52);
         root.add(msn20);
-        if(version >= SymbolID.Version_2525E)
+        if(version != SymbolID.Version_2525Dch1)
             root.add(msn27);
         root.add(msn30);
-        if(version < SymbolID.Version_2525E)
+        if(version == SymbolID.Version_2525Dch1)
             root.add(msn53);
         root.add(msn35);
         root.add(msn36);
-        if(version < SymbolID.Version_2525E)
+        if(version == SymbolID.Version_2525Dch1)
             root.add(msn54);
         root.add(msn40);
         root.add(msn25);
