@@ -643,18 +643,22 @@
 			Water	121410	15,16
 			Water Treatment	121411	15,16
 25	Command and Control Lines			110000	15,16				
-		Boundary		110100	15,16	Line	Line7	B,T,T1,AS
+		Boundary		110100	15,16	Line	Line1	B,T,T1,AS
 		Light Line		110200	15,16	Line	Line1		
-		Engineer Work Line		110300	15,16	Line	Line7	T,T1,AS
-		Generic		110400	15,16	Line	Line7	H,T,W,W1
+		Engineer Work Line		110300	15,16	Line	Line1	T,T1,AS
+		Generic		110400	15,16	Line	Line1	H,T,W,W1
+		Decision Line		110500	16	Line	Line1	T,AS
 	Command and Control Areas			120000	15,16				
 		Area of Operations		120100	15,16	Area	Area1	T	
 		Named Area of Interest		120200	15,16	Area	Area1	T	
 		Targeted Area of Interest		120300	15,16	Area	Area1	T	
-		Airfield Zone		120400	15,16	Area	Area20	H	
-		Base Camp		120500	15,16	Area	Area1	B,H,T,N,W,W1	
-		Guerrilla Base		120600	15,16	Area	Area1	B,H,T,N,W,W1	
+		Airfield Zone		120400	15,16	Area	Area1	H	
+		Base Camp		120500	15	Area	Area1	B,H,T,N,W,W1	
+		Base Camp		120500	16	Area	Area1	T	
+		Guerrilla Base		120600	15	Area	Area1	B,H,T,N,W,W1	
+		Guerrilla Base		120600	16	Area	Area1	T	
 		Generic		120700	15,16	Area	Area1	H,T,N,W,W1	
+		Bridgehead		120800	16	Area	Area1	T	
 	Command and Control Points			130000	15,16				
 		Action Point (General)		130100	15,16	Point	Point1	H,H1,T,N,W,W1	
 		Amnesty Point		130200	15,16	Point	Point1	H,T,T1,N,W,W1	
@@ -692,6 +696,7 @@
 			Friendly Aviation	140601	15,16	Line	Line9	T,W,W1	std says line 1, I think it's wrong
 			Friendly Main Attack /Decisive	140602	15,16	Line	Line9	T,W,W1	std says line 1, I think it's wrong
 			Friendly Supporting Attack	140603	15,16	Line	Line9	T,W,W1	std says line 1, I think it's wrong
+			Direction of Attack Feint	140605	16	Line	Line9	T,W,W1	
 		Final Coordination Line		140700	15,16	Line	Line1		
 		Infiltration Lane		140800	15,16	Line	Polyline1	T	
 		Limit of Advance		140900	15,16	Line	Line1		
@@ -702,9 +707,11 @@
 		Bridgehead Line		141400	15,16	Line	Line1		
 		Holding Line		141500	15,16	Line	Line1		
 		Release Line		141600	15,16	Line	Line1		
-		Ambush		141700	15,16	Line	Line29		
+		Ambush		141700	15,16	Line	Line19		
 		Handover Line		141800	15,16	Line	Line1		
 		Battle Handover Line		141900	15,16	Line	Line1		
+		Name Area of Interest Line (NAI)		141200	16	Line	Line1		
+		Mobility Corridor		142100	16	Line	Line26	B,H	
 	Maneuver Areas			150000	15,16				
 		Area		150100	15,16		Area1		
 		Assembly Area		150200	15,16	Area	Area1	T	
@@ -716,8 +723,9 @@
 		Extraction Zone		150700	15,16	Area	Area1	T	
 		Landing Zone		150800	15,16	Area	Area1	T	
 		Pick-Up Zone		150900	15,16	Area	Area1	T	
-		Fortified Area		151000	15,16	Area	Area1	T	
-		Limited Access Area		151100	15,16	Area	Area2		
+		Fortified Area		151000	15	Area	Area1	T	
+		Fortified Area		151000	16	Area	Area1	H	
+		Limited Access Area		151100	15,16	Area	Area1		
 		Battle Position		151200	15,16	Area	Area1	B,T	
 			Prepared (P) but not Occupied	151202	15,16	Area	Area1	B,T	
 			Strong Point	151203	15,16	Area	Area1	B,T	
@@ -729,6 +737,7 @@
 			Attack Helicopter	151402	15,16	Line	Axis1	T,W,W1	
 			Main Attack	151403	15,16	Line	Axis2	T,W,W1	
 			Supporting Attack	151404	15,16	Line	Axis1	T,W,W1	
+			Axis of Advancee for Feint	151406	16	Line	Axis1	T,W,W1	
 		Assault Position		151500	15,16	Area	Area1	T	
 		Attack Position		151600	15,16	Area	Area1	T	
 		Objective		151700	15,16	Area	Area1	T	
@@ -737,6 +746,9 @@
 		Attack by Fire Position		152000	15,16	Area	Area7		
 		Support by Fire		152100	15,16	Area	Area8		
 		Search Area/Reconnaissance Area		152200	15,16	Area	Area21		
+		Supporting Attack	152300	16	Line	Axis1	T,H	
+		Restricted Terrain		152400	16	Area	Area1	H	
+		Severely Restricted Terrain		152500	16	Area	Area1	H	
 		Area Defense		152600	15,16	Area	Area15		
 		Frontal Attack		152700	15,16	Line	Axis1	T,W,W1	
 		Mobile Defense		152800	15,16	Area	Area27		
@@ -831,7 +843,7 @@
 		Electronic Countermeasures (ECM) Decoy		211300	15,16	Point	Point2		
 		Brief Contact		211400	15,16	Point	Point7		
 		Datum Lost Contact		211500	15,16	Point	Point2		
-		BT Buoy Drop		211600	15,16	Point	Point9		
+		BT Buoy Drop		211600	15,16	Point	Point2		
 		Reported Bottomed Sub		211700	15,16	Point	Point2		
 		Moving Haven		211800	15,16	Point	Point2		
 		Screen Center		211900	15,16	Point	Point2		
@@ -853,7 +865,8 @@
 		Search		213100	15,16	Point	Point2		
 		Search Area		213200	15,16	Point	Point2		
 		Search Center		213300	15,16	Point	Point2		
-		Navigational Reference Point		213400	15,16	Point	Point2		
+		Navigational Reference Point		213400	15	Point	Point2		
+		Navigational Reference Waypoint		213400	16	Point	Point2		
 		Sonobuoy		213500	15,16	Point	Point2	T,H	
 			Ambient Noise	213501	15,16	Point	Point2	T,H	
 			Air Transportable Communication	213502	15,16	Point	Point2	H	
@@ -872,7 +885,7 @@
 			Vertical Line Array Directional Frequency Analysis and Recording (DIFAR)	213515	15,16	Point	Point2	T,H	
 		Reference Point		213600	15,16	Point	Point2		
 		Special Point		213700	15,16	Point	Point2		
-		Navigational Reference Point(Points)		213800	15,16	Point	Point2		
+		Navigational Reference Point(Points)		213800	15	Point	Point2		
 		Data Link Reference Point		213900	15,16	Point	Point2		
 		Vital Area Center		214100	15,16	Point	Point2		
 		Corridor Tab Point		214200	15,16	Point	Point2		
@@ -913,9 +926,9 @@
 		Waypoint Route		217700	15,16	Point	Point2		
 		Clutter, Stationary or Cease Reporting		217800	15,16	Point	Point2		
 		Tentative or Provisional Track		217900	15,16	Point	Point2		
-		Distressed Vessel		218000	15,16	Point	Point7		
-		Ditched Aircraft/Downed Aircraft		218100	15,16	Point	Point7		
-		Person in Water/Bailout		218200	15,16	Point	Point7		
+		Distressed Vessel		218000	15,16	Point	Point2		
+		Ditched Aircraft/Downed Aircraft		218100	15,16	Point	Point2		
+		Person in Water/Bailout		218200	15,16	Point	Point2		
 		Iceberg		218300	15,16	Point	Point2		
 		Navigational		218400	15,16	Line	Line4		
 		Oil Rig		218500	15,16	Point	Point2		
@@ -936,23 +949,39 @@
 			Electro-Optical Intercept	220106	15,16	Line	Line1	H	
 			Jammer	220107	15,16	Line	Line1	H	
 			Radio Direction Finder (RDF)	220108	15,16	Line	Line1	H	
+			Navigationl Rhumb Line	220109	16	Line	Line1	T,AN	
+	Deception			230000	16				
+		Decoy/Dummy/Deception		230100	16	Line	Line29		
+		Deceive/Decoy/Dummy/Feint		230200	16	Line	Line29		
 	Fires Areas			240000	15,16				
 		Airspace Coordination Area		240100	15,16				
-			Irregular	240101	15,16	Area	Area1	T,T1,X,Y,W,W1	
-			Rectangular	240102	15,16	Area	Rectangular1	AM,T,T1,X,Y,W,W1
-			Circular	240103	15,16	Area	Circular1	AM,T,T1,X,Y,W,W1	
+			Irregular	240101	15	Area	Area1	T,T1,X,Y,W,W1	
+			Rectangular	240102	15	Area	Rectangular1	AM,T,T1,X,Y,W,W1
+			Circular	240103	15	Area	Circular1	AM,T,T1,X,Y,W,W1	
+			Irregular	240101	16	Area	Area1	T,T2,X,Y,W,W1	
+			Rectangular	240102	16	Area	Rectangular1	AM,T,T2,X,Y,W,W1
+			Circular	240103	16	Area	Circular1	AM,T,T2,X,Y,W,W1	
 		Free Fire Area		240200	15,16				
-			Irregular	240201	15,16	Area	Area1	T,W,W1	
-			Rectangular	240202	15,16	Area	Rectangular1	AM,T,W,W1	
-			Circular	240203	15,16	Area	Circular1	AM,T,W,W1	
+			Irregular	240201	15	Area	Area1	T,W,W1	
+			Rectangular	240202	15	Area	Rectangular1	AM,T,W,W1	
+			Circular	240203	15	Area	Circular1	AM,T,W,W1	
+			Irregular	240201	16	Area	Area1	T2,AS,W,W1	
+			Rectangular	240202	16	Area	Rectangular1	AM,AS,T2,W,W1	
+			Circular	240203	16	Area	Circular1	AM,AS,T2,W,W1	
 		No Fire Area		240300	15,16				
-			Irregular	240301	15,16	Area	Area1	T,W,W1	
-			Rectangular	240302	15,16	Area	Rectangular1	AM,T,W,W1	
-			Circular	240303	15,16	Area	Circular1	AM,T,W,W1	
+			Irregular	240301	15	Area	Area1	T,W,W1	
+			Rectangular	240302	15	Area	Rectangular1	AM,T,W,W1	
+			Circular	240303	15	Area	Circular1	AM,T,W,W1	
+			Irregular	240301	16	Area	Area1	AS,T2,W,W1	
+			Rectangular	240302	16	Area	Rectangular1	AM,AS,T2,W,W1	
+			Circular	240303	16	Area	Circular1	AM,AS,T2,W,W1	
 		Restricted Fire Area		240400	15,16				
-			Irregular	240401	15,16	Area	Area1	T,W,W1	
-			Rectangular	240402	15,16	Area	Rectangular1	AM,T,W,W1	
-			Circular	240403	15,16	Area	Circular1	AM,T,W,W1	
+			Irregular	240401	15	Area	Area1	T,W,W1	
+			Rectangular	240402	15	Area	Rectangular1	AM,T,W,W1	
+			Circular	240403	15	Area	Circular1	AM,T,W,W1	
+			Irregular	240401	16	Area	Area1	AS,T2,W,W1	
+			Rectangular	240402	16	Area	Rectangular1	AM,AS,T2,W,W1	
+			Circular	240403	16	Area	Circular1	AM,AS,T2,W,W1	
 		Position Area For Artillery (PAA)		240500	15,16				
 			Rectangular	240501	15,16	Area	Rectangular1	AM,T,W,W1	
 			Circular	240502	15,16	Area	Circular1	AM,T,W,W1	
@@ -960,15 +989,16 @@
 		Point Targets		240600	15,16				
 			Point or Single Target	240601	15,16	Point	Point2	AP,AP1,X,H	
 			Nuclear Target	240602	15,16	Point	Point2	AP	
-			Target-Recorded	240603	15,16	Point	Point11		
+			Target-Recorded	240603	15,16	Point	Point2		
 		Linear Targets		240700	15,16				
-			Linear Target	240701	15,16	Line	Line5	AP	
-			Linear Smoke Target	240702	15,16	Line	Line5	AP	
-			Final Protective Fire (FPF)	240703	15,16	Line	Line5	AP,T1,V	
+			Linear Target	240701	15,16	Line	Line1	AP	
+			Linear Smoke Target	240702	15,16	Line	Line1	AP	
+			Final Protective Fire (FPF)	240703	15,16	Line	Line1	AP,T1,V	
 		Area Targets		240800	15,16				
 			Area Target	240801	15,16	Area	Area1	AP	
 			Rectangular Target	240802	15,16	Area	Rectangular2	AM,AN,AP	
 			Circular Target	240803	15,16	Area	Circular1	AM,AP	
+			Rectangular Target - Single Target (AEGIS ONLY)	240804	16	Area	Rectangular3	AM,T	
 			Series or Groups of Targets	240805	15,16	Area	Area1	T	
 			Smoke	240806	15,16	Area	Area1	AP,W,W1	
 			Bomb Area	240808	15,16	Area	Area1		
@@ -1019,6 +1049,13 @@
 			Irregular, Purple	242304	15,16	Area	Area10	T,W,W1	
 			Rectangular, Purple	242305	15,16	Area	Rectangular1	AM,T,W,W1	
 			Circular, Purple	242306	15,16	Area	Circular1	AM,T,W,W1	
+		Artillery Manoeuvre Area (AMA)		242400	16	Area	Area1	T,W,W1	
+		Artillery Reserved Area (ARA)		242500	16	Area	Area1	T,W,W1	
+		Zone of Fire		242600	16	Area	Area1	T,W,W1	
+		Psyops Zone		242700	16				
+			Irregular	242701	16	Area	Area10	H,T,W,W1	
+			Rectangular	242702	16	Area	Rectangular1	AM,H,T,W,W1	
+			Circular	242703	16	Area	Circular1	AM,H,T,W,W1	
 		Kill Zone		242800	15,16	Area	Area1	T	
 	Fires Points			250000	15,16				
 		Firing Point		250100	15,16	Point	Point1	H,T,W,W1	
@@ -1028,11 +1065,16 @@
 		Survey Control Point		250500	15,16	Point	Point1	H,T,W,W1	
 		Known Point		250600	15,16	Point	Point2	T,W,W1	
 	Fire Lines			260000	15,16				
-		Fire Support Coordination Line (FSCL)		260100	15,16	Line	Line1	T,W,W1	
-		Coordinated Fire Line (CFL)		260200	15,16	Line	Line7	T,W,W1	
-		No Fire Line		260300	15,16	Line	Line1	T,W,W1	
-		Battlefield Coordination Line		260400	15,16	Line	Line1	T,W,W1	
-		Restrictive Fire Line		260500	15,16	Line	Line1	T,W,W1	
+		Fire Support Coordination Line (FSCL)		260100	15	Line	Line1	T,W,W1	
+		Fire Support Coordination Line (FSCL)		260100	16	Line	Line1	AS,T2,W,W1	
+		Coordinated Fire Line (CFL)		260200	15	Line	Line1	T,W,W1	
+		Coordinated Fire Line (CFL)		260200	16	Line	Line1	AS,T2,W,W1	
+		No Fire Line		260300	15	Line	Line1	T,W,W1	
+		No Fire Line		260300	16	Line	Line1	AS,T2,W,W1	
+		Battlefield Coordination Line		260400	15	Line	Line1	T,W,W1	
+		Battlefield Coordination Line		260400	16	Line	Line1	AS,T2,W,W1	
+		Restrictive Fire Line		260500	15	Line	Line1	T,W,W1	
+		Restrictive Fire Line		260500	16	Line	Line1	AS,T2,W,W1	
 		Munition Flight Path		260600	15,16	Line	Line8	W,W1	
 	Protection Areas			270000	15,16				
 		Obstacle Belt		270100	15,16	Area	Area1	T	
@@ -1050,7 +1092,7 @@
 			Impossible	270603	15,16	Line	Point12		
 		Minefields		270700	15,16				
 			Static Depiction	270701	15,16	Point	Point2	H,N,W	
-			Dynamic Depiction	270707	15,16	Area	Area23		
+			Dynamic Depiction	270707	15,16	Area	Area1		
 		Mined Area		270800	15,16	Area	Area1	H,N,W	
 			Fenced	270801	15,16	Area	Area1	N	
 		Unexploded Explosive Ordnance (UXO) Area		271000	15,16	Area	Area1		
@@ -1064,14 +1106,17 @@
 		Ford Easy		271500	15,16	Line	Line17		
 		Ford Difficult		271600	15,16	Line	Line17		
 		Biological Contaminated Area		271700	15,16	Area	Area1		
+			Biological Contaminated Area - Toxic Industrial Material	271701	16	Area	Area1		
 		Chemical Contaminated Area		271800	15,16	Area	Area1		
+			Chemical Contaminated Area - Toxic Industrial Material	271801	16	Area	Area1		
 		Nuclear Contaminated Area		271900	15,16	Area	Area1		
 		Radiological Contaminated Area		272000	15,16	Area	Area1		
+			Radiological Contaminated Area - Toxic Industrial Material	272001	16	Area	Area1		
 		Minimum Safe Distance Zone		272100	15,16	Area	Area14		
 		Multiple Strikes - STRIKWARN		272101	15,16	Area	Area26		
 		Radiation Dose Rate Contour Lines		272200	15,16	Area	Area1	T	
 	Protection Points			280000	15,16				
-		Abatis		280100	15,16	Line	Line13		
+		Abatis		280100	15,16	Line	Line1		
 		Antipersonnel Mine		280200	15,16	Point	Point2		
 			Antipersonnel Mine with Directional Effects	280201	15,16	Point	Point2		
 		Antitank Mine		280300	15,16	Point	Point2		
@@ -1085,10 +1130,13 @@
 		Below Ground Shelter		281100	15,16	Point	Point2		
 		Fort		281200	15,16	Point	Point2		
 		Chemical Event		281300	15,16	Point	Point7	C,H,N,Q,T,W,Y	
+			Chemical Event - Toxic Undustrial Material	281301	16	Point	Point2	C,H,N,Q,T,W,Y	
 		Biological Event		281400	15,16	Point	Point7	C,H,N,Q,T,W,Y	
+			Biological Event - Toxic Undustrial Material	281401	16	Point	Point2	C,H,N,Q,T,W,Y	
 		Nuclear Event		281500	15,16	Point	Point7	C,H,N,Q,T,W,Y	
 		Nuclear Fallout Producing Event		281600	15,16	Point	Point7	C,H,N,Q,T,W,Y	
 		Radiological Event		281700	15,16	Point	Point7	C,H,N,Q,T,W,Y	
+			Radiological Event - Toxic Undustrial Material	281701	16	Point	Point7	C,H,N,Q,T,W,Y	
 		General Decontamination Point/Site		281800	15,16	Point	Point1	H,T,T1,W,W1	
 			Alternate	281801	15,16	Point	Point1	H,T,T1,W,W1	
 			Equipment	281802	15,16	Point	Point1	H,T,T1,W,W1	
@@ -1114,7 +1162,7 @@
 			Under Construction	290201	15,16	Line	Line1		
 			Completed	290202	15,16	Line	Line1		
 			Reinforced, with Antitank Mines	290203	15,16	Line	Line1		
-			Antitank Wall	290204	15,16	Line	Line1		
+			Antitank Wall	290204	15	Line	Line1		
 		Wire Obstacles		290300	15,16				
 			Unspecified Wire	290301	15,16	Line	Line1		
 			Single Fence Wire	290302	15,16	Line	Line1		
@@ -1127,7 +1175,8 @@
 			Triple Strand Concertina	290309	15,16	Line	Line1		
 		Mine Cluster		290400	15,16	Area	Area13		
 		Trip Wire		290500	15,16	Line	Line1
-		Lane		290600	15,16	Line	Line14	W,W1	
+		Lane		290600	15	Line	Line14	W,W1	
+		Safe Lane or Gap		290600	16	Line	Line14	AM,T,W,W1	
 		Ferry		290700	15,16	Line	Line18		
 		Raft Site		290800	15,16	Line	Line14		
 		Fortified Line		290900	15,16	Line	Line1		
@@ -1142,7 +1191,8 @@
 		Regimental Support Area		310500	15,16	Area	Area1		
 		Brigade Support Area		310600	15,16	Area	Area1		
 		Division Support Area		310700	15,16	Area	Area1		
-		Corps Support Area		310800	15,16	Area	Area1		
+		Corps Support Area		310800	15	Area	Area1		
+		Corps Support Area		310800	16	Area	Area1	N,T,W,W1	
 	Sustainment Points			320000	15,16				
 		Ambulance Points		320100	15,16	Point			
 			Ambulance Exchange Point	320101	15,16	Point	Point1	H,T,T1,W,W1	
@@ -1185,27 +1235,27 @@
 		Mortuary Affairs Collection Point		321900	15,16	Point	Point1	H,T,T1,W,W1	
 	Sustainment Lines			330000	15,16				
 		Moving Convoy		330100	15,16	Line	Line9	H,V,W,W1	
-		Halted Convoy		330200	15,16	Line	Line20	H,V,W,W1	
-		Main Supply Route		330300	15,16	Line	Line21	T	
-			One Way Traffic	330301	15,16	Line	Line21	T	
-			Two Way Traffic	330302	15,16	Line	Line21	T	
-			Alternating Traffic	330303	15,16	Line	Line21	T	
-		Alternate Supply Route		330400	15,16	Line	Line21	T	
-			One Way Traffic	330401	15,16	Line	Line21	T	
-			Two Way Traffic	330402	15,16	Line	Line21	T	
-			Alternating Traffic	330403	15,16	Line	Line21	T	
-		Traffic Route		330500	15,16	Line	Line21	T	
-			One Way Traffic	330501	15,16	Line	Line21	T	
-			Alternating Traffic	330502	15,16	Line	Line21	T	
+		Halted Convoy		330200	15,16	Line	Line9	H,V,W,W1	
+		Main Supply Route		330300	15,16	Line	Line1	T	
+			One Way Traffic	330301	15,16	Line	Line1	T	
+			Two Way Traffic	330302	15,16	Line	Line1	T	
+			Alternating Traffic	330303	15,16	Line	Line1	T	
+		Alternate Supply Route		330400	15,16	Line	Line1	T	
+			One Way Traffic	330401	15,16	Line	Line1	T	
+			Two Way Traffic	330402	15,16	Line	Line1	T	
+			Alternating Traffic	330403	15,16	Line	Line1	T	
+		Traffic Route		330500	15,16	Line	Line1	T	
+			One Way Traffic	330501	15,16	Line	Line1	T	
+			Alternating Traffic	330502	15,16	Line	Line1	T	
 	Mission Tasks			340000	15,16				
-		Block		340100	15,16	Area	Area24		
+		Block		340100	15,16	Area	Area11		
 		Breach		340200	15,16	Line	Point12		
 		Bypass		340300	15,16	Line	Point12		
 		Canalize		340400	15,16	Line	Point12		
 		Clear		340500	15,16	Line	Line23		
 		Counterattack		340600	15,16	Line	Axis1		
 		Counterattack by Fire		340700	15,16	Line	Axis1		
-		Delay		340800	15,16	Line	Line24	W	
+		Delay		340800	15,16	Line	Line14	W	
 		Destroy		340900	15,16	Point	Point2		
 		Disrupt		341000	15,16	Area	Area12		
 		Fix		341100	15,16	Line	Line9		
@@ -1217,30 +1267,52 @@
 		Occupy		341700	15,16	Area	Area16		
 		Penetrate		341800	15,16	Area	Area17		
 		Relief in Place (RIP)		341900	15,16	Area	Area18		
-		Retire/Retirement		342000	15,16	Line	Line24		
+		Retire/Retirement		342000	15,16	Line	Line14		
 		Secure		342100	15,16	Area	Area19		
 		Security		342200	15,16				
 			Cover	342201	15,16	Line	Line26		
 			Guard	342202	15,16	Line	Line26		
 			Screen	342203	15,16	Line	Line26		
 		Seize		342300	15,16	Line	Line27		
-		Withdraw		342400	15,16	Line	Line24		
-		Withdraw Under Pressure		342500	15,16	Line	Line24		
+		Withdraw		342400	15,16	Line	Line14		
+		Withdraw Under Pressure		342500	15,16	Line	Line14		
 		Cordon and Knock		342600	15,16	Area	Area15		
 		Cordon and Search		342700	15,16	Area	Area15		
 		Suppress		342800	15,16	Point	Point2		
 		Movement to Contact		342900	15,16	Line	Axis1	T,W,W1	
+		Capture		343000	16	Line	Line27		
 		Exploit/Exploitation		343100	15,16	Line	Line30		
+		Control		343200	16	Area	Area19		
 		Demonstrate/Demonstration		343300	15,16	Area	Area18		
+		Deny		343400	16	Area	Area19		
 		Envelopment		343500	15,16	Line	Line31		
+		Escort		343600	16	Line	Line1		
+		Exfiltrate		343700	16	Line	Line32		
 		Infiltration		343800	15,16	Line	Line32		
+		Locate		343900	16	Area	Area19		
 		Pursuit		344000	15,16	Line	Line33		
-		Forward Passage of Lines		344100	15,16	Line	Line24		
-		Rearward Passage of Lines		344200	15,16	Line	Line24		
+		Forward Passage of Lines		344100	15,16	Line	Line14		
+		Rearward Passage of Lines		344200	15,16	Line	Line14		
 		Defeat		344300	15,16	Point	Point2			
-		Disengage		344400	15,16	Line	Line24			
-		Evacuate/Evacuation		344500	15,16	Line	Line27			
+		Disengage		344400	15,16	Line	Line14			
+		Evacuate/Evacuation		344500	15,16	Line	Line17			
+		Recover		344600	16	Line	Line27		
 		Turn		344700	15,16	Line	Line10			
+	Space Debris			350000	16				Always Black
+		Man Made Space Debris		350100	16				Always Black
+			Man Made Space Debris Small	350101	16	Point	Point2		Always Black
+			Man Made Space Debris Medium	350102	16	Point	Point2		Always Black
+			Man Made Space Debris Big	350103	16	Point	Point2		Always Black
+		Natural Space Debris		350200	16				Always Black
+			Natural Space Debris Small	350201	16	Point	Point2		Always Black
+			Natural Space Debris Medium	350202	16	Point	Point2		Always Black
+			Natural Space Debris Big	350203	16	Point	Point2		Always Black
+	Protection of Cultural Property			360000	16				
+		General		360100	16			H	Always Navy Blue
+		Special		360200	16			H	Always Navy Blue
+		Enhanced		360300	16			H	Always Navy Blue
+	Intelligence Areas			370000	16				
+		Human Terrain		370100	16			H	
 27	Unspecified			000000	15,16
 	Military			110000	15,16
 		Activity/Task		110200	15,16
@@ -1286,6 +1358,11 @@
 			Non-Lethal Weapon	110401	15,16
 			Non-Lethal Grenade Launcher	110402	15,16
 			Taser	110403	15,16
+	Civilian			120000	16
+		Activity/Task		120100	16
+			Police	120101	16
+			Non-Governmental Organization Member or Non-Governmental Organization (NGO)	120102	16
+			Government Organization (GO)	120103	16
 30	Unspecified			0	15,16
 	Military			110000	15,16
 	Military Combatant			120000	15,16

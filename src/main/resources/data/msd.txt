@@ -1124,13 +1124,13 @@
 		Below Ground Shelter		281100	10,11	Point	Point2		
 		Fort		281200	10,11	Point	Point2		
 		Chemical Event		281300	10,11	Point	Point7	C,H,N,Q,T,W,Y	
-			Chemical Event - Toxic Undustrial Material	281301	10,11	Point	Point2	C,H,N,Q,T,W,Y	
+			Chemical Event - Toxic Undustrial Material	281301	10	Point	Point2	C,H,N,Q,T,W,Y	
 		Biological Event		281400	10,11	Point	Point7	C,H,N,Q,T,W,Y	
-			Biological Event - Toxic Undustrial Material	281401	10,11	Point	Point2	C,H,N,Q,T,W,Y	
+			Biological Event - Toxic Undustrial Material	281401	10	Point	Point2	C,H,N,Q,T,W,Y	
 		Nuclear Event		281500	10,11	Point	Point7	C,H,N,Q,T,W,Y	
 		Nuclear Fallout Producing Event		281600	10,11	Point	Point2	C,H,N,Q,T,W,Y	
 		Radiological Event		281700	10,11	Point	Point7	C,H,N,Q,T,W,Y	
-			Radiological Event - Toxic Undustrial Material	281701	10,11	Point	Point7	C,H,N,Q,T,W,Y	
+			Radiological Event - Toxic Undustrial Material	281701	10	Point	Point7	C,H,N,Q,T,W,Y	
 		General Decontamination Point/Site		281800	10,11	Point	Point1	H,T,T1,W,W1	
 			Alternate	281801	10,11	Point	Point1	H,T,T1,W,W1	
 			Equipment	281802	10,11	Point	Point1	H,T,T1,W,W1	
