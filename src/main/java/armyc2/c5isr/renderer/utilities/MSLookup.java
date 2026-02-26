@@ -80,6 +80,7 @@ public class MSLookup {
         List<String> list;
         String[] temp = null;
         String delimiter = "\t";
+        String line = null;
 
         try {
 
@@ -96,7 +97,7 @@ public class MSLookup {
             String m = null;
             String[] modifiers = null;
 
-            String line = br.readLine();
+            line = br.readLine();
             while (line != null) {
                 //parse first line
                 temp = line.split(delimiter);
@@ -188,6 +189,7 @@ public class MSLookup {
         catch (Exception exc)
         {
             System.out.println(exc.getMessage());
+            System.out.println("Current Line: " + line);
         }
 
     }

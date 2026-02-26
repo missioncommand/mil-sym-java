@@ -746,7 +746,7 @@
 		Attack by Fire Position		152000	15,16	Area	Area7		
 		Support by Fire		152100	15,16	Area	Area8		
 		Search Area/Reconnaissance Area		152200	15,16	Area	Area21		
-		Supporting Attack	152300	16	Line	Axis1	T,H	
+		Supporting Attack		152300	16	Line	Axis1	T,H	
 		Restricted Terrain		152400	16	Area	Area1	H	
 		Severely Restricted Terrain		152500	16	Area	Area1	H	
 		Area Defense		152600	15,16	Area	Area15		
