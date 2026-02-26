@@ -1308,11 +1308,11 @@
 			Natural Space Debris Medium	350202	16	Point	Point2		Always Black
 			Natural Space Debris Big	350203	16	Point	Point2		Always Black
 	Protection of Cultural Property			360000	16				
-		General		360100	16			H	Always Navy Blue
-		Special		360200	16			H	Always Navy Blue
-		Enhanced		360300	16			H	Always Navy Blue
+		General		360100	16	Point	Point1	H	Always Navy Blue
+		Special		360200	16	Point	Point1	H	Always Navy Blue
+		Enhanced		360300	16	Point	Point1	H	Always Navy Blue
 	Intelligence Areas			370000	16				
-		Human Terrain		370100	16			H	
+		Human Terrain		370100	16	Area	Area1	H	
 27	Unspecified			000000	15,16
 	Military			110000	15,16
 		Activity/Task		110200	15,16
