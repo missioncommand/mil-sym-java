@@ -205,7 +205,7 @@ public class Tester extends javax.swing.JFrame {
 
         if(version == SymbolID.Version_APP6D)
             root.setUserObject("APP6D");
-        if(version < SymbolID.Version_2525Dch1)
+        if(version == SymbolID.Version_2525Dch1)
             root.setUserObject("2525Dch1");
         else if(version == SymbolID.Version_2525Ech1)
             root.setUserObject("2525Ech1");
@@ -1213,7 +1213,7 @@ public class Tester extends javax.swing.JFrame {
     private void DrawAllIcons()
     {
 
-        int[] versions = {SymbolID.Version_2525Dch1, SymbolID.Version_2525Ech1};
+        int[] versions = {SymbolID.Version_APP6D, SymbolID.Version_2525Dch1, SymbolID.Version_2525Ech1, SymbolID.Version_APP6Ech2};
         Map<String,String> modifiers = new HashMap<>();
         Map<String,String> attributes = new HashMap<>();
 

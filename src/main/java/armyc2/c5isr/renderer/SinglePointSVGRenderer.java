@@ -546,6 +546,10 @@ public class SinglePointSVGRenderer {
                         outlineSymbol = Boolean.parseBoolean(attributes.get(MilStdAttributes.OutlineSymbol));
                     else
                         outlineSymbol = RendererSettings.getInstance().getOutlineSPControlMeasures();
+
+                    //Protection of Cultural Property doesn't get outlined
+                    if(ss==25 && ec >= 360000 && ec < 360400)
+                        outlineSymbol = false;
                 }
 
                 if(SymbolUtilities.isMultiPoint(symbolID))

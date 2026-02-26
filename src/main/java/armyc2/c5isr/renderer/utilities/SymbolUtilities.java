@@ -736,7 +736,8 @@ public class SymbolUtilities {
         if(msi.getDrawRule()==DrawRules.POINT1)
         {
             int ec = SymbolID.getEntityCode(symbolID);
-            if(ec != 131300 && ec != 131301 && ec != 182600 && ec != 212800)
+            if(ec != 131300 && ec != 131301 && ec != 182600 && ec != 212800
+                    && ec != 360100 && ec != 360200 && ec != 360300)
                 return true;
         }
         return false;
