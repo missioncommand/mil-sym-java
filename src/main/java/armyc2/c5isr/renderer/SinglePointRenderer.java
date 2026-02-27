@@ -699,7 +699,7 @@ public class SinglePointRenderer implements SettingsEventListener{
                         rect.getWidth() + " " + rect.getHeight() + "\" " +
                         svgAlpha + ">";
 
-                if(msi.getSymbolSet()==SymbolID.SymbolSet_ControlMeasure && msi.getDrawRule()==DrawRules.POINT1)//smooth out action points
+                if(SymbolUtilities.isActionPoint(symbolID))//smooth out action points
                     strSVGIcon = "/n<g stroke-linejoin=\"round\" >/n" + strSVGIcon + "/n</g>";
 
                 strSVG = svgStart + strSVGIcon + "</svg>";
