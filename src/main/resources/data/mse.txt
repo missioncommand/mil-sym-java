@@ -686,6 +686,7 @@
 		Target Handover		132000	15,16	Point	Point2	T	
 		Key Terrain		132100	15,16	Point	Point2	T	
 		Control Point		132200	15,16	Point	Point1	H,T,T1,N,W,W1	
+		Vital Ground		132300	16	Point	Point2	H	
 	Maneuver Lines			140000	15,16				
 		Forward Line of Troops		140100	15,16	Line	Line1	N	
 		Line of Contact		140200	15,16	Line	Line1		
@@ -866,7 +867,7 @@
 		Search Area		213200	15,16	Point	Point2		
 		Search Center		213300	15,16	Point	Point2		
 		Navigational Reference Point		213400	15	Point	Point2		
-		Navigational Reference Waypoint		213400	16	Point	Point2		
+		Navigational Reference Waypoint		213400	16	Point	Point2	H,W	
 		Sonobuoy		213500	15,16	Point	Point2	T,H	
 			Ambient Noise	213501	15,16	Point	Point2	T,H	
 			Air Transportable Communication	213502	15,16	Point	Point2	H	
