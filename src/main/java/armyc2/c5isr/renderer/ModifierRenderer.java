@@ -2871,6 +2871,16 @@ public class ModifierRenderer implements SettingsEventListener
             outlineOffset = 0;
         }
 
+        //Check for Valid Country Code
+        int cc = SymbolID.getCountryCode(symbolID);
+        String scc = "";
+        if(cc > 0)
+        {
+            scc = GENCLookup.getInstance().get3CharCode(cc);
+        }
+        if(!scc.isEmpty())
+            modifiers.put(Modifiers.AS_COUNTRY, scc);
+
 
         // <editor-fold defaultstate="collapsed" desc="Process Special Modifiers">
         TextInfo ti = null;
@@ -2914,11 +2924,18 @@ public class ModifierRenderer implements SettingsEventListener
                     }
                 }
             }
-            if (ec == 130700) //decision point
+            else if (ec == 130700) //decision point
             {
-                if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
-                    strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
-                    if (strText != null) {
+                if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY)) {
+
+                    strText = "";
+                    if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        strText += modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    if (modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        strText += " " + modifiers.get(Modifiers.AS_COUNTRY);
+                    strText = strText.trim();
+
+                    if (!strText.isEmpty()) {
                         ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         //One modifier symbols and modifier goes in center
@@ -3094,7 +3111,36 @@ public class ModifierRenderer implements SettingsEventListener
                         arrMods.add(ti);
                     }
                 }
-            } 
+            }
+            else if (ec == 213400 && SymbolID.getVersion(symbolID)==SymbolID.Version_APP6Ech2)  //Navigation Reference Point
+            {
+                if (modifiers.containsKey(Modifiers.W_DTG_1))
+                {
+                    strText = modifiers.get(Modifiers.W_DTG_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+
+                        x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.75f));
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.75f));
+                        y = y + labelHeight;
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+                if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
+                    strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+
+                        x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.25f)-ti.getTextBounds().getWidth());
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+            }
             else if (ec == 132100)  //Key Terrain
             {
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
@@ -3113,14 +3159,32 @@ public class ModifierRenderer implements SettingsEventListener
                     }
                 }
             }
+            else if (ec == 132300)  //Vital Ground
+            {
+                if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
+                    strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+
+                        //One modifier symbols and modifier goes bottom right of symbol
+                        x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.88f));
+
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.88f));
+                        y = y + (labelHeight - descent);
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+            }
             else if(ec == 182600)//Isolated Personnel Location
             {
-                if (modifiers.containsKey(Modifiers.C_QUANTITY)) {
-                    strText = modifiers.get(Modifiers.C_QUANTITY);
+                if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
+                    strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
                         ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
-                        //subset of NBC, just nuclear
+
                         x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5));
                         x = x - (int) (labelWidth * 0.5);
                         y = (int)bounds.getMinY() - descent;
@@ -3581,7 +3645,23 @@ public class ModifierRenderer implements SettingsEventListener
                         arrMods.add(ti);
                     }
                 }
-            } 
+            }
+            else if(ec == 360100 || ec == 360200 || ec == 360300)//Protection of Cultural Property
+            {
+                if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
+                    strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+
+                        //One modifier symbols and modifier goes right of center
+                        x = (int)(bounds.getX() + bounds.getWidth() + bufferXR);
+                        y = (int)(bounds.getY() + (bounds.getHeight() * 0.6));
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+            }
         }
         else if(ss == SymbolID.SymbolSet_Atmospheric)
         {
