@@ -2139,37 +2139,10 @@ public final class clsRenderer {
         if (version >= SymbolID.Version_2525Ech1) {
             switch (entityCode) {
                 // Added in 2525Ech1
-                case 152600:
-                    return TacticalLines.AREA_DEFENSE;
-                case 152700:
-                    return TacticalLines.FRONTAL_ATTACK;
-                case 152900:
-                    return TacticalLines.TURNING_MOVEMENT;
-                case 152800:
-                    return TacticalLines.MOBILE_DEFENSE;
-                case 242800:
-                    return TacticalLines.KILL_ZONE;
-                case 342900:
-                    return TacticalLines.MOVEMENT_TO_CONTACT;
-                case 343100:
-                    return TacticalLines.EXPLOIT;
-                case 343300:
-                    return TacticalLines.DEMONSTRATE;
-                case 343500:
-                    return TacticalLines.ENVELOPMENT;
-                case 343800:
-                    return TacticalLines.INFILTRATION;
-                case 344000:
-                    return TacticalLines.PURSUIT;
-                case 344400:
-                    return TacticalLines.DISENGAGE;
-                case 344500:
-                    return TacticalLines.EVACUATE;
-                case 344700:
-                    return TacticalLines.TURN;
+
                 // Updated in 2525Ech1
                 case 172000:
-                    return TacticalLines.WFZ;
+                    return TacticalLines.WFZ;//extra modifiers
                 // Removed in 2525Ech1
                 case 240804:
                     return -1;
@@ -2178,55 +2151,33 @@ public final class clsRenderer {
         if (version >= SymbolID.Version_2525E) {
             switch (entityCode) {
                 // Added in 2525E
-                case 110400:
-                    return TacticalLines.GENERIC_LINE;
-                case 120700:
-                    return TacticalLines.GENERIC_AREA;
-                case 141800:
-                    return TacticalLines.HOL;
-                case 141900:
-                    return TacticalLines.BHL;
-                case 310800:
-                    return TacticalLines.CSA;
-                case 330500:
-                    return TacticalLines.TRAFFIC_ROUTE;
-                case 330501:
-                    return TacticalLines.TRAFFIC_ROUTE_ONEWAY;
-                case 330502:
-                    return TacticalLines.TRAFFIC_ROUTE_ALT;
-                case 344100:
-                    return TacticalLines.FPOL;
-                case 344200:
-                    return TacticalLines.RPOL;
+
                 // Updated in 2525E
                 case 120500:
-                    return TacticalLines.BASE_CAMP;
+                    return TacticalLines.BASE_CAMP;//labels B,T,H,N,W,W1
                 case 120600:
-                    return TacticalLines.GUERILLA_BASE;
-                case 151000:
-                    return TacticalLines.FORT;
+                    return TacticalLines.GUERILLA_BASE;//labels B,T,H,N,W,W1
                 case 260400:
-                    return TacticalLines.BCL;
+                    return TacticalLines.BCL;//label like "BCL (T)"
                 case 310100:
-                    return TacticalLines.DHA;
+                    return TacticalLines.DHA;//label just DHA
                 // Updated in 2525Ech1
                 case 172000:
-                    return TacticalLines.WFZ_REVD;
+                    return TacticalLines.WFZ_REVD;//fewer modifiers
             }
-        } else { // 2525Dchange 1 and older
+        }
+        else{ // 2525Dchange 1 and older
             switch (entityCode) {
                 // Updated in 2525E
                 case 120500:
-                    return TacticalLines.BASE_CAMP_REVD;
+                    return TacticalLines.BASE_CAMP_REVD;//just 'T' modiifer
                 case 120600:
-                    return TacticalLines.GUERILLA_BASE_REVD;
-                case 151000:
-                    return TacticalLines.FORT_REVD;
+                    return TacticalLines.GUERILLA_BASE_REVD;//just 'T' modiifer
                 case 260400:
-                    return TacticalLines.BCL_REVD;
+                    return TacticalLines.BCL_REVD;//label like "BCL T"
                 case 310100:
-                    return TacticalLines.DHA_REVD;
-                // Removed in 2525E
+                    return TacticalLines.DHA_REVD;//label DHA spelled out
+                // Removed in 2525E/APP6E
                 case 150300:
                     return TacticalLines.ASSY;
                 case 241601:
@@ -2237,11 +2188,61 @@ public final class clsRenderer {
                     return TacticalLines.SENSOR_CIRCULAR;
                 // Updated in 2525Ech1
                 case 172000:
-                    return TacticalLines.WFZ_REVD;
+                    return TacticalLines.WFZ_REVD;//fewer modifiers
             }
         }
         // Line type isn't specific to a version or doesn't exist
         switch (entityCode) {
+            case 151000:
+                return TacticalLines.FORT;
+            case 110400:
+                return TacticalLines.GENERIC_LINE;
+            case 120700:
+                return TacticalLines.GENERIC_AREA;
+            case 141800:
+                return TacticalLines.HOL;
+            case 141900:
+                return TacticalLines.BHL;
+            case 310800:
+                return TacticalLines.CSA;
+            case 330500:
+                return TacticalLines.TRAFFIC_ROUTE;
+            case 330501:
+                return TacticalLines.TRAFFIC_ROUTE_ONEWAY;
+            case 330502:
+                return TacticalLines.TRAFFIC_ROUTE_ALT;
+            case 344100:
+                return TacticalLines.FPOL;
+            case 344200:
+                return TacticalLines.RPOL;
+            case 152600:
+                return TacticalLines.AREA_DEFENSE;
+            case 152700:
+                return TacticalLines.FRONTAL_ATTACK;
+            case 152900:
+                return TacticalLines.TURNING_MOVEMENT;
+            case 152800:
+                return TacticalLines.MOBILE_DEFENSE;
+            case 242800:
+                return TacticalLines.KILL_ZONE;
+            case 342900:
+                return TacticalLines.MOVEMENT_TO_CONTACT;
+            case 343100:
+                return TacticalLines.EXPLOIT;
+            case 343300:
+                return TacticalLines.DEMONSTRATE;
+            case 343500:
+                return TacticalLines.ENVELOPMENT;
+            case 343800:
+                return TacticalLines.INFILTRATION;
+            case 344000:
+                return TacticalLines.PURSUIT;
+            case 344400:
+                return TacticalLines.DISENGAGE;
+            case 344500:
+                return TacticalLines.EVACUATE;
+            case 344700:
+                return TacticalLines.TURN;
             case 200101:
                 return TacticalLines.LAUNCH_AREA;
             case 200201:
@@ -2640,12 +2641,18 @@ public final class clsRenderer {
                 return TacticalLines.UXO;
             case 271700:
                 return TacticalLines.BIO;
+            case 271701:
+                return TacticalLines.BIOT;
             case 271800:
                 return TacticalLines.CHEM;
+            case 271801:
+                return TacticalLines.CHEMT;
             case 271900:
                 return TacticalLines.NUC;
             case 272000:
                 return TacticalLines.RAD;
+            case 272001:
+                return TacticalLines.RADT;
             case 290400:
                 return TacticalLines.CLUSTER;
             case 290500:

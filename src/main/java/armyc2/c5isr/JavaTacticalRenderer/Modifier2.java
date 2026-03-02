@@ -2139,9 +2139,12 @@ public class Modifier2 {
                 case TacticalLines.DELAY:
                 case TacticalLines.TGMF:
                 case TacticalLines.BIO:
+                case TacticalLines.BIOT:
                 case TacticalLines.CHEM:
+                case TacticalLines.CHEMT:
                 case TacticalLines.NUC:
                 case TacticalLines.RAD:
+                case TacticalLines.RADT:
                 case TacticalLines.MINE_LINE:
                 case TacticalLines.ANCHORAGE_LINE:
                 case TacticalLines.ANCHORAGE_AREA:
@@ -2347,52 +2350,6 @@ public class Modifier2 {
                 case TacticalLines.NFL:
                 case TacticalLines.BCL_REVD:
                 case TacticalLines.RFL:
-                    pt0 = tg.Pixels.get(0);
-                    pt1 = tg.Pixels.get(1);
-                    pt2 = tg.Pixels.get(tg.Pixels.size() - 1);
-                    pt3 = tg.Pixels.get(tg.Pixels.size() - 2);
-                    dist = lineutility.CalcDistanceDouble(pt0, pt1);
-                    dist2 = lineutility.CalcDistanceDouble(pt2, pt3);
-                    stringWidth = (int) ((double) metrics.stringWidth(tg.get_Name() + " " + label));
-                    stringWidth2 = (int) ((double) metrics.stringWidth(tg.get_DTG()));
-                    if (stringWidth2 > stringWidth) {
-                        stringWidth = stringWidth2;
-                    }
-
-                    if (tg.Pixels.size() == 2) //one segment
-                    {
-                        pt1 = lineutility.ExtendAlongLineDouble(pt0, pt1, stringWidth);
-                        AddModifier2(tg, label + TSpace + tg.get_Name(), aboveMiddle, -0.7 * csFactor, pt0, pt1, false);
-                        AddModifier2(tg, tg.get_DTG() + WDash, aboveMiddle, 0.7 * csFactor, pt0, pt1, false);
-                        AddModifier2(tg, tg.get_DTG1(), aboveMiddle, 1.7 * csFactor, pt0, pt1, false);
-                        if (dist > 3.5 * stringWidth)//was 28stringwidth+5
-                        {
-                            pt0 = tg.Pixels.get(tg.Pixels.size() - 1);
-                            pt1 = tg.Pixels.get(tg.Pixels.size() - 2);
-                            pt1 = lineutility.ExtendAlongLineDouble(pt0, pt1, stringWidth);
-                            AddModifier2(tg, label + TSpace + tg.get_Name(), aboveMiddle, -0.7 * csFactor, pt0, pt1, false);
-                            AddModifier2(tg, tg.get_DTG() + WDash, aboveMiddle, 0.7 * csFactor, pt0, pt1, false);
-                            AddModifier2(tg, tg.get_DTG1(), aboveMiddle, 1.7 * csFactor, pt0, pt1, false);
-                        }
-                    } else //more than one semgent
-                    {
-                        double dist3 = lineutility.CalcDistanceDouble(pt0, pt2);
-                        if (dist > stringWidth + 5 || dist >= dist2 || dist3 > stringWidth + 5) {
-                            pt1 = lineutility.ExtendAlongLineDouble(pt0, pt1, stringWidth);
-                            AddModifier2(tg, label + TSpace + tg.get_Name(), aboveMiddle, -0.7 * csFactor, pt0, pt1, false);
-                            AddModifier2(tg, tg.get_DTG() + WDash, aboveMiddle, 0.7 * csFactor, pt0, pt1, false);
-                            AddModifier2(tg, tg.get_DTG1(), aboveMiddle, 1.7 * csFactor, pt0, pt1, false);
-                        }
-                        if (dist2 > stringWidth + 5 || dist2 > dist || dist3 > stringWidth + 5) {
-                            pt0 = tg.Pixels.get(tg.Pixels.size() - 1);
-                            pt1 = tg.Pixels.get(tg.Pixels.size() - 2);
-                            pt1 = lineutility.ExtendAlongLineDouble(pt0, pt1, stringWidth);
-                            AddModifier2(tg, label + TSpace + tg.get_Name(), aboveMiddle, -0.7 * csFactor, pt0, pt1, false);
-                            AddModifier2(tg, tg.get_DTG() + WDash, aboveMiddle, 0.7 * csFactor, pt0, pt1, false);
-                            AddModifier2(tg, tg.get_DTG1(), aboveMiddle, 1.7 * csFactor, pt0, pt1, false);
-                        }
-                    }
-                    break;
                 case TacticalLines.BCL:
                     pt0 = tg.Pixels.get(0);
                     pt1 = tg.Pixels.get(1);
@@ -2401,9 +2358,33 @@ public class Modifier2 {
                     dist = lineutility.CalcDistanceDouble(pt0, pt1);
                     dist2 = lineutility.CalcDistanceDouble(pt2, pt3);
                     String TMod = ""; // Don't add parenthesis if T modifier is empty
-                    if (tg.get_Name() != null && !tg.get_Name().isEmpty())
-                        TMod = " (" + tg.get_Name() + ")";
-                    stringWidth = (int) ((double) metrics.stringWidth(label + TMod));
+
+                    int version = SymbolID.getVersion(tg.get_SymbolId());
+                    if(version < SymbolID.Version_2525E) {
+                        TMod = tg.get_Name();
+                        stringWidth = (int) ((double) metrics.stringWidth(TMod + " " + label));
+                    }
+                    else if(version == SymbolID.Version_2525E || version == SymbolID.Version_2525Ech1) {
+                        if(linetype == TacticalLines.BCL) {
+                            if (tg.get_Name() != null && !tg.get_Name().isEmpty())
+                                TMod = " (" + tg.get_Name() + ")";
+                            stringWidth = (int) ((double) metrics.stringWidth(label + TMod));
+                        }
+                        else
+                        {
+                            TMod = tg.get_Name();
+                            stringWidth = (int) ((double) metrics.stringWidth(tg.get_Name() + " " + label));
+                        }
+                    }
+                    else if((version == SymbolID.Version_APP6Ech2)) {
+                        if (tg.get_Name() != null && !tg.get_Name().isEmpty())
+                            TMod += " " + tg.get_Name();
+                        if(tg.get_AS() != null && !tg.get_AS().isEmpty())
+                            TMod += " (" + tg.get_AS() + ")";
+                        stringWidth = (int) ((double) metrics.stringWidth(label + TMod));
+
+                    }
+
                     stringWidth2 = (int) ((double) metrics.stringWidth(tg.get_DTG()));
                     if (stringWidth2 > stringWidth) {
                         stringWidth = stringWidth2;
@@ -2978,9 +2959,12 @@ public class Modifier2 {
                     addDTG(tg, aboveMiddle, 0, csFactor, pt2, pt3, metrics);
                     break;
                 case TacticalLines.BIO:
+                case TacticalLines.BIOT:
                 case TacticalLines.CHEM:
+                case TacticalLines.CHEMT:
                 case TacticalLines.NUC:
                 case TacticalLines.RAD:
+                case TacticalLines.RADT:
                     AddIntegralAreaModifier(tg, getImageModifier(tg), areaImage, 0, ptCenter, ptCenter, false);
                     break;
                 case TacticalLines.ANCHORAGE_LINE:

@@ -293,8 +293,11 @@ public final class TacticalLines {
     public static final int NFA_RECTANGULAR = 24324200;
     public static final int NFA_CIRCULAR = 24324300;
     public static final int CHEM = 23460000;
+    public static final int CHEMT = 25271801;
     public static final int BIO = 23450000;
+    public static final int BIOT = 25271701;
     public static final int RAD = 23440000;
+    public static final int RADT = 25272001;
     public static final int NUC = 271900;
     public static final int NFL = 24230000;
     public static final int MFP = 24225000;

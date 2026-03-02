@@ -412,9 +412,12 @@ public final class clsUtility {
             case TacticalLines.FORT:
             case TacticalLines.PEN:
             case TacticalLines.BIO:
+            case TacticalLines.BIOT:
             case TacticalLines.NUC:
             case TacticalLines.RAD:
+            case TacticalLines.RADT:
             case TacticalLines.CHEM:
+            case TacticalLines.CHEMT:
             case TacticalLines.SERIES:
             case TacticalLines.ATI:
             case TacticalLines.TBA:
@@ -594,9 +597,12 @@ public final class clsUtility {
                 case TacticalLines.NFA_CIRCULAR:
                 case TacticalLines.NFA_RECTANGULAR:
                 case TacticalLines.BIO:
+                case TacticalLines.BIOT:
                 case TacticalLines.NUC:
                 case TacticalLines.CHEM:
+                case TacticalLines.CHEMT:
                 case TacticalLines.RAD:
+                case TacticalLines.RADT:
                 case TacticalLines.WFZ_REVD:
                 case TacticalLines.WFZ:
                 //case TacticalLines.OBSAREA:

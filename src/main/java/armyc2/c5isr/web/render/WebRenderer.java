@@ -110,7 +110,10 @@ public final class WebRenderer /* extends Applet */ {
                                       String symbolCode, String controlPoints, String altitudeMode,
                                       double scale, String bbox, Map<String,String> modifiers, Map<String,String> attributes, int format) {
         String output = "";
-        try {         
+        try {
+
+			//catch duplicate symbols and redirect to original symbol.
+			symbolCode = interceptAndAdjustCode(symbolCode,modifiers,attributes);
         	
         	JavaRendererUtilities.addAltModeToModifiersString(attributes,altitudeMode);
 
@@ -193,6 +196,10 @@ public final class WebRenderer /* extends Applet */ {
         String output = "";
         try
         {
+
+			//catch duplicate symbols and redirect to original symbol.
+			symbolCode = interceptAndAdjustCode(symbolCode,modifiers,attributes);
+
             output = MultiPointHandler.RenderSymbol2D(id, name, description, 
                     symbolCode, controlPoints, pixelWidth, pixelHeight, bbox, 
                     modifiers, attributes, format);
@@ -333,6 +340,9 @@ public final class WebRenderer /* extends Applet */ {
 		MilStdSymbol mSymbol = null;
 		try 
 		{
+			//catch duplicate symbols and redirect to original symbol.
+			symbolCode = interceptAndAdjustCode(symbolCode,modifiers,attributes);
+
 			mSymbol = MultiPointHandler.RenderSymbolAsMilStdSymbol(id, name, description, symbolCode,
                     controlPoints, scale, bbox, modifiers, attributes);
 
@@ -516,5 +526,44 @@ public final class WebRenderer /* extends Applet */ {
 			ErrorLogger.LogException("WebRenderer", "RenderBasic3DShape", ea, Level.WARNING);
 		}
 		return output;
+	}
+
+	/**
+	 * There are a handful of redundant symbols in APP6 that are duplicate symbols that could be properly rendered
+	 * using the original symbol with the appropriate modifier changes.
+	 * Here we intercept and adjust that values as needed.
+	 * @param symbolID
+	 * @param modifiers
+	 * @param attributes
+	 * @return
+	 */
+	private static String interceptAndAdjustCode(String symbolID, Map<String, String> modifiers, Map<String, String> attributes)
+	{
+		if(SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_ControlMeasure)
+		{
+			String returnVal = symbolID;
+			int etc = SymbolID.getEntityCode(symbolID);
+			switch (etc)
+			{
+				case 151406://Axis of Advance for a Feint
+					returnVal = SymbolID.setEntityCode(returnVal,151404);//SUpporting Atttack
+					returnVal = SymbolID.setHQTFD(returnVal,SymbolID.HQTFD_FeintDummy);
+					break;
+				case 140605://Direction of attack feint
+					returnVal = SymbolID.setEntityCode(returnVal,140603);//Direction of Supporting Attack
+					returnVal = SymbolID.setHQTFD(returnVal,SymbolID.HQTFD_FeintDummy);
+					break;
+				case 260100: //FSCL
+				case 260200: //CFL
+				case 260300: //NFL
+				case 260400: //BCL
+				case 260500: //RFL
+					//instead of T1 uses T2 & AS
+					break;
+
+			}
+			return returnVal;
+		}
+		else return symbolID;
 	}
 }
