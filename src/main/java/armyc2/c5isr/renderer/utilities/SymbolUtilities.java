@@ -366,7 +366,6 @@ public class SymbolUtilities {
      * G*G*GPP---****X
      * @param strSymbolID 15 Character {@link String}
      * @return 15 Character {@link String}
-     * @deprecated function will be removed
      */
     public static String getBasicSymbolID2525C(String strSymbolID)
     {
