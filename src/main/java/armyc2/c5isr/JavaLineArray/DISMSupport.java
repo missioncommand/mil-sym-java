@@ -2318,7 +2318,7 @@ public final class DISMSupport
             points[counter - 3].style = 5;
             points[counter - 1].style = 5;
 
-            if (linetype != TacticalLines.MOBILE_DEFENSE) {
+            if (linetype == TacticalLines.RIP) {
                 // draw the arrowhead on line between savepoints 2 and 3
                 pts[0] = new POINT2(savepoints[2]);
                 pts[1] = new POINT2(savepoints[3]);
