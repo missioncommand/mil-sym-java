@@ -620,11 +620,11 @@ public class MSInfo {
                 break;
             case DrawRules.LINE26:
             case DrawRules.LINE27:
+                points[0] = 3;
                 if (version >= SymbolID.Version_2525E)
-                    points[0] = 4;
+                    points[1] = 4;
                 else
-                    points[0] = 3;
-                points[1] = 4;
+                    points[1] = 3;
                 break;
             case DrawRules.AXIS1:
             case DrawRules.AXIS2:

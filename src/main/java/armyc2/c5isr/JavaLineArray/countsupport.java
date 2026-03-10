@@ -235,6 +235,7 @@ public final class countsupport
                     count = 25;
                     break;
                 case TacticalLines.SEIZE:
+                case TacticalLines.CAPTURE:
                 case TacticalLines.EVACUATE:
                     count = 37;
                     break;

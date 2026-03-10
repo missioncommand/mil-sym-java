@@ -185,6 +185,7 @@ public class Modifier2 {
                 case TacticalLines.DISRUPT:
                     label = "D";
                     break;
+                case TacticalLines.CAPTURE:
                 case TacticalLines.CANALIZE:
                 case TacticalLines.CLEAR:
                     label = "C";
@@ -3515,6 +3516,7 @@ public class Modifier2 {
                 case TacticalLines.AREA_DEFENSE:
                 case TacticalLines.CONTAIN:
                 case TacticalLines.SEIZE:
+                case TacticalLines.CAPTURE:
                 case TacticalLines.EVACUATE:
                 case TacticalLines.TURN:
                 case TacticalLines.CORDONKNOCK:
@@ -3710,11 +3712,13 @@ public class Modifier2 {
                     AddIntegralAreaModifier(tg, label, area, -0.125 * csFactor, ptCenter, ptCenter, true);
                     break;
                 case TacticalLines.SEIZE:
+                case TacticalLines.CAPTURE:
                 case TacticalLines.EVACUATE:
                     pt0 = tg.Pixels.get(26);
                     pt1 = tg.Pixels.get(27);
                     //pt1=lineutility.ExtendAlongLineDouble(pt1, pt0, -10);
-                    AddIntegralAreaModifier(tg, label, aboveMiddle, -0.125 * csFactor, pt0, pt1, true);
+                    ptCenter = lineutility.MidPointDouble(pt0, pt1, 0);
+                    AddIntegralAreaModifier(tg, label, aboveMiddle, -0.125 * csFactor, ptCenter, ptCenter, true);
                     break;
                 case TacticalLines.DEFENDED_AREA_RECTANGULAR:
                     ptLeft = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(1), 0);
@@ -3766,7 +3770,8 @@ public class Modifier2 {
                         stringWidth = -stringWidth;
                     }
                     pt1 = lineutility.ExtendAlongLineDouble2(pt0, pt1, 0.75 * stringWidth);
-                    AddIntegralAreaModifier(tg, label, aboveMiddle, 0, pt0, pt1, true);
+                    ptCenter = lineutility.MidPointDouble(pt0, pt1, 0);
+                    AddIntegralAreaModifier(tg, label, aboveMiddle, 0, ptCenter, ptCenter, true);
                     break;
                 case TacticalLines.FOLLA:
                     pt0 = tg.Pixels.get(0);

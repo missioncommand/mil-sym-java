@@ -80,6 +80,7 @@ public final class TacticalLines {
     public static final int RETAIN = 211900000;
     public static final int SECURE = 212100000;
     public static final int SEIZE = 212300000;
+    public static final int CAPTURE = 25343000;
     public static final int ASLTXING = 23221000;
     public static final int GAP = 23163000;
     public static final int COVER = 212230000;
