@@ -1243,6 +1243,35 @@ public final class DISMSupport
     }
 
     /**
+     * Calculates the points for DECEIVE.
+     *
+     * @param points - OUT - the client points, also used for the returned points.
+     */
+    protected static void GetDISMDeceiveDouble(POINT2[] points) {
+        try {
+            POINT2[] savepoints = new POINT2[3];// POINT2[3];
+            int j = 0;
+
+            for (j = 0; j < 3; j++) {
+                savepoints[j] = new POINT2(points[j]);
+            }
+
+            points[0] = new POINT2(savepoints[0]);
+            points[0].style = 1;
+            points[1] = new POINT2(savepoints[1]);
+            points[1].style = 5;
+            points[2] = new POINT2(savepoints[2]);
+            points[2].style = 1;
+            points[3] = new POINT2(savepoints[0]);
+            points[3].style = 5;
+
+        } catch (Exception exc) {
+            ErrorLogger.LogException(_className ,"GetDISMDeceiveDouble",
+                    new RendererException("Failed inside GetDISMDeceiveDouble", exc));
+        }
+    }
+
+    /**
      * Calculates the points for DISRUPT
      *
      * @param points OUT - the client points, also used for the returned points.

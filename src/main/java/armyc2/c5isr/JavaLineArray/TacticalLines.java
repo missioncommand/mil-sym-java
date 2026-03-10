@@ -86,6 +86,7 @@ public final class TacticalLines {
     public static final int SCREEN = 212210000;
     public static final int GUARD = 212220000;
     public static final int SARA = 22139000;
+    public static final int DECEIVE = 22310000;
     public static final int FIX = 211100000;
     public static final int PDF = 22422000;
     public static final int ATKBYFIRE = 22533000;

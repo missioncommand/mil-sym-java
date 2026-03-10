@@ -965,9 +965,10 @@
 			Torpedo	220105	10,11	Line	Line5	H	
 			Electro-Optical Intercept	220106	10,11	Line	Line5	H	
 			Jammer	220107	10,11	Line	Line5	H	
-			Radio Direction Finder (RDF)	220108	10,11	Line	Line5	H	
-		Decoy/Dummy/Deception		230100	10	Line	Line1		
-		Decoy/Dummy and Feint		230200	10	Line	Line1		
+			Radio Direction Finder (RDF)	220108	10,11	Line	Line5	H
+	Deception			230000	10,11
+		Decoy/Dummy/Deception		230100	10	Line	Line29
+		Decoy/Dummy and Feint		230200	10	Line	Line29
 	Fires Areas			240000	10,11				
 		Airspace Coordination Area		240100	10,11				
 			Irregular	240101	10,11	Area	Area1	T,T1,X,Y,W,W1	

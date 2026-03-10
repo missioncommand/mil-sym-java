@@ -178,6 +178,7 @@ public final class countsupport
                 case TacticalLines.ESR2:
                 case TacticalLines.FORDSITE:
                 case TacticalLines.FOXHOLE:
+                case TacticalLines.DECEIVE:
                     count = 4;
                     break;
                 case TacticalLines.AMBUSH:	//extra 3 for open arrow, extra 26 for the tail arc,

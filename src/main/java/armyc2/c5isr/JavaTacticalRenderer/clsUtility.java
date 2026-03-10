@@ -193,6 +193,7 @@ public final class clsUtility {
             case TacticalLines.WDRAWUP:
             //non task autoshapes
             case TacticalLines.SARA:
+            case TacticalLines.DECEIVE:
             case TacticalLines.PDF:
             case TacticalLines.IL:
             case TacticalLines.ATKBYFIRE:
@@ -659,6 +660,7 @@ public final class clsUtility {
                         shape.setLineColor(tg.get_LineColor());
                     }
                     break;
+                case TacticalLines.DECEIVE:
                 case TacticalLines.CLUSTER:
                 case TacticalLines.CATK:
                 case TacticalLines.CATKBYFIRE:
