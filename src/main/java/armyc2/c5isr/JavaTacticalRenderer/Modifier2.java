@@ -188,6 +188,7 @@ public class Modifier2 {
                 case TacticalLines.CAPTURE:
                 case TacticalLines.CANALIZE:
                 case TacticalLines.CLEAR:
+                case TacticalLines.CONTROL:
                     label = "C";
                     break;
                 case TacticalLines.BREACH:
@@ -235,6 +236,9 @@ public class Modifier2 {
                     break;
                 case TacticalLines.LL:
                     label = "LL";
+                    break;
+                case TacticalLines.LOCATE:
+                    label = "LOC";
                     break;
                 case TacticalLines.EWL:
                     label = "EWL";
@@ -3513,6 +3517,8 @@ public class Modifier2 {
                 case TacticalLines.OCCUPY:
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                 case TacticalLines.AREA_DEFENSE:
                 case TacticalLines.CONTAIN:
                 case TacticalLines.SEIZE:
@@ -3683,11 +3689,14 @@ public class Modifier2 {
                 case TacticalLines.OCCUPY:
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                 case TacticalLines.AREA_DEFENSE:
                     pt0 = tg.Pixels.get(13);
                     pt1 = tg.Pixels.get(14);
                     //pt1=lineutility.ExtendAlongLineDouble(pt1, pt0, -10);
-                    AddIntegralAreaModifier(tg, label, aboveMiddle, -0.125 * csFactor, pt0, pt1, true);
+                    ptCenter = lineutility.MidPointDouble(pt0, pt1, 0);
+                    AddIntegralAreaModifier(tg, label, aboveMiddle, -0.125 * csFactor, ptCenter, ptCenter, true);
                     break;
                 case TacticalLines.CONTAIN:
                     pt0 = tg.Pixels.get(13);

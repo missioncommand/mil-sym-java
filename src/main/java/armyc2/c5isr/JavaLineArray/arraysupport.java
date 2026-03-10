@@ -607,6 +607,7 @@ public final class arraysupport {
             POINT2[] midPts = new POINT2[7];
             POINT2[] trianglePts = new POINT2[35];
             POINT2[] pArrowPoints = new POINT2[3];
+            POINT2[] pArrowPoints2 = new POINT2[3];
             double dRadius = lineutility.CalcDistanceDouble(pt0, pt1);
             double dLength = Math.abs(dRadius - 20);
             if (dRadius < 40) {
@@ -628,6 +629,7 @@ public final class arraysupport {
             lineutility.InitializePOINT2Array(midPts);
             lineutility.InitializePOINT2Array(trianglePts);
             lineutility.InitializePOINT2Array(pArrowPoints);
+            lineutility.InitializePOINT2Array(pArrowPoints2);
             lineutility.InitializePOINT2Array(ptsSeize);
 
             double DPIScaleFactor = RendererSettings.getInstance().getDeviceDPI() / 96.0;
@@ -666,6 +668,12 @@ public final class arraysupport {
                 lineutility.GetArrowHead4Double(ptsArc[24], ptsArc[25], (int) d / 7, (int) d / 7, pArrowPoints, 0);
             } else {
                 lineutility.GetArrowHead4Double(ptsArc[24], ptsArc[25], (int) d / 7, (int) (1.75 * d) / 7, pArrowPoints, 0);
+            }
+
+            //second arrow
+            if(lineType == TacticalLines.CONTROL || lineType == TacticalLines.LOCATE)
+            {
+                lineutility.GetArrowHead4Double(ptsArc[1], ptsArc[0], (int) d / 7, (int) d / 7, pArrowPoints2, 0);
             }
 
             pLinePoints[25].style = 5;
@@ -757,6 +765,19 @@ public final class arraysupport {
                         pLinePoints[j].style = 0;
                     }
                     pLinePoints[28].style = 5;
+                    break;
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
+                    for (j = 26; j < 29; j++) {
+                        pLinePoints[j] = new POINT2(pArrowPoints[j - 26]);
+                        pLinePoints[j].style = 0;
+                    }
+                    pLinePoints[28].style = 5;
+                    for (j = 29; j < 32; j++) {
+                        pLinePoints[j] = new POINT2(pArrowPoints2[j - 29]);
+                        pLinePoints[j].style = 0;
+                    }
+                    pLinePoints[31].style = 5;
                     break;
 
                 case TacticalLines.TURN_REVD:
@@ -2633,6 +2654,8 @@ public final class arraysupport {
                     acCounter = 67;
                     break;
                 case TacticalLines.OCCUPY:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                     GetIsolatePointsDouble(pLinePoints, lineType, converter);
                     acCounter = 32;
                     break;
@@ -3981,6 +4004,8 @@ public final class arraysupport {
                 case TacticalLines.PENETRATE:
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                 case TacticalLines.AREA_DEFENSE:
                 case TacticalLines.SEIZE:
                 case TacticalLines.CAPTURE:

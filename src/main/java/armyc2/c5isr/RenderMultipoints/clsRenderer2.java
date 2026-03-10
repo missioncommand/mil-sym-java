@@ -385,6 +385,8 @@ public final class clsRenderer2 {
                     shapes.add(0,shape);
                     break;
                 case TacticalLines.SECURE:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                 case TacticalLines.OCCUPY:
                     if(shapes!=null && !shapes.isEmpty())
                         //for(j=0;j<shapes.size();j++)

@@ -79,6 +79,8 @@ public final class TacticalLines {
     public static final int PENETRATE = 211700000;
     public static final int RETAIN = 211900000;
     public static final int SECURE = 212100000;
+    public static final int CONTROL = 25343200;
+    public static final int LOCATE = 25343900;
     public static final int SEIZE = 212300000;
     public static final int CAPTURE = 25343000;
     public static final int ASLTXING = 23221000;
