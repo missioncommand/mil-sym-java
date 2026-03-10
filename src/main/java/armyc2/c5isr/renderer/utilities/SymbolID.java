@@ -1132,6 +1132,39 @@ public class SymbolID {
     }
 
     /**
+     * Sets the country code on the symbol code
+     * @param symbolID 30 Character string
+     * @param countryCode country code like 840 for USA or 76 for Brazil
+     * @return
+     */
+    public static String setCountryCode(String symbolID, int countryCode)
+    {
+        return setCountryCode(symbolID,String.valueOf(countryCode));
+    }
+
+    /**
+     * Sets the country code on the symbol code
+     * @param symbolID 30 Character string
+     * @param countryCode country code like "840" for USA or "076" for Brazil
+     * @return
+     */
+    public static String setCountryCode(String symbolID, String countryCode)
+    {
+        if(symbolID != null && symbolID.length() >= 20)
+        {
+            if(countryCode.length() > 3)
+                countryCode = countryCode.substring(0,3);
+            while(countryCode.length()<3)
+                countryCode = "0" + countryCode;
+            return symbolID.substring(0,27) + countryCode;
+        }
+        else
+        {
+            return symbolID;
+        }
+    }
+
+    /**
      * In 2525E, position 23 of the symbol code has the Frame Shape modifier.
      * This lets a user force a different frame shape than what a symbol would normally have.
      * Like you could have Air Fixed Wing with a ground unit rectangle frame for when it's on the ground.

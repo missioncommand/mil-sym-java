@@ -84,6 +84,27 @@ public class Tester extends javax.swing.JFrame {
             //ErrorLogger.LogMessage(name);
 
             //DrawAllIcons();
+
+            //test code conversion
+            /*String newCode = C2DLookup.getInstance().getDCode("GFGPDAE---**USX",true);
+            ErrorLogger.LogMessage(newCode);
+            String country = GENCLookup.getInstance().get3CharCode(840);
+            ErrorLogger.LogMessage(country);
+            country = GENCLookup.getInstance().get3CharCode(540);
+            ErrorLogger.LogMessage(country);
+            country = GENCLookup.getInstance().get3DigitCode("US");
+            ErrorLogger.LogMessage(country);
+            country = GENCLookup.getInstance().get3CharCode(76);
+            ErrorLogger.LogMessage(country);
+            country = GENCLookup.getInstance().get3DigitCode("BR");
+            ErrorLogger.LogMessage(country);
+            country = SymbolID.setCountryCode("000000000000000000000000000000",76);
+            ErrorLogger.LogMessage(country);
+            country = SymbolID.setCountryCode("000000000000000000000000000000","76");
+            ErrorLogger.LogMessage(country);
+            country = SymbolID.setCountryCode("000000000000000000000000000000","076");
+            ErrorLogger.LogMessage(country);//*/
+
         }
         catch(Exception exc)
         {
@@ -1181,6 +1202,8 @@ public class Tester extends javax.swing.JFrame {
         }
 
         //modifierTest();
+
+
     }//GEN-LAST:event_formMouseClicked
 
     private void DrawCenterBorder(ImageInfo ii)

@@ -19,6 +19,7 @@ public class GENCLookup
     private static Boolean _initCalled = false;
 
     private static Map<Integer, String> _GENCLookup = null;
+    private static Map<String, String> _GENCLookupAlpha = null;
     private String TAG = "GENCLookup";
     private List<String> _IDList = new ArrayList<String>();
 
@@ -38,6 +39,7 @@ public class GENCLookup
         if (_initCalled == false)
         {
             _GENCLookup = new HashMap<>();
+            _GENCLookupAlpha = new HashMap<>();
             String[] temp = null;
             String delimiter = "\t";
 
@@ -53,8 +55,11 @@ public class GENCLookup
                     //parse first line
                     temp = line.split(delimiter);
 
-                    if(temp != null && temp.length >= 2 && SymbolUtilities.isNumber(temp[1]))
-                        _GENCLookup.put(Integer.valueOf(temp[1]),temp[0]);
+                    if(temp.length >= 3) {
+                        _GENCLookup.put(Integer.valueOf(temp[2]), temp[1]);
+                        if(temp[0].length()==2)
+                            _GENCLookupAlpha.put((temp[0]), temp[2]);
+                    }
 
                     //read next line for next loop
                     line = br.readLine();
@@ -69,6 +74,11 @@ public class GENCLookup
         }
     }
 
+    /**
+     *
+     * @param id 3 digit code from 2525D+ symbol code
+     * @return
+     */
     public String get3CharCode(int id)
     {
         if(_GENCLookup != null && _GENCLookup.containsKey(id))
@@ -76,5 +86,22 @@ public class GENCLookup
             return _GENCLookup.get(id);
         }
         return "";
+    }
+
+    /**
+     *
+     * @param id 2 char string from 2525C symbol code
+     * @return
+     */
+    public String get3DigitCode(String id)
+    {
+        if(_GENCLookupAlpha != null && _GENCLookupAlpha.containsKey(id))
+        {
+            String code = _GENCLookupAlpha.get(id);
+            while(code.length()<3)
+                code = "0" + code;
+            return code;
+        }
+        return "000";
     }
 }
