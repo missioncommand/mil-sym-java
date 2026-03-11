@@ -2774,6 +2774,8 @@ public final class clsRenderer {
                 return TacticalLines.CORDONKNOCK;
             case 342700:
                 return TacticalLines.CORDONSEARCH;
+            case 343400:
+                return TacticalLines.DENY;
             case 272101:
                 return TacticalLines.STRIKWARN;
             default:

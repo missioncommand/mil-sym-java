@@ -378,6 +378,7 @@ public class Modifier2 {
                     label = "PLD";
                     break;
                 case TacticalLines.DELAY:
+                case TacticalLines.DENY:
                     label = "D";
                     break;
                 case TacticalLines.RELEASE:
@@ -3527,6 +3528,7 @@ public class Modifier2 {
                 case TacticalLines.TURN:
                 case TacticalLines.CORDONKNOCK:
                 case TacticalLines.CORDONSEARCH:
+                case TacticalLines.DENY:
                 case TacticalLines.FOLLA:
                 case TacticalLines.FOLSP:
                 case TacticalLines.ACA_RECTANGULAR:
@@ -3772,6 +3774,7 @@ public class Modifier2 {
                     break;
                 case TacticalLines.CORDONKNOCK:
                 case TacticalLines.CORDONSEARCH:
+                case TacticalLines.DENY:
                     pt0 = tg.Pixels.get(13);
                     pt1 = tg.Pixels.get(0);
                     stringWidth = metrics.stringWidth(label);

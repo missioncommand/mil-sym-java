@@ -132,6 +132,7 @@ public final class TacticalLines {
     public static final int WITHDRAW = 212400000;
     public static final int CORDONSEARCH = 212500000;
     public static final int CORDONKNOCK = 212600000;
+    public static final int DENY = 25343400;
     public static final int WDRAWUP = 212410000;
     public static final int CFL = 24220000;
     public static final int LOD = 22526000;

@@ -652,6 +652,7 @@ public final class clsClipPolygon2 {
                 case TacticalLines.CATKBYFIRE:
                 case TacticalLines.CORDONSEARCH:
                 case TacticalLines.CORDONKNOCK:
+                case TacticalLines.DENY:
                 case TacticalLines.SECURE:
                 case TacticalLines.CONTROL:
                 case TacticalLines.LOCATE:

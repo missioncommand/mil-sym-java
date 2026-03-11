@@ -299,6 +299,7 @@ public final class countsupport
                 case TacticalLines.ISOLATE:
                 case TacticalLines.CORDONKNOCK:
                 case TacticalLines.CORDONSEARCH:
+                case TacticalLines.DENY:
                     count = 50;
                     break;
                 case TacticalLines.AREA_DEFENSE:
