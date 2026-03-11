@@ -1086,10 +1086,14 @@
 			Difficult	270602	10,11	Line	Point12		
 			Impossible	270603	10,11	Line	Point12		
 		Minefields		270700	10,11				
-			Static Depiction	270701	10,11	Point	Point2	H,N,W	
+			Static Depiction	270701	10,11	Point	Point2	H,N,W
+			Dummy Minefield	270705	10	Point	Point2	H,N,W	just 270701 with FD mod
+			Dummy Minefield Dynamic	270706	10	Area	Area23		just 270707 with FD mod
 			Dynamic Depiction	270707	10,11	Area	Area23		
 		Mined Area		270800	10,11	Area	Area1	H,N,W	
 			Fenced	270801	10,11	Area	Area1	N	
+		Decoy Mined Area		270900	10	Area	Area1	H,N,W	just 270800 with FD mod
+			Fenced Decoy	270901	10	Area	Area1	N	just 270801 with FD mod
 		Unexploded Explosive Ordnance (UXO) Area		271000	10,11	Area	Area1		
 		Bridge or Gap		271100	10,11	Line	Line11	T,W,W1	
 		Roadblocks, Craters and Blown Bridges		271200	10,11				

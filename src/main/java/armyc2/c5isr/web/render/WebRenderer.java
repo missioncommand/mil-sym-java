@@ -543,6 +543,7 @@ public final class WebRenderer /* extends Applet */ {
 		{
 			String returnVal = symbolID;
 			int etc = SymbolID.getEntityCode(symbolID);
+			int version = SymbolID.getVersion(symbolID);
 			switch (etc)
 			{
 				case 151406://Axis of Advance for a Feint
@@ -553,14 +554,36 @@ public final class WebRenderer /* extends Applet */ {
 					returnVal = SymbolID.setEntityCode(returnVal,140603);//Direction of Supporting Attack
 					returnVal = SymbolID.setHQTFD(returnVal,SymbolID.HQTFD_FeintDummy);
 					break;
-				case 260100: //FSCL
-				case 260200: //CFL
-				case 260300: //NFL
-				case 260400: //BCL
-				case 260500: //RFL
-					//instead of T1 uses T2 & AS
+				case 270705://Dummy Minefield
+					returnVal = SymbolID.setEntityCode(returnVal,270701);//Static Depiction
+					returnVal = SymbolID.setHQTFD(returnVal,SymbolID.HQTFD_FeintDummy);
 					break;
-
+				case 270706://Dummy Minefield, Dynamic
+					returnVal = SymbolID.setEntityCode(returnVal,270707);//Dynamic Depiction
+					returnVal = SymbolID.setHQTFD(returnVal,SymbolID.HQTFD_FeintDummy);
+					break;
+				case 270900://Decoy Mined Area
+					returnVal = SymbolID.setEntityCode(returnVal,270800);//Mined Area
+					returnVal = SymbolID.setHQTFD(returnVal,SymbolID.HQTFD_FeintDummy);
+					break;
+				case 270901://Decoy Mined Area, Fenced
+					returnVal = SymbolID.setEntityCode(returnVal,270801);//Mined Area
+					returnVal = SymbolID.setHQTFD(returnVal,SymbolID.HQTFD_FeintDummy);
+					break;
+			}
+			//TODO: Update Modifiers if necessary or handle in Modifier2
+			if(version == SymbolID.Version_APP6Ech2)
+			{
+				switch(etc)
+				{
+					case 260100: //FSCL
+					case 260200: //CFL
+					case 260300: //NFL
+					case 260400: //BCL
+					case 260500: //RFL
+						//instead of T1 uses T2 & AS
+						break;
+				}
 			}
 			return returnVal;
 		}

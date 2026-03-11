@@ -859,9 +859,12 @@ G*G*AAML--****X	25	171700				Low Altitude Missile Engagement Zone
 G*G*AAMH--****X	25	171800				High Altitude Missile Engagement Zone
 G*G*AAF---****X	25	171900				Short Range Air Defense Engagement Zone
 G*G*AAW---****X	25	172000				Weapons Free Zone
-G*G*PA----****X	25	140400					Axis of Advance Feint
-G*G*PD----****X	25	150100					Deception/Decoy/Dummy
+G*G*PA----****X	25	151406					Axis of Advance Feint
+G*G*PD----****X	25	230200					Deception/Decoy/Dummy
 G*G*PF----****X	25	140605					Direction of Attack Feint
+G*G*PN----****X	25	270705					Dummy Minefield
+G*G*PM----****X	25	270900					Decoy Mined Area
+G*G*PY----****X	25	270901					Decoy Mined Area, Fenced
 G*G*GPA---****X	25	180000			Airspace Control Points
 G*G*APP---****X	25	180100				Air Control Point
 G*G*APC---****X	25	180200				Communications Checkpoint
@@ -1483,8 +1486,8 @@ WAS-PA----P----	45	110201	00	00			Anticyclone Center
 WAS-PHT---P----	45	110202	00	00			Tropopause High
 WA-DPFC----L---	45	110301	00	00			Cold Front
 WA-DPFCU---L---	45	110302	00	00			Upper Cold Front
-WA-DPFC-FG-L---	45	110203	00	00			Cold Frontogenesis
-WA-DPFC-FY-L---	45	110104	00	00			Cold Frontolysis
+WA-DPFC-FG-L---	45	110303	00	00			Cold Frontogenesis
+WA-DPFC-FY-L---	45	110304	00	00			Cold Frontolysis
 WA-DPFW----L---	45	110305	00	00			Warm Front
 WA-DPFWU---L---	45	110306	00	00			Upper Warm Front
 WA-DPFW-FG-L---	45	110307	00	00			Warm Frontogenesis
