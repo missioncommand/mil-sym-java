@@ -69,22 +69,20 @@ public class C2DLookup {
 
     /**
      * Take a complete 15 character 2525C symbol code and converts it to 2525D if there is a match.
-     * Returns null if no match.  Does not include the country code as 2525C symbols don't visually
-     * display the country and adding it would trigger the 2525D renderer to draw the country code
-     * where applicable.
+     * Returns null if no match.
      * @param symbolID 15 character 2525C symbol code.
      * @return 30 character 2525D code or null if no matching symbol
      */
     public String getDCode(String symbolID)
     {
-        return getDCode(symbolID, false);
+        return getDCode(symbolID, true);
     }
 
     /**
      * Take a complete 15 character 2525C symbol code and converts it to 2525D if there is a match.
      * Returns null if no match.
      * @param symbolID 15 character 2525C symbol code.
-     * @param includeCountryCode Update the country code as well.
+     * @param includeCountryCode 2525C symbols don't display the country label so set to false if you don't want it displayed.
      * @return 30 character 2525D code or null if no matching symbol.
      */
     public String getDCode(String symbolID, boolean includeCountryCode)
@@ -288,6 +286,20 @@ public class C2DLookup {
                         break;
                 }
             }
+        }
+
+        switch(SymbolID.getEntityCode(newCode))
+        {
+            case 151406://Axis of Advance for a Feint
+            case 140605://Direction of attack feint
+            case 270705://Dummy Minefield
+            case 270706://Dummy Minefield, Dynamic
+            case 270900://Decoy Mined Area
+            case 270901://Decoy Mined Area, Fenced
+                newCode = SymbolID.setVersion(newCode,10);
+                break;
+            default:
+                break;
         }
 
         //country code

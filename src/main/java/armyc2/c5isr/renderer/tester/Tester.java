@@ -105,6 +105,10 @@ public class Tester extends javax.swing.JFrame {
             country = SymbolID.setCountryCode("000000000000000000000000000000","076");
             ErrorLogger.LogMessage(country);//*/
 
+            //C3DLookup test
+            /*String c2dCode = C2DLookup.getInstance().getDCode("GFGPPY----****X");
+            ErrorLogger.LogMessage(c2dCode);//*/
+
         }
         catch(Exception exc)
         {
