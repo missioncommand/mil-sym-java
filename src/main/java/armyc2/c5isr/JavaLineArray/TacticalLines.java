@@ -524,6 +524,7 @@ public final class TacticalLines {
     public static final int EXPLOIT = 25343100;
     public static final int DEMONSTRATE = 25343300;
     public static final int ENVELOPMENT = 25343500;
+    public static final int EXFILTRATION = 25343700;
     public static final int INFILTRATION = 25343800;
     public static final int PURSUIT = 25344000;
     public static final int DISENGAGE = 25344400;

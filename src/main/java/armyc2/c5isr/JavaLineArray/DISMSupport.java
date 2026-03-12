@@ -13,6 +13,7 @@ import armyc2.c5isr.renderer.utilities.RendererSettings;
 import java.awt.*;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -378,6 +379,131 @@ public final class DISMSupport
         }
         return false;
     }
+
+    public static POINT2[] GetInfiltrationDouble(POINT2[] points) {
+        int counter = 0;
+
+        POINT2 p1 = points[0];//start
+        POINT2 p3 = points[1];//mid
+        POINT2 p5 = points[2];//end
+        POINT2 start = points[0];//start
+        POINT2 mid = points[1];//mid
+        POINT2 end = points[2];//end
+        POINT2 p2= new POINT2(0,0,1);
+        POINT2 p4 = new POINT2(0,0,1);
+        p1.style=0;
+
+
+
+        double dpi = RendererSettings.getInstance().getDeviceDPI();
+        double scale = 4;
+
+        if(p5.x==0 && p5.y==0)//handle points drop when all 3 on top of each other.
+        {
+            p5.x=p3.x;
+            p5.y=p3.y;
+        }
+
+        int d1 = (int)lineutility.CalcDistanceDouble(p1,p3);
+        int d2 = (int)lineutility.CalcDistanceDouble(p3,p5);
+
+        //force some distance so render doesn't fail when points too close
+        if(d1==0) {
+            p1.x = p1.x - 1;
+            p1.y = p1.y - 1;
+        }
+        if(d2==0) {
+            p5.x = p5.x + 1;
+            p5.y = p5.y + 1;
+        }
+
+        double arcDistance = dpi/scale;
+
+        POINT2 anchor1 = new POINT2();
+        POINT2 anchor2 = new POINT2();
+        if(p5.y >= p3.y)//end point lower than mid point
+        {
+            p2.y = p3.y - arcDistance;
+            p4.y = p3.y + arcDistance;
+        }
+        else//end point higher than mid point
+        {
+            p2.y = p3.y + arcDistance;
+            p4.y = p3.y - arcDistance;
+        }
+
+        arcDistance = dpi/scale;
+        if(d2 < arcDistance)
+            arcDistance = Math.max(d2*0.5,3);
+        if(p5.x >= p3.x)
+        {
+            p2.x = p3.x - arcDistance;
+            p4.x = p3.x + arcDistance;
+        }
+        else
+        {
+            p2.x = p3.x + arcDistance;
+            p4.x = p3.x - arcDistance;
+        }
+        anchor1.x=p2.x;
+        anchor1.y=p3.y;
+
+        anchor2.x=p4.x;
+        anchor2.y=p3.y;
+
+
+        ArrayList<POINT2> path = new ArrayList<>();
+
+        try {
+
+            // Draw the first straight line segment (p1 to p2)
+            //g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
+            path.add(p1);
+            //path.add(p2);//first curve is going to add this point again
+
+            // Draw the first 45-degree arc (concave) from p2 to p3
+            //drawArc(g2d, p2, p3, true, 5);
+            //path.addAll(getArc(p2, p3, false, 5));
+            if(arcDistance < d1) {
+                path.addAll(lineutility.GetArcPointsDouble(p2, p3, anchor1, 5));
+                path.remove(path.size() - 1);//next curve is going to add this point again.
+            }
+
+
+            // Draw the second 45-degree arc (convex) from p3 to p4
+            //drawArc(g2d, p3, p4, false, 5);
+            //path.addAll(getArc(p3, p4, true, 5));
+            if(arcDistance < d2)
+                path.addAll(lineutility.GetArcPointsDouble(p3, p4, anchor2, 5));
+            else
+                path.add(p3);
+
+            // Draw the second straight line segment (p4 to p5)
+            //g2d.drawLine(p4.x, p4.y, p5.x, p5.y);
+            path.add(p5);
+
+        }
+        catch(Exception exc)
+        {
+            ErrorLogger.LogException("","",exc);
+        }
+
+        int lcv = 0;
+        points = new POINT2[path.size() + 3];
+
+        for(POINT2 pt : path)
+        {
+            if(lcv == 0)
+                pt.style = 0;
+            else
+                pt.style=1;
+            points[lcv] = pt;
+            lcv++;
+        }
+
+        return points;
+    }
+
 
     /**
      * Calculates the points for ENVELOPMENT

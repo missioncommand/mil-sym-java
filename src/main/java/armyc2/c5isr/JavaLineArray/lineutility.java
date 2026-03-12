@@ -1407,6 +1407,45 @@ public final class lineutility {
     }
 
     /**
+     *
+     * @param start beginning of arc
+     * @param end end of arc
+     * @param center center point of circle
+     * @param numSegments how many lines to use to make the curve
+     * @return ArrayList<POINT2> of points that make the arc
+     */
+    public static ArrayList<POINT2> GetArcPointsDouble(POINT2 start, POINT2 end, POINT2 center, int numSegments) {
+        ArrayList<POINT2> points = new ArrayList<>();
+
+        // 1. Calculate vectors from center to start/end points
+        double dxStart = start.x - center.x;
+        double dyStart = start.y - center.y;
+        double dxEnd = end.x - center.x;
+        double dyEnd = end.y - center.y;
+
+        // 2. Determine radius and initial/final angles
+        double radius = Math.sqrt(dxStart * dxStart + dyStart * dyStart);
+        double angleStart = Math.atan2(dyStart, dxStart);
+        double angleEnd = Math.atan2(dyEnd, dxEnd);
+
+        // 3. Calculate the shortest sweep angle
+        double sweep = angleEnd - angleStart;
+        while (sweep > Math.PI) sweep -= 2 * Math.PI;
+        while (sweep < -Math.PI) sweep += 2 * Math.PI;
+
+        // 4. Generate points for each segment
+        points.add(start); // Start with the actual start point
+        for (int i = 1; i <= numSegments; i++) {
+            double currentAngle = angleStart + (sweep * i / numSegments);
+            double x = center.x + radius * Math.cos(currentAngle);
+            double y = center.y + radius * Math.sin(currentAngle);
+            points.add(new POINT2(x, y));
+        }
+
+        return points;
+    }
+
+    /**
      * Returns the smallest x and y pixel values from an array of points
      *
      * @param ptsSeize array of points from which to find minimum vaules

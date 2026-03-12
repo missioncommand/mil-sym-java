@@ -586,6 +586,9 @@ public class Modifier2 {
                 case TacticalLines.TRIP:
                     label = "t";
                     break;
+                case TacticalLines.EXFILTRATION:
+                    label = "EX";
+                    break;
                 case TacticalLines.INFILTRATION:
                     label = "IN";
                     break;
@@ -2162,6 +2165,7 @@ public class Modifier2 {
                 case TacticalLines.AAAAA:
                 case TacticalLines.MAIN:
                 case TacticalLines.DIRATKSPT:
+                case TacticalLines.EXFILTRATION:
                 case TacticalLines.INFILTRATION:
                 case TacticalLines.DIRATKGND:
                 case TacticalLines.LAUNCH_AREA:
@@ -2438,8 +2442,10 @@ public class Modifier2 {
                     AddIntegralAreaModifier(tg, tg.get_Name(), aboveMiddle, 0, pt0, midPt, false);
                     addDTG(tg, aboveMiddle, csFactor, 2 * csFactor, pt0, pt1, metrics);
                     break;
+                case TacticalLines.EXFILTRATION:
                 case TacticalLines.INFILTRATION:
-                    AddIntegralModifier(tg, label, aboveMiddle, 0, middleSegment, middleSegment + 1, true);
+                    ptCenter = lineutility.MidPointDouble(pt0, pt1, 0);
+                    AddIntegralAreaModifier(tg, label, aboveMiddle, 0, ptCenter, ptCenter , true);
                     break;
                 case TacticalLines.SPT:
                 case TacticalLines.FRONTAL_ATTACK:
