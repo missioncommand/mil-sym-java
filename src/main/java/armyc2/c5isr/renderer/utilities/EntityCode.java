@@ -26,6 +26,8 @@ public class EntityCode {
 
     public static final int EntityCode_AnchoragePoint = 120304;
 
+    public static final int EntityCode_Decision_Point = 130700;
+
     /**
      * Returns the modifier icon for a given contamination area
      * @param contaminationArea the entity code of the contamination area

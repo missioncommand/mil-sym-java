@@ -1281,10 +1281,10 @@ public final class lineutility {
      *
      * @return the extension point
      */
-    protected static POINT2 ExtendLine2Double(POINT2 pt1,
-            POINT2 pt2,
-            double dist,
-            int styl) {
+    public static POINT2 ExtendLine2Double(POINT2 pt1,
+                                           POINT2 pt2,
+                                           double dist,
+                                           int styl) {
         POINT2 pt3 = new POINT2();
         try {
             double dOriginalDistance = CalcDistanceDouble(pt1, pt2);

@@ -529,5 +529,7 @@ public final class TacticalLines {
     public static final int PURSUIT = 25344000;
     public static final int DISENGAGE = 25344400;
     public static final int EVACUATE = 25344500;
+    public static final int ESCORT = 25343600;
+    public static final int DECISION_LINE = 25130701;
 }
 

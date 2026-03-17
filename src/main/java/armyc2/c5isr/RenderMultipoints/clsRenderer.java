@@ -2197,6 +2197,8 @@ public final class clsRenderer {
                 return TacticalLines.FORT;
             case 110400:
                 return TacticalLines.GENERIC_LINE;
+            case 110500:
+                return TacticalLines.DECISION_LINE;
             case 120700:
                 return TacticalLines.GENERIC_AREA;
             case 141800:

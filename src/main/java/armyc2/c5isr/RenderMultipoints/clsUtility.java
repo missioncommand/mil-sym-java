@@ -515,6 +515,7 @@ public final class clsUtility {
             case TacticalLines.FLOT:
             case TacticalLines.LC:
             case TacticalLines.PL:
+            case TacticalLines.DECISION_LINE:
             case TacticalLines.FEBA:
             case TacticalLines.LL:
             case TacticalLines.EWL:
