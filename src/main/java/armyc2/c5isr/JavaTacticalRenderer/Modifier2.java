@@ -44,14 +44,43 @@ public class Modifier2 {
         textPath = new POINT2[2];
     }
 
+    /**
+     * Put label next to pt0 on opposite side of line
+     */
     private static final int toEnd = 1; // Put next to pt0 on opposite side of line
+    /**
+     * put label between both point and apply the angle between the two points
+     */
     private static final int aboveMiddle = 2;    //use both points
+    /**
+     * one point, label always right-side-up
+     */
     private static final int area = 3;   //use one point
+    /**
+     * one point, label always right-side-up
+     */
     private static final int screen = 4;   //use one point, screen, cover, guard points
+    /**
+     * Put next to pt0, but above the line
+     */
     private static final int aboveEnd = 5; // Put next to pt0 on line
+    /**
+     * between both points but perpendicular rotation of text
+     */
     private static final int aboveMiddlePerpendicular = 6; //use both points
+    /**
+     * For Moving and Halted Convoy.
+     * At start of line behind arrowhead
+     */
     private static final int aboveStartInside = 7; //place at the start inside the shape
+    /**
+     * For Moving and Halted Convoy.
+     * At back of line inside arrow shape.
+     */
     private static final int aboveEndInside = 8;  //place at the end inside the shape
+    /**
+     * Image Modifier, uses one point
+     */
     private static final int areaImage = 9;   //use one point
     private static double fillAlphaCanObscureText = 50d;
 
@@ -541,6 +570,7 @@ public class Modifier2 {
                     label = "RDF";
                     break;
                 case TacticalLines.ELECTRO:
+                case TacticalLines.ESCORT:
                     label = "E";
                     break;
                 case TacticalLines.BEARING_EW:
@@ -2167,8 +2197,6 @@ public class Modifier2 {
                 case TacticalLines.AAAAA:
                 case TacticalLines.MAIN:
                 case TacticalLines.DIRATKSPT:
-                case TacticalLines.EXFILTRATION:
-                case TacticalLines.INFILTRATION:
                 case TacticalLines.DIRATKGND:
                 case TacticalLines.LAUNCH_AREA:
                 case TacticalLines.DEFENDED_AREA_CIRCULAR:
@@ -2454,11 +2482,6 @@ public class Modifier2 {
                     //midPt=lineutility.MidPointDouble(pt0, midPt, 0);
                     AddIntegralAreaModifier(tg, tg.get_Name(), aboveMiddle, 0, pt0, midPt, false);
                     addDTG(tg, aboveMiddle, csFactor, 2 * csFactor, pt0, pt1, metrics);
-                    break;
-                case TacticalLines.EXFILTRATION:
-                case TacticalLines.INFILTRATION:
-                    ptCenter = lineutility.MidPointDouble(pt0, pt1, 0);
-                    AddIntegralAreaModifier(tg, label, aboveMiddle, 0, ptCenter, ptCenter , true);
                     break;
                 case TacticalLines.SPT:
                 case TacticalLines.FRONTAL_ATTACK:
@@ -3548,6 +3571,9 @@ public class Modifier2 {
                 case TacticalLines.CORDONKNOCK:
                 case TacticalLines.CORDONSEARCH:
                 case TacticalLines.DENY:
+                case TacticalLines.ESCORT:
+                case TacticalLines.EXFILTRATION:
+                case TacticalLines.INFILTRATION:
                 case TacticalLines.FOLLA:
                 case TacticalLines.FOLSP:
                 case TacticalLines.ACA_RECTANGULAR:
@@ -3803,6 +3829,22 @@ public class Modifier2 {
                     pt1 = lineutility.ExtendAlongLineDouble2(pt0, pt1, 0.75 * stringWidth);
                     ptCenter = lineutility.MidPointDouble(pt0, pt1, 0);
                     AddIntegralAreaModifier(tg, label, aboveMiddle, 0, ptCenter, ptCenter, true);
+                    break;
+                case TacticalLines.ESCORT:
+                    if(tg.Pixels.size() == 6) {
+                        if (tg.Pixels.get(2).x == tg.Pixels.get(3).x &&
+                                tg.Pixels.get(2).y == tg.Pixels.get(3).y) {
+                            //No Room for E labels
+                            break;//?
+                        }
+                        AddIntegralAreaModifier(tg, label, toEnd, 0, tg.Pixels.get(2), tg.Pixels.get(1), true);
+                        AddIntegralAreaModifier(tg, label, toEnd, 0, tg.Pixels.get(3), tg.Pixels.get(4), true);
+                    }
+                    break;
+                case TacticalLines.EXFILTRATION:
+                case TacticalLines.INFILTRATION:
+                    ptCenter = lineutility.MidPointDouble(pt0, pt1, 0);
+                    AddIntegralAreaModifier(tg, label, aboveMiddle, 0, pt0, pt1 , true);
                     break;
                 case TacticalLines.FOLLA:
                     pt0 = tg.Pixels.get(0);

@@ -18,10 +18,13 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
@@ -1283,9 +1286,29 @@ public class Tester extends javax.swing.JFrame {
                 if(msi != null && msi.getDrawRule() != DrawRules.DONOTDRAW)
                 {
                     ii = MilStdIconRenderer.getInstance().RenderIcon(id, modifiers, attributes);
-                    if (ii != null) {
-                        try {
-                            ii.SaveImageToFile("C:\\Temp\\AllIcons\\" + version + "\\" + id + ".png", "png");
+                    if (ii != null)
+                    {
+                        try
+                        {
+                            //if(SymbolID.getSymbolSet(id)!=SymbolID.SymbolSet_ControlMeasure) {
+                                ii.SaveImageToFile("C:\\Temp\\AllIcons\\" + version + "\\" + id + ".png", "png");
+                            /*}
+                            else
+                            {
+                                BufferedImage bi = ii.getImage();
+                                BufferedImage newBi = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                                Graphics2D g2d = newBi.createGraphics();
+                                g2d.setComposite(AlphaComposite.SrcOver);//preserve transparency
+                                g2d.setBackground(Color.BLACK);
+                                g2d.setColor(Color.BLACK);
+                                g2d.drawRect(0,0, newBi.getWidth(),newBi.getHeight());
+                                g2d.fillRect(0,0, newBi.getWidth(),newBi.getHeight());
+                                g2d.drawImage(bi, 0, 0, null);
+
+                                //copy to bmp with black background to see the outline
+                                File outFile = new File("C:\\Temp\\AllIcons\\" + version + "\\" + id + ".png");
+                                ImageIO.write(newBi, "png", outFile);
+                            }//*/
                         } catch (Exception exc) {
                             ErrorLogger.LogException("Tester", "DrawAllIcons", exc);
                         }

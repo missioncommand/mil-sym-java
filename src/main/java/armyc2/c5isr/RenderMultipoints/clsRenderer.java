@@ -559,7 +559,8 @@ public final class clsRenderer {
             }
 
             ArrayList<Point2D> coords = getClientCoords(tg);
-            tg.set_Font(new Font("Arial", Font.PLAIN, 12));
+            //tg.set_Font(new Font("Arial", Font.PLAIN, 12));
+            tg.set_Font(RendererSettings.getInstance().getMPLabelFont());
             Map<String,String> modifiers = new HashMap<>();
             modifiers.put(Modifiers.W_DTG_1, tg.get_DTG());
             modifiers.put(Modifiers.W1_DTG_2, tg.get_DTG1());
@@ -1107,7 +1108,8 @@ public final class clsRenderer {
             setClientCoords(milStd, tg);
             //build tg.Pixels
             tg.Pixels = clsUtility.LatLongToPixels(tg.LatLongs, converter);
-            tg.set_Font(new Font("Arial", Font.PLAIN, 12));
+            //tg.set_Font(new Font("Arial", Font.PLAIN, 12));
+            tg.set_Font(RendererSettings.getInstance().getMPLabelFont());
             tg.set_FillColor(milStd.getFillColor());
             tg.set_LineColor(milStd.getLineColor());
             tg.set_LineThickness(milStd.getLineWidth());
@@ -2770,6 +2772,8 @@ public final class clsRenderer {
                 return TacticalLines.SEIZE;
             case 343000:
                 return TacticalLines.CAPTURE;
+            case 343600:
+                return TacticalLines.ESCORT;
             case 342400:
                 return TacticalLines.WITHDRAW;
             case 342500:

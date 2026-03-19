@@ -3829,6 +3829,37 @@ public final class lineutility {
         }
     }
 
+    /**
+     *
+     * @param p1 start point
+     * @param p2 end point
+     * @param p3 point not on the line
+     * @return the point closest to point 3.  This point and point 3 will create a line that is perpendicular to
+     * the line created by point 1 and 2.
+     */
+    public static POINT2 FindClosestPointOnLine(POINT2 p1, POINT2 p2, POINT2 p3) {
+        // Calculate the direction vector of the line (u)
+        double dxLine = p2.x - p1.x;
+        double dyLine = p2.y - p1.y;
+
+        // Calculate the vector from point 1 to point 3 (v)
+        double dxToPoint3 = p3.x - p1.x;
+        double dyToPoint3 = p3.y - p1.y;
+
+        // Compute the dot products
+        double dotProduct_uv = dxToPoint3 * dxLine + dyToPoint3 * dyLine; // v · u
+        double dotProduct_uu = dxLine * dxLine + dyLine * dyLine;         // u · u
+
+        // Calculate the scalar projection factor
+        double scalarProjection = dotProduct_uv / dotProduct_uu;
+
+        // Find the closest point on the line
+        double closestX = p1.x + scalarProjection * dxLine;
+        double closestY = p1.y + scalarProjection * dyLine;
+
+        return new POINT2(closestX, closestY);
+    }
+
     private static void CalcMBR(POINT2[] pLinePoints,
             int numpts,
             ref<double[]> ulx,

@@ -1278,7 +1278,7 @@
 		Demonstration		343300	10	Area	Area18		
 		Deny		343400	10	Area	Area15		
 		Envelop		343500	10	Line	Line31		
-		Escort		343600	10	Line	Line1		
+		Escort		343600	10	Line	Line50		
 		Exfiltrate		343700	10	Line	Line32		
 		Infiltrate		343800	10	Line	Line32		
 		Locate		343900	10	Area	Area19		

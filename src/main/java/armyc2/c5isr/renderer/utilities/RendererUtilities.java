@@ -397,6 +397,8 @@ public class RendererUtilities {
         String strokeCapSquare = " stroke-linecap=\"square\"";
         String strokeCapButt = " stroke-linecap=\"butt\"";
         String strokeCapRound = " stroke-linecap=\"round\"";
+        int outlineSize = 15;
+
 
         int affiliation = SymbolID.getAffiliation(symbolID);
         String defaultFillColor = null;
@@ -433,36 +435,12 @@ public class RendererUtilities {
             strokeColor = Color.BLACK;
         }
 
-        if (isOutline) {
-            // Capture and scale stroke-widths to create outlines. Note that some stroke-widths are not integral numbers.
-            Pattern pattern = Pattern.compile("(stroke-width=\")(\\d+\\.?\\d*)\"");
-            Matcher m = pattern.matcher(svg);
-            TreeSet<String> strokeWidthStrings = new TreeSet<>();
-            while (m.find()) {
-                strokeWidthStrings.add(m.group(0));
-            }
-            // replace stroke width values in SVG from greatest to least to avoid unintended replacements
-            // TODO This might not actually sort strings from greatest to least stroke-width values because they're alphabetical
-            for (String target : strokeWidthStrings.descendingSet()) {
-                Pattern numPattern = Pattern.compile("\\d+\\.?\\d*");
-                Matcher numMatcher = numPattern.matcher(target);
-                numMatcher.find();
-                float f = Float.parseFloat(numMatcher.group(0));
-                String replacement = "stroke-width=\"" + (f * OUTLINE_SCALING_FACTOR) + "\"";
-                returnSVG = returnSVG.replace(target, replacement);
-            }
-
-            // add stroke-width and stroke (color) to all groups
-            pattern = Pattern.compile("(<g)");
-            m = pattern.matcher(svg);
-            TreeSet<String> groupStrings = new TreeSet<>();
-            while (m.find()) {
-                groupStrings.add(m.group(0));
-            }
-            for (String target : groupStrings) {
-                String replacement = target + strokeCapSquare + " stroke-width=\"" + (2.5f * OUTLINE_SCALING_FACTOR) + "\" stroke=\"#" + ColorToHex(strokeColor).substring(2) + "\" ";
-                returnSVG = returnSVG.replace(target, replacement);
-            }
+        if (isOutline)
+        {
+            //increase stroke-width so the white outline shows around the symbol
+            returnSVG = increaseStrokeWidth(returnSVG,(outlineSize));
+            //set the stroke color for the group so filled shapes without stokes get outlined as well.
+            returnSVG = returnSVG.replaceFirst("<g", "<g stroke=\"" + hexStrokeColor + "\" " + strokeOpacity + " stroke-linecap=\"square\"");
 
         }
         else
@@ -575,7 +553,7 @@ public class RendererUtilities {
     }
 
     /**
-     * Takes an SVG string and increases all stroke-width values by 2.
+     * Takes an SVG string and increases all stroke-width values by the increaseBy value.
      * @param svgString The raw SVG content.
      * @param increaseBy the number to add to the current stroke value
      * @return The modified SVG content.
@@ -612,6 +590,8 @@ public class RendererUtilities {
 
         // 4. Append any remaining text after the last match
         sb.append(svgString.substring(lastEnd));
+        int firstGroup = sb.indexOf("<g");
+        sb.replace(firstGroup, firstGroup+2,"<g stroke-width=\"" + increaseBy + "\" ");
         return sb.toString();
     }
 

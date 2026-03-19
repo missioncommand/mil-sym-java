@@ -1061,6 +1061,76 @@ public final class DISMSupport
         }
         return counter;
     }
+
+    /**
+     * Calculates the points for Escort.
+     *
+     * @param points OUT - the client points, also used for the returned points.
+     * @param lineType the line type.
+     */
+    static int GetDISMEscortDouble(TGLight tg, POINT2[] points, int lineType) {
+        int counter = 6;
+        try {
+            POINT2 pt0 = new POINT2(points[1]);
+            POINT2 pt1 = new POINT2();
+            POINT2 pt2 = new POINT2();
+            POINT2 pt3 = new POINT2();
+            POINT2 pt4 = new POINT2();
+            POINT2 pt5 = new POINT2(points[2]);
+
+
+
+            POINT2 offset = points[0];
+            POINT2 intersect = lineutility.FindClosestPointOnLine(pt0,pt5,offset);
+
+            double xOffset = offset.x - intersect.x;
+            double yOffset = offset.y - intersect.y;
+            pt1 = new POINT2(pt0.x+xOffset, pt0.y + yOffset);
+            pt4 = new POINT2(pt5.x+xOffset, pt5.y + yOffset);
+
+
+            int pixelSize = tg.getIconSize();
+            double distance = lineutility.CalcDistanceDouble(pt1,pt4);
+            POINT2 center = lineutility.MidPointDouble(pt1,pt4,0);
+            Font font = tg.get_Font();
+            if (font == null) {
+                font = RendererSettings.getInstance().getMPLabelFont();;
+            }
+
+            POINT2 ptCenter = lineutility.MidPointDouble(pt1, pt4, 0);
+            if ((font.getSize()*2 + pixelSize) < distance)//draw the gap for the icon
+            {
+                pt2 = lineutility.ExtendAlongLineDouble(center, pt1, pixelSize/2f + font.getSize());
+                pt3 = lineutility.ExtendAlongLineDouble(center, pt4, pixelSize/2f + font.getSize());
+            }
+            else
+            {
+                pt2 = ptCenter;
+                pt3 = ptCenter;
+            }
+
+            pt0.style = 0;
+            pt1.style = 1;
+            pt2.style = 5;
+            pt3.style = 0;
+            pt4.style = 1;
+            pt5.style = 1;
+
+            points[0] = pt0;
+            points[1] = pt1;
+            points[2] = pt2;
+            points[3] = pt3;
+            points[4] = pt4;
+            points[5] = pt5;
+
+        } catch (Exception exc) {
+            ErrorLogger.LogException(_className, "GetDISMEscortDouble",
+                    new RendererException("Failed inside GetDISMEscortDouble", exc));
+        }
+        return counter;
+    }
+
+
     /**
      * Calculates the points for BYPASS
      *

@@ -188,6 +188,7 @@ public final class clsUtility {
             case TacticalLines.GUARD:
             case TacticalLines.SEIZE:
             case TacticalLines.CAPTURE:
+            case TacticalLines.ESCORT:
             case TacticalLines.EVACUATE:
             case TacticalLines.WITHDRAW:
             case TacticalLines.DISENGAGE:

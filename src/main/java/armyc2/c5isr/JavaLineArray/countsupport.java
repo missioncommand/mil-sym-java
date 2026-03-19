@@ -278,6 +278,9 @@ public final class countsupport
                 case TacticalLines.ATKBYFIRE:
                     count = 14;	//same for DISM
                     break;
+                case TacticalLines.ESCORT:
+                    count = 6;
+                    break;
                 case TacticalLines.RAFT:
                 case TacticalLines.MFLANE:	//extra eight points for hash marks at either end
                     count = 8;
