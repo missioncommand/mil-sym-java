@@ -136,6 +136,7 @@
 			Main Gun System 	121103	10,11
 			Motorized 	121104	10,11
 			Infantry Fighting Vehicle	121105	10,11
+			Main Gun System	121106	10
 		Observer		121200	10,11
 		Reconnaissance/Cavalry/Scout		121300	10,11
 			Reconnaissance and Surveillance	121301	10,11
