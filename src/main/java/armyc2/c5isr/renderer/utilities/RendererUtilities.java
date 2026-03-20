@@ -664,14 +664,20 @@ public class RendererUtilities {
         Rectangle2D bbox = null;
         if(icon != null)
             bbox =  icon.getBbox();
+
         double length = 0;
         if(bbox != null)
-            length = Math.max(bbox.getWidth(),bbox.getHeight());
-        if(length < 100 && length > 0 &&
+        {
+            length = Math.max(bbox.getWidth(), bbox.getHeight());
+            //adjust max size for narrow, tall icons
+            if(bbox.getWidth() < 60 && bbox.getHeight() > 90)
+                maxSize = 200;
+        }
+        if(SVGLookup.getMainIconID(symbolID).length() == 8 && length < 140 && length > 0 &&
                 SymbolID.getCommonModifier1(symbolID)==0 &&
                 SymbolID.getCommonModifier2(symbolID)==0 &&
                 SymbolID.getModifier1(symbolID)==0 &&
-                SymbolID.getModifier2(symbolID)==0)//if largest side smaller than 100 and there are no section mods, make it bigger
+                SymbolID.getModifier2(symbolID)==0)//if largest side smaller than 140 and there are no section mods, make it bigger
         {
             double ratio = maxSize / length;
             double transx = ((bbox.getX() + (bbox.getWidth()/2)) * ratio) - (bbox.getX() + (bbox.getWidth()/2));
