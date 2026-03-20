@@ -59,12 +59,42 @@ public class Tester extends javax.swing.JFrame {
     {
         try
         {
+            //init renderer
+            SinglePointRenderer.getInstance();
+            SVGLookup.getInstance();
+
+            //Test adding of custom symbol
+            MSInfo miBase = MSLookup.getInstance().getMSLInfo("10110000",SymbolID.Version_2525E);
+            MSInfo mi = new MSInfo(13,"10", "Sustainment","TEST","","165700",miBase.getModifiers());
+            SVGInfo si = new SVGInfo("10165700", new Rectangle2D.Double(198.0,365.0,215.0,64.0),"<g id=\"10165700\"><text font-family=\"sans-serif\" fill=\"red\" font-size=\"89\" x=\"192\" y=\"428\">MWR</text></g>");
+            MilStdIconRenderer.getInstance().AddCustomSymbol(mi,si);
+
+            //Adding custom land unit symbol to test vector-effect="non-scaling-stroke" (doesn't work in jsvg library)
+            String tempSVG = "      <g id=\"121201\" >\n" +
+                    "        <polyline fill=\"none\"  id=\"symbol\" points=\"126.5,515.5 306,280.5 485.5,515.5  \" stroke=\"#000000\" vector-effect=\"non-scaling-stroke\" stroke-width=\"2\"/>\n" +
+                    "        <path  d=\"M246,349.705c-60,0-60,92.545,0,92.545h120c60,0,60-92.545,0-92.545H246   L246,349.705z\" fill=\"none\" stroke=\"#000000\" vector-effect=\"non-scaling-stroke\" stroke-width=\"2\"/>\n" +
+                    "      </g>";
+
+            mi = new MSInfo(11,"60", "Mission Force","TEST1","","110600",miBase.getModifiers());
+            si = new SVGInfo("60110600", new Rectangle2D.Double(198.0,365.0,215.0,64.0),tempSVG);
+            MilStdIconRenderer.getInstance().AddCustomSymbol(mi,si);
+
+            //Adding custom control measure
+            tempSVG = "      <g id=\"400000\" >\n" +
+                    "        <polyline fill=\"none\"  id=\"symbol\" points=\"126.5,515.5 306,280.5 485.5,515.5  \" stroke=\"#000000\"  stroke-width=\"5\"/>\n" +
+                    "        <path  d=\"M246,349.705c-60,0-60,92.545,0,92.545h120c60,0,60-92.545,0-92.545H246   L246,349.705z\" fill=\"none\" stroke=\"#000000\"  stroke-width=\"5\"/>\n" +
+                    "      </g>";
+            mi = new MSInfo(11, "25", "SPTEST", "", "", "400000", "point", "point2", new ArrayList<String>());
+            si = new SVGInfo("25400000", new Rectangle2D.Double(198.0,270,215.0,170.0),tempSVG);
+            MilStdIconRenderer.getInstance().AddCustomSymbol(mi,si);
+
+            //load tree after adding custom symbols
            loadTree(SymbolID.Version_2525Dch1);
             //RendererSettings.getInstance().setLabelFont("algerian",Font.TRUETYPE_FONT,24);
            setCBItems();
             cbPixelSize.setSelectedIndex(1);
-            SinglePointRenderer.getInstance();
-            SVGLookup.getInstance();
+
+            //change default settings
             //RendererSettings.getInstance().setTextBackgroundMethod(RendererSettings.TextBackgroundMethod_OUTLINE_QUICK);
             //RendererSettings.getInstance().setTextOutlineWidth(3);
             RendererSettings.getInstance().setCacheEnabled(false);
@@ -73,11 +103,8 @@ public class Tester extends javax.swing.JFrame {
             //RendererSettings.getInstance().setActionPointDefaultFill(false);
             //RendererSettings.getInstance().setOutlineSPControlMeasures(false);
             RendererSettings.getInstance().setScaleMainIcon(true);
-            //Test adding of custom symbol
-            MSInfo miBase = MSLookup.getInstance().getMSLInfo("10110000",SymbolID.Version_2525E);
-            MSInfo mi = new MSInfo(13,"10", "Sustainment","TEST","","165700",miBase.getModifiers());
-            SVGInfo si = new SVGInfo("10165700", new Rectangle2D.Double(198.0,365.0,215.0,64.0),"<g id=\"10165700\"><text font-family=\"sans-serif\" fill=\"red\" font-size=\"89\" x=\"192\" y=\"428\">MWR</text></g>");
-            MilStdIconRenderer.getInstance().AddCustomSymbol(mi,si);
+
+
 
             //SectorModUtils test
             SectorModUtils smu = SectorModUtils.getInstance();
@@ -267,6 +294,7 @@ public class Tester extends javax.swing.JFrame {
         DefaultMutableTreeNode msn46 = new DefaultMutableTreeNode(new MSNodeInfo("46","Oceanographic"));
         DefaultMutableTreeNode msn47 = new DefaultMutableTreeNode(new MSNodeInfo("47","Meteorological Space"));
         DefaultMutableTreeNode msn60 = new DefaultMutableTreeNode(new MSNodeInfo("60","Cyberspace"));
+        DefaultMutableTreeNode msn99 = new DefaultMutableTreeNode(new MSNodeInfo("99","CUSTOM"));
         
         
 
@@ -280,6 +308,9 @@ public class Tester extends javax.swing.JFrame {
             MSInfo msi = null;
             for(String id : IDs)
             {
+                if(id.equals("2540000"))
+                    ErrorLogger.LogMessage("Custom Symbol");
+
                 if(id.length()==8)
                     msi = MSLookup.getInstance().getMSLInfo(id,version);
                 else
@@ -385,6 +416,10 @@ public class Tester extends javax.swing.JFrame {
                     else if(id.startsWith("60"))
                     {
                         msn60.add(MSNI);
+                    }
+                    else if(id.startsWith("99"))
+                    {
+                        msn99.add(MSNI);
                     }
                     /*else if(id.startsWith("??"))//new 2525E catagory
                     {
@@ -1173,6 +1208,7 @@ public class Tester extends javax.swing.JFrame {
             //test with code: 130310000016570000000000000000
             //should see "MWR" in red text
             //String svgCustom = MilStdIconRenderer.getInstance().RenderSVG("130310000016570000000000000000",modifiers, attributes).getSVG();
+
             //System.out.println("\nCustom SVG: \n" + svgCustom);
         }
         else if (drawMode == drawModeMPDraw)
