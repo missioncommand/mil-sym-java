@@ -415,12 +415,13 @@ public class SymbolUtilities {
 
 
             int v = SymbolID.getVersion(symbolID);
-            if (v < SymbolID.Version_2525E)
+            if (v < SymbolID.Version_APP6D)
                 newID = String.valueOf(SymbolID.Version_2525Dch1);
-            else
-                newID = String.valueOf(SymbolID.Version_2525E);
+            else if(v > SymbolID.Version_APP6Ech2)
+                newID = String.valueOf(SymbolID.Version_2525Ech1);
+            v = SymbolID.getVersion(newID);
             int c = SymbolID.getContext(symbolID);
-            if (c > 2)
+            if (c > 4)
                 newID += String.valueOf(SymbolID.StandardIdentity_Context_Reality);
             else
                 newID += String.valueOf(c);
@@ -475,9 +476,11 @@ public class SymbolUtilities {
             if (ec == 0)
                 newID += "000000";//root symbol for symbol set
             else if (SVGLookup.getInstance().getSVGLInfo(SVGLookup.getMainIconID(newID + ec + "0000"),v) == null) {
-                //set to invalid symbol since we couldn't find it in the lookup
+                //set to blank symbol
+                newID += "000000";
+                /*//set to invalid symbol since we couldn't find it in the lookup
                 newID = SymbolID.setSymbolSet(newID, 98);
-                newID += 100000;
+                newID += 100000;//*/
             }
             else
                 newID += String.format("%06d",ec);//we found it so add the entity code

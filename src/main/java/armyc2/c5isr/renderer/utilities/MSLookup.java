@@ -840,7 +840,7 @@ public class MSLookup {
             else if (version == SymbolID.Version_APP6D || version == SymbolID.Version_APP6Dch2)
                 return _MSLookup6D.getOrDefault(basicID, null);
             else
-                return _MSLookupD.getOrDefault(basicID, null);
+                return null;
         }
         else if (length >= 20 && length <= 30)//probably got a full id instead of a basic ID.
         {
