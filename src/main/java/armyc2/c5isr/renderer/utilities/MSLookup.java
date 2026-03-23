@@ -839,6 +839,8 @@ public class MSLookup {
                 return _MSLookup6E.getOrDefault(basicID, null);
             else if (version == SymbolID.Version_APP6D || version == SymbolID.Version_APP6Dch2)
                 return _MSLookup6D.getOrDefault(basicID, null);
+            else if (version == SymbolID.Version_2525Dch1)
+                return _MSLookupD.getOrDefault(basicID, null);
             else
                 return null;
         }
