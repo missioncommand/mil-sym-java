@@ -156,7 +156,7 @@ public class MSLookup {
                         String[] verArr = ver.split(",");
                         for(String v : verArr)
                         {
-                            addToLookup(new MSInfo(Integer.parseInt(v), ss, e, et, est, ec, populateModifierList(ss, ec, version)));
+                            addToLookup(new MSInfo(Integer.parseInt(v), ss, e, et, est, ec, populateModifierList(ss, ec, Integer.parseInt(v))));
                         }
                     }
                     addToList(ver, id);
@@ -169,7 +169,7 @@ public class MSLookup {
                     String[] verArr = ver.split(",");
                     for(String v : verArr)
                     {
-                        addToLookup(new MSInfo(Integer.parseInt(v), ss, e, et, est, ec, populateModifierList(ss, ec, version)));
+                        addToLookup(new MSInfo(Integer.parseInt(v), ss, e, et, est, ec, populateModifierList(ss, ec, Integer.parseInt(v))));
                     }
                     addToList(ver, id);
                 }
@@ -180,16 +180,10 @@ public class MSLookup {
                 line = br.readLine();
             }
 
-            if(version < SymbolID.Version_2525E)//add handful of SymbolID.Version_2525D codes to lookup
-            {
-                //AddVersion10Symbols(lookup);
-            }
-
         }
         catch (Exception exc)
         {
             System.out.println(exc.getMessage());
-            System.out.println("Current Line: " + line);
         }
 
     }
@@ -252,70 +246,6 @@ public class MSLookup {
             _IDListE.add(basicSymbolID);
         if(versions.contains(String.valueOf(SymbolID.Version_APP6Ech2)))
             _IDList6E.add(basicSymbolID);
-    }
-
-    /**
-     * these will eventually be in APP6D
-     * //TODO: remove when APP6D implemented
-     * @param lookup
-     */
-    private void AddVersion10Symbols(Map<String,MSInfo> lookup)
-    {
-        String id = null;
-        String ss = null;
-        int intSS = 0;
-        String e = null;
-        String et = null;
-        String est = null;
-        String ec = null;
-        String g = null;
-        String dr = null;
-        String m = null;
-        String[] modifiers = null;
-
-        String[] units = {"120300", "161900", "162200", "162600", "162700", "163400", "163800", "163900", "164100", "164700"};
-        String[] similar = {"120200", "161800", "161800", "161800", "161800", "161800", "161800", "161800", "161800", "161800"};
-        String[] unitNames = {"Amphibious",
-                "NATO Supply Class II",
-                "NATO Supply Class V",
-                "Pipeline",
-                "Postal",
-                "Supply",
-                "US Supply Class II",
-                "US Supply Class III",
-                "US Supply Class IV",
-                "Water"};
-
-        MSInfo msiTemp = null;
-        ss = "10";
-        for(int i = 0; i < units.length; i++)
-        {
-            msiTemp = lookup.get("10" + similar[i]);
-            String[] path = msiTemp.getPath().split("/");
-
-            ss = path[0];
-            if(path.length>2)
-                e = path[1];
-            if(path.length>3)
-                et = path[2];
-
-            if(e == null || e.equals(""))
-                e = unitNames[i];
-            else if(et == null || et.equals(""))
-                et = unitNames[i];
-            else
-                est = unitNames[i];
-
-            ec = units[i];
-
-            lookup.put(10 + ec, new MSInfo(SymbolID.Version_APP6D, "10", e, et, est, ec, populateModifierList("10",ec, SymbolID.Version_2525Dch1)));
-        }
-        est = "";
-
-        lookup.put("25214000", new MSInfo(SymbolID.Version_APP6D, "25", "Maritime Control Points", "Forward Observer - Spotter Position", est, "214000", "Point","Point2",populateModifierList("25","214000", SymbolID.Version_2525Dch1)));
-        //3 point Bridge not implemented
-        //lookup.put("25271400", new MSInfo(SymbolID.Version_2525D, "25", "Protection Areas", "Bridge", est, "271400", "Line","Line16",populateModifierList("25","271400", SymbolID.Version_2525Dch1)));
-
     }
 
     private ArrayList<String> populateModifierList(String[] modifiers) {
@@ -573,10 +503,11 @@ public class MSLookup {
                 case SymbolID.SymbolSet_Oceanographic:
                 case SymbolID.SymbolSet_MeteorologicalSpace:
                 default://no modifiers
+                    break;
 
             }
         }
-        else
+        else if(version == SymbolID.Version_2525Dch1)
         {
             switch (ss) {
                 case SymbolID.SymbolSet_LandUnit:
@@ -799,6 +730,232 @@ public class MSLookup {
 
             }
         }
+        else if(version == SymbolID.Version_APP6D)
+        {
+            switch (ss) {
+                case SymbolID.SymbolSet_LandUnit:
+                case SymbolID.SymbolSet_LandCivilianUnit_Organization:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.B_ECHELON);
+                    modifiers.add(Modifiers.C_QUANTITY);
+                    modifiers.add(Modifiers.D_TASK_FORCE_INDICATOR);
+                    modifiers.add(Modifiers.F_REINFORCED_REDUCED);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.J_EVALUATION_RATING);
+                    modifiers.add(Modifiers.K_COMBAT_EFFECTIVENESS);
+                    modifiers.add(Modifiers.L_SIGNATURE_EQUIP);
+                    modifiers.add(Modifiers.M_HIGHER_FORMATION);
+                    modifiers.add(Modifiers.P_IFF_SIF_AIS);
+                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
+                    modifiers.add(Modifiers.S_HQ_STAFF_INDICATOR);
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.W_DTG_1);
+                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    modifiers.add(Modifiers.Y_LOCATION);
+                    modifiers.add(Modifiers.Z_SPEED);
+                    if(ss==SymbolID.SymbolSet_LandUnit && ec.equals("110000"))
+                        modifiers.add(Modifiers.AA_SPECIAL_C2_HQ);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AD_PLATFORM_TYPE);
+                    modifiers.add(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME);
+                    modifiers.add(Modifiers.AF_COMMON_IDENTIFIER);
+                    modifiers.add(Modifiers.AH_AREA_OF_UNCERTAINTY);
+                    modifiers.add(Modifiers.AI_DEAD_RECKONING_TRAILER);
+                    modifiers.add(Modifiers.AK_PAIRING_LINE);
+                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
+                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+                case SymbolID.SymbolSet_LandEquipment:
+                case SymbolID.SymbolSet_SignalsIntelligence_Land:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.C_QUANTITY);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.J_EVALUATION_RATING);
+                    modifiers.add(Modifiers.K_COMBAT_EFFECTIVENESS);
+                    modifiers.add(Modifiers.L_SIGNATURE_EQUIP);
+                    modifiers.add(Modifiers.M_HIGHER_FORMATION);
+                    modifiers.add(Modifiers.N_HOSTILE);
+                    modifiers.add(Modifiers.P_IFF_SIF_AIS);
+                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
+                    modifiers.add(Modifiers.R_MOBILITY_INDICATOR);
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.V_EQUIP_TYPE);
+                    modifiers.add(Modifiers.W_DTG_1);
+                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    modifiers.add(Modifiers.Y_LOCATION);
+                    modifiers.add(Modifiers.Z_SPEED);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AD_PLATFORM_TYPE);
+                    modifiers.add(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME);
+                    modifiers.add(Modifiers.AF_COMMON_IDENTIFIER);
+                    modifiers.add(Modifiers.AG_AUX_EQUIP_INDICATOR);
+                    modifiers.add(Modifiers.AH_AREA_OF_UNCERTAINTY);
+                    modifiers.add(Modifiers.AI_DEAD_RECKONING_TRAILER);
+                    modifiers.add(Modifiers.AK_PAIRING_LINE);
+                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
+                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
+                    modifiers.add(Modifiers.AQ_GUARDED_UNIT);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+                case SymbolID.SymbolSet_LandInstallation:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.C_QUANTITY);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.J_EVALUATION_RATING);
+                    modifiers.add(Modifiers.K_COMBAT_EFFECTIVENESS);
+                    modifiers.add(Modifiers.P_IFF_SIF_AIS);
+                    modifiers.add(Modifiers.S_HQ_STAFF_INDICATOR);
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.W_DTG_1);
+                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    modifiers.add(Modifiers.Y_LOCATION);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME);
+                    modifiers.add(Modifiers.AH_AREA_OF_UNCERTAINTY);
+                    modifiers.add(Modifiers.AI_DEAD_RECKONING_TRAILER);
+                    modifiers.add(Modifiers.AK_PAIRING_LINE);
+                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+                case SymbolID.SymbolSet_DismountedIndividuals:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.C_QUANTITY);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.J_EVALUATION_RATING);
+                    modifiers.add(Modifiers.K_COMBAT_EFFECTIVENESS);
+                    modifiers.add(Modifiers.M_HIGHER_FORMATION);
+                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
+                    modifiers.add(Modifiers.P_IFF_SIF_AIS);
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.V_EQUIP_TYPE);
+                    modifiers.add(Modifiers.W_DTG_1);
+                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    modifiers.add(Modifiers.Y_LOCATION);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AF_COMMON_IDENTIFIER);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    modifiers.add(Modifiers.AV_LEADERSHIP);
+                    break;
+                case SymbolID.SymbolSet_Space:
+                case SymbolID.SymbolSet_SpaceMissile:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.V_EQUIP_TYPE);
+                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    modifiers.add(Modifiers.Z_SPEED);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AJ_SPEED_LEADER);
+                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
+                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+                case SymbolID.SymbolSet_Air:
+                case SymbolID.SymbolSet_AirMissile:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.P_IFF_SIF_AIS);//air only
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.V_EQUIP_TYPE);
+                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    modifiers.add(Modifiers.Z_SPEED);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AJ_SPEED_LEADER);
+                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
+                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+                case SymbolID.SymbolSet_SeaSurface:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.P_IFF_SIF_AIS);
+                    //modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.V_EQUIP_TYPE);
+                    modifiers.add(Modifiers.Y_LOCATION);
+                    modifiers.add(Modifiers.Z_SPEED);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AJ_SPEED_LEADER);
+                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
+                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
+                    modifiers.add(Modifiers.AQ_GUARDED_UNIT);
+                    modifiers.add(Modifiers.AR_SPECIAL_DESIGNATOR);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+                case SymbolID.SymbolSet_SeaSubsurface:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    //modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.V_EQUIP_TYPE);
+                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    modifiers.add(Modifiers.Y_LOCATION);
+                    modifiers.add(Modifiers.Z_SPEED);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AJ_SPEED_LEADER);
+                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);
+                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);
+                    modifiers.add(Modifiers.AQ_GUARDED_UNIT);
+                    modifiers.add(Modifiers.AR_SPECIAL_DESIGNATOR);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+                case SymbolID.SymbolSet_Activities:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.C_QUANTITY);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.J_EVALUATION_RATING);
+                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);
+                    modifiers.add(Modifiers.W_DTG_1);
+                    modifiers.add(Modifiers.Y_LOCATION);
+                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+                case SymbolID.SymbolSet_CyberSpace:
+                    modifiers.add(Modifiers.A_SYMBOL_ICON);
+                    modifiers.add(Modifiers.B_ECHELON);
+                    modifiers.add(Modifiers.F_REINFORCED_REDUCED);
+                    modifiers.add(Modifiers.G_STAFF_COMMENTS);
+                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);
+                    modifiers.add(Modifiers.K_COMBAT_EFFECTIVENESS);
+                    modifiers.add(Modifiers.L_SIGNATURE_EQUIP);
+                    modifiers.add(Modifiers.M_HIGHER_FORMATION);
+                    modifiers.add(Modifiers.S_HQ_STAFF_INDICATOR);
+                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    modifiers.add(Modifiers.V_EQUIP_TYPE);
+                    modifiers.add(Modifiers.W_DTG_1);
+                    modifiers.add(Modifiers.Y_LOCATION);
+                    modifiers.add(Modifiers.AS_COUNTRY);
+                    break;
+
+                case SymbolID.SymbolSet_ControlMeasure:
+                    //values come from files during MSLookup load
+                    break;
+                case SymbolID.SymbolSet_Atmospheric:
+                    //Tropopause low, Tropopause high
+                    if ((ec.equals("110102")) || (ec.equals("110202")) ||
+                            (ec.equals("162200")))
+                        modifiers.add(Modifiers.X_ALTITUDE_DEPTH);
+                    else if (ec.equals("140200"))
+                        modifiers.add(Modifiers.AN_AZIMUTH);
+                    break;
+                case SymbolID.SymbolSet_MineWarfare:
+                case SymbolID.SymbolSet_Oceanographic:
+                case SymbolID.SymbolSet_MeteorologicalSpace:
+                default://no modifiers
+                    break;
+
+            }
+        }
 
         if (ss == SymbolID.SymbolSet_SignalsIntelligence_Air ||
                 ss == SymbolID.SymbolSet_SignalsIntelligence_Land ||
@@ -837,7 +994,7 @@ public class MSLookup {
                 return _MSLookupE.getOrDefault(basicID, null);
             else if (version == SymbolID.Version_APP6Ech2 || version == SymbolID.Version_APP6Ech1)
                 return _MSLookup6E.getOrDefault(basicID, null);
-            else if (version == SymbolID.Version_APP6D || version == SymbolID.Version_APP6Dch2)
+            else if (version == SymbolID.Version_APP6D)
                 return _MSLookup6D.getOrDefault(basicID, null);
             else if (version == SymbolID.Version_2525Dch1)
                 return _MSLookupD.getOrDefault(basicID, null);
@@ -859,7 +1016,7 @@ public class MSLookup {
     public List<String> getIDList(int version) {
         if (version == SymbolID.Version_2525E || version == SymbolID.Version_2525Ech1)
             return _IDListE;
-        else if (version == SymbolID.Version_APP6D || version == SymbolID.Version_APP6Dch2)
+        else if (version == SymbolID.Version_APP6D)
             return _IDList6D;
         else if (version == SymbolID.Version_2525Dch1)
             return _IDListD;
