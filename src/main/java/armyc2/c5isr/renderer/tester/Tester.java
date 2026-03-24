@@ -564,7 +564,7 @@ public class Tester extends javax.swing.JFrame {
             modifier.put(Modifiers.H1_ADDITIONAL_INFO_2,"H1");
             modifier.put(Modifiers.AP_TARGET_NUMBER,"AP");
             modifier.put(Modifiers.AP1_TARGET_NUMBER_EXTENSION,"AP1");
-            modifier.put(Modifiers.X_ALTITUDE_DEPTH,"X");//X
+            modifier.put(Modifiers.X_ALTITUDE_DEPTH,"10,100");//X
             modifier.put(Modifiers.K_COMBAT_EFFECTIVENESS,"100");//K
             modifier.put(Modifiers.Q_DIRECTION_OF_MOVEMENT,"90");//Q
 

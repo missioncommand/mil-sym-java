@@ -6368,9 +6368,9 @@ public class ModifierRenderer implements SettingsEventListener
                     if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
                         temp = modifiers.get(Modifiers.P_IFF_SIF_AIS) + sep;
                     if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
-                        temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH) + sep;
+                        temp += modifiers.get(Modifiers.X_ALTITUDE_DEPTH) + sep;
                     if(modifiers.containsKey(Modifiers.Z_SPEED))
-                        temp = modifiers.get(Modifiers.Z_SPEED);
+                        temp += modifiers.get(Modifiers.Z_SPEED);
 
                     temp = temp.trim();
 
@@ -6392,7 +6392,7 @@ public class ModifierRenderer implements SettingsEventListener
                     if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
                         temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
                     if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
-                        temp = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1) + sep;
+                        temp += modifiers.get(Modifiers.H_ADDITIONAL_INFO_1) + sep;
                     if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING))
                         temp += modifiers.get(Modifiers.J_EVALUATION_RATING);
                     temp = temp.trim();
@@ -6408,7 +6408,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if(modifiers.containsKey(Modifiers.AD_PLATFORM_TYPE))
                 {
                     y = 0;//
-                    temp = temp += modifiers.get(Modifiers.AD_PLATFORM_TYPE);
+                    temp = modifiers.get(Modifiers.AD_PLATFORM_TYPE);
 
                     if(temp != null && !temp.isEmpty())
                         mods.add(new Modifier("AD", temp, x, y, centered));
