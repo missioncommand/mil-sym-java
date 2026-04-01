@@ -388,6 +388,9 @@ public class MSInfo {
             case "line33":
                 idr = DrawRules.LINE33;
                 break;
+            case "line50"://TODO: Update when ESCORT gets a real Draw Rule
+                idr = DrawRules.LINE50;
+                break;
             case "corridor1":
                 idr = DrawRules.CORRIDOR1;
                 break;
@@ -558,6 +561,7 @@ public class MSInfo {
             case DrawRules.LINE30:
             case DrawRules.LINE32:
             case DrawRules.LINE33:
+            case DrawRules.LINE50:
             case DrawRules.POLYLINE1:
                 points[0] = 3;
                 points[1] = 3;
@@ -595,7 +599,7 @@ public class MSInfo {
                 break;
             case DrawRules.AREA14:
                 points[0] = 3;
-                if (version == SymbolID.Version_2525D)
+                if (version == SymbolID.Version_2525D)//TODO: remove, only version that supports 4 points
                     points[1] = 4;
                 else
                     points[1] = 3;
@@ -620,11 +624,11 @@ public class MSInfo {
                 break;
             case DrawRules.LINE26:
             case DrawRules.LINE27:
+                points[0] = 3;
                 if (version >= SymbolID.Version_2525E)
-                    points[0] = 4;
+                    points[1] = 4;
                 else
-                    points[0] = 3;
-                points[1] = 4;
+                    points[1] = 3;
                 break;
             case DrawRules.AXIS1:
             case DrawRules.AXIS2:

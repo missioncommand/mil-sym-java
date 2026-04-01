@@ -79,13 +79,17 @@ public final class TacticalLines {
     public static final int PENETRATE = 211700000;
     public static final int RETAIN = 211900000;
     public static final int SECURE = 212100000;
+    public static final int CONTROL = 25343200;
+    public static final int LOCATE = 25343900;
     public static final int SEIZE = 212300000;
+    public static final int CAPTURE = 25343000;
     public static final int ASLTXING = 23221000;
     public static final int GAP = 23163000;
     public static final int COVER = 212230000;
     public static final int SCREEN = 212210000;
     public static final int GUARD = 212220000;
     public static final int SARA = 22139000;
+    public static final int DECEIVE = 22310000;
     public static final int FIX = 211100000;
     public static final int PDF = 22422000;
     public static final int ATKBYFIRE = 22533000;
@@ -128,6 +132,7 @@ public final class TacticalLines {
     public static final int WITHDRAW = 212400000;
     public static final int CORDONSEARCH = 212500000;
     public static final int CORDONKNOCK = 212600000;
+    public static final int DENY = 25343400;
     public static final int WDRAWUP = 212410000;
     public static final int CFL = 24220000;
     public static final int LOD = 22526000;
@@ -293,8 +298,11 @@ public final class TacticalLines {
     public static final int NFA_RECTANGULAR = 24324200;
     public static final int NFA_CIRCULAR = 24324300;
     public static final int CHEM = 23460000;
+    public static final int CHEMT = 25271801;
     public static final int BIO = 23450000;
+    public static final int BIOT = 25271701;
     public static final int RAD = 23440000;
+    public static final int RADT = 25272001;
     public static final int NUC = 271900;
     public static final int NFL = 24230000;
     public static final int MFP = 24225000;
@@ -516,9 +524,12 @@ public final class TacticalLines {
     public static final int EXPLOIT = 25343100;
     public static final int DEMONSTRATE = 25343300;
     public static final int ENVELOPMENT = 25343500;
+    public static final int EXFILTRATION = 25343700;
     public static final int INFILTRATION = 25343800;
     public static final int PURSUIT = 25344000;
     public static final int DISENGAGE = 25344400;
     public static final int EVACUATE = 25344500;
+    public static final int ESCORT = 25343600;
+    public static final int DECISION_LINE = 25130701;
 }
 

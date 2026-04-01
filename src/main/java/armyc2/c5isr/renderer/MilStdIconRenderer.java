@@ -189,16 +189,19 @@ public class MilStdIconRenderer
         ImageInfo temp = null;
         SVGSymbolInfo svgTemp = null;
         MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
-        if (msi == null)
+        /*if (msi == null)
         {
-            //TODO: if null, try to fix the code so that something renders
-                /*symbolID = SymbolUtilities.reconcileSymbolID(symbolID);
-                basicSymbolID = SymbolUtilities.getBasicSymbolIDStrict(symbolID);
-                sd = SymbolDefTable.getInstance().getSymbolDef(basicSymbolID, symStd);//*/
+            //Attempt to fix the code or set if to invalid symbol if unfixable
+            symbolID = SymbolUtilities.reconcileSymbolID(symbolID);
+            msi = MSLookup.getInstance().getMSLInfo(symbolID);
+            if(msi == null)
+            {
+                symbolID = "110098000010000000000000000000";//invalid symbol
+            }
         }
         if (msi != null && msi.getDrawRule() == DrawRules.DONOTDRAW) {
             return null;
-        }
+        }//*/
 
         if (ss==SymbolID.SymbolSet_ControlMeasure)
         {

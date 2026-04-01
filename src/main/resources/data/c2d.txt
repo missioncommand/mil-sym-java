@@ -1,0 +1,1915 @@
+S*A*M-----*****	01	110000	00	00	Military
+S*A*MF----*****	01	110100	00	00		Fixed Wing
+S*A*MFO---*****	01	110101	00	00			Medical Evacuation (MEDEVAC)
+S*A*MFA---*****	01	110102	00	00			Attack/Strike
+S*A*MFB---*****	01	110103	00	00			Bomber
+S*A*MFF---*****	01	110104	00	00			Fighter
+S*A*MFC---*****	01	110107	00	00			Cargo
+S*A*MFCL--*****	01	110107	00	03			Cargo, Light
+S*A*MFCM--*****	01	110107	00	02			Cargo, Medium
+S*A*MFCH--*****	01	110107	00	01			Cargo, Heavy
+S*A*MFJ---*****	01	110108	00	00			Electronic Combat (EC)/Jammer
+S*A*MFK---*****	01	110109	00	00			Tanker
+S*A*MFKB--*****	01	110109	00	04			Tanker, Boom Only		Location of MOD is switch betweens versions
+S*A*MFKD--*****	01	110109	00	05			Tanker, Drogue Only		Location of MOD is switch betweens versions
+S*A*MFP---*****	01	110110	00	00			Patrol
+S*A*MFR---*****	01	110111	00	00			Reconnaissance
+S*A*MFT---*****	01	110112	00	00			Trainer
+S*A*MFU---*****	01	110113	00	00			Utility
+S*A*MFUL--*****	01	110113	00	03			Utility, Light
+S*A*MFUM--*****	01	110113	00	02			Utility, Medium
+S*A*MFUH--*****	01	110113	00	01			Utility, Heavy
+S*A*MFL---*****	01	110114	00	00			VSTOL		Symbols are different between versions
+S*A*MFD---*****	01	110115	00	00			Airborne Command Post (ACP)
+S*A*MFRW--*****	01	110116	00	00			Airborne Early Warning (AEW)
+S*A*MFPN--*****	01	110117	00	00			Antisurface Warfare
+S*A*MFS---*****	01	110118	00	00			Antisubmarine Warfare		Listed as Antisubmarine Warfare (ASW), Carrier Based
+S*A*MFY---*****	01	110119	00	00			Communications
+S*A*MFH---*****	01	110120	00	00			Combat Search and Rescue (CSAR)
+S*A*MFRZ--*****	01	110121	00	00			Electronic Support (ES)		Listed as Electronic Surveillance Measures
+S*A*MFPM--*****	01	110123	00	00			Mine Countermeasures (MCM)
+S*A*MFM---*****	01	110126	00	00			Special Operations Forces
+S*A*MFRX--*****	01	110128	00	00			Photographic Reconnaissance
+S*A*MV----*****	01	110129	00	00			Very Important Person (VIP)
+S*A*ME----*****	01	110132	00	00			Escort
+S*A*MH----*****	01	110200	00	00		Rotary Wing
+S*A*MHA---*****	01	110200	01	00			Attack
+S*A*MHS---*****	01	110200	32	00			Antisubmarine Warfare
+S*A*MHU---*****	01	110200	07	00			Utility
+S*A*MHUL--*****	01	110200	07	03			Utility, Light
+S*A*MHUM--*****	01	110200	07	02			Utility, Medium
+S*A*MHUH--*****	01	110200	07	01			Utility, Heavy
+S*A*MHI---*****	01	110200	25	00			Mine Countermeasures (MCM)
+S*A*MHH---*****	01	110200	30	00			Combat Search and Rescue (CSAR)
+S*A*MHR---*****	01	110200	18	00			Reconnaissance
+S*A*MHC---*****	01	110200	03	00			Cargo
+S*A*MHCL--*****	01	110200	03	03			Cargo, Light
+S*A*MHCM--*****	01	110200	03	02			Cargo, Medium
+S*A*MHCH--*****	01	110200	03	01			Cargo, Heavy
+S*A*MHT---*****	01	110200	19	00			Trainer
+S*A*MHO---*****	01	110200	14	00			Medical Evacuation (MEDEVAC)
+S*A*MHM---*****	01	110200	27	00			Special Operations Forces
+S*A*MHD---*****	01	110200	11	00			Airborne Command Post (ACP)
+S*A*MHK---*****	01	110200	06	00			Tanker
+S*A*MHJ---*****	01	110200	16	00			Electronic Combat (EC)/Jammer
+S*A*MFQ---*****	01	110300	00	00		Unmanned Aircraft (UA) / Unmanned Aerial Vehicle (UAV) / Unmanned Aircraft System (UAS) / Remotely Piloted Vehicle (RPV)			Listed as DRONE (RPV/UA)
+S*A*MFQA--*****	01	110300	01	00			Attack/Strike
+S*A*MFQB--*****	01	110300	02	00			Bomber
+S*A*MFQC--*****	01	110300	03	00			Cargo
+S*A*MFQD--*****	01	110300	11	00			Airborne Command Post (ACP)
+S*A*MFQRW-*****	01	110300	12	00			Airborne Early Warning (AEW)		Symbol is displayed differently between versions
+S*A*MFQF--*****	01	110300	04	00			Fighter
+S*A*MFQH--*****	01	110300	30	00			Combat Search and Rescue (CSAR)
+S*A*MFQJ--*****	01	110300	16	00			Electronic Combat (EC)/Jammer
+S*A*MFQRZ-*****	01	110300	24	00			Electronic Support (ES)		Symbol is displayed differently between versions. Name changed between versions
+S*A*MFQK--*****	01	110300	06	00			Tanker
+S*A*MFQL--*****	01	110300	08	00			VSTOL/VTOL
+S*A*MFQM--*****	01	110300	27	00			Special Operations Forces
+S*A*MFQI--*****	01	110300	25	00			Mine Countermeasures (MCM)
+S*A*MFQN--*****	01	110300	32	00			Antisurface Warfare
+S*A*MFQP--*****	01	110300	17	00			Patrol
+S*A*MFQR--*****	01	110300	18	00			Reconnaissance
+S*A*MFQRX-*****	01	110300	20	00			Photographic (Reconnaissance)		Symbol is displayed differently between versions
+S*A*MFQS--*****	01	110300	22	00			Antisubmarine Warfare
+S*A*MFQT--*****	01	110300	19	00			Trainer
+S*A*MFQU--*****	01	110300	07	00			Utility
+S*A*MFQY--*****	01	110300	23	00			Communications
+S*A*MFQO--*****	01	110300	14	00			Medical Evacuation (MEDEVAC)
+S*A*MHQ---*****	01	110400	00	00		Vertical-Takeoff UAV (VT-UAV)
+S*A*ML----*****	01	110500	00	00		Lighter Than Air
+S*A*C-----*****	01	120000	00	00	Civilian				Has text stating that symbol connot be displayed in MIL-STD2525D
+S*A*CF----*****	01	120100	00	00		Fixed Wing
+S*A*CH----*****	01	120200	00	00		Rotary Wing
+S*A*CL----*****	01	120400	00	00		Lighter Than Air
+S*A*W-----*****	01	130000	00	00	Weapon				Shown with a missle in frame. Not sure this is correct for this new code
+S*A*WB----*****	01	130100	00	00		Bomb
+S*A*WD----*****	01	130200	00	00		Decoy
+S*A*WM----*****	02	110000	00	00	Missile
+S*A*WMS---*****	02	110000	02	05		Missile In Flight	Surfaced Launched
+S*A*WMSB--*****	02	110000	05	00			Anitballistic Missle (ABM)		Symbol is displayed differently between versions.
+S*A*WMSS--*****	02	110000	02	02			Surface-to-Surface (SSM)
+S*A*WMSA--*****	02	110000	02	01			Surace-to-Air (SAM)
+S*A*WMSU--*****	02	110000	02	03			Surface-to-Subsurface		Symbol is displayed differently between versions.
+S*A*WMA---*****	02	110000	01	05			Air Launched
+S*A*WMAS--*****	02	110000	01	02			Air-to-Surface (ASM)
+S*A*WMAA--*****	02	110000	01	01			Air-to-Air (AAM)
+S*A*WMAP--*****	02	110000	01	04			Air-to-Space		Symbol is displayed differently between versions.
+S*A*WMU---*****	02	110000	03	02			Subsurface-to-Surface		Symbol is displayed differently between versions.
+S*A*WMCM--*****	02	110000	07	06			Cruise Missile
+S*A*WMB---*****	02	110000	06	06			Ballistic Missile
+S*P*------*****	05	110000	00	00	Military
+S*P*V-----*****	05	110100	00	00		Space Vehicle		When converting from 2525C to D, assumed to be a military spacecraft.
+S*P*S-----*****	05	110700	00	00		Satellite
+S*P*T-----*****	05	111600	00	00		Space Station
+S*P*L-----*****	05	111900	00	00		Space Launched Vehicle (SLV)
+S*G*------*****	10	000000	00	00	Empty Land Unit frame
+S*G*U-----*****	10	110000	00	00	Command and Control
+S*F*GC----*****	10	110200	00	00		Civil Affairs
+S*F*GP----*****	10	110600	00	00		Military Information Support Operations (MISO)
+S*G*UUS---*****	10	111000	00	00		Signal
+S*G*UUSA--*****	10	111000	02	00			Area
+S*G*UUSC--*****	10	111000	11	00			Communication Configured Package
+S*G*UUSO--*****	10	111000	49	00			Command Operations
+S*G*UUSF--*****	10	111000	27	00			Forward Communications
+S*G*UUSM--*****	10	111000	36	00			Multiple Subscriber Element
+S*G*UUSS--*****	10	111000	77	00			Signal Support
+S*G*UUSR--*****	10	111001	00	00			Radio
+S*G*UUSRW-*****	10	111002	00	00			Radio Relay		Symbol is displayed differently between versions
+S*G*UUSRT-*****	10	111003	00	00			Teletype
+S*G*UUSRS-*****	10	111004	00	00			Tactical Satellite
+S*G*UUP---*****	10	120300	29	00			Landing Support
+S*G*UCAA--*****	10	120400	00	00		Antitank/Antiarmor
+S*G*UCAAL-*****	10	120400	00	19			Light
+S*G*UCAAM-*****	10	120400	00	01			Airborne
+S*G*UCAAS-*****	10	120400	00	59			Air Assault		Symbol is displayed differently between versions
+S*G*UCAAU-*****	10	120400	00	27			Mountain
+S*G*UCAAC-*****	10	120400	00	02			Arctic
+S*G*UCAAA-*****	10	120401	00	00			Armored
+S*G*UCAAAS*****	10	120401	00	59			Armorered, Air Assault		Symbol is displayed differently between versions
+S*G*UCAAAW*****	10	120401	00	51			Armored, Wheeled
+S*G*UCAAO-*****	10	120402	00	00			Motorized
+S*G*UCAAOS*****	10	120402	00	59			Motorized, Air Assault		Symbol is displayed differently between versions
+S*G*UCAT--*****	10	120500	00	00		Armor/Armored/Mechanized/Self-Propelled/ Tracked
+S*G*UCATL-*****	10	120500	00	19			Light
+S*G*UCATM-*****	10	120500	00	24			Medium
+S*G*UCATH-*****	10	120500	00	15			Heavy
+S*G*UCATA-*****	10	120500	00	01			Airborne
+S*G*UCATR-*****	10	120500	00	38			Recovery		Can use 37 or 38 for MOD2 (Unmanned or Maintainence)
+S*G*UCRVA-*****	10	120501	00	00			Reconnaissance/Cavalry/Scout
+S*G*UCRRL-*****	10	120501	00	19			Reconnaissance/Cavalry/Scout, Light		Symbol is displayed differently between versions
+S*G*UCATW-*****	10	120502	00	00			Amphibious
+S*G*UCAWW-*****	10	120502	00	51			Wheeled Amphibious
+S*G*UCATWR*****	10	120502	00	38			Amphibious, Recovery
+S*G*UCV---*****	10	120600	00	00		Army Aviation/Aviation Rotary Wing
+S*G*UCVUR-*****	10	120600	00	59			Air Mobile/Air Assault		Listed as Unmanned in 2525C, Symbol is displayed differently between versions
+S*G*UCVRA-*****	10	120600	03	00			Attack
+S*G*UCVRUC*****	10	120600	10	00			Command and Control
+S*G*UCVRM-*****	10	120600	33	00			Mine Countermeasure
+S*G*UCVS--*****	10	120600	53	00			Search and Rescue
+S*G*UCSA--*****	10	120600	54	00			Security Forces
+S*F*A-----*****	10	120600	63	00			Special Operations Forces (SOF)
+S*F*AHA---*****	10	120600	63	54			Special Operations Forces (SOF), Attack
+S*F*AHU---*****	10	120600	63	56			Special Operations Forces (SOF), Utility
+S*F*AHH---*****	10	120600	63	57			Special Operations Forces (SOF), Combat Search and Rescue
+S*F*AHUL--*****	10	120600	63	19			Special Operations Forces (SOF), Light
+S*F*AHUM--*****	10	120600	63	24			Special Operations Forces (SOF), Medium
+S*F*AHUH--*****	10	120600	63	15			Special Operations Forces (SOF), Heavy
+S*G*UCVRU-*****	10	120600	69	00			Utility
+S*G*UCVRUL*****	10	120600	69	19			Utility, Light
+S*G*UCVRUM*****	10	120600	69	24			Utility, Medium
+S*G*UCVRUH*****	10	120600	69	15			Utility, Heavy
+S*G*UCVRW-*****	10	120600	74	00			Antisubmarine Warfare
+S*G*UCVRUE*****	10	120600	75	00			MEDEVAC
+S*G*UCRVO-*****	10	120601	00	00			Reconnaissance
+S*G*UCVC--*****	10	120700	00	00		Aviation Composite
+S*G*UCVF--*****	10	120800	00	00		Aviation Fixed Wing
+S*G*UCVUF-*****	10	120800	00	59			Air Mobile/Air Assault		Listed as Unmanned in 2525C, Symbol is displayed differently between versions
+S*G*UCVFA-*****	10	120800	03	00			Attack
+S*F*AF----*****	10	120800	63	00			Special Operations Forces (SOF)
+S*F*AFA---*****	10	120800	63	54			Special Operations Forces (SOF), Attack
+S*F*AFK---*****	10	120800	63	55			Special Operations Forces (SOF), Refuel
+S*F*AFU---*****	10	120800	63	56			Special Operations Forces (SOF), Utility
+S*F*AFUL--*****	10	120800	63	19			Special Operations Forces (SOF), Light
+S*F*AFUM--*****	10	120800	63	24			Special Operations Forces (SOF), Medium
+S*F*AFUH--*****	10	120800	63	15			Special Operations Forces (SOF), Heavy
+S*F*AV----*****	10	120800	63	49			Special Operations Forces (SOF), VTOL/VSTOL
+S*G*UCVFU-*****	10	120800	69	00			Utility
+S*G*UCVV--*****	10	120800	00	49			Verticl or Short Take-Off and Landing (VTOL/VSTOL)
+S*G*UCVFR-*****	10	120801	00	00			Reconnaissance
+S*G*UC----*****	10	120900	00	00		Combat
+S*G*UCI---*****	10	121100	00	00		Infantry
+S*G*UCIL--*****	10	121100	00	19			Light
+S*G*UCIO--*****	10	121100	00	27			Mountain
+S*G*UCIA--*****	10	121100	00	01			Airborne
+S*G*UCIS--*****	10	121100	00	59			Air Mobile/Air Assault		Symbol is displayed differently between versions
+S*G*UCIC--*****	10	121100	00	02	 		Arctic
+S*G*UCIN--*****	10	121100	46	00			Naval
+S*G*UCIZ--*****	10	121102	00	00			Armored/Mechanized/Tracked
+S*G*UCIM--*****	10	121104	00	00			Motorized
+S*G*UCII--*****	10	121105	00	00			Infantry Fighting Vehicle
+S*G*UCRV--*****	10	121300	00	00		Reconnaissance/Cavalry/Scout
+S*G*UCRC--*****	10	121300	00	02			Arctic
+S*G*UCRS--*****	10	121300	00	59			Air Mobile/Air Assault		Symbol is displayed differently between versions
+S*G*UCRA--*****	10	121300	00	01			Airborne
+S*G*UCRO--*****	10	121300	00	27			Mountain
+S*G*UCRL--*****	10	121300	00	19			Light
+S*G*UCRX--*****	10	121300	00	22			Long Range Surveillance		MOD2 shortened to 'LR' in 2525D
+S*G*UCRH--*****	10	121300	00	31			Pack Animal		Listed as Horse in 2525D
+S*G*UCRR--*****	10	121302	00	00			Marine
+S*G*UCRRD-*****	10	121302	19	00			Marine, Division
+S*G*UCRRF-*****	10	121302	26	00			Marine, Force
+S*G*UCRVM-*****	10	121303	00	00			Motorized
+S*F*NS----*****	10	121400	00	00		Sea Air Land (SEAL)
+S*G*UCL---*****	10	121600	00	00		Surveillance			2525C codes approved after release of 2525C
+S*F*GS----*****	10	121700	00	00		Special Forces
+S*F*------*****	10	121800	00	00		Special Operations Forces (SOF)			Symbol is displayed differently between versions
+S*F*B-----*****	10	121800	00	45			Support
+S*F*GPA---*****	10	121801	00	00			Fixed Wing MISO
+S*F*G-----*****	10	121802	00	00			Ground
+S*F*NB----*****	10	121803	00	00			Special Boat
+S*F*NN----*****	10	121804	00	00			Special SSNR
+S*F*NU----*****	10	121805	00	00			Underwater Demolition Team
+S*G*UCVU--*****	10	121900	00	00		Unmanned Aerial Systems
+S*F*GR----*****	10	122000	00	00		Ranger
+S*G*UCD---*****	10	130100	00	00		Air Defense
+S*G*UCDS--*****	10	130100	00	43			Short Range
+S*G*UCDT--*****	10	130100	67	00			Targeting Unit		Symbol is displayed differently between versions
+S*G*UCDO--*****	10	130100	94	00			Theater		Symbol is displayed differently between versions
+S*G*UCDG--*****	10	130101	00	00			Main Gun System		Symbol is displayed differently between versions
+S*G*UCDM--*****	10	130102	00	00			Missile
+S*G*UCDH--*****	10	130102	28	00			Missile, Ground Station Module		Symbol is named and displayed differently between versions (H/MAD in 2525C)
+S*G*UCDML-*****	10	130102	00	19			Missile, Light		Symbol is displayed differently between versions
+S*G*UCDMM-*****	10	130102	00	24			Missile, Medium		Symbol is displayed differently between versions
+S*G*UCDMH-*****	10	130102	00	15			Missile, Heavy		Symbol is displayed differently between versions
+S*G*UCDC---****	10	130103	00	00			Air and Missile Defense
+S*G*UCFTA-*****	10	130200	00	00		Air/Naval Gunfire Liaison
+S*G*UCF---*****	10	130300	00	00		Field Artillery
+S*G*UCFHA-*****	10	130300	00	01			Airborne
+S*G*UCFHS-*****	10	130300	00	59			Air Mobile/Air Assault		Symbol is displayed differently between versions
+S*G*UCFHC-*****	10	130300	00	02			Arctic
+S*G*UCFHO-*****	10	130300	00	27			Mountain
+S*G*UCFHL-*****	10	130300	00	19			Light
+S*G*UCFHM-*****	10	130300	00	24			Medium
+S*G*UCFHH-*****	10	130300	00	15			Heavy
+S*G*UCFRM-*****	10	130300	41	00			Multiple Rocket Launcher
+S*G*UCFRMR*****	10	130300	41	51			Multiple Rocket Launcher, Truck
+S*G*UCFRMT*****	10	130300	41	47			Multiple Rocket Launcher, Towed
+S*G*UCFTR-*****	10	130300	50	00			Radar		Symbol is displayed differently between versions
+S*G*UCFRS-*****	10	130300	59	00			Single Rocket Launcher
+S*G*UCFRSR*****	10	130300	59	51			Single Rocket Launcher, Truck
+S*G*UCFRST*****	10	130300	59	47			Single Rocket Launcher, Towed
+S*G*UCFTS-*****	10	130300	62	00			Sound Ranging		Need CP for display difference in 2525D
+S*G*UCFT--*****	10	130300	67	00			Target Acquisition		MOD2 in 2525C, MOD1 in 2525D
+S*G*UCFTF-*****	10	130300	67	30			Target Acquisition, Flash Optical		MODs are reversed between versions
+S*G*UCFHE-*****	10	130301	00	00			Self-propelled
+S*G*UCFRSS*****	10	130301	59	00			Self-propelled, Single Rocket Launcher		Symbol is displayed differently between versions
+S*G*UCFRMS*****	10	130301	41	00			Self-propelled, Multiple Rocket Launcher		Symbol is displayed differently between versions
+S*G*UCFTCM*****	10	130302	00	00			Target Acquition
+S*G*UCFTC-*****	10	130400	00	00		Field Artillery Observer			Symbol is displayed differently between versions
+S*G*UCFO--*****	10	130600	00	00		Meteorological
+S*G*UCFOS-*****	10	130600	00	59			Air Mobile/Air Assault		Symbol is displayed differently between versions
+S*G*UCFOA-*****	10	130600	00	01			Airborne
+S*G*UCFOL-*****	10	130600	00	19			Light
+S*G*UCFOO-*****	10	130600	00	27			Mountain
+S*G*UCM---*****	10	130700	00	00		Missile			Symbol is displayed differently between versions
+S*G*UCMS--*****	10	130700	00	44			Strategic
+S*G*UCMT--*****	10	130700	00	46			Tactical
+S*G*UCFM--*****	10	130800	00	00		Mortar
+S*G*UCFMTC*****	10	130800	00	02			Towed, Arctic
+S*G*UCFMS-*****	10	130801	00	00			Armored/Mechanized/Tracked		Same symbols as 120500?
+S*G*UCFMW-*****	10	130802	00	00			Self-Propelled Wheeled
+S*G*UCFMT-*****	10	130803	00	00			Towed
+S*G*UCFMTS*****	10	130803	00	59			Towed, Air Assault		Symbol is displayed differently between versions
+S*G*UCFMTA*****	10	130803	00	01			Towed, Airborne
+S*G*UCFMTO*****	10	130803	00	27			Towed, Mountain
+S*G*UCFS--*****	10	130900	00	00		Survey			Flag is white in 2525C and black in 2525D
+S*G*UCFSS-*****	10	130900	00	59			Air Mobile/Air Assault		Symbol is displayed differently between versions
+S*G*UCFSA-*****	10	130900	00	01			Airborne
+S*G*UCFSL-*****	10	130900	00	19			Light
+S*G*UCFSO-*****	10	130900	00	27			Mountain
+S*G*UUA---*****	10	140100	00	00		Chemical Biological Radiological Nuclear Defense
+S*G*UUAC--*****	10	140100	07	00			Chemical
+S*G*UUACS-*****	10	140100	60	00			Chemical, Smoke
+S*G*UUAN--*****	10	140100	48	00			Nuclear
+S*G*UUAB--*****	10	140100	04	00			Biological
+S*G*UUAD--*****	10	140100	15	00			Deconamination
+S*G*UUACC-*****	10	140100	60	09			Smoke/Decon		Symbol is displayed differently between versions
+S*G*UUACSA*****	10	140101	60	00			Mechanized, Smoke
+S*G*UUACCK*****	10	140101	60	09			Mechanized, Smoke/Decon
+S*G*UUACSM*****	10	140102	60	00			Motorized, Smoke
+S*G*UUACCM*****	10	140102	60	09			Motorized, Smoke/Decon
+S*G*UUACR-*****	10	140103	07	00			Chemical
+S*G*UUACRW*****	10	140104	00	51			Reconnaissance Armored, Wheeled
+S*G*UUABR-*****	10	140105	04	00			Reconnaissance Equiped, Biological
+S*G*UU----*****	10	140200	00	00		Combat Support (Maneuver Enhancement)
+S*G*UULD--*****	10	140300	00	00		Criminal Investigation Division			Named Central Intelligence Department in 2525C
+S*G*UCE---*****	10	140700	00	00		Engineer
+S*G*UCECS-*****	10	140700	00	59			Air Mobile/Air Assault		Symbol is displayed differently between versions
+S*G*UCECA-*****	10	140700	00	01			Airborne
+S*G*UCECC-*****	10	140700	00	02			Arctic
+S*G*UCEC--*****	10	140700	09	00			Combat
+S*G*UCECL-*****	10	140700	09	19			Combat, Light
+S*G*UCECM-*****	10	140700	09	24			Combat, Medium
+S*G*UCECH-*****	10	140700	09	15			Combat, Heavy
+S*G*UCECO-*****	10	140700	09	27			Combat, Mountain		Symbol is displayed differently between versions
+S*G*UCEN--*****	10	140700	12	00			Construction
+S*G*UCENN-*****	10	140700	46	00			Naval		Symbol is displayed differently between versions
+S*G*UCECT-*****	10	140701	00	00			Mechanized
+S*G*UCECW-*****	10	140702	00	00			Motorized
+S*G*UCECR-*****	10	140703	00	00			Reconnaissance
+S*G*UUE---*****	10	140800	00	00		Explosive Ordnance Disposal (EOD)
+E*O*CA----*****	10	141000	00	00		Fire Fighting/Fire Protection
+S*G*UULM--*****	10	141200	00	00		Military Police
+S*G*UCS---*****	10	141700	00	00		Security
+S*G*UCSW--*****	10	141700	00	40			Riverine		MOD2 is displayed differently between versions, Name Change
+S*G*UCSR--*****	10	141700	00	36			Railroad
+S*G*UCSGA-*****	10	141701	00	00			Mechanized
+S*G*UCSM--*****	10	141701	00	51			Mechanized, Wheeled
+S*G*UCSGM-*****	10	141702	00	00			Motorized
+S*G*UULF--*****	10	141900	00	00		Security Police (Air)
+S*G*UULS--*****	10	142000	00	00		Shore Patrol
+S*G*UUMC-------	10	150200	00	00		Counterintelligence
+S*G*UUSX--*****	10	150400	00	00		Electronic Ranging
+S*G*UUMSE-*****	10	150500	00	00		Electronic Warfare
+S*G*UUMSET*****	10	150500	94	00			Theater/Echelons Above Corps Support		Symbol is displayed differently between versions
+S*G*UUMSEC*****	10	150500	96	00			Corps Support		Symbol is displayed differently between versions
+S*G*UUMSED*****	10	150502	00	00			Direction Finding
+S*G*UUMSEI*****	10	150503	00	00			Intercept
+S*G*UUMSEJ*****	10	150504	00	00			Jamming
+S*G*UUMQ--*****	10	150700	00	00		Interrogation
+S*G*UUMJ--*****	10	150900	00	00		Joint Intelligence Center
+S*G*UUM---*****	10	151000	00	00		Military Intelligence
+S*G*UUMA--*****	10	151000	00	59			Air Mobile/Air Assault		Symbol is displayed differently between versions
+S*G*UUMO--*****	10	151000	49	00			Operations
+S*G*UUMS--*****	10	151000	57	00			Signals Intelligence
+S*G*UUMRG-*****	10	151000	50	00			Surveillance, Radar
+S*G*UUMRS-*****	10	151000	55	00			Surveillance, Sensor		Symbol is displayed differently between versions
+S*G*UUMRX-*****	10	151000	28	00			Surveillance, Ground Station Module
+S*G*UUMMO-*****	10	151000	32	00			Surveillance, Meteorological
+S*G*UUMT--*****	10	151000	66	00			Tactical Exploitation
+S*G*USA---*****	10	160100	00	00		Administrative
+S*G*USAT--*****	10	160100	94	00			Theater		Symbol is displayed differently between versions
+S*G*USAC--*****	10	160100	96	00			Corps		Symbol is displayed differently between versions
+S*G*USTA--*****	10	160300	00	00		Airport of Debarkation/Airport of Embarkation 			Symbol is displayed differently between versions
+S*G*USTAT-*****	10	160300	94	00			Theater		Symbol is displayed differently between versions
+S*G*USTAC-*****	10	160300	96	00			Corps		Symbol is displayed differently between versions
+S*G*US----*****	10	160600	00	00		Combat Service Support
+S*G*USAF--*****	10	160700	00	00		Finance
+S*G*USAFT-*****	10	160700	94	00			Theater
+S*G*USAFC-*****	10	160700	96	00			Corps
+S*G*USAJ--*****	10	160800	00	00		Judge Advocate General
+S*G*USAJT-*****	10	160800	94	00			Theater
+S*G*USAJC-*****	10	160800	96	00			Corps
+S*G*USAL--*****	10	160900	00	00		Labor
+S*G*USALT-*****	10	160900	94	00			Theater
+S*G*USALC-*****	10	160900	96	00			Corps
+S*G*USSL--*****	10	161000	00	00		Laundry/Bath			Need a CP to modify symbol (Remove underline from symbol)
+S*G*USSLT-*****	10	161000	94	00			Theater
+S*G*USSLC-*****	10	161000	96	00			Corps
+S*G*USX---*****	10	161100	00	00		Maintenance
+S*G*USXH--*****	10	161100	00	15			Heavy
+S*G*USXE--*****	10	161100	22	00			Electro-Optical
+S*G*USXOM-*****	10	161100	34	00			Ordnance, Missile
+S*G*USXT--*****	10	161100	94	00			Theater
+S*G*USXC--*****	10	161100	96	00			Corps
+S*G*USXHT-*****	10	161100	94	15			Theater, Heavy
+S*G*USXHC-*****	10	161100	96	15			Corps, Heavy
+S*G*USM---*****	10	161300	00	00		Medical
+S*G*USMD--*****	10	161300	00	11			Dental
+S*G*USMP--*****	10	161300	00	34			Psychological
+S*G*USMV--*****	10	161300	00	50			Veterinary
+S*G*USMT--*****	10	161300	94	00			Theater
+S*G*USMC--*****	10	161300	96	00			Corps
+S*G*USMDT-*****	10	161300	94	11			Theater, Dental
+S*G*USMDC-*****	10	161300	96	11			Corps, Dental
+S*G*USMPT-*****	10	161300	94	34			Theater, Psychological
+S*G*USMPC-*****	10	161300	96	34			Corps, Psychological
+S*G*USMVT-*****	10	161300	94	50			Theater, Veterinary
+S*G*USMVC-*****	10	161300	96	50			Corps, Veterinary
+S*G*USMM--*****	10	161400	00	00		Medical Treatment Facility
+S*G*USMMT-*****	10	161400	94	00			Theater
+S*G*USMMC-*****	10	161400	96	00			Corps
+S*G*USAW--*****	10	161500	00	00		Morale, Welfare and Recreation
+S*G*USAWT-*****	10	161500	94	00			Theater
+S*G*USAWC-*****	10	161500	96	00			Corps
+S*G*USAM--*****	10	161600	00	00		Mortuary Affairs/Graves Registration
+S*G*USAMT-*****	10	161600	94	00			Theater
+S*G*USAMC-*****	10	161600	96	00			Corps
+S*G*USXO--*****	10	162300	00	00		Ordnance
+S*G*USXOT-*****	10	162300	94	00			Theater
+S*G*USXOC-*****	10	162300	96	00			Corps
+S*G*USAS--*****	10	162400	00	00		Personnel Services
+S*G*USAST-*****	10	162400	94	00			Theater
+S*G*USASC-*****	10	162400	96	00			Corps
+S*G*USAP--*****	10	162800	00	00		Public Affairs/Public Information
+S*G*USAPT-*****	10	162800	94	00			Theater
+S*G*USAPC-*****	10	162800	96	00			Corps
+S*G*USAQ--*****	10	162900	00	00		Quartermaster
+S*G*USAQT-*****	10	162900	94	00			Theater
+S*G*USAQC-*****	10	162900	96	00			Corps
+S*G*USTR--*****	10	163000	00	00		Railhead
+S*G*USTRT-*****	10	163000	94	00			Theater
+S*G*USTRC-*****	10	163000	96	00			Corps
+S*G*USAR--*****	10	163100	00	00		Religious Support
+S*G*USARC-*****	10	163100	94	00			Theater
+S*G*USART-*****	10	163100	96	00			Corps
+S*G*USAX--*****	10	163200	00	00		Replacement Holding Unit
+S*G*USAXT-*****	10	163200	94	00			Theater
+S*G*USAXC-*****	10	163200	96	00			Corps
+S*G*USTS--*****	10	163300	00	00		Sea Port of Debarkation/Sea Port of Embarkation
+S*G*USTST-*****	10	163300	94	00			Theater
+S*G*USTSC-*****	10	163300	96	00			Corps
+S*G*USAPM-*****	10	163500	00	00		Joint Information Bureau
+S*G*USAPMT*****	10	163500	94	00			Theater
+S*G*USAPMC*****	10	163500	96	00			Corps
+S*G*UST---*****	10	163600	00	00		Transportation
+S*G*USTI--*****	10	163600	34	00			Missile
+S*G*USTM--*****	10	163600	38	00			Movement Control Center (MCC)
+S*G*USTT--*****	10	163600	94	00			Theater
+S*G*USTC--*****	10	163600	96	00			Corps
+S*G*USS1--*****	10	163700	00	00		US Supply Class I
+S*G*USS1T-*****	10	163700	94	00			Theater
+S*G*USS1C-*****	10	163700	96	00			Corps
+S*G*USS4--*****	10	164000	00	00		US Supply Class IV
+S*G*USS4T-*****	10	164000	94	00			Theater
+S*G*USS4C-*****	10	164000	96	00			Corps
+S*G*USS6--*****	10	164200	00	00		US Supply Class VI
+S*G*USS6T-*****	10	164200	94	00			Theater
+S*G*USS6C-*****	10	164200	96	00			Corps
+S*G*USS7--*****	10	164300	00	00		US Supply Class VII
+S*G*USS7T-*****	10	164300	94	00			Theater
+S*G*USS7C-*****	10	164300	96	00			Corps
+S*G*USS8--*****	10	164400	00	00		US Supply Class VIII
+S*G*USS8T-*****	10	164400	94	00			Theater
+S*G*USS8C-*****	10	164400	96	00			Corps
+S*G*USS9--*****	10	164500	00	00		US Supply Class IX
+S*G*USS9T-*****	10	164500	94	00			Theater
+S*G*USS9C-*****	10	164500	96	00			Corps
+S*G*USSX--*****	10	164600	00	00		US Supply Class X
+S*G*USSXT-*****	10	164600	94	00			Theater
+S*G*USSXC-*****	10	164600	96	00			Corps
+S*G*USSW--*****	10	164700	00	00		Water
+S*G*USSWT-*****	10	164700	94	00			Theater
+S*G*USSWC-*****	10	164700	96	00			Corps
+S*G*USSWP-*****	10	164800	00	00		Water Purification
+S*G*USSWPT*****	10	164800	94	00			Theater
+S*G*USSWPC*****	10	164800	96	00			Corps
+S*G*USAPB-*****	10	164900	00	00		Broadcast
+S*G*USAPBT*****	10	164900	94	00			Theater
+S*G*USAPBC*****	10	164900	96	00			Corps
+S*F*N-----*****	10	170100	63	00			Special Operations Forces (SOF)
+E*O*BA----*****	10	190000	00	00	Emergency Operation
+E*O*DA----*****	10	200000	00	00	Law Enforcement
+E*O*DDA---*****	10	200100	00	00		Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) (Department of Justice)
+E*O*DEA---*****	10	200200	00	00		Border Patrol
+E*O*DFA---*****	10	200300	00	00		Customs Service
+E*O*DGA---*****	10	200400	00	00		Drug Enforcement Administration (DEA)
+E*O*DHA---*****	10	200500	00	00		Department of Justice (DOJ)
+E*O*DIA---*****	10	200600	00	00		Federal Bureau of Investigation (FBI)
+S*G*UULC--*****	10	200700	00	00		Police
+E*O*DLA---*****	10	200900	00	00		United States Secret Service (USSS)
+E*O*DMA---*****	10	201000	00	00		Transportation Security Administration (TSA)
+E*O*DNA---*****	10	201100	00	00		Coast Guard
+E*O*DOA---*****	10	201200	00	00		US Marshals Service
+O*P*------*****	11	110300	00	00		Individual			Moved from StabOps (2525C) to Land Installation (2525D)
+O*O*K-----*****	11	110300	05	00			Kidnapping
+O*P*A-----*****	11	110300	13	00			Leader
+O*R*------*****	11	110300	07	00			Rape
+O*P*B-----*****	11	110300	18	00			Targeted
+O*P*C-----*****	11	110300	19	00			Terrorist
+O*G*------*****	11	110400	00	00		Organization or Group
+O*G*A-----*****	11	110400	09	00			Displaced Person(s), Refugee(s) and Evacuee(s)
+O*G*E-----*****	11	110400	10	00			Foreign Fighter(s)
+O*G*F-----*****	11	110400	11	00			Gang Member or Gang
+O*G*B-----*****	11	110400	14	00			Nongovernmental Organization Member or Nongovernmental Organization
+O*G*D-----*****	11	110400	17	00			Religious or Religious Organization
+O*G*C-----*****	11	110400	19	00			Terrorist or Terrorist Organization
+E*I*BD----*****	11	110400	24	00			Loot
+O*O*C-----*****	11	110900	00	00		Composite Loss
+O*O*CB----*****	11	110900	21	00			Accident
+O*O*CA----*****	11	110900	22	00			Combat
+O*O*CC----*****	11	110900	23	00			Other
+E*O*AA----*****	11	111000	00	00		Emergency Medical Operation
+S*G*EWR---*****	15	110100	00	00		Rifle
+S*G*EWRR--*****	15	110101	00	00			Single Shot Rifle
+S*G*EWRL--*****	15	110201	00	00			Light
+S*G*EWRH--*****	15	110203	00	00			Heavy
+S*G*EWZ---*****	15	110300	00	00		Grenade Launcher
+S*G*EWZL--*****	15	110301	00	00			Light
+S*G*EWZM--*****	15	110302	00	00			Medium
+S*G*EWZH--*****	15	110303	00	00			Heavy
+S*G*EXF---*****	15	110400	00	00		Flame Thrower
+S*G*EWA---*****	15	110500	00	00		Air Defense Gun
+S*G*EWAL--*****	15	110501	00	00			Light
+S*G*EWAM--*****	15	110502	00	00			Medium
+S*G*EWAH--*****	15	110503	00	00			Heavy
+S*G*EWG---*****	15	110600	00	00		Antitank Gun
+S*G*EWGL--*****	15	110601	00	00			Light
+S*G*EWGM--*****	15	110602	00	00			Medium
+S*G*EWGH--*****	15	110603	00	00			Heavy
+S*G*EWD---*****	15	110700	00	00		Direct Fire Gun
+S*G*EWDL--*****	15	110701	00	00			Light
+S*G*EWDM--*****	15	110702	00	00			Medium
+S*G*EWDH--*****	15	110703	00	00			Heavy
+S*G*EWGR--*****	15	110800	00	00		Recoilless Gun
+S*G*EWH---*****	15	110900	00	00		Howitzer
+S*G*EWHL--*****	15	110901	00	00			Light
+S*G*EWHM--*****	15	110902	00	00			Medium
+S*G*EWHH--*****	15	110903	00	00			Heavy
+S*G*EWM---*****	15	111000	00	00		Missile Launcher
+S*G*EWMA--*****	15	111100	00	00		Air Defense Missile Launcher			Listed as Short Range
+S*G*EWMAS-*****	15	111101	00	00			Light		Symbol is displayed differently between versions
+S*G*EWMASR*****	15	111102	00	00			Light, TLAR		Symbol is displayed differently between versions
+S*G*EWMASE*****	15	111103	00	00			Light, TELAR		Listed as Intermediate Range
+S*G*EWMAI-*****	15	111104	00	00			Medium		Symbol is displayed differently between versions
+S*G*EWMAIR*****	15	111105	00	00			Medium, TLAR		Symbol is displayed differently between versions
+S*G*EWMAIE*****	15	111106	00	00			Medium, TELAR		Listed as Long Range
+S*G*EWMAL-*****	15	111107	00	00			Heavy		Symbol is displayed differently between versions
+S*G*EWMALR*****	15	111108	00	00			Heavy, TLAR		Symbol is displayed differently between versions
+S*G*EWMALE*****	15	111109	00	00			Heavy, TELAR		Symbol is displayed differently between versions
+S*G*EWMT--*****	15	111200	00	00		Antitank Missile Launcher
+S*G*EWMTL-*****	15	111201	00	00			Light
+S*G*EWMTM-*****	15	111202	00	00			Medium
+S*G*EWMTH-*****	15	111203	00	00			Heavy
+S*G*EWMS--*****	15	111300	00	00		Surface-to-Surface Missile Launcher
+S*G*EWMSS-*****	15	111301	00	00			Light		Listed as Short Range
+S*G*EWMSI-*****	15	111302	00	00			Medium		Listed as Intermediate Range
+S*G*EWMSL-*****	15	111303	00	00			Heavy		Listed as Long Range
+S*G*EWO---*****	15	111400	00	00		Mortar
+S*G*EWOL--*****	15	111401	00	00			Light
+S*G*EWOM--*****	15	111402	00	00			Medium
+S*G*EWOH--*****	15	111403	00	00			Heavy
+S*G*EWS---*****	15	111500	00	00		Single Rocket Launcher
+S*G*EWSL--*****	15	111501	00	00			Light
+S*G*EWSM--*****	15	111502	00	00			Medium
+S*G*EWSH--*****	15	111503	00	00			Heavy
+S*G*EWX---*****	15	111600	00	00		Multiple Rocket Launcher
+S*G*EWXL--*****	15	111601	00	00			Light
+S*G*EWXM--*****	15	111602	00	00			Medium
+S*G*EWXH--*****	15	111603	00	00			Heavy
+S*G*EWT---*****	15	111700	00	00		Antitank Rocket Launcher
+S*G*EWTL--*****	15	111701	00	00			Light
+S*G*EWTM--*****	15	111702	00	00			Medium
+S*G*EWTH--*****	15	111703	00	00			Heavy
+S*G*EV----*****	15	120000	00	00	Vehicle
+S*G*EVA---*****	15	120100	00	00		Armored			Listed as Armored Infantry
+S*G*EVAI--*****	15	120101	00	00			Armored Fighting Vehicle		Symbol is displayed differently between versions
+S*G*EVAC--*****	15	120102	00	00			Armored Fighting Vehicle Command and Control
+S*G*EVAA--*****	15	120103	00	00			Armored Personnel Carrier
+S*G*EVUAA-*****	15	120104	00	00			Armored Personnel Carrier Ambulance
+S*G*EVAAR-*****	15	120108	00	00			Armored Personnel Carrier, Recovery
+S*G*EVAS--*****	15	120109	00	00			Combat Service Support Vehicle
+S*G*EVAL--*****	15	120110	00	00			Light Wheeled Armored Vehicle
+S*G*EVAT--*****	15	120200	00	00		Tank
+S*G*EVATL-*****	15	120201	00	00			Light
+S*G*EVATM-*****	15	120202	00	00			Medium
+S*G*EVATH-*****	15	120203	00	00			Heavy
+S*G*EVATLR*****	15	120301	00	00			Light
+S*G*EVATMR*****	15	120302	00	00			Medium
+S*G*EVATHR*****	15	120303	00	00			Heavy
+S*G*EVE---*****	15	130000	00	00	Engineer Vehicles and Equipment
+S*G*EVEB--*****	15	130100	00	00		Bridge			Symbol is displayed differently between versions
+S*G*EVEE--*****	15	130800	00	00		Earthmover
+S*G*EVEA--*****	15	130900	00	00		Mine Clearing Equipment
+S*G*EVEAT-*****	15	130901	00	00			Trailer Mounted
+S*G*EVEAA-*****	15	130902	00	00			Mine Clearing Equipment on Tank Chassis
+S*G*EVEM--*****	15	131001	00	00			Mine Laying Equipment on Utility Vehicle
+S*G*EVEMV-*****	15	131002	00	00			Armored Carrier with Volcano
+S*G*EVEML-*****	15	131003	00	00			Truck Mounted with Volcano
+S*G*EVED--*****	15	131100	00	00		Dozer
+S*G*EVEDA-*****	15	131101	00	00			Dozer, Armored
+S*G*EVES--*****	15	131200	00	00		Armored Assault			Symbol is displayed differently between versions
+S*G*EVER--*****	15	131300	00	00		Armored Engineer Reconnaissance Vehicle (AERV)
+S*G*EVEH--*****	15	131400	00	00		Backhoe
+S*G*EVEC--*****	15	131500	00	00		Construction Vehicle
+S*G*EVEF--*****	15	131600	00	00		Ferry Transporter
+S*G*EVU---*****	15	140100	00	00		Utility Vehicle
+S*G*EVUA--*****	15	140300	00	00		Medical Evacuation			Listed as Ambulance in 2525C
+S*G*EVUB--*****	15	140500	00	00		Bus
+S*G*EVUS--*****	15	140600	00	00		Semi-Trailer and Truck
+S*G*EVUSL-*****	15	140601	00	00			Light
+S*G*EVUSM-*****	15	140602	00	00			Medium
+S*G*EVUSH-*****	15	140603	00	00			Heavy
+S*G*EVUL--*****	15	140700	00	00		Limited Cross Country Truck
+S*G*EVUX--*****	15	140800	00	00		Cross Country Truck
+S*G*EVUR--*****	15	141100	00	00		Amphibious Utility Wheeled Vehicle
+S*G*EVUT--*****	15	141200	00	00		Tow Truck
+S*G*EVUTL-*****	15	141201	00	00			Light
+S*G*EVUTH-*****	15	141202	00	00			Heavy
+S*G*EVT---*****	15	150100	00	00		Locomotive
+S*G*EVC---*****	15	160000	00	00	Civilian Vehicle
+S*G*EVCA--*****	15	160100	00	00		Automobile
+S*G*EVCAL-*****	15	160101	00	00			Compact
+S*G*EVCAM-*****	15	160102	00	00			Midsize
+S*G*EVCAH-*****	15	160103	00	00			Sedan
+S*G*EVCO--*****	15	160200	00	00		Open-Bed Truck
+S*G*EVCOL-*****	15	160201	00	00			Pickup
+S*G*EVCOM-*****	15	160202	00	00			Small
+S*G*EVCOH-*****	15	160203	00	00			Large
+S*G*EVCM--*****	15	160300	00	00		Multiple Passenger Vehicle
+S*G*EVCML-*****	15	160301	00	00			Van
+S*G*EVCMM-*****	15	160302	00	00			Small Bus
+S*G*EVCMH-*****	15	160303	00	00			Large Bus
+S*G*EVCU--*****	15	160400	00	00		Utility Vehicle
+S*G*EVCUL-*****	15	160401	00	00			Sport Utility Vehicle (SUV)
+S*G*EVCUM-*****	15	160402	00	00			Small Box Truck
+S*G*EVCUH-*****	15	160403	00	00			Large Box Truck
+S*G*EVCJ--*****	15	160500	00	00		Jeep Type Vehicle
+S*G*EVCJL-*****	15	160501	00	00			Small/Light
+S*G*EVCJM-*****	15	160502	00	00			Medium
+S*G*EVCJH-*****	15	160503	00	00			Large/Heavy
+S*G*EVCT--*****	15	160600	00	00		Tractor Trailer Truck with Box
+S*G*EVCTL-*****	15	160601	00	00			Small/Light
+S*G*EVCTM-*****	15	160602	00	00			Medium
+S*G*EVCTH-*****	15	160603	00	00			Large/Heavy
+S*G*EVCF--*****	15	160700	00	00		Tractor Trailer Truck with Flatbed Trailer
+S*G*EVCFL-*****	15	160701	00	00			Small/Light
+S*G*EVCFM-*****	15	160702	00	00			Medium
+S*G*EVCFH-*****	15	160703	00	00			Large/Heavy
+O*I*I-----*****	15	160800	00	00		Known Insurgent Vehicle			Moved from StabOps (2525C) to Land Equipment (2525D)
+O*I*D-----*****	15	160900	00	00		Drug Vehicle			Moved from StabOps (2525C) to Land Equipment (2525D)
+E*O*DB----*****	15	170000	00	00	Law Enforcement
+E*O*DDB---*****	15	170100	00	00		Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) (Department of Justice)
+E*O*DEB---*****	15	170200	00	00		Border Patrol
+E*O*DFB---*****	15	170300	00	00		Customs Service
+E*O*DGB---*****	15	170400	00	00		Drug Enforcement Administration (DEA)
+E*O*DHB---*****	15	170500	00	00		Department of Justice (DOJ)
+E*O*DIB---*****	15	170600	00	00		Federal Bureau of Investigation (FBI)
+E*O*DJB---*****	15	170700	00	00		Police
+E*O*DLB---*****	15	170800	00	00		United States Secret Service (USSS)
+E*O*DMB---*****	15	170900	00	00		Transportation Security Administration (TSA)
+E*O*DOB---*****	15	171100	00	00		US Marshals Service
+S*G*EVM---*****	15	180000	00	00	Pack Animals
+S*G*EVS---*****	15	190000	00	00	Missile Support
+S*G*EVST--*****	15	190100	00	00		Transloader
+S*G*EVSR--*****	15	190200	00	00		Transporter
+S*G*EVSC--*****	15	190300	00	00		Crane/Loading Device
+S*G*EVSP--*****	15	190400	00	00		Propellant Transporter
+S*G*EVSW--*****	15	190500	00	00		Warhead Transporter
+S*G*EXN---*****	15	200400	00	00		CBRN Equipment
+S*G*EXL---*****	15	201000	00	00		Laser
+O*I*T-----*****	15	201300	00	00		Tent			2525C codes approved after release of 2525C
+E*O*AB----*****	15	201500	00	00		Emergency Medical Operation
+E*O*AF----*****	15	201501	00	00		Medical Evacuation Helicopter			Symbol is displayed differently between versions
+S*G*EXM---*****	15	210100	00	00		Land Mine
+S*G*EXMC--*****	15	210200	00	00		Antipersonnel Land mine (APL)
+S*G*EXI---*****	15	210400	00	00		Improvised Explosives Device (IED)
+S*G*EXML--*****	15	210500	00	00		Less than Lethal
+S*G*ES----*****	15	220100	00	00		Sensor			2525C appears to be a full octagon icon and 2525D is a main icon
+E*O*EA----*****	15	220100	01	00			Biological
+E*O*EB----*****	15	220100	02	00			Chemical
+E*O*EC----*****	15	220100	04	00			Intrusion
+E*O*ED----*****	15	220100	05	00			Nuclear
+E*O*EE----*****	15	220100	06	00			Radiological
+S*G*ESE---*****	15	220200	00	00		Sensor Emplaced
+S*G*ESR---*****	15	220300	00	00		Radar
+E*O*BB----*****	15	230000	00	00	Emergency Management Operation
+E*O*AE----*****	15	230100	00	00		Ambulance
+E*O*CB----*****	15	230200	00	00		Fire Fighting/Fire Protection			Symbol is displayed differently between versions
+S*G*IMA---H****	20	110100	00	00		Aircraft Production/Assembly
+S*G*IME---H****	20	110200	00	00		Ammunition and Explosives/Assembly
+S*G*IMG---H****	20	110400	00	00		Armament Production
+O*L*B-----*****	20	110500	00	00		Black List Location
+S*G*IRN---H****	20	110600	00	00		Chemical, Biological, Radiological and Nuclear (CBRN)			CBRN symbol is displayed differently
+S*G*IRNB--H****	20	110600	01	00			Biological		2525C uses the same symbol for both Bio and Chem
+S*G*IRNC--H****	20	110600	02	00			Chemical		2525C uses the same symbol for both Bio and Chem
+S*G*IRNN--H****	20	110600	03	00			Nuclear
+S*G*IPD---H****	20	110600	05	00			Decontamination
+S*G*IMN---H****	20	110700	00	00		Engineering Equipment Production
+S*G*IMNB--H****	20	110701	00	00		Engineering Equipment Production,  Bridge
+S*G*IE----H****	20	110800	00	00		Equipment Manufacture
+S*G*IG----H****	20	110900	00	00		Government Leadership
+O*L*G-----*****	20	111000	00	00		Gray List Location
+O*L*M-----*****	20	111100	00	00		Mass Grave Site
+S*G*IRM---H****	20	111300	00	00		Mine
+S*G*IMM---H****	20	111400	00	00		Missile and Space System Production
+S*G*IMF---H****	20	111500	00	00		Nuclear (Non CBRN Defense)
+S*G*IMFA--H****	20	111500	00	05			Atomic Energy Reactor
+S*G*IMFP--H****	20	111500	00	06			Nuclear Material Production
+S*G*IMFS--H****	20	111500	00	07			Nuclear Material Storage
+S*G*IMFPW-H****	20	111500	00	08			Weapons Grade Production
+O*I*S-----*****	20	111700	00	00		Safe House
+O*L*W-----*****	20	111800	00	00		White List Location
+S*G*IC----H****	20	111900	00	00		Tented Camp			2525C codes approved after release of 2525C
+S*G*ICD---H****	20	111901	00	00			Displaced Persons/ Refugee/Evacuees Camp		2525C codes approved after release of 2525C
+S*G*ICT---H****	20	111902	00	00			Training Camp		2525C codes approved after release of 2525C
+S*G*IW----H****	20	112000	00	00		Warehouse/Storage Facility			2525C codes approved after release of 2525C
+E*O*DC----H****	20	112100	00	00		Law Enforcement
+E*O*DDC---H****	20	112101	00	00			Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) (Department of Justice)
+E*O*DEC---H****	20	112102	00	00			Border Patrol
+E*O*DFC---H****	20	112103	00	00			Customs Service
+E*O*DGC---H****	20	112104	00	00			Drug Enforcement Administration (DEA)
+E*O*DHC---H****	20	112105	00	00			Department of Justice (DOJ)
+E*O*DIC---H****	20	112106	00	00			Federal Bureau of Investigation (FBI)
+E*O*DJC---H****	20	112107	00	00			Police
+E*O*DK----*****	20	112108	00	00			Prison
+E*O*DLC---H****	20	112109	00	00			United States Secret Service (USSS)
+E*O*DMC---H****	20	112110	00	00			Transportation Security Administration (TSA)
+E*O*DNC---H****	20	112111	00	00			Coast Guard
+E*O*DOC---H****	20	112112	00	00			US Marshals Service
+E*O*BC----H****	20	112200	00	00		Emergency Operation
+E*O*CE----H****	20	112201	00	00			Fire Station
+E*O*AC----H****	20	112202	00	00			Emergency Medical Operation
+E*F*A-----H****	20	120100	00	00		Agriculture and Food Infrastructure
+E*F*AA----H****	20	120101	00	00			Agriculture Laboratory
+E*F*AB----H****	20	120102	00	00			Animal Feedlot
+E*F*AC----H****	20	120103	00	00			Commercial Food Distribution Center
+E*F*AD----H****	20	120104	00	00			Farm/Ranch
+E*O*BL----H****	20	120105	00	00			Food Distribution
+E*F*AE----H****	20	120106	00	00			Food Production Center
+E*F*AF----H****	20	120107	00	00			Food Retail
+E*F*AG----H****	20	120108	00	00			Grain Storage
+E*F*B-----H****	20	120200	00	00		Banking Finance and Insurance Infrastructure
+E*F*BA----*****	20	120201	00	00			ATM
+E*F*BB----H****	20	120202	00	00			Bank
+E*F*BC----H****	20	120203	00	00			Bullion Storage
+E*F*BD----H****	20	120205	00	00			Federal Reserve Bank
+E*F*BE----H****	20	120206	00	00			Financial Exchange
+E*F*BF----H****	20	120207	00	00			Financial Services, Other
+E*F*C-----H****	20	120300	00	00		Commercial Infrastructure
+E*F*CA----H****	20	120301	00	00			Chemical Plant
+E*F*CB----H****	20	120302	00	00			Firearms Manufacturer
+E*F*CC----H****	20	120303	00	00			Firearms Retailer
+E*F*CD----H****	20	120304	00	00			Hazardous Material Production
+E*F*CE----H****	20	120305	00	00			Hazardous Material Storage
+E*F*CF----H****	20	120306	00	00			Industrial Site
+E*F*CG----H****	20	120307	00	00			Landfill
+E*F*CH----H****	20	120308	00	00			Pharmaceutical Manufacturer
+E*F*CI----H****	20	120309	00	00			Contaminated Hazardous Waste Site
+E*F*CJ----H****	20	120310	00	00			Toxic Release Inventory
+E*F*D-----H****	20	120400	00	00		Educational Facilities Infrastructure
+E*F*DA----H****	20	120401	00	00			College/University
+E*F*DB----H****	20	120402	00	00			School
+S*G*IUE---H****	20	120500	00	00		Energy Facility Infrastructure
+S*G*IUEN--H****	20	120501	03	00			Electric Power, Nuclear		Symbol is displayed differently between versions
+E*F*EA----H****	20	120502					Generation Station
+E*F*EB----H****	20	120503					Natural Gas Facility
+S*G*IRP---H****	20	120505					Petroleum/Gas/Oil		2525C appears to be a full octagon icon and 2525D is a main icon
+E*F*EE----H****	20	120506					Propane Facility
+E*F*F-----H****	20	120600				Government Site Infrastructure
+S*G*IX----H****	20	120701					Medical
+S*G*IXH---H****	20	120702					Medical Treatment Facility (Hospital)
+E*F*G-----H****	20	120800				Military Infrastructure
+E*F*GA----H****	20	120801					Military Armory
+S*G*IB----H****	20	120802					Military Base
+E*F*H-----H****	20	120900				Postal Services Infrastructure
+E*F*HA----H****	20	120901					Postal Distribution Center
+E*F*HB----H****	20	120902					Post Office
+E*F*I-----H****	20	121000				Public Venues Infrastructure
+E*F*IA----H****	20	121001					Enclosed Facility		Symbol is displayed differently between versions
+E*F*IB----H****	20	121002					Open Facility
+E*F*IC----H****	20	121003					Recreational Area
+E*F*ID----H****	20	121004					Religious Institution
+E*F*J-----H****	20	121100				Special Needs Infrastructure
+E*F*JA----H****	20	121101					Adult Day Care
+E*F*JB----H****	20	121102					Child Day Care
+E*F*JC----H****	20	121103					Elder Care
+E*F*K-----H****	20	121200				Telecommunications Infrastructure
+E*F*KB----H****	20	121203					Telecommunications Tower
+S*G*IT----H****	20	121300				Transportation Infrastructure
+S*G*IBA---H****	20	121301					Airport/Air Base		Symbol is displayed differently between versions
+E*F*LA----H****	20	121302					Air Traffic Control Facility
+E*F*LD----H****	20	121303					Bus Station
+E*F*LE----H****	20	121304					Ferry Terminal
+E*F*LF----H****	20	121305					Helicopter Landing Site
+E*F*LH----H****	20	121306					Maintenance Facility
+E*F*LJ----H****	20	121307					Railhead/Railroad Station
+E*F*LK----H****	20	121308					Rest Stop
+S*G*IBN---H****	20	121309					Sea Port/Naval Base		Symbol is displayed differently between versions
+S*G*IMS---H****	20	121310					Ship Yard
+E*F*LM----H****	20	121311					Toll Facility
+E*F*LO----H****	20	121312					Traffic Inspection Facility
+E*F*LP----H****	20	121313					Tunnel
+E*F*MA----*****	20	121401					Control Valve
+E*F*MB----H****	20	121402					Dam
+E*F*MC----*****	20	121403					Discharge Outfall
+E*F*MD----H****	20	121404					Ground Water Well
+E*F*ME----H****	20	121405					Pumping Station
+E*F*MF----H****	20	121406					Reservoir
+E*F*MG----H****	20	121407					Storage Tower
+E*F*MH----H****	20	121408					Surface Water Intake
+E*F*MI----H****	20	121409					Wastewater Treatment Facility
+S*G*IUP---H****	20	121410					Water
+G*G*GL----****X	25	110000			Command and Control Lines
+G*G*GLB---****X	25	110100				Boundary
+G*G*GLL---****X	25	110200				Light Line
+G*G*SAO---****X	25	120100				Area of Operations
+G*G*SAN---****X	25	120200				Named Area of Interest
+G*G*SAT---****X	25	120300				Targeted Area of Interest
+G*G*GAZ---****X	25	120400				Airfield Zone
+G*G*GPP---****X	25	130100				Action Point (General)
+G*G*GPPA--****X	25	130200				Amnesty Point
+G*G*GPPK--****X	25	130300				Checkpoint
+G*G*GPPC--****X	25	130500				Contact Point
+G*G*GPPO--****X	25	130600				Coordinating Point
+G*G*GPPD--****X	25	130700				Decision Point
+G*O*ES----****X	25	130800				Distress Call			2525C codes approved after release of 2525C
+G*G*GPPN--****X	25	130900				Entry Control Point			2525C codes approved after release of 2525C
+G*G*GPPL--****X	25	131100				Linkup Point
+G*G*GPPP--****X	25	131200				Passage Point
+G*G*GPRI--****X	25	131300				Point of Interest
+G*G*GPPR--****X	25	131400				Rally Point
+G*G*GPPE--****X	25	131500				Release Point
+G*G*GPPS--****X	25	131600				Start Point
+G*G*GPPW--****X	25	131800				Waypoint
+G*G*GLF---****X	25	140100				Forward Line of Troops
+G*G*GLC---****X	25	140200				Line of Contact
+G*G*GLP---****X	25	140300				Phase Line
+G*G*DLF---****X	25	140400				Forward Edge of the Battle Area			Forward Line of Own Troops in 2525C
+G*G*DLP---****X	25	140500				Principle Direction of Fire
+G*G*OLKA--****X	25	140601					Friendly Aviation
+G*G*OLKGM-****X	25	140602					Friendly Main Attack /Decisive
+G*G*OLKGS-****X	25	140603					Friendly Supporting Attack
+G*G*OLF---****X	25	140700				Final Coordination Line
+G*G*OLI---****X	25	140800				Infiltration Lane
+G*G*OLL---****X	25	140900				Limit of Advance
+G*G*OLT---****X	25	141000				Line of Departure
+G*G*OLC---****X	25	141100				Line of Departure/Line of Contact
+G*G*OLP---****X	25	141200				Probable Line of Deployment
+G*G*SAA---****X	25	141300				Airhead Line
+G*G*SLB---****X	25	141400				Bridgehead Line
+G*G*SLH---****X	25	141500				Holding Line
+G*G*SLR---****X	25	141600				Release Line
+G*G*SLA---****X	25	141700				Ambush
+G*G*GAG---****X	25	150100				Area
+G*G*GAA---****X	25	150200				Assembly Area
+G*G*GAD---****X	25	150600				Drop Zone
+G*G*GAX---****X	25	150700				Extraction Zone
+G*G*GAL---****X	25	150800				Landing Zone
+G*G*GAP---****X	25	150900				Pick-Up Zone
+G*G*GAF---****X	25	151000				Fortified Area
+G*G*GAY---****X	25	151100				Limited Access Area
+G*G*DAB---****X	25	151200				Battle Position
+G*G*DABP--****X	25	151202					Prepared (P) but not Occupied
+G*M*SP----****X	25	151203					Strong Point
+G*T*J-----****X	25	151204					Contain
+G*T*Q-----****X	25	151205					Retain
+G*G*GAE---****X	25	151300				Engagement Area (EA)			2525C General Engagement Area (it seems like this one has the N modifier ENY around the edge while the following Defense one does not, but there's only one type in 2525D).
+G*G*DAE---****X	25	151300				Engagement Area (EA)			2525C Defense Engagement Area (it seems like this one has the N modifier ENY around the edge while the following Defense one does not, but there's only one type in 2525D).
+G*G*OLAV--****X	25	151401				Axis of Advance			No corresponding template in 2525D - Listed as N/A
+G*G*OLAA--****X	25	151401					Friendly Airborne/Aviation
+G*G*OLAR--****X	25	151402					Attack Helicopter
+G*G*OLAGM-****X	25	151403					Main Attack
+G*G*OLAGS-****X	25	151404					Supporting Attack
+G*G*OAA---****X	25	151500				Assault Position
+G*G*OAK---****X	25	151600				Attack Position
+G*G*OAO---****X	25	151700				Objective
+G*G*SAE---****X	25	151800				Encirclement			Listed is N/A in 2525D. Friendly and Enemy has been split into two SIDC in 2525D
+G*G*OAP---****X	25	151900				Penetration Box
+G*G*OAF---****X	25	152000				Attack by Fire Position
+G*G*OAS---****X	25	152100				Support by Fire
+G*G*GAS---****X	25	152200				Search Area/Reconnaissance Area
+G*G*DPO---****X	25	160100				Observation Post/Outpost (unspecified)
+G*G*DPOR--****X	25	160201					Reconnaissance Outpost
+G*G*DPOF--****X	25	160202					Forward Observer Outpost
+G*G*DPON--****X	25	160203					CBRN Observation Outpost
+G*G*DPOS--****X	25	160204					Sensor Outpost /Listening Post
+G*G*DPOC--****X	25	160205					Combat Outpost
+G*G*DPT---****X	25	160300				Target Reference Point
+G*G*OPP---****X	25	160400				Point of Departure
+G*G*ALC---****X	25	170100				Air Corridor
+G*G*ALL---****X	25	170200				Low Level Transit Route
+G*G*ALM---****X	25	170300				Minimum-Risk Route
+G*G*ALS---****X	25	170500				Standard Use Army Aircraft Flight Route
+G*G*ALU---****X	25	170700				Special Corridor			Called Unmanned Aircraft (UA) Route in 2525C
+G*G*AAH---****X	25	170900				High-Density Airspace Control Zone
+G*G*AAR---****X	25	171000				Restricted Operations Zone
+G*G*AAM---****X	25	171600				Missile Engagement Zone
+G*G*AAML--****X	25	171700				Low Altitude Missile Engagement Zone
+G*G*AAMH--****X	25	171800				High Altitude Missile Engagement Zone
+G*G*AAF---****X	25	171900				Short Range Air Defense Engagement Zone
+G*G*AAW---****X	25	172000				Weapons Free Zone
+G*G*PA----****X	25	151406					Axis of Advance Feint
+G*G*PD----****X	25	230200					Deception/Decoy/Dummy
+G*G*PF----****X	25	140605					Direction of Attack Feint
+G*G*PN----****X	25	270705					Dummy Minefield
+G*G*PM----****X	25	270900					Decoy Mined Area
+G*G*PY----****X	25	270901					Decoy Mined Area, Fenced
+G*G*GPA---****X	25	180000			Airspace Control Points
+G*G*APP---****X	25	180100				Air Control Point
+G*G*APC---****X	25	180200				Communications Checkpoint
+G*G*APD---****X	25	180300				Downed Aircraft Pick-up Point
+G*G*APU---****X	25	180400				Pop-up Point			Name different between versions
+G*G*GPAT--****X	25	180600				TACAN
+G*G*GPAP--****X	25	180700				CAP Station
+G*G*GPAW--****X	25	180800				AEW Station
+G*G*GPAA--****X	25	180900				ASW (Helo and F/W) Station
+G*G*GPAS--****X	25	181000				Strike Initial Point
+G*G*GPAL--****X	25	181100				Replenishment Station
+G*G*GPAK--****X	25	181200				Tanking
+G*G*GPAH--****X	25	181300				Antisubmarine Warfare, Rotary Wing
+G*G*GPAB--****X	25	181400				SUCAP - Fixed Wing
+G*G*GPAC--****X	25	181500				SUCAP - Rotary Wing
+G*G*GPAD--****X	25	181600				MIW - Fixed Wing
+G*G*GPAE--****X	25	181700				MIW - Rotary Wing
+G*G*GPAO--****X	25	181800				Tomcat
+G*G*GPAR--****X	25	181900				Rescue
+G*G*GPAF--****X	25	182000				Unmanned Aerial System (UAS/UA)
+G*G*GPAG--****X	25	182100				VTUA
+G*G*GPAI--****X	25	182200				Orbit
+G*G*GPAJ--****X	25	182300				Orbit - Figure Eight
+G*G*GPAM--****X	25	182400				Orbit - Race Track
+G*G*GPAN--****X	25	182500				Orbit - Random Closed
+G*G*GPWA--****X	25	210200				Aim Point
+G*G*GPWD--****X	25	210400				Drop Point
+G*G*GPWE--****X	25	210500				Entry Point
+G*G*GPWG--****X	25	210700				Ground Zero
+G*G*GPWI--****X	25	210800				Impact Point
+G*G*GPWP--****X	25	210900				Predicted Impact Point
+G*G*GPWM--****X	25	211100				Missile Detection Point
+G*G*GPUUB-****X	25	211400				Brief Contact
+G*G*GPUUD-****X	25	211500				Datum Lost Contact
+G*G*GPUUL-****X	25	212000				Lost Contact
+G*G*GPUUS-****X	25	212100				Sinker
+G*O*FA----****X	25	212300				Acoustic Fix
+G*O*FE----****X	25	212400				Electromagnetic Fix
+G*O*FO----****X	25	212600				Optical Fix
+G*G*GPF---****X	25	212700				Formation
+G*G*GPH---****X	25	212800				Harbor
+G*G*GPHA--****X	25	212901					A
+G*G*GPHQ--****X	25	212902					Q
+G*G*GPHX--****X	25	212903					X
+G*G*GPHY--****X	25	212904					Y
+G*G*GPUSD-****X	25	213000				Dip Position
+G*G*GPUS--****X	25	213100				Search
+G*G*GPUSA-****X	25	213200				Search Area
+G*G*GPUSC-****X	25	213300				Search Center
+G*G*GPUY--****X	25	213500				Sonobuoy
+G*G*GPUYA-****X	25	213501					Ambient Noise
+G*G*GPUYT-****X	25	213502					Air Transportable Communication
+G*G*GPUYB-****X	25	213504					Bathythermograph Transmitting
+G*G*GPUYC-****X	25	213506					Command Active Sonobuoy Directional Command Active Sonobuoy System (CASS)
+G*G*GPUYD-****X	25	213507					Digital Frequency Analysis and Recording (DIFAR)
+G*G*GPUYS-****X	25	213508					Directional Command Active Sonobuoy System (DICASS)
+G*G*GPUYX-****X	25	213510					Expired
+G*G*GPUYK-****X	25	213511					Kingpin
+G*G*GPUYL-****X	25	213512					Low Frequency Analysis and Recording (LOFAR)
+G*G*GPUYP-****X	25	213513					Pattern Center
+G*G*GPUYR-****X	25	213514					Range Only
+G*G*GPUYV-****X	25	213515					Vertical Line Array Directional Frequency Analysis and Recording (DIFAR)
+G*G*GPR---****X	25	213600				Reference Point
+G*G*GPRS--****X	25	213700				Special Point
+G*G*GPRN--****X	25	213800				Navigational Reference Point(Points)
+G*G*GPRD--****X	25	213900				Data Link Reference Point
+G*G*GPRC--****X	25	214200				Corridor Tab Point
+G*G*GPRM--****X	25	214400				Marshall Point
+G*G*GPRP--****X	25	214500				Position and Intended Movement (PIM)
+G*G*GPRW--****X	25	214800				Waypoint
+G*G*GPB---****X	25	214900				General Subsurface Station
+G*G*GPBS--****X	25	215000				Submarine Subsurface Station
+G*G*GPBSA-****X	25	215100				Submarine Antisubmarine Warfare Subsurface Station
+G*G*GPBU--****X	25	215200				Unmanned Underwater Vehicle Subsurface Station
+G*G*GPBUA-****X	25	215300				Antisubmarine Warfare (ASW) Unmanned Underwater Vehicle Subsurface Station
+G*G*GPBUM-****X	25	215400				Mine Warfare Unmanned Underwater Vehicle Subsurface Station
+G*G*GPBUS-****X	25	215500				Surface Warfare Unmanned Underwater Vehicle Subsurface Station
+G*G*GPC---****X	25	215600				General Surface Station
+G*G*GPCA--****X	25	215700				Antisubmarine Warfare (ASW) Surface Station
+G*G*GPCM--****X	25	215800				Mine Warfare Surface Station
+G*G*GPCN--****X	25	215900				Non-Combatant Surface Station
+G*G*GPCP--****X	25	216000				Picket Surface Station
+G*G*GPCR--****X	25	216100				Rendezvous Surface Station
+G*G*GPCE--****X	25	216200				Replenishment at Sea Surface Station			Name and Control Measure different between versions
+G*G*GPCC--****X	25	216300				Rescue Surface Station
+G*G*GPCS--****X	25	216400				Surface Warfare Surface Station
+G*G*GPCU--****X	25	216500				Unmanned Underwater Vehicle Surface Station			Different name between versions
+G*G*GPCUA-****X	25	216600				Antisubmarine Warfare (ASW) Unmanned Underwater Vehicle Surface Station			Different name between versions
+G*G*GPCUM-****X	25	216700				Mine Warfare Unmanned Underwater Vehicle Surface Station
+G*G*GPCUR-****X	25	216800				Remote Multi-Mission Vehicle Mine Warfare Unmanned Underwater			Different name between versions
+G*G*GPCUS-****X	25	216900				Surface Warfare Mine Warfare Unmanned Underwater Vehicle			Different name between versions
+G*G*GPO---****X	25	217100				General Route
+G*G*GPOD--****X	25	217200				Diversion Route
+G*G*GPOP--****X	25	217300				Position and Intended Movement (PIM) Route
+G*G*GPOR--****X	25	217500				Point R Route
+G*G*GPOZ--****X	25	217600				Rendezvous Route			2525C Control Measure is displayed the same as Point R Route (217500) in 2525D
+G*G*GPOW--****X	25	217700				Waypoint Route
+G*O*EV----****X	25	218000				Distressed Vessel
+G*O*ED----****X	25	218100				Ditched Aircraft/Downed Aircraft
+G*O*EP----****X	25	218200				Person in Water/Bailout
+G*O*HI----****X	25	218300				Iceberg
+G*O*HN----****X	25	218400				Navigational
+G*O*HO----****X	25	218500				Oil Rig
+G*O*HM----****X	25	218600				Sea Mine-Like
+G*O*SB----****X	25	218700				Bottom Return/Non-MILCO
+G*O*SBN---****X	25	218700				Bottom Return/Non-Mine Like Bottom Object (NOMBO)
+G*O*SBM---****X	25	218800				Bottom Return/Non-Mine Like Bottom Object (NOMBO)/Installation Manmade
+G*O*SM----****X	25	218900				Marine Life
+G*O*SS----****X	25	219000				Sea Anomaly (Wake, Current, Knuckle)
+G*O*SBX---****X	25	219100				Bottom Return/Non-MILCO, Wreck, Dangerous
+G*O*SBW---****X	25	219200				Bottom Return/Non-MILCO, Wreck, Non Dangerous
+G*O*B-----****X	25	220100				Bearing Line
+G*O*BE----****X	25	220101					Electronic
+G*O*BA----****X	25	220103					Acoustic
+G*O*BT----****X	25	220105					Torpedo
+G*O*BO----****X	25	220106					Electro-Optical Intercept
+G*F*ACAI--****X	25	240101					Irregular
+G*F*ACAR--****X	25	240102					Rectangle
+G*F*ACAC--****X	25	240103					Circular
+G*F*ACFI--****X	25	240201					Irregular
+G*F*ACFR--****X	25	240202					Rectangle
+G*F*ACFC--****X	25	240203					Circular
+G*F*ACNI--****X	25	240301					Irregular
+G*F*ACNR--****X	25	240302					Rectangle
+G*F*ACNC--****X	25	240303					Circular
+G*F*ACRI--****X	25	240401					Irregular
+G*F*ACRR--****X	25	240402					Rectangle
+G*F*ACRC--****X	25	240403					Circular
+G*F*ACPR--****X	25	240501					Rectangle
+G*F*ACPC--****X	25	240502					Circular
+G*F*PTS---****X	25	240601					Point or Single Target
+G*F*PTN---****X	25	240602					Nuclear Target
+G*F*LT----****X	25	240701					Linear Target
+G*F*LTS---****X	25	240702					Linear Smoke Target
+G*F*LTF---****X	25	240703					Final Protective Fire (FPF)
+G*F*AT----****X	25	240801					Area Target		Need verification that code is correct.
+G*F*ATR---****X	25	240802					Rectangular Target		Need verification that code is correct.
+G*F*ATC---****X	25	240803					Circular Target		Need verification that code is correct.
+G*F*ATG---****X	25	240805					Series or Group of Targets
+G*F*ATS---****X	25	240806					Smoke Target
+G*F*ATB---****X	25	240808					Bomb Area
+G*F*PCF---****X	25	240900				Fire Support Station
+G*F*ACSI--****X	25	241001					Irregular
+G*F*ACSR--****X	25	241002					Rectangle
+G*F*ACSC--****X	25	241003					Circular
+G*F*AZII--****X	25	241101					Irregular
+G*F*AZIR--****X	25	241102					Rectangle
+G*F*AZIC--****X	25	241103					Circular		2525C codes approved after release of 2525C
+G*F*AZXI--****X	25	241201					Irregular
+G*F*AZXR--****X	25	241202					Rectangle
+G*F*AZXC--****X	25	241203					Circular		2525C codes approved after release of 2525C
+G*F*AZCI--****X	25	241301					Irregular
+G*F*AZCR--****X	25	241302					Rectangle
+G*F*AZCC--****X	25	241303					Circular		2525C codes approved after release of 2525C
+G*F*AZFI--****X	25	241401					Irregular
+G*F*AZFR--****X	25	241402					Rectangle
+G*F*AZFC--****X	25	241403					Circular		2525C codes approved after release of 2525C
+G*F*ACDI--****X	25	241501					Irregular
+G*F*ACDR--****X	25	241502					Rectangle
+G*F*ACDC--****X	25	241503					Circular
+G*F*ACEI--****X	25	241601					Irregular
+G*F*ACER--****X	25	241602					Rectangle
+G*F*ACEC--****X	25	241603					Circular
+G*F*ACBI--****X	25	241701					Irregular
+G*F*ACBR--****X	25	241702					Rectangle
+G*F*ACBC--****X	25	241703					Circular
+G*F*ACVI--****X	25	241801					Irregular
+G*F*ACVR--****X	25	241802					Rectangle
+G*F*ACVC--****X	25	241803					Circular
+G*F*ACZI--****X	25	241901					Irregular
+G*F*ACZR--****X	25	241902					Rectangle
+G*F*ACZC--****X	25	241903					Circular
+G*F*ACT---****X	25	242000				Terminally Guided Munition Footprint (TGMF)
+G*F*AXC---****X	25	242100				Weapon/Sensor Range fan, Circular
+G*F*AXS---****X	25	242200				Weapon/Sensor Range fan, Sector
+G*F*AKBI--****X	25	242301					Irregular, Blue
+G*F*AKBR--****X	25	242302					Rectangle, Blue
+G*F*AKBC--****X	25	242303					Circular, Blue
+G*F*AKPI--****X	25	242304					Irregular, Purple
+G*F*AKPR--****X	25	242305					Rectangle, Purple
+G*F*AKPC--****X	25	242306					Circular, Purple
+G*F*PCB---****X	25	250100				Firing Point
+G*F*PCH---****X	25	250200				Hide Point
+G*F*PCL---****X	25	250300				Launch Point
+G*F*PCR---****X	25	250400				Reload Point
+G*F*PCS---****X	25	250500				Survey Control Point
+G*F*LCF---****X	25	260100				Fire Support Coordination Line (FSCL)
+G*F*LCC---****X	25	260200				Coordinated Fire Line (CFL)
+G*F*LCN---****X	25	260300				No Fire Line
+G*F*LCR---****X	25	260500				Restrictive Fire Line
+G*F*LCM---****X	25	260600				Munition Flight Path
+G*M*OGB---****X	25	270100				Obstacle Belt
+G*M*OGZ---****X	25	270200				Obstacle Zone
+G*M*OGF---****X	25	270300				Obstacle Free Zone
+G*M*OGR---****X	25	270400				Obstacle Restricted Zone
+G*M*OEB---****X	25	270501				Block
+G*M*OED---****X	25	270502				Disrupt
+G*M*OEF---****X	25	270503				Fix
+G*M*OET---****X	25	270504				Turn
+G*M*BDE---****X	25	270601					Easy
+G*M*BDD---****X	25	270602					Difficult
+G*M*BDI---****X	25	270603					Impossible
+G*M*OFS---****X	25	270700				Minefield			Shown a N/A in template field in 2525D
+G*M*OFD---****X	25	270707					Dynamic Depiction
+G*M*OFA---****X	25	270800				Mined Area
+G*M*OU----****X	25	271000				Unexploded Explosive Ordnance (UXO) Area
+G*M*OFG---****X	25	271100				Bridge or Gap			What is the difference between 'Bridge' (271400) and 'Bridge or Gap' (271100)? They are both listed under Obstacles. Also, the naming is reversed between versions
+G*M*ORP---****X	25	271201					Planned
+G*M*ORS---****X	25	271202					Explosives, State of Readiness 1 (Safe)
+G*M*ORA---****X	25	271203					Explosives, State of Readiness 2 (armed but passable)
+G*M*ORC---****X	25	271204					Roadblock Complete (Executed)
+G*M*BCA---****X	25	271300				Assault Crossing
+G*M*BCB---****X	25	271100				Bridge or Gap
+G*M*BCE---****X	25	271500				Ford Easy
+G*M*BCD---****X	25	271600				Ford Difficult
+G*M*NB----****X	25	271700				Biological Contaminated Area
+G*M*NC----****X	25	271800				Chemical Contaminated Area
+G*M*NR----****X	25	271900				Nuclear Contaminated Area
+G*M*NM----****X	25	272100				Minimum Safe Distance Zone
+G*M*NL----****X	25	272200				Radiation Dose Rate Contour Lines
+G*M*OS----****X	25	280100				Abatis
+G*M*OMP---****X	25	280200				Antipersonnel Mine
+G*M*OME---****X	25	280201					Antipersonnel Mine with Directional Effects
+G*M*OMT---****X	25	280300				Antitank Mine
+G*M*OMD---****X	25	280400				Antitank Mine with Handling Device
+G*M*OMW---****X	25	280500				Wide Area Antitank Mine
+G*M*OMU---****X	25	280600				Unspecified Mine
+G*M*OB----****X	25	280700				Booby Trap
+G*M*BCP---****X	25	280800				Engineer Regulating Point
+G*M*SE----****X	25	280900				Shelter			Different names between versions (Fortification in 2525C)
+G*M*SS----****X	25	281000				Shelter Above Ground
+G*M*SU----****X	25	281100				Below Ground Shelter
+G*M*SF----****X	25	281200				Fort
+G*M*NEC---****X	25	281300				Chemical Event
+G*M*NEB---****X	25	281400				Biological Event
+G*M*NZ----****X	25	281500				Nuclear Event
+G*M*NF----****X	25	281600				Nuclear Fallout Producing Event
+G*M*NDP---****X	25	281800				General Decontamination Point/Site
+G*M*NDA---****X	25	281801					Alternate
+G*M*NDE---****X	25	281802					Equipment
+G*M*NDT---****X	25	281803					Troop
+G*M*NDB---****X	25	281804					Equipment/Troop
+G*M*NDO---****X	25	281805					Operational
+G*M*NDD---****X	25	281806					Thorough
+G*M*OAOF--****X	25	281901					Fixed and Prefabricated
+G*M*OAOM--****X	25	281902					Movable
+G*M*OAOP--****X	25	281903					Movable and Prefabricated
+G*M*OHTL--****X	25	282001					Tower, Low
+G*M*OHTH--****X	25	282002					Tower, High
+G*M*OHO---****X	25	282003					Overhead Wire
+G*M*OGL---****X	25	290100				Obstacle Line
+G*M*OADU--****X	25	290201					Under Construction
+G*M*OADC--****X	25	290202					Completed
+G*M*OAR---****X	25	290203					Reinforced, with Antitank Mines
+G*M*OAW---****X	25	290204					Antitank Wall
+G*M*OWU---****X	25	290301					Unspecified Wire
+G*M*OWS---****X	25	290302					Single Fence Wire
+G*M*OWD---****X	25	290303					Double Fence Wire
+G*M*OWA---****X	25	290304					Double Apron Fence
+G*M*OWL---****X	25	290305					Low Wire Fence
+G*M*OWH---****X	25	290306					High Wire Fence
+G*M*OWCS--****X	25	290307					Single Concertina
+G*M*OWCD--****X	25	290308					Double Strand Concertina
+G*M*OWCT--****X	25	290309					Triple Strand Concertina
+G*M*OMC---****X	25	290400				Mine Cluster
+G*M*OT----****X	25	290500				Trip Wire
+G*M*BCL---****X	25	290600				Lane
+G*M*BCF---****X	25	290700				Ferry
+G*M*BCR---****X	25	290800				Raft Site
+G*M*SL----****X	25	290900				Fortified Line
+G*M*SW----****X	25	291000				Fortified Position			Different names between versions (Foxhole, Emplacement or Weapon Site in 2525C)
+G*S*AD----****X	25	310100				Detainee Holding Area
+G*S*AE----****X	25	310200				Enemy Prisoner or War Holding Area
+G*S*AR----****X	25	310300				Forward Arming and Refueling Point
+G*S*AH----****X	25	310400				Refugee Holding Area
+G*S*ASR---****X	25	310500				Regimental Support Area
+G*S*ASB---****X	25	310600				Brigade Support Area
+G*S*ASD---****X	25	310700				Division Support Area
+G*S*PX----****X	25	320100				Ambulance Exchange Point
+G*S*PAS---****X	25	320200				Ammunition Supply Point
+G*S*PAT---****X	25	320300				Ammunition Transfer Point
+G*S*PC----****X	25	320400				Cannibalization Point
+G*S*PY----****X	25	320500				Casualty Collection Point
+G*S*PT----****X	25	320600				Civilian Collection Point
+G*S*PD----****X	25	320700				Detainee Collection Point
+G*S*PE----****X	25	320800				Enemy Prisoner of War Collection Point
+G*S*PL----****X	25	320900				Logistics Release Point
+G*S*PM----****X	25	321000				Maintenance Collection Point (MCP)
+G*S*PP----****X	25	321100				Medical Evacuation Point (MEDEVAC) Pick-Up Point
+G*S*PR----****X	25	321200				Rearm, Refuel and Resupply Point (R3P)
+G*S*PU----****X	25	321300				Refuel on the Move (ROM) Point
+G*S*PO----****X	25	321400				Traffic Control Post (TCP)
+G*S*PI----****X	25	321500				Trailer Transfer Point (TTP)
+G*S*PN----****X	25	321600				Unit Maintenance Collection Point (UMCP)
+G*S*PSZ---****X	25	321700				General Supply Point
+G*S*PSA---****X	25	321707					US Class I Supply Point
+G*S*PSB---****X	25	321708					US Class II Supply Point
+G*S*PSC---****X	25	321709					US Class III Supply Point
+G*S*PSD---****X	25	321710					US Class IV Supply Point
+G*S*PSE---****X	25	321711					US Class V Supply Point
+G*S*PSF---****X	25	321712					US Class VI Supply Point
+G*S*PSG---****X	25	321713					US Class VII Supply Point
+G*S*PSH---****X	25	321714					US Class VIII Supply Point
+G*S*PSI---****X	25	321715					US Class IX Supply Point
+G*S*PSJ---****X	25	321716					US Class X Supply Point
+G*S*LCM---****X	25	330100				Moving Convoy
+G*S*LCH---****X	25	330200				Halted Convoy
+G*S*LRM---****X	25	330300				Main Supply Route
+G*S*LRO---****X	25	330301					One Way Traffic
+G*S*LRW---****X	25	330302					Two Way Traffic
+G*S*LRA---****X	25	330400				Alternate Supply Route
+G*S*LRT---****X	25	330403					Alternating Traffic
+G*T*B-----****X	25	340100				Block
+G*T*H-----****X	25	340200				Breach
+G*T*Y-----****X	25	340300				Bypass
+G*T*C-----****X	25	340400				Canalize
+G*T*X-----****X	25	340500				Clear
+G*T*K-----****X	25	340600				Counterattack
+G*T*KF----****X	25	340700				Counterattack by Fire
+G*T*L-----****X	25	340800				Delay
+G*T*D-----****X	25	340900				Destroy
+G*T*T-----****X	25	341000				Disrupt
+G*T*F-----****X	25	341100				Fix
+G*T*A-----****X	25	341200				Follow and Assume
+G*T*AS----****X	25	341300				Follow and Support
+G*T*I-----****X	25	341400				Interdict
+G*T*E-----****X	25	341500				Isolate
+G*T*N-----****X	25	341600				Neutralize
+G*T*O-----****X	25	341700				Occupy
+G*T*P-----****X	25	341800				Penetrate
+G*T*R-----****X	25	341900				Relief in Place (RIP)
+G*T*M-----****X	25	342000				Retire/Retirement
+G*T*S-----****X	25	342100				Secure
+G*T*UC----****X	25	342201					Cover
+G*T*UG----****X	25	342202					Guard
+G*T*US----****X	25	342203					Screen
+G*T*Z-----****X	25	342300				Seize
+G*T*W-----****X	25	342400				Withdraw
+G*T*WP----****X	25	342500				Withdraw Under Pressure
+G*T*2-----****X	25	342600				Cordon and Knock			2525C codes approved after release of 2525C
+G*T*V-----****X	25	342700				Cordon and Search			2525C codes approved after release of 2525C
+G*T*G-----****X	25	342800				Suppress			2525C codes approved after release of 2525C
+S*S*C-----*****	30	120000	00	00	Military Combatant
+S*S*CLCV--*****	30	120100	00	00		Carrier
+S*S*CL----*****	30	120200	00	00		Surface Combatant, Line
+S*S*CLBB--*****	30	120201	00	00			Battleship
+S*S*CLCC--*****	30	120202	00	00			Cruiser		Symbol is displayed differently between versions
+S*S*CLDD--*****	30	120203	00	00			Destroyer
+S*S*CLFF--*****	30	120204	00	00			Frigate		2525C Uses same symbol for Frigate/Corvette. 2525D uses two separate symbols
+S*S*CLLL--*****	30	120206	00	00			Littoral Combatant Ship		Symbol is displayed differently between versions
+S*S*CLLLAS*****	30	120206	03	00			Littoral Combatant Ship, Anitsubmarine Warfare		Symbol is displayed differently between versions
+S*S*CLLLMI*****	30	120206	10	00			Littoral Combatant Ship, Mine Warfare		Symbol is displayed differently between versions
+S*S*CLLLSU*****	30	120206	13	00			Littoral Combatant Ship, Surface Warfare		Symbol is displayed differently between versions
+S*S*CA----*****	30	120300	00	00		Amphibious Warfare Ship
+S*S*CALA--*****	30	120302	00	00			Amphibious Assault, Non-specified
+S*S*CALS--*****	30	120307	00	00			Landing Ship
+S*S*CALSM-*****	30	120307	00	04			Landing Ship, Medium
+S*S*CALST-*****	30	120307	00	07			Landing Ship, Tank
+S*S*CALC--*****	30	120308	00	00			Landing Craft
+S*S*CM----*****	30	120400	00	00		Mine Warfare Ship			2525C - Full Octagon, 2525D Main Icon
+S*S*CMML--*****	30	120401	00	00			Mine Layer
+S*S*CMMS--*****	30	120402	00	00			Mine Sweeper
+S*S*CMMH--*****	30	120404	00	00			Mine Hunter
+S*S*CMMA--*****	30	120406	00	00			Mine Countermeasures, Support Ship		Symbol is displayed differently between versions
+S*S*CP----*****	30	120500	00	00		Patrol Boat			2525C - Full Octagon, 2525D Main Icon
+S*S*CPSU--*****	30	120500	00	13			Antisurface Warfare
+S*S*CPSUT-*****	30	120500	00	17			Antisurface Warfare, Torpedo
+S*S*CPSB--*****	30	120501	00	00			Patrol Craft, Submarine Chaser/Escort, General
+S*S*CPSUG-*****	30	120502	00	00			Patrol Ship, General		2525C - Listed as Gun, 2525D listed as General
+S*S*CD----*****	30	120600	00	00		Decoy			2525C - Full Octagon, 2525D Main Icon
+S*S*CU----*****	30	120700	00	00		Unmanned Surface Water Vehicle (USV)
+S*S*CUS---*****	30	120700	03	00			Anitsubmarine Warfare
+S*S*CUM---*****	30	120700	07	00			Mine Countermeasures
+S*S*CUR---*****	30	120700	11	00			Remote Multimission Vehicle (RMV)
+S*S*CUN---*****	30	120700	13	00			Surface Warfare		2525C - Listed as AntiSurface, 2525D listed as Surface
+S*S*G-----*****	30	121000	00	00		Navy Task Organization
+S*S*GT----*****	30	121002	00	00			Navy Task Force		Symbol is displayed differently between versions
+S*S*GG----*****	30	121003	00	00			Navy Task Group		Symbol is displayed differently between versions
+S*S*GU----*****	30	121004	00	00			Navy Task Unit		Symbol is displayed differently between versions
+S*S*GC----*****	30	121005	00	00			Convoy
+S*S*N-----*****	30	130000	00	00	Military Non Combatant
+S*S*NI----*****	30	130104	00	00			Intelligence Collector		Symbol is displayed differently between versions
+S*S*NM----*****	30	130107	00	00			Hospital Ship
+S*S*NR----*****	30	130111	00	00			Repair Ship		Different names between versions
+S*S*NF----*****	30	130112	00	00			Submarine Tender		Different names between versions
+S*S*NS----*****	30	130200	00	00		Service Craft/Yard
+S*S*XM----*****	30	140100	00	00		Merchant Ship
+S*S*XMC---*****	30	140101	00	00			Cargo, General		Symbol is displayed differently between versions
+S*S*XMR---*****	30	140104	00	00			Roll On/Roll Off		Symbol is displayed differently between versions
+S*S*XMF---*****	30	140105	00	00			Ferry		Symbol is displayed differently between versions
+S*S*XH----*****	30	140107	00	00			Hovercraft
+S*S*XMO---*****	30	140109	00	00			Oiler/Tanker		Symbol is displayed differently between versions
+S*S*XMP---*****	30	140110	00	00			Passenger		Symbol is displayed differently between versions
+S*S*XMTU--*****	30	140111	00	00			Tug, Ocean Going		Symbol is displayed differently between versions
+S*S*XMTO--*****	30	140112	00	00			Tow
+S*S*XMH---*****	30	140113	00	00			Transport Ship, Hazardous Material
+S*S*XF----*****	30	140200	00	00		Fishing Vessel
+S*S*XFDF--*****	30	140201	00	00			Drifter
+S*S*XFTR--*****	30	140202	00	00			Trawler
+S*S*XFDR--*****	30	140203	00	00			Dredger
+S*S*XL----*****	30	140300	00	00		Law Enforcement Vessel
+S*S*XR----*****	30	140400	00	00		Leisure Craft, Sailing
+S*S*XA----*****	30	140500	00	00		Leisure Craft, Motorized
+S*S*XAR---*****	30	140501	00	00			Rigid-Hull Inflatable Boat (RHIB)
+S*S*XAS---*****	30	140502	00	00			Speedboat
+S*S*XP----*****	30	140600	00	00		Jet Ski
+S*S*O-----*****	30	150000	00	00	Own Ship
+S*U*S-----*****	35	110100	00	00		Submarine
+S*U*S1----*****	35	110100	13	00			Possible Submarine - Low 1		MOD2 in 2525C, MOD1 in 2525D
+S*U*S2----*****	35	110100	14	00			Possible Submarine - Low 2		MOD2 in 2525C, MOD1 in 2525D
+S*U*S3----*****	35	110100	15	00			Possible Submarine - High 3		MOD2 in 2525C, MOD1 in 2525D
+S*U*S4----*****	35	110100	16	00			Possible Submarine - High 4		MOD2 in 2525C, MOD1 in 2525D
+S*U*SL----*****	35	110100	17	00			Probable Sub		MOD2 in 2525C, MOD1 in 2525D
+S*U*SF----*****	35	110101	00	00			Submarine, Surfaced
+S*U*SR----*****	35	110101	18	00			Submarine, Surfaced, Certain Sub		MOD2 in 2525C, MOD1 in 2525D
+S*U*SK----*****	35	110102	00	00			Submarine, Snorkeling
+S*U*SB----*****	35	110103	00	00			Submarine, Bottomed
+S*U*SO----*****	35	110200	00	00		Other Submersible
+S*U*SX----*****	35	110300	00	00		Nonsubmarine
+S*U*SU----*****	35	110400	00	00		Autonomous Underwater Vehicle (AUV)/Unmanned Underwater Vehicle (UUV)
+S*U*SUS---*****	35	110400	01	00			Anitsubmarine Warfare
+S*U*SUM---*****	35	110400	05	00			Mine Countermeasures
+S*U*ND----*****	35	120300	00	00		Diver			Listed as unframed in 2525C
+S*U*W-----*****	35	130000	00	00	Weapon
+S*U*WT----*****	35	130100	00	00		Torpedo
+S*U*WD----*****	35	130300	00	00		Decoy			Symbol is displayed differently between versions
+S*U*WM----*****	36	110000	00	00	Sea Mine, General
+S*U*WMG---*****	36	110100	00	00		Sea Mine, Bottom
+S*U*WMM---*****	36	110200	00	00		Sea Mine, Moored
+S*U*WMF---*****	36	110300	00	00		Sea Mine, Floating
+S*U*WMS---*****	36	110400	00	00		Sea Mine, Rising
+S*U*WMO---*****	36	110500	00	00		Sea Mine, Other Position
+S*U*WMX---*****	36	110800	00	00		Exercise Mine, General
+S*U*WMGX--*****	36	110801	00	00			Exercise Mine, Bottom
+S*U*WMMX--*****	36	110802	00	00			Exercise Mine, Moored
+S*U*WMFX--*****	36	110803	00	00			Exercise Mine, Floating
+S*U*WMSX--*****	36	110804	00	00			Exercise Mine, Rising
+S*U*WMD---*****	36	110900	00	00		Neutralized Mine, General
+S*U*WMGD--*****	36	110901	00	00			Neutralized Mine, Bottom
+S*U*WMMD--*****	36	110902	00	00			Neutralized Mine, Moored
+S*U*WMFD--*****	36	110903	00	00			Neutralized Mine, Floating
+S*U*WMSD--*****	36	110904	00	00			Neutralized Mine, Rising
+S*U*WMOD--*****	36	110905	00	00			Neutralized Mine, Other Position
+S*U*X-----*****	36	120000	00	00	Unexploded Ordnance
+S*U*WDM---*****	36	130000	00	00	Sea Mine Decoy
+S*U*WDMG--*****	36	130100	00	00		Sea Mine Decoy, Bottom
+S*U*WDMM--*****	36	130200	00	00		Sea Mine Decoy, Moored
+S*U*WME---*****	36	150000	00	00	Mine-Like Echo (MILEC), General
+S*U*WMGE--*****	36	150100	00	00		Mine-Like Echo, Bottom
+S*U*WMME--*****	36	150200	00	00		Mine-Like Echo, Moored
+S*U*WMFE--*****	36	150300	00	00		Mine-Like Echo, Floating
+S*U*WMR---*****	36	160000	00	00	Negative Reacquisition, General
+S*U*WMGR--*****	36	160100	00	00		Negative Reacquisition, Bottom
+S*U*WMMR--*****	36	160200	00	00		Negative Reacquisition, Moored
+S*U*WMFR--*****	36	160300	00	00		Negative Reacquisition, Floating
+S*U*WMB---*****	36	170000	00	00	Obstructor
+S*U*WMBD--*****	36	170100	00	00		Neutralized Obstructor
+S*U*WMA---*****	36	180000	00	00	General Mine Anchor
+S*U*WMN---*****	36	190000	00	00	Non-Mine Mine-Like Object (NMLO), General
+S*U*WMGO--*****	36	190100	00	00		Non-Mine Mine-Like Object, Bottom
+S*U*WMMO--*****	36	190200	00	00		Non-Mine Mine-Like Object, Moored
+S*U*WMFO--*****	36	190300	00	00		Non-Mine Mine-Like Object, Floating
+S*U*E-----*****	36	200000	00	00	Environmental Report Location
+S*U*V-----*****	36	210000	00	00	Dive Report Location
+E*I*B-----*****	40	110100	00	00		Criminal Activity Incident
+O*O*A-----*****	40	110101	00	00			Arrest
+O*V*A-----*****	40	110102	00	00			Arson
+O*O*KA----*****	40	110103	05	00			Attempted Kidnapping
+O*R*A-----*****	40	110103	08	00			Attempted Rape
+O*V*D-----*****	40	110104	00	00			Drive by Shooting
+O*O*U-----*****	40	110105	00	00			Drug Related
+O*O*E-----*****	40	110106	00	00			Extortion
+O*I*G-----*****	40	110107	00	00			Graffiti
+O*V*M-----*****	40	110108	00	00			Killing
+O*V*MC----*****	40	110108	01	00			Killing, Assassination
+O*V*MB----*****	40	110108	02	00			Killing, Execution
+O*V*MA----*****	40	110108	06	00			Killing, Murder
+O*V*P-----*****	40	110109	00	00			Poisoning
+E*I*AC----*****	40	110110	00	00			Civil Rioting
+O*V*Y-----*****	40	110111	00	00			Booby Trap
+O*O*V-----*****	40	110112	00	00			Home Eviction		2525C codes approved after release of 2525C
+O*O*I-----*****	40	110113	00	00			Black Marketing		2525C codes approved after release of 2525C
+O*I*V-----*****	40	110114	00	00			Vandalism/Loot/Ransack/Plunder
+O*O*J-----*****	40	110115	00	00			Jail Break		2525C codes approved after release of 2525C
+O*O*B-----*****	40	110116	00	00			Robbery		2525C codes approved after release of 2525C
+O*O*T-----*****	40	110117	00	00			Theft		2525C codes approved after release of 2525C
+O*O*2-----*****	40	110118	00	00			Burglary		2525C codes approved after release of 2525C
+O*O*X-----*****	40	110119	00	00			Smuggling		2525C codes approved after release of 2525C
+O*O*W-----*****	40	110120	00	00			Rock Throwing		2525C codes approved after release of 2525C
+O*P*D-----*****	40	110121	00	00			Dead Body		2525C codes approved after release of 2525C
+O*O*G-----*****	40	110122	00	00			Sabotage		2525C codes approved after release of 2525C
+O*O*Z-----*****	40	110123	00	00			Suspicious Activity		2525C codes approved after release of 2525C
+O*V*B-----*****	40	110200	00	00		Bomb/Bombing
+E*I*BA----*****	40	110201	00	00			Bomb Threat
+O*V*EI----*****	40	110301	00	00			IED Explosion
+O*P*F-----*****	40	110304	00	00			IED Suicide Bomber		2525C codes approved after release of 2525C
+E*I*BF----*****	40	110400	00	00		Shooting
+O*V*S-----*****	40	110401	00	00			Sniping
+O*O*UT----*****	40	110501	00	00			Trafficking		2525C codes approved after release of 2525C
+O*L*E-----H****	40	110502	00	00			Illegal Drug Lab		2525C codes approved after release of 2525C
+O*V*E-----*****	40	110600	00	00		Explosion
+O*V*EG----*****	40	110601	00	00			Grenade Explosion		2525C codes approved after release of 2525C
+O*V*EN----*****	40	110602	00	00			Incendiary Explosion		2525C codes approved after release of 2525C
+O*V*EM----*****	40	110603	00	00			Mine Explosion		2525C codes approved after release of 2525C
+O*V*EO----*****	40	110604	00	00			Mortar Fire Explosion		2525C codes approved after release of 2525C
+O*V*ER----*****	40	110605	00	00			Rocket Explosion		2525C codes approved after release of 2525C
+E*I*BC----*****	40	110606	00	00			Bomb Explosion
+E*I*A-----*****	40	120000	00	00	Civil Disturbance
+O*O*D-----*****	40	120100	00	00		Demonstration
+O*O*P-----*****	40	130100	00	00		Patrolling
+O*O*Y-----*****	40	130200	00	00		Military Information Support Operation (MISO)			Psychological Operations in 2525C
+O*O*YH----*****	40	130200	04	00			House-to-House
+O*O*YW----*****	40	130200	09	00			Written
+O*O*YT----*****	40	130201	00	00			TV and Radio Propaganda
+O*O*F-----*****	40	130300	00	00		Foraging/Searching
+O*O*RW----*****	40	130401	00	00			Willing
+O*O*RC----*****	40	130402	00	00			Coerced/Impressed
+O*O*M-----*****	40	130500	00	00		Mine Laying
+O*O*S-----*****	40	130600	00	00		Spy
+O*O*Q-----*****	40	130700	00	00		Warrant Served			2525C codes approved after release of 2525C
+O*P*G-----*****	40	130800	00	00		Exfiltration			2525C codes approved after release of 2525C
+O*P*H-----*****	40	130900	00	00		Infiltration			2525C codes approved after release of 2525C
+O*I*M-----*****	40	131000	00	00		Meeting			2525C codes approved after release of 2525C
+O*L*F-----H****	40	131001	00	00			Polling Place/Election		2525C codes approved after release of 2525C
+O*O*N-----*****	40	131100	00	00		Raid on House			2525C codes approved after release of 2525C
+E*O*B-----*****	40	131200	00	00		Emergency Operation
+E*O*BD----*****	40	131201	00	00			Emergency Collection Evacuation Point
+O*O*O-----*****	40	131202	00	00			Emergency Food Distribution		Symbol is displayed differently between versions
+E*O*BE----H****	40	131203	00	00			Emergency Incident Command Center
+E*O*BF----H****	40	131204	00	00			Emergency Operations Center
+E*O*BG----H****	40	131205	00	00			Emergency Public Information Center
+E*O*BH----H****	40	131206	00	00			Emergency Shelter
+E*O*BI----H****	40	131207	00	00			Emergency Staging Area
+E*O*BK----H****	40	131208	00	00			Emergency Water Distribution Center
+E*O*A-----*****	40	131300	00	00		Emergency Medical Operation
+E*O*AD----H****	40	131301	00	00			EMT Station Location		Symbol is displayed differently between versions
+E*O*AG----H****	40	131302	00	00			Health Department Facility
+E*O*AJ----H****	40	131303	00	00			Medical Facilities Outpatient
+E*O*AK----H****	40	131304	00	00			Morgue
+E*O*AL----H****	40	131305	00	00			Pharmacy
+E*O*AM----H****	40	131306	00	00			Triage
+E*O*CC----*****	40	131401	00	00			Fire Hydrant
+E*O*CE----*****	40	131402	00	00			Fire Station
+E*O*CD----H****	40	131403	00	00			Other Water Supply Location
+E*O*D-----*****	40	131500	00	00		Law Enforcement Operation
+E*O*DE----*****	40	131502	00	00			Border Patrol		Code is also listed in Land Installation
+E*O*DF----*****	40	131503	00	00			Custom Service
+E*O*DG----*****	40	131504	00	00			Drug Enforcement Administration (DEA)
+E*O*DH----*****	40	131505	00	00			Department of Justice (DOJ)
+E*O*DI----*****	40	131506	00	00			Federal Bureau of Investigation (FBI)
+E*O*DJ----*****	40	131507	00	00			Police
+E*O*DK----H****	40	131508	00	00			Prison
+E*O*DL----*****	40	131509	00	00			United States Secret Service(Treas) (USSS)
+E*O*DM----*****	40	131510	00	00			Transportation Security Administration (TSA)
+E*O*DN----*****	40	131511	00	00			Coast Guard
+E*O*DO----*****	40	131512	00	00			US Marshals Service
+O*I*F-----*****	40	131513	00	00			Internal Security Force
+E*I*C-----*****	40	140000	00	00	Fire Event
+E*I*CC----*****	40	140100	00	00		Fire Origin
+E*I*CF----*****	40	140200	00	00		Smoke
+E*I*CA----*****	40	140300	00	00		Hot Spot
+E*I*CB----*****	40	140400	00	00		Non-Residential Fire
+E*I*CD----*****	40	140500	00	00		Residential Fire
+E*I*CE----*****	40	140600	00	00		School Fire
+E*I*CG----*****	40	140700	00	00		Special Needs Fire
+E*I*CH----*****	40	140800	00	00		Wild Fire
+E*I*D-----*****	40	150100	00	00		Hazard Materials Incident
+E*I*DA----*****	40	150101	00	00			Chemical Agent
+E*I*DB----*****	40	150102	00	00			Corrosive Material
+E*I*DC----*****	40	150103	00	00			Hazardous when Wet
+E*I*DD----*****	40	150104	00	00			Explosive Material
+E*I*DE----*****	40	150105	00	00			Flammable Gas
+E*I*DF----*****	40	150106	00	00			Flammable Liquid
+E*I*DG----*****	40	150107	00	00			Flammable Solid
+E*I*DH----*****	40	150108	00	00			Non-Flammable Gas
+E*I*DI----*****	40	150109	00	00			Organic Peroxide
+E*I*DJ----*****	40	150110	00	00			Oxidizer
+E*I*DK----*****	40	150111	00	00			Radioactive Material
+E*I*DL----*****	40	150112	00	00			Spontaneously Combustible Material
+E*I*DM----*****	40	150113	00	00			Toxic Gas
+E*I*DN----*****	40	150114	00	00			Toxic Infectious Material
+E*I*DO----*****	40	150115	00	00			Unexploded Ordnance
+E*I*EA----*****	40	160100	16	00			Accident
+O*O*HA----*****	40	160100	03	00			Highjacked
+E*I*E-----*****	40	160100	17	00			Incident
+E*I*FA----*****	40	160200	16	00			Accident
+O*O*HV----*****	40	160200	03	00			Highjacked
+E*I*F-----*****	40	160200	17	00			Incident
+E*I*GA----*****	40	160300	16	00			Accident
+E*I*GB----*****	40	160300	03	00			Highjacked
+E*I*G-----*****	40	160300	17	00			Incident
+E*I*HA----*****	40	160400	16	00			Accident
+O*O*HT----*****	40	160400	03	00			Highjacked
+E*I*H-----*****	40	160400	17	00			Incident
+O*V*EV----*****	40	160500	00	00		Wheeled Vehicle Explosion			2525C codes approved after release of 2525C
+E*N*AA----*****	40	170101	00	00			Aftershock		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*AB----*****	40	170102	00	00			Avalanche		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*AC----*****	40	170103	00	00			Earthquake Epicenter		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*AD----*****	40	170104	00	00			Landslide		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*AE----*****	40	170105	00	00			Subsidence		Listed as unframed in 2525C and Full Octagon in 2525D
+W*S*WSVE--P----	40	170106	00	00			Volcanic Eruption		Identical symbol to METOC.Volcanic Eruption Symbol - 2525C uses same code for both
+E*N*AG----*****	40	170107	00	00			Volcanic Threat		Listed as unframed in 2525C and Full Octagon in 2525D
+O*L*N-----H****	40	170108	00	00			Cave Entrance		2525C codes approved after release of 2525C, Symbol is displayed differently between versions
+E*N*BB----*****	40	170201	00	00			Drought		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*BC----*****	40	170202	00	00			Flood		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*BM----*****	40	170203	00	00			Tsunami		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*CA----*****	40	170301	00	00			Bird		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*CB----*****	40	170302	00	00			Insect		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*CC----*****	40	170303	00	00			Microbial		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*CD----*****	40	170304	00	00			Reptile		Listed as unframed in 2525C and Full Octagon in 2525D
+E*N*CE----*****	40	170305	00	00			Rodent		Listed as unframed in 2525C and Full Octagon in 2525D
+O*P*AR----*****	40	180100	00	00		Religious Leader			2525C codes approved after release of 2525C
+O*P*E-----*****	40	180200	00	00		Speaker			2525C codes approved after release of 2525C
+WAS-PL----P----	45	110100	00	00		Low Pressure Center
+WAS-PC----P----	45	110101	00	00			Cyclone Center
+WAS-PLT---P----	45	110102	00	00			Tropopause Low
+WAS-PH----P----	45	110200	00	00		High Pressure Center
+WAS-PA----P----	45	110201	00	00			Anticyclone Center
+WAS-PHT---P----	45	110202	00	00			Tropopause High
+WA-DPFC----L---	45	110301	00	00			Cold Front
+WA-DPFCU---L---	45	110302	00	00			Upper Cold Front
+WA-DPFC-FG-L---	45	110303	00	00			Cold Frontogenesis
+WA-DPFC-FY-L---	45	110304	00	00			Cold Frontolysis
+WA-DPFW----L---	45	110305	00	00			Warm Front
+WA-DPFWU---L---	45	110306	00	00			Upper Warm Front
+WA-DPFW-FG-L---	45	110307	00	00			Warm Frontogenesis
+WA-DPFW-FY-L---	45	110308	00	00			Warm Frontolysis
+WA-DPFO----L---	45	110309	00	00			Occluded Front
+WA-DPFOU---L---	45	110310	00	00			Upper Occluded Front
+WA-DPFO-FY-L---	45	110311	00	00			Occluded Frontolysis
+WA-DPFS----L---	45	110312	00	00			Stationary Front
+WA-DPFSU---L---	45	110313	00	00			Upper Stationary Front
+WA-DPFS-FG-L---	45	110314	00	00			Stationary Frontogenesis
+WA-DPFS-FY-L---	45	110315	00	00			Stationary Frontolysis
+WA-DPXT----L---	45	110402	00	00			Upper Trough Axis
+WA-DPXR----L---	45	110403	00	00			Ridge Axis
+WA-DPXSQ---L---	45	110404	00	00			Severe Squall Line
+WA-DPXIL---L---	45	110405	00	00			Instability Line
+WA-DPXSH---L---	45	110406	00	00			Shear Line
+WA-DPXITCZ-L---	45	110407	00	00			Inter-Tropical Convergence Zone
+WA-DPXCV---L---	45	110408	00	00			Convergence Line
+WA-DPXITD--L---	45	110409	00	00			Inter-Tropical Discontinuity
+WAS-TL----P----	45	120100	00	00		Light
+WAS-TM----P----	45	120200	00	00		Moderate
+WAS-TS----P----	45	120300	00	00		Severe
+WAS-TE----P----	45	120400	00	00		Extreme
+WAS-T-MW--P----	45	120500	00	00		Mountain Waves
+WAS-ICL---P----	45	130101	00	00			Light
+WAS-ICM---P----	45	130102	00	00			Moderate
+WAS-ICS---P----	45	130103	00	00			Severe
+WAS-IRL---P----	45	130201	00	00			Light
+WAS-IRM---P----	45	130202	00	00			Moderate
+WAS-IRS---P----	45	130203	00	00			Severe
+WAS-IML---P----	45	130301	00	00			Light
+WAS-IMM---P----	45	130302	00	00			Moderate
+WAS-IMS---P----	45	130303	00	00			Severe
+WAS-WC----P----	45	140100	00	00		Calm Winds
+WAS-WP----P----	45	140200	00	00		Wind Plot
+WA-DWJ-----L---	45	140300	00	00		Jet Stream
+WA-DWS-----L---	45	140400	00	00		Stream Line
+WAS-CCCSCSP----	45	150101	00	00			Clear Sky
+WAS-CCCSFCP----	45	150102	00	00			Few Coverage
+WAS-CCCSSCP----	45	150103	00	00			Scattered Coverage
+WAS-CCCSBCP----	45	150104	00	00			Broken Coverage
+WAS-CCCSOCP----	45	150105	00	00			Overcast Coverage
+WAS-CCCSOBP----	45	150106	00	00			Sky Totally or Partially Obscured
+WAS-WSR-LIP----	45	160101	00	00			Intermittent Light
+WAS-WSR-LCP----	45	160102	00	00			Continuous Light
+WAS-WSR-MIP----	45	160103	00	00			Intermittent Moderate
+WAS-WSR-MCP----	45	160104	00	00			Intermittent Moderate/Continuous Moderate
+WAS-WSR-HIP----	45	160105	00	00			Intermittent Heavy
+WAS-WSR-HCP----	45	160106	00	00			Intermittent Heavy/Continuous Heavy
+WAS-WSRFL-P----	45	160201	00	00			Light
+WAS-WSRFMHP----	45	160202	00	00			Moderate/Heavy
+WAS-WSRSL-P----	45	160301	00	00			Light
+WAS-WSRSMHP----	45	160302	00	00			Moderate/Heavy
+WAS-WSRST-P----	45	160303	00	00			Torrential
+WAS-WSD-LIP----	45	160401	00	00			Intermittent Light
+WAS-WSD-LCP----	45	160402	00	00			Intermittent Light/ Continuous Light
+WAS-WSD-MIP----	45	160403	00	00			Intermittent Moderate
+WAS-WSD-MCP----	45	160404	00	00			Intermittent Moderate /Continuous Moderate
+WAS-WSD-HIP----	45	160405	00	00			Intermittent Heavy
+WAS-WSD-HCP----	45	160406	00	00			Intermittent Heavy /Continuous Heavy
+WAS-WSDFL-P----	45	160501	00	00			Light
+WAS-WSDFMHP----	45	160502	00	00			Moderate/Heavy
+WAS-WSM-L-P----	45	160601	00	00			Rain or Drizzle and Snow - Light
+WAS-WSM-MHP----	45	160602	00	00			Rain or Drizzle and Snow - Moderate/Heavy
+WAS-WSMSL-P----	45	160603	00	00			Rain and Snow Showers - Light
+WAS-WSMSMHP----	45	160604	00	00			Rain and Snow Showers - Moderate/Heavy
+WAS-WSS-LIP----	45	160701	00	00			Intermittent Light
+WAS-WSS-LCP----	45	160702	00	00			Intermittent Light/Continuous Light
+WAS-WSS-MIP----	45	160703	00	00			Intermittent Moderate
+WAS-WSS-MCP----	45	160704	00	00			Intermittent Moderate /Continuous Moderate
+WAS-WSS-HIP----	45	160705	00	00			Intermittent Heavy
+WAS-WSS-HCP----	45	160706	00	00			Intermittent Heavy /Continuous Heavy
+WAS-WSSBLMP----	45	160707	00	00			Blowing Snow - Light/Moderate
+WAS-WSSBH-P----	45	160708	00	00			Blowing Snow - Heavy
+WAS-WSSG--P----	45	160800	00	00		Snow Grains
+WAS-WSSSL-P----	45	160901	00	00			Light
+WAS-WSSSMHP----	45	160902	00	00			Moderate/Heavy
+WAS-WSGRL-P----	45	161001	00	00			Light not Associated with Thunder
+WAS-WSGRMHP----	45	161002	00	00			Moderate/Heavy not Associated with Thunder
+WAS-WSIC--P----	45	161100	00	00		Ice Crystals (Diamond Dust)
+WAS-WSPLL-P----	45	161201	00	00			Light
+WAS-WSPLM-P----	45	161202	00	00			Moderate
+WAS-WSPLH-P----	45	161203	00	00			Heavy
+E*N*BF----*****	45	161300	00	00		Inversion
+WAS-WST-NPP---	45	161401	00	00			Thunderstorm - No Precipitation
+WAS-WSTMR-P----	45	161402	00	00			Thunderstorm Light to Moderate with Rain/Snow - No Hail
+WAS-WSTHR-P----	45	161403	00	00			Thunderstorm Heavy with Rain/Snow -  No Hail
+WAS-WSTMH-P----	45	161404	00	00			Thunderstorm Light to Moderate - With Hail
+WAS-WSTHH-P----	45	161405	00	00			Thunderstorm Heavy - With Hail
+WAS-WST-FCP----	45	161406	00	00			Funnel Cloud (Tornado/Waterspout)
+WAS-WST-SQP----	45	161407	00	00			Squall
+WAS-WST-LGP----	45	161408	00	00			Lightning
+WAS-WSFGPSP----	45	161501	00	00			Shallow Patches
+WAS-WSFGCSP----	45	161502	00	00			Shallow Continuous
+WAS-WSFGP-P----	45	161503	00	00			Patchy
+WAS-WSFGSVP----	45	161504	00	00			Sky Visible
+WAS-WSFGSOP----	45	161505	00	00			Sky Obscured
+WAS-WSFGFVP----	45	161506	00	00			Freezing, Sky Visible
+WAS-WSFGFOP----	45	161507	00	00			Freezing, Sky Obscured
+WAS-WSBR--P----	45	161600	00	00		Mist
+WAS-WSFU--P----	45	161700	00	00		Smoke
+WAS-WSHZ--P----	45	161800	00	00		Haze
+WAS-WSDSLMP----	45	161901	00	00			Light to Moderate
+WAS-WSDSS-P----	45	161902	00	00			Severe
+WAS-WSDD--P----	45	161903	00	00			Dust Devil
+WAS-WSDB--P----	45	161904	00	00			Blowing Dust or Sand
+WAS-WSTSD-P----	45	162001	00	00			Tropical Depression
+WAS-WSTSS-P----	45	162002	00	00			Tropical Storm
+WAS-WSTSH-P----	45	162003	00	00			Hurricane/Typhoon
+WA-DWSTSWA--A--	45	162004	00	00			Tropical Storm Wind Areas and Date/Time Labels
+WAS-WSVE--P----	45	162100	00	00		Volcanic Eruption
+WAS-WSVA--P----	45	162101	00	00			Volcanic Ash
+WAS-WST-LVP----	45	162200	00	00		Tropopause Level
+WAS-WSF-LVP----	45	162300	00	00		Freezing Level
+WAS-WSUKP-P----	45	162400	00	00		Precipitation of Unknown Type and Intensity
+WA-DBAIF----A--	45	170100	00	00		Instrument Flight Rule (IFR)
+WA-DBAMV----A--	45	170200	00	00		Marginal Visual Flight Rule (MVFR)
+WA-DBATB----A--	45	170300	00	00		Turbulence
+WA-DBAI-----A--	45	170400	00	00		Icing
+WA-DBALPNC--A--	45	170500	00	00		Liquid Precipitation - Non-Convective Continuous or Intermittent
+WA-DBALPC---A--	45	170501	00	00			Liquid Precipitation - Convective
+WA-DBAFP----A--	45	170600	00	00		Freezing/Frozen Precipitation
+WA-DBAT-----A--	45	170700	00	00		Thunderstorm
+WA-DBAFG----A--	45	170800	00	00		Fog
+WA-DBAD-----A--	45	170900	00	00		Dust or Sand
+WA-DBAFF----A--	45	171000	00	00		Operator-Defined Freeform
+WA-DIPIB---L---	45	180100	00	00		Isobar - Surface
+WA-DIPCO---L---	45	180200	00	00		Contour - Upper Air
+WA-DIPIS---L---	45	180300	00	00		Isotherm
+WA-DIPIT---L---	45	180400	00	00		Isotach
+WA-DIPID---L---	45	180500	00	00		Isodrosotherm
+WA-DIPTH---L---	45	180600	00	00		Thickness
+WA-DIPFF---L---	45	180700	00	00		Operator-Defined Freeform
+WAS-GND-NCP----	45	190101	00	00			Surface Dry Without Cracks or Appreciable Dust or Loose Sand
+WAS-GNM---P----	45	190102	00	00			Surface Moist
+WAS-GNW-SWP----	45	190103	00	00			Surface Wet, Standing Water in Small or Large Pools
+WAS-GNFL--P----	45	190104	00	00			Surface Flooded
+WAS-GNFZ--P---	45	190105	00	00			Surface Frozen
+WAS-GNG-TIP----	45	190106	00	00			Glaze (Thin Ice) on Ground
+WAS-GNLDN-P----	45	190107	00	00			Loose Dry Dust or Sand not Covering Ground Completely
+WAS-GNLDTCP----	45	190108	00	00			Thin Loose Dry Dust or Sand not Covering Ground Completely
+WAS-GNLDMCP----	45	190109	00	00			Moderate/Thick Loose Dry Dust or Sand Covering Ground Completely
+WAS-GNDEWCP----	45	190110	00	00			Extremely Dry with Cracks
+WAS-GSI---P----	45	190201	00	00			Predominately Ice Covered
+WAS-GSSCL-P----	45	190202	00	00			Compact or Wet Snow (with or without Ice) Covering Less Than One-Half of Ground
+WAS-GSSCH-P----	45	190203	00	00			Compact or Wet Snow (with or without Ice) Covering  at Least One-Half of Ground, but Ground not Completely Covered
+WAS-GSSCCEP----	45	190204	00	00			Even Layer of Compact or Wet Snow Covering Ground Completely
+WAS-GSSCCUP----	45	190205	00	00			Uneven Layer of Compact or Wet Snow Covering Ground Completely
+WAS-GSSLL-P----	45	190206	00	00			Loose Dry Snow Covering Less Than One-Half of Ground
+WAS-GSSLH-P----	45	190207	00	00			Loose Dry Snow Covering at Least One-Half of Ground, but Ground not Completely Covered
+WAS-GSSLCEP----	45	190208	00	00			Even Layer of Loose Dry Snow Covering Ground Completely
+WAS-GSSLCUP----	45	190209	00	00			Uneven Layer of Loose Dry Snow Covering Ground Completely
+WAS-GSSDC-P----	45	190210	00	00			Snow Covering Ground Completely, Deep Drifts
+WOS-IB----P----	46	110100	00	00		Icebergs
+WOS-IBM---P----	46	110101	00	00			Many Icebergs
+WOS-IBBS--P----	46	110102	00	00			Belts and Strips
+WOS-IBG---P----	46	110103	00	00			General
+WOS-IBMG--P----	46	110104	00	00			Many Icebergs - General
+WOS-IBBB--P----	46	110105	00	00			Bergy Bit
+WOS-IBBBM-P----	46	110106	00	00			Many Bergy Bits
+WOS-IBGL--P----	46	110107	00	00			Growler
+WOS-IBGLM-P----	46	110108	00	00			Many Growlers
+WOS-IBF---P----	46	110109	00	00			Floeberg
+WOS-IBII--P----	46	110110	00	00			Ice Island
+WOS-ICWB--P----	46	110201	00	00			Bergy Water
+WOS-ICWR--P----	46	110202	00	00			Water with Radar Targets
+WOS-ICIF--P----	46	110203	00	00			Ice Free
+WOS-IDC---P----	46	110301	00	00			Convergence
+WOS-IDD---P----	46	110302	00	00			Divergence
+WOS-IDS---P----	46	110303	00	00			Shearing or Shear Zone
+WO-DIDID---L---	46	110304	00	00			Ice Drift (Direction)
+WOS-II----P----	46	110400	00	00		Sea Ice
+WOS-IITM--P----	46	110401	00	00			Ice Thickness (Observed)
+WOS-IITE--P----	46	110402	00	00			Ice Thickness (Estimated)
+WOS-IIP---P----	46	110403	00	00			Melt Puddles or Flooded Ice
+WO-DILOV---L---	46	110501	00	00			Limits of Visual Observation
+WO-DILUC---L---	46	110502	00	00			Limits of Under Cast
+WO-DILOR---L---	46	110503	00	00			Limits of Radar Observation
+WO-DILIEO--L---	46	110504	00	00			Observed Ice Edge or Boundary
+WO-DILIEE--L---	46	110505	00	00			Estimated Ice Edge or Boundary
+WO-DILIER--L---	46	110506	00	00			Ice Edge or Boundary From Radar
+WO-DIOC----L---	46	110601	00	00			Cracks
+WO-DIOCS---L---	46	110602	00	00			Cracks at a Specific Location
+WO-DIOL----L---	46	110603	00	00			Lead
+WO-DIOLF---L---	46	110604	00	00			Frozen Lead
+WOS-ISC---P----	46	110700	00	00		Snow Cover
+WOS-ISS---P----	46	110701	00	00			Sastrugi (with Orientation)
+WOS-ITRH--P----	46	110801	00	00			Ridges or Hummocks
+WOS-ITR---P----	46	110802	00	00			Rafting
+WOS-ITBB--P----	46	110803	00	00			Jammed Brash Barrier
+WOS-HDS---P----	46	120101	00	00			Soundings
+WO-DHDDL---L---	46	120102	00	00			Depth Curve
+WO-DHDDC---L---	46	120103	00	00			Depth Contour
+WO-DHDDA----A--	46	120104	00	00			Depth Area
+WO-DHCC----L---	46	120201	00	00			Coastline
+WO-DHCI-----A--	46	120202	00	00			Island
+WO-DHCB-----A--	46	120203	00	00			Beach
+WO-DHCW-----A--	46	120204	00	00			Water
+WO-DHCF----L---	46	120205	00	00			Foreshore - Line
+WO-DHCF-----A--	46	120206	00	00			Foreshore - Area
+WOS-HPB-O-P----	46	120302	00	00			Berths (Onshore)
+WOS-HPB-A-P----	46	120303	00	00			Berths (Anchor)
+WOS-HPBA--P----	46	120304	00	00			Anchorage - Point
+WO-DHPBA---L---	46	120305	00	00			Anchorage - Line
+WO-DHPBA----A--	46	120306	00	00			Anchorage - Area
+WOS-HPCP--P----	46	120307	00	00			Call in Point
+WO-DHPBP---L---	46	120308	00	00			Pier/Wharf/Quay
+WOS-HPFH--P----	46	120309	00	00			Fishing Harbor - Point
+WOS-HPFS--P----	46	120310	00	00			Fish Weirs - Point
+WOS-HPFS---L---	46	120311	00	00			Fish Stakes - Point
+WOS-HPFF----A--	46	120312	00	00			Fish Traps - Area
+WO-DHPMD----A--	46	120314	00	00			Drydock
+WOS-HPML--P----	46	120315	00	00			Landing Place
+WO-DHPMO--P----	46	120316	00	00			Offshore Loading Facility - Point
+WO-DHPMO---L---	46	120317	00	00			Offshore Loading Facility - Line
+WO-DHPMO----A--	46	120318	00	00			Offshore Loading Facility - Area
+WO-DHPMRA--L---	46	120319	00	00			Ramp - Above Water
+WO-DHPMRB--L---	46	120320	00	00			Ramp - Below Water
+WOS-HPM-R-P----	46	120321	00	00			Landing Ring
+WOS-HPM-FC-L---	46	120322	00	00			Ferry Crossing
+WOS-HPM-CC-L---	46	120323	00	00			Cable Ferry Crossing
+WOS-HPD---P----	46	120324	00	00			Dolphin
+WO-DHPSPA--L---	46	120326	00	00			Breakwater/Groin/Jetty - Above Water
+WO-DHPSPB--L---	46	120327	00	00			Breakwater/Groin/Jetty - Below Water
+WO-DHPSPS--L---	46	120328	00	00			Seawall
+WOS-HABA--P----	46	120401	00	00			Beacon
+WOS-HABB--P----	46	120402	00	00			Buoy Default
+WOS-HABM--P----	46	120403	00	00			Marker
+WOS-HABP--P----	46	120404	00	00			Perches/Stakes - Point
+WO-DHABP----A--	46	120405	00	00			Perches/Stakes - Area
+WOS-HAL---P----	46	120406	00	00			Light
+WO-DHALLA--L---	46	120407	00	00			Leading Line
+WOS-HALV--P----	46	120408	00	00			Light Vessel/Light Ship
+WOS-HALH--P----	46	120409	00	00			Lighthouse
+WOS-HHRS--P----	46	120501	00	00			Rock Submerged
+WOS-HHRA--P----	46	120502	00	00			Rock Awashed
+WO-DHHD-----A--	46	120503	00	00			Underwater Danger/Hazard
+WOS-HHDF--P----	46	120504	00	00			Foul Ground - Point
+WO-DHHDF----A--	46	120505	00	00			Foul Ground - Area
+WO-DHHDK--P----	46	120506	00	00			Kelp/Seaweed - Point
+WO-DHHDK----A--	46	120507	00	00			Kelp/Seaweed - Area
+WOS-HHDS--P----	46	120508	00	00			Snags/Stumps
+WOS-HHDWA-P----	46	120509	00	00			Wreck (Uncovers)
+WOS-HHDWB-P----	46	120510	00	00			Wreck (Submerged)
+WO-DHHDB---L---	46	120511	00	00			Breakers
+WOS-HHDR---L---	46	120512	00	00			Reef
+WOS-HHDE--P----	46	120513	00	00			Eddies/Overfalls/Tide Rips
+WO-DHHDD----A--	46	120514	00	00			Discolored Water
+WOS-BFC-S-P----	46	120601	00	00			Bottom Characteristics  - Sand
+WOS-BFC-M-P----	46	120602	00	00			Bottom Characteristics  - Mud
+WOS-BFC-CLP----	46	120603	00	00			Bottom Characteristics  - Clay
+WOS-BFC-SIP----	46	120604	00	00			Bottom Characteristics  - Silt
+WOS-BFC-STP----	46	120605	00	00			Bottom Characteristics  - Stones
+WOS-BFC-G-P----	46	120606	00	00			Bottom Characteristics  - Gravel
+WOS-BFC-P-P----	46	120607	00	00			Bottom Characteristics  - Pebbles
+WOS-BFC-CBP----	46	120608	00	00			Bottom Characteristics  - Cobbles
+WOS-BFC-R-P----	46	120609	00	00			Bottom Characteristics  - Rock
+WOS-BFC-COP----	46	120610	00	00			Bottom Characteristics  - Coral
+WOS-BFC-SHP----	46	120611	00	00			Bottom Characteristics  - Shell
+WOS-BFQ-F-P----	46	120612	00	00			Qualifying Terms - Fine
+WOS-BFQ-M-P----	46	120613	00	00			Qualifying Terms - Medium
+WOS-BFQ-C-P----	46	120614	00	00			Qualifying Terms - Coarse
+WOS-TCCW--P----	46	120701	00	00			Water Turbulence
+WO-DTCCCFE-L---	46	120702	00	00			Current Flow - Ebb
+WO-DTCCCFF-L---	46	120703	00	00			Current Flow - Flood
+WOS-TCCTD-P----	46	120704	00	00			Tide Data Point
+WOS-TCCTG-P----	46	120705	00	00			Tide Gauge
+WO-DOBVA----A--	46	130101	00	00			Visual Detection Ratio (VDR) Level 1-2
+WO-DOBVB----A--	46	130102	00	00			VDR Level 2-3
+WO-DOBVC----A--	46	130103	00	00			VDR Level 3-4
+WO-DOBVD----A--	46	130104	00	00			VDR Level 4-5
+WO-DOBVE----A--	46	130105	00	00			VDR Level 5-6
+WO-DOBVF----A--	46	130106	00	00			VDR Level 6-7
+WO-DOBVG----A--	46	130107	00	00			VDR Level 7-8
+WO-DOBVH----A--	46	130108	00	00			VDR Level 8-9
+WO-DOBVI----A--	46	130109	00	00			VDR Level 9-10
+WO-DBSF-----A--	46	130201	00	00			Flat
+WO-DBSG-----A--	46	130202	00	00			Gentle
+WO-DBSM-----A--	46	130203	00	00			Moderate
+WO-DBST-----A--	46	130204	00	00			Steep
+WO-DGMSR----A--	46	140101	00	00			MIW Bottom Sediments - Solid Rock
+WO-DGMSC----A--	46	140102	00	00			MIW Bottom Sediments - Clay
+WO-DGMSSVS--A--	46	140103	00	00			MIW Bottom Sediments - Very Coarse Sand
+WO-DGMSSC---A--	46	140104	00	00			MIW Bottom Sediments - Coarse Sand
+WO-DGMSSM---A--	46	140105	00	00			MIW Bottom Sediments - Medium Sand
+WO-DGMSSF---A--	46	140106	00	00			MIW Bottom Sediments - Fine Sand
+WO-DGMSSVF--A--	46	140107	00	00			MIW Bottom Sediments - Very Fine Sand
+WO-DGMSIVF--A--	46	140108	00	00			MIW Bottom Sediments - Very Fine Silt
+WO-DGMSIF---A--	46	140109	00	00			MIW Bottom Sediments - Fine Silt
+WO-DGMSIM---A--	46	140110	00	00			MIW Bottom Sediments - Medium Silt
+WO-DGMSIC---A--	46	140111	00	00			MIW Bottom Sediments - Coarse Silt
+WO-DGMSB----A--	46	140112	00	00			MIW Bottom Sediments - Boulders
+WO-DGMS-CO--A--	46	140113	00	00			MIW Bottom Sediments - Cobbles, Oyster Shells
+WO-DGMS-PH--A--	46	140114	00	00			MIW Bottom Sediments - Pebbles, Shells
+WO-DGMS-SH--A--	46	140115	00	00			MIW Bottom Sediments - Sand and Shells
+WO-DGML-----A--	46	140116	00	00			MIW Bottom Sediment - Land
+WO-DGMN-----A--	46	140117	00	00			MIW Bottom Sediment - No Data
+WO-DGMRS----A--	46	140118	00	00			Bottom Roughness - Smooth
+WO-DGMRM----A--	46	140119	00	00			Bottom Roughness - Moderate
+WO-DGMRR----A--	46	140120	00	00			Bottom Roughness - Rough
+WO-DGMCL----A--	46	140121	00	00			Clutter (Bottom) - Low
+WO-DGMCM----A--	46	140122	00	00			Clutter (Bottom) - Medium
+WO-DGMCH----A--	46	140123	00	00			Clutter (Bottom) - High
+WO-DGMIBA---A--	46	140124	00	00			Impact Burial  - 0%
+WO-DGMIBB---A--	46	140125	00	00			Impact Burial  - 0-10%
+WO-DGMIBC---A--	46	140126	00	00			Impact Burial  - 10-20%
+WO-DGMIBD---A--	46	140127	00	00			Impact Burial  - 20-75%
+WO-DGMIBE---A--	46	140128	00	00			Impact Burial  - >75%
+WO-DGMBCA---A--	46	140129	00	00			MIW Bottom Category A
+WO-DGMBCB---A--	46	140130	00	00			MIW Bottom Category B
+WO-DGMBCC---A--	46	140131	00	00			MIW Bottom Category C
+WO-DGMBTA---A--	46	140132	00	00			MIW Bottom Type A1
+WO-DGMBTB---A--	46	140133	00	00			MIW Bottom Type A2
+WO-DGMBTC---A--	46	140134	00	00			MIW Bottom Type A3
+WO-DGMBTD---A--	46	140135	00	00			MIW Bottom Type B1
+WO-DGMBTE---A--	46	140136	00	00			MIW Bottom Type B2
+WO-DGMBTF---A--	46	140137	00	00			MIW Bottom Type B3
+WO-DGMBTG---A--	46	140138	00	00			MIW Bottom Type C1
+WO-DGMBTH---A--	46	140139	00	00			MIW Bottom Type C2
+WO-DGMBTI---A--	46	140140	00	00			MIW Bottom Type C3
+WO-DL-ML---L---	46	150100	00	00		Maritime Limit Boundary
+WO-DL-MA----A--	46	150200	00	00		Maritime Area
+WO-DL-RA---L---	46	150300	00	00		Restricted Area
+WO-DL-SA----A--	46	150400	00	00		Swept Area
+WO-DL-TA----A--	46	150500	00	00		Training Area
+WO-DL-O-----A--	46	150600	00	00		Operator-Defined
+WO-DMCA----L---	46	160100	00	00		Submarine Cable
+WO-DMCC-----A--	46	160200	00	00		Submerged Crib
+WO-DMCD----L---	46	160300	00	00		Canal
+WOS-MF----P----	46	160400	00	00		Ford
+WOS-ML----P----	46	160500	00	00		Lock
+WOS-MOA---P----	46	160600	00	00		Oil/Gas Rig
+WO-DMOA-----A--	46	160700	00	00		Oil/Gas Rig Field
+WO-DMPA----L---	46	160800	00	00		Pipelines/Pipe
+WOS-MPA---P----	46	160900	00	00		Pile/Piling/Post
+I*P*SCD-----***	50	110100	53	00			Satellite Downlink
+I*A*SCC-----***	50	110100	11	00			Cellular/Mobile
+I*A*SCP-----***	50	110100	49	00			Point-to-Point Line of Sight (LOS)
+I*A*SCO-----***	51	110100	47	00			Omni-Line of Sight (LOS)
+I*A*SCS-----***	51	110100	57	00			Satellite Uplink
+I*G*SCC-----***	52	110100	11	00			Cellular/Mobile
+I*G*SCO-----***	52	110100	47	00			Omni-Line of Sight (LOS)
+I*G*SCP-----***	52	110100	49	00			Point-to-Point Line of Sight (LOS)
+I*G*SCS-----***	52	110100	57	00			Satellite Uplink
+I*G*SCT-----***	52	110100	60	00			Tropospheric Scatter
+I*S*SCC-----***	53	110100	11	00			Cellular/Mobile
+I*S*SCO-----***	53	110100	47	00			Omni-Line of Sight (LOS)
+I*S*SCP-----***	53	110100	49	00			Point-to-Point Line of Sight (LOS)
+I*S*SCS-----***	53	110100	57	00			Satellite Uplink
+I*U*SCO-----***	54	110100	47	00			Omni-Line of Sight (LOS)
+I*U*SCP-----***	54	110100	49	00			Point-to-Point Line of Sight (LOS)
+I*U*SCS-----***	54	110100	57	00			Satellite Uplink
+I*P*SRD-----***	50	110300	14	00			Data Transmission
+I*P*SRE-----***	50	110300	15	00			Earth Surveillance
+I*P*SRI-----***	50	110300	24	00			Identification, Friend or Foe (Transponder)
+I*P*SRM-----***	50	110300	39	00			Multi-Function
+I*P*SRT-----***	50	110300	58	00			Target Acquisition
+I*P*SRS-----***	50	110300	54	00			Space
+I*P*SRU-----***	50	110300	62	00			Unknown
+I*A*SRAI----***	51	110300	03	00			Airborne Intercept
+I*A*SRAS----***	51	110300	02	00			Airborne Search and Bombing
+I*A*SRC-----***	51	110300	10	00			Controlled Intercept
+I*A*SRD-----***	51	110300	14	00			Data Transmission
+I*A*SRE-----***	51	110300	16	00			Early Warning
+I*A*SRF-----***	51	110300	17	00			Fire Control
+I*A*SRI-----***	51	110300	24	00			Identification, Friend or Foe (Transponder)
+I*A*SRMA----***	51	110300	35	00			Missile Acquisition
+I*A*SRMD----***	51	110300	37	00			Missile Downlink
+I*A*SRMG----***	51	110300	40	00			Missile Guidance
+I*A*SRMT----***	51	110300	42	00			Missile Tracking
+I*A*SRMF----***	51	110300	39	00			Multi-Function
+I*A*SRTI----***	51	110300	59	00			Target Illumination
+I*A*SRTA----***	51	110300	58	00			Target Acquisition
+I*A*SRTT----***	51	110300	61	00			Target Tracking
+I*A*SRU-----***	51	110300	62	00			Unknown
+I*G*SRAT----***	52	110300	06	00			Air Traffic Control
+I*G*SRAA----***	52	110300	01	00			Anti-Aircraft Fire Control
+I*G*SRB-----***	52	110300	08	00			Battlefield Surveillance
+I*G*SRCS----***	52	110300	12	00			Coastal Surveillance
+I*G*SRCA----***	52	110300	09	00			Controlled Approach
+I*G*SRD-----***	52	110300	14	00			Data Transmission
+I*G*SRE-----***	52	110300	16	00			Early Warning
+I*G*SRF-----***	52	110300	17	00			Fire Control
+I*G*SRH-----***	52	110300	19	00			Height Finding
+I*G*SRI-----***	52	110300	21	00			Identification, Friend or Foe (Interrogator)
+I*G*SRMM----***	52	110300	38	00			Meteorological
+I*G*SRMA----***	52	110300	35	00			Missile Acquisition
+I*G*SRMG----***	52	110300	40	00			Missile Guidance
+I*G*SRMT----***	52	110300	42	00			Missile Tracking
+I*G*SRMF----***	52	110300	39	00			Multi-Function
+I*G*SRS-----***	52	110300	56	00			Shell Tracking
+I*G*SRTA----***	52	110300	58	00			Target Acquisition
+I*G*SRTI----***	52	110300	59	00			Target Illumination
+I*G*SRTT----***	52	110300	61	00			Target Tracking
+I*G*SRU-----***	52	110300	62	00			Unknown
+I*S*SRAT----***	53	110300	06	00			Air Traffic Control
+I*S*SRAA----***	53	110300	01	00			Anti-Aircraft Fire Control
+I*S*SRCA----***	53	110300	09	00			Controlled Approach
+I*S*SRCI----***	53	110300	10	00			Controlled Intercept
+I*S*SRD-----***	53	110300	14	00			Data Transmission
+I*S*SRE-----***	53	110300	16	00			Early Warning
+I*S*SRF-----***	53	110300	17	00			Fire Control
+I*S*SRH-----***	53	110300	19	00			Height Finding
+I*S*SRI-----***	53	110300	21	00			Identification, Friend or Foe (Interrogator)
+I*S*SRMM----***	53	110300	38	00			Meteorological
+I*S*SRMA----***	53	110300	35	00			Missile Acquisition
+I*S*SRMG----***	53	110300	40	00			Missile Guidance
+I*S*SRMT----***	53	110300	42	00			Missile Tracking
+I*S*SRMF----***	53	110300	39	00			Multi-Function
+I*S*SRS-----***	53	110300	55	00			Surface Search
+I*S*SRTA----***	53	110300	58	00			Target Acquisition
+I*S*SRTI----***	53	110300	59	00			Target Illumination
+I*S*SRTT----***	53	110300	61	00			Target Tracking
+I*S*SRU-----***	53	110300	62	00			Unknown
+I*U*SRD-----***	54	110300	14	00			Data Transmission
+I*U*SRE-----***	54	110300	16	00			Early Warning
+I*U*SRM-----***	54	110300	39	00			Multi-Function
+I*U*SRS-----***	54	110300	55	00			Surface Search
+I*U*SRT-----***	54	110300	58	00			Target Acquisition
+I*U*SRU-----***	54	110300	62	00			Unknown
+S*C*MUSCMT*****	60	110100	00	00		Combat Mission Team			2525C codes never published. Create by a JOUN
+S*C*MUSNMT*****	60	110200	00	00		National Mission Team			2525C codes never published. Create by a JOUN
+S*C*MUSCPT*****	60	110300	00	00		Cyber Protection Team			2525C codes never published. Create by a JOUN
+S*C*NSCTA-*****	60	110400	00	00		Nation State Cyber Threat Actor			2525C codes never published. Create by a JOUN
+S*C*NNSCTA*****	60	110500	00	00		Non Nation State Cyber Threat Actor			2525C codes never published. Create by a JOUN

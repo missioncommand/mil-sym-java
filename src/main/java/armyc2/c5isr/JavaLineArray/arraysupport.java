@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import armyc2.c5isr.JavaTacticalRenderer.TGLight;
 import armyc2.c5isr.renderer.utilities.ErrorLogger;
@@ -607,6 +608,7 @@ public final class arraysupport {
             POINT2[] midPts = new POINT2[7];
             POINT2[] trianglePts = new POINT2[35];
             POINT2[] pArrowPoints = new POINT2[3];
+            POINT2[] pArrowPoints2 = new POINT2[3];
             double dRadius = lineutility.CalcDistanceDouble(pt0, pt1);
             double dLength = Math.abs(dRadius - 20);
             if (dRadius < 40) {
@@ -628,6 +630,7 @@ public final class arraysupport {
             lineutility.InitializePOINT2Array(midPts);
             lineutility.InitializePOINT2Array(trianglePts);
             lineutility.InitializePOINT2Array(pArrowPoints);
+            lineutility.InitializePOINT2Array(pArrowPoints2);
             lineutility.InitializePOINT2Array(ptsSeize);
 
             double DPIScaleFactor = RendererSettings.getInstance().getDeviceDPI() / 96.0;
@@ -668,6 +671,12 @@ public final class arraysupport {
                 lineutility.GetArrowHead4Double(ptsArc[24], ptsArc[25], (int) d / 7, (int) (1.75 * d) / 7, pArrowPoints, 0);
             }
 
+            //second arrow
+            if(lineType == TacticalLines.CONTROL || lineType == TacticalLines.LOCATE)
+            {
+                lineutility.GetArrowHead4Double(ptsArc[1], ptsArc[0], (int) d / 7, (int) d / 7, pArrowPoints2, 0);
+            }
+
             pLinePoints[25].style = 5;
 
             switch (lineType) {
@@ -681,6 +690,58 @@ public final class arraysupport {
                         if (j % 3 == 0) {
                             midPts[k].x = pt0.x - (long) ((dLength / dRadius) * (pt0.x - ptsArc[j].x));
                             midPts[k].y = pt0.y - (long) ((dLength / dRadius) * (pt0.y - ptsArc[j].y));
+                            midPts[k].style = 0;
+                            trianglePts[l] = new POINT2(ptsArc[j - 1]);
+                            l++;
+                            trianglePts[l] = new POINT2(midPts[k]);
+                            l++;
+                            trianglePts[l] = new POINT2(ptsArc[j + 1]);
+                            trianglePts[l].style = 5;
+                            l++;
+                            k++;
+                        }
+                    }
+                    for (j = 26; j < 47; j++) {
+                        pLinePoints[j] = new POINT2(trianglePts[j - 26]);
+                    }
+                    pLinePoints[46].style = 5;
+                    for (j = 47; j < 50; j++) {
+                        pLinePoints[j] = new POINT2(pArrowPoints[j - 47]);
+                        pLinePoints[j].style = 0;
+                    }
+                    break;
+                case TacticalLines.DENY:
+                    if (dRadius > 100) {
+                        dLength = -0.2 * dRadius;
+                    }
+                    for (j = 1; j <= 23; j++) {
+                        if (j % 3 == 0) {
+                            //midPts[k].x = pt0.x + (long) ((dLength / dRadius) * (pt0.x - ptsArc[j].x));
+                            //midPts[k].y = pt0.y + (long) ((dLength / dRadius) * (pt0.y - ptsArc[j].y));
+
+                            // 1. Get the midpoint of each segment
+                            POINT2 start = new POINT2(ptsArc[j - 1]);
+                            POINT2 end = new POINT2(ptsArc[j + 1]);
+                            double midX = (start.x + end.x)/2;
+                            double midY = (start.y + end.y)/2;
+
+                            // 2. Calculate the direction vector from center to midpoint
+                            double dx = midX - pt0.x;
+                            double dy = midY - pt0.y;
+                            double distance = Math.sqrt(dx * dx + dy * dy);
+
+                            // 3. Normalize and scale to 120% of the radius
+                            double targetDistance = dRadius * 1.20;
+
+                            // Handle edge case: if midpoint is exactly at center, use start point for direction
+                            if (distance < 0.00001) {
+                                dx = start.x - pt0.x;
+                                dy = start.y - pt0.y;
+                                distance = Math.sqrt(dx * dx + dy * dy);
+                            }
+
+                            midPts[k].x = pt0.x + (dx / distance) * targetDistance;
+                            midPts[k].y = pt0.y + (dy / distance) * targetDistance;
                             midPts[k].style = 0;
                             trianglePts[l] = new POINT2(ptsArc[j - 1]);
                             l++;
@@ -757,6 +818,19 @@ public final class arraysupport {
                         pLinePoints[j].style = 0;
                     }
                     pLinePoints[28].style = 5;
+                    break;
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
+                    for (j = 26; j < 29; j++) {
+                        pLinePoints[j] = new POINT2(pArrowPoints[j - 26]);
+                        pLinePoints[j].style = 0;
+                    }
+                    pLinePoints[28].style = 5;
+                    for (j = 29; j < 32; j++) {
+                        pLinePoints[j] = new POINT2(pArrowPoints2[j - 29]);
+                        pLinePoints[j].style = 0;
+                    }
+                    pLinePoints[31].style = 5;
                     break;
 
                 case TacticalLines.TURN_REVD:
@@ -2625,6 +2699,7 @@ public final class arraysupport {
                 case TacticalLines.ISOLATE:
                 case TacticalLines.CORDONKNOCK:
                 case TacticalLines.CORDONSEARCH:
+                case TacticalLines.DENY:
                     GetIsolatePointsDouble(pLinePoints, lineType, converter);
                     acCounter = 50;
                     break;
@@ -2633,6 +2708,8 @@ public final class arraysupport {
                     acCounter = 67;
                     break;
                 case TacticalLines.OCCUPY:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                     GetIsolatePointsDouble(pLinePoints, lineType, converter);
                     acCounter = 32;
                     break;
@@ -3394,13 +3471,9 @@ public final class arraysupport {
                     acCounter = 14;
                     break;
                 case TacticalLines.DIRATKSPT:
-                case TacticalLines.INFILTRATION:
-                    if (lineType == TacticalLines.DIRATKSPT) {
-                        //reverse the points
                         lineutility.ReversePointsDouble2(
                                 pLinePoints,
                                 vblSaveCounter);
-                    }
                     if (dMBR / 20 > maxLength * DPIScaleFactor) {
                         dMBR = 20 * maxLength * DPIScaleFactor;
                     }
@@ -3418,6 +3491,32 @@ public final class arraysupport {
                     for (k = 0; k < 3; k++) {
                         pLinePoints[vblCounter - k - 1] = new POINT2(pArrowPoints[k]);
                     }
+                    acCounter = vblCounter;
+                    break;
+                case TacticalLines.EXFILTRATION:
+                case TacticalLines.INFILTRATION:
+
+                    if (dMBR / 20 > maxLength * DPIScaleFactor) {
+                        dMBR = 20 * maxLength * DPIScaleFactor;
+                    }
+                    if (dMBR / 20 < minLength * DPIScaleFactor) {
+                        dMBR = 20 * minLength * DPIScaleFactor;
+                    }
+                    if (dMBR < 150 * DPIScaleFactor) {
+                        dMBR = 150 * DPIScaleFactor;
+                    }
+                    if (dMBR > 500 * DPIScaleFactor) {
+                        dMBR = 500 * DPIScaleFactor;
+                    }
+
+                    pLinePoints = DISMSupport.GetInfiltrationDouble(pLinePoints);
+                    vblCounter = pLinePoints.length;;
+
+                    lineutility.GetArrowHead4Double(pLinePoints[vblCounter - 5], pLinePoints[vblCounter - 4], (int) dMBR / 20, (int) dMBR / 20, pArrowPoints, 0);
+                    for (k = 0; k < 3; k++) {
+                        pLinePoints[vblCounter - k - 1] = new POINT2(pArrowPoints[k]);
+                    }
+                    points =  new ArrayList<>(Arrays.asList(pLinePoints));//set pixels to be used for integral modifier placement
                     acCounter = vblCounter;
                     break;
                 case TacticalLines.EXPLOIT:
@@ -3743,6 +3842,11 @@ public final class arraysupport {
                         acCounter = DISMSupport.GetDISMCoverDouble(pLinePoints, lineType);
                     }
                     break;
+                case TacticalLines.ESCORT:
+                {
+                    acCounter = DISMSupport.GetDISMEscortDouble(tg, pLinePoints, TacticalLines.ESCORT);
+                    break;
+                }
                 case TacticalLines.SARA:
                     acCounter = DISMSupport.GetDISMCoverDouble(pLinePoints, lineType);
                     //reorder pLinePoints
@@ -3810,6 +3914,7 @@ public final class arraysupport {
                     acCounter = DISMSupport.GetDISMByDifDouble(pLinePoints, lineType, clipBounds);
                     break;
                 case TacticalLines.SEIZE:
+                case TacticalLines.CAPTURE:
                 case TacticalLines.EVACUATE:
                     double radius = 0;
                     if (vblSaveCounter == 4) {
@@ -3938,6 +4043,10 @@ public final class arraysupport {
                 case TacticalLines.EASY:
                     acCounter = DISMSupport.GetDISMEasyDouble(pLinePoints, lineType);
                     break;
+                case TacticalLines.DECEIVE:
+                    DISMSupport.GetDISMDeceiveDouble(pLinePoints);
+                    acCounter = 4;
+                    break;
                 case TacticalLines.BYPASS:
                     acCounter = DISMSupport.GetDISMBypassDouble(pLinePoints, lineType);
                     break;
@@ -3960,6 +4069,7 @@ public final class arraysupport {
                 case TacticalLines.COVER:
                 case TacticalLines.SCREEN:  //note: screen, cover, guard are getting their modifiers before the call to getlinearray
                 case TacticalLines.GUARD:
+                case TacticalLines.ESCORT:
                 case TacticalLines.PAA_RECTANGULAR:
                 case TacticalLines.RECTANGULAR_TARGET:
                 case TacticalLines.FOLSP:
@@ -3976,8 +4086,11 @@ public final class arraysupport {
                 case TacticalLines.PENETRATE:
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                 case TacticalLines.AREA_DEFENSE:
                 case TacticalLines.SEIZE:
+                case TacticalLines.CAPTURE:
                 case TacticalLines.EVACUATE:
                 case TacticalLines.TURN:
                 case TacticalLines.BS_RECTANGLE:
@@ -3986,6 +4099,7 @@ public final class arraysupport {
                 case TacticalLines.AIRFIELD:
                 case TacticalLines.CORDONKNOCK:
                 case TacticalLines.CORDONSEARCH:
+                case TacticalLines.DENY:
                 case TacticalLines.MSDZ:
                 case TacticalLines.CONVOY:
                 case TacticalLines.HCONVOY:
@@ -4701,7 +4815,6 @@ public final class arraysupport {
                     addPolyline(secondPoly, 9, shapes); // Arrow and bowtie
                     break;
                 case TacticalLines.DIRATKSPT:
-                case TacticalLines.INFILTRATION:
                     addPolyline(pLinePoints, acCounter - 3, shapes); // Main line
                     secondPoly = new POINT2[3];
                     for (int i = 0; i < 3; i++) {

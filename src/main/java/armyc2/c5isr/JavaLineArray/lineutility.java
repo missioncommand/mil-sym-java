@@ -1281,10 +1281,10 @@ public final class lineutility {
      *
      * @return the extension point
      */
-    protected static POINT2 ExtendLine2Double(POINT2 pt1,
-            POINT2 pt2,
-            double dist,
-            int styl) {
+    public static POINT2 ExtendLine2Double(POINT2 pt1,
+                                           POINT2 pt2,
+                                           double dist,
+                                           int styl) {
         POINT2 pt3 = new POINT2();
         try {
             double dOriginalDistance = CalcDistanceDouble(pt1, pt2);
@@ -1404,6 +1404,45 @@ public final class lineutility {
                     new RendererException("Failed inside GetQuadrantDouble", exc));
         }
         return nQuadrant;
+    }
+
+    /**
+     *
+     * @param start beginning of arc
+     * @param end end of arc
+     * @param center center point of circle
+     * @param numSegments how many lines to use to make the curve
+     * @return ArrayList<POINT2> of points that make the arc
+     */
+    public static ArrayList<POINT2> GetArcPointsDouble(POINT2 start, POINT2 end, POINT2 center, int numSegments) {
+        ArrayList<POINT2> points = new ArrayList<>();
+
+        // 1. Calculate vectors from center to start/end points
+        double dxStart = start.x - center.x;
+        double dyStart = start.y - center.y;
+        double dxEnd = end.x - center.x;
+        double dyEnd = end.y - center.y;
+
+        // 2. Determine radius and initial/final angles
+        double radius = Math.sqrt(dxStart * dxStart + dyStart * dyStart);
+        double angleStart = Math.atan2(dyStart, dxStart);
+        double angleEnd = Math.atan2(dyEnd, dxEnd);
+
+        // 3. Calculate the shortest sweep angle
+        double sweep = angleEnd - angleStart;
+        while (sweep > Math.PI) sweep -= 2 * Math.PI;
+        while (sweep < -Math.PI) sweep += 2 * Math.PI;
+
+        // 4. Generate points for each segment
+        points.add(start); // Start with the actual start point
+        for (int i = 1; i <= numSegments; i++) {
+            double currentAngle = angleStart + (sweep * i / numSegments);
+            double x = center.x + radius * Math.cos(currentAngle);
+            double y = center.y + radius * Math.sin(currentAngle);
+            points.add(new POINT2(x, y));
+        }
+
+        return points;
     }
 
     /**
@@ -2338,6 +2377,7 @@ public final class lineutility {
                 case TacticalLines.ISOLATE:
                 case TacticalLines.CORDONKNOCK:
                 case TacticalLines.CORDONSEARCH:
+                case TacticalLines.DENY:
                 case TacticalLines.AREA_DEFENSE:
                     startangle = M;
                     endangle = startangle + 330 * Math.PI / 180;
@@ -2350,6 +2390,8 @@ public final class lineutility {
                 case TacticalLines.OCCUPY:
                 case TacticalLines.RETAIN:
                 case TacticalLines.SECURE:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                     startangle = M;
                     //if(CELineArrayGlobals.Change1==false)
                     endangle = startangle + 338 * Math.PI / 180;
@@ -2367,6 +2409,7 @@ public final class lineutility {
                     case TacticalLines.ISOLATE:
                     case TacticalLines.CORDONKNOCK:
                     case TacticalLines.CORDONSEARCH:
+                    case TacticalLines.DENY:
                     case TacticalLines.AREA_DEFENSE:
                         startangle = M - Math.PI;
                         endangle = startangle + 330 * Math.PI / 180;
@@ -2374,6 +2417,8 @@ public final class lineutility {
                     case TacticalLines.OCCUPY:
                     case TacticalLines.RETAIN:
                     case TacticalLines.SECURE:
+                    case TacticalLines.CONTROL:
+                    case TacticalLines.LOCATE:
                         startangle = M - Math.PI;
                         //if(CELineArrayGlobals.Change1==false)
                         endangle = startangle + 338 * Math.PI / 180;
@@ -3782,6 +3827,37 @@ public final class lineutility {
             ErrorLogger.LogException(_className, "LineRelativeToLine",
                     new RendererException("Failed inside LineRelativeToLine", exc));
         }
+    }
+
+    /**
+     *
+     * @param p1 start point
+     * @param p2 end point
+     * @param p3 point not on the line
+     * @return the point closest to point 3.  This point and point 3 will create a line that is perpendicular to
+     * the line created by point 1 and 2.
+     */
+    public static POINT2 FindClosestPointOnLine(POINT2 p1, POINT2 p2, POINT2 p3) {
+        // Calculate the direction vector of the line (u)
+        double dxLine = p2.x - p1.x;
+        double dyLine = p2.y - p1.y;
+
+        // Calculate the vector from point 1 to point 3 (v)
+        double dxToPoint3 = p3.x - p1.x;
+        double dyToPoint3 = p3.y - p1.y;
+
+        // Compute the dot products
+        double dotProduct_uv = dxToPoint3 * dxLine + dyToPoint3 * dyLine; // v · u
+        double dotProduct_uu = dxLine * dxLine + dyLine * dyLine;         // u · u
+
+        // Calculate the scalar projection factor
+        double scalarProjection = dotProduct_uv / dotProduct_uu;
+
+        // Find the closest point on the line
+        double closestX = p1.x + scalarProjection * dxLine;
+        double closestY = p1.y + scalarProjection * dyLine;
+
+        return new POINT2(closestX, closestY);
     }
 
     private static void CalcMBR(POINT2[] pLinePoints,

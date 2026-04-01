@@ -2748,8 +2748,11 @@ public class ModifierRenderer implements SettingsEventListener
                 labelBounds = tiTemp.getTextBounds();
                 labelWidth = (int) labelBounds.getWidth();
 
-                //on left
-                x = (int) getLabelXPosition(bounds, labelWidth, mod.getIndexX(), modifierFontHeight);
+                //centered
+                if(mod.getIndexX()==0)
+                    x = (int) getLabelXPosition(symbolBounds, labelWidth, mod.getIndexX(), modifierFontHeight);
+                else//on left
+                    x = (int) getLabelXPosition(bounds, labelWidth, mod.getIndexX(), modifierFontHeight);
                 //above center V
                 y = (int) getLabelYPosition(bounds, labelHeight, descent, bufferText, mod.getCentered(), mod.getIndexY());
 
@@ -2871,6 +2874,16 @@ public class ModifierRenderer implements SettingsEventListener
             outlineOffset = 0;
         }
 
+        //Check for Valid Country Code
+        int cc = SymbolID.getCountryCode(symbolID);
+        String scc = "";
+        if(cc > 0)
+        {
+            scc = GENCLookup.getInstance().get3CharCode(cc);
+        }
+        if(!scc.isEmpty())
+            modifiers.put(Modifiers.AS_COUNTRY, scc);
+
 
         // <editor-fold defaultstate="collapsed" desc="Process Special Modifiers">
         TextInfo ti = null;
@@ -2914,11 +2927,18 @@ public class ModifierRenderer implements SettingsEventListener
                     }
                 }
             }
-            if (ec == 130700) //decision point
+            else if (ec == 130700) //decision point
             {
-                if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
-                    strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
-                    if (strText != null) {
+                if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY)) {
+
+                    strText = "";
+                    if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        strText += modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    if (modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        strText += " " + modifiers.get(Modifiers.AS_COUNTRY);
+                    strText = strText.trim();
+
+                    if (!strText.isEmpty()) {
                         ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
                         //One modifier symbols and modifier goes in center
@@ -3094,7 +3114,36 @@ public class ModifierRenderer implements SettingsEventListener
                         arrMods.add(ti);
                     }
                 }
-            } 
+            }
+            else if (ec == 213400 && SymbolID.getVersion(symbolID)==SymbolID.Version_APP6Ech2)  //Navigation Reference Point
+            {
+                if (modifiers.containsKey(Modifiers.W_DTG_1))
+                {
+                    strText = modifiers.get(Modifiers.W_DTG_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+
+                        x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.75f));
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.75f));
+                        y = y + labelHeight;
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+                if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
+                    strText = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+
+                        x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.25f)-ti.getTextBounds().getWidth());
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.25f));
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+            }
             else if (ec == 132100)  //Key Terrain
             {
                 if (modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)) {
@@ -3113,14 +3162,32 @@ public class ModifierRenderer implements SettingsEventListener
                     }
                 }
             }
+            else if (ec == 132300)  //Vital Ground
+            {
+                if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
+                    strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+
+                        //One modifier symbols and modifier goes bottom right of symbol
+                        x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.88f));
+
+                        y = (int)(bounds.getMinY() + (bounds.getHeight() * 0.88f));
+                        y = y + (labelHeight - descent);
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+            }
             else if(ec == 182600)//Isolated Personnel Location
             {
-                if (modifiers.containsKey(Modifiers.C_QUANTITY)) {
-                    strText = modifiers.get(Modifiers.C_QUANTITY);
+                if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
+                    strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     if (strText != null) {
                         ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
-                        //subset of NBC, just nuclear
+
                         x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.5));
                         x = x - (int) (labelWidth * 0.5);
                         y = (int)bounds.getMinY() - descent;
@@ -3581,7 +3648,23 @@ public class ModifierRenderer implements SettingsEventListener
                         arrMods.add(ti);
                     }
                 }
-            } 
+            }
+            else if(ec == 360100 || ec == 360200 || ec == 360300)//Protection of Cultural Property
+            {
+                if (modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)) {
+                    strText = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    if (strText != null) {
+                        ti = new TextInfo(strText, 0, 0, modifierFont, frc);
+
+                        //One modifier symbols and modifier goes right of center
+                        x = (int)(bounds.getX() + bounds.getWidth() + bufferXR);
+                        y = (int)(bounds.getY() + (bounds.getHeight() * 0.6));
+
+                        ti.setLocation(Math.round(x), Math.round(y));
+                        arrMods.add(ti);
+                    }
+                }
+            }
         }
         else if(ss == SymbolID.SymbolSet_Atmospheric)
         {
@@ -4823,11 +4906,9 @@ public class ModifierRenderer implements SettingsEventListener
         }
         String temp = null;
         String sep = " ";
-        if(ss == SymbolID.SymbolSet_DismountedIndividuals) {
-            ver = SymbolID.Version_2525E;
-        }
 
-        if(ver < SymbolID.Version_2525E)
+
+        if(ver == SymbolID.Version_2525Dch1)
         {
             if(ss == SymbolID.SymbolSet_LandUnit ||
                     ss == SymbolID.SymbolSet_LandCivilianUnit_Organization)
@@ -5218,7 +5299,21 @@ public class ModifierRenderer implements SettingsEventListener
 
                 //Do right side labels
                 x = 1;//on right
-                centered = false;
+                centered = true;
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    //if no "H', bring G and M closer to the center
+                    centered = false;
+                }
+
 
                 if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
                 {
@@ -5229,49 +5324,27 @@ public class ModifierRenderer implements SettingsEventListener
                         mods.add(new Modifier("P", temp, x, y, centered));
                 }
 
-                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY))
                 {
                     y = 2;
                     if(!strict && !modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
                         y--;
-                    temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
 
                     if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("T", temp, x, y, centered));
+                        mods.add(new Modifier("T AS", temp, x, y, centered));
                 }
 
-                if(modifiers.containsKey(Modifiers.AS_COUNTRY))
-                {
-                    y = 3;
-                    if(!strict)
-                    {
-                        if(!modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
-                            y--;
-                        if(!modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
-                            y--;
-                    }
-
-                    temp = modifiers.get(Modifiers.AS_COUNTRY );
-
-                    if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("AS", temp, x, y, centered));
-                }
-
-                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
-                {
-                    y = -1;//below center
-                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
-
-                    if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("V", temp, x, y, centered));
-                }
 
                 if(modifiers.containsKey(Modifiers.Z_SPEED)  ||
                         modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
                 {
-                    y = -2;//below center
-                    if(!modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
-                        y++;
+                    y = -1;//below center
 
                     temp = "";
                     if(modifiers.containsKey(Modifiers.Z_SPEED))
@@ -5287,13 +5360,11 @@ public class ModifierRenderer implements SettingsEventListener
                 if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) ||
                         modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
                 {
-                    y = -3;
+                    y = -2;
                     if(!strict)
                     {
                         if(!(modifiers.containsKey(Modifiers.Z_SPEED)  ||
                                 modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)))
-                            y++;
-                        if(!modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
                             y++;
                     }
                     temp = "";
@@ -5328,32 +5399,20 @@ public class ModifierRenderer implements SettingsEventListener
                         mods.add(new Modifier("V", temp, x, y, centered));
                 }
 
-                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY))
                 {
                     y = 2;
                     if(!strict && !modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
                         y--;
-                    temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
 
                     if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("T", temp, x, y, centered));
-                }
-
-                if(modifiers.containsKey(Modifiers.AS_COUNTRY))
-                {
-                    y = 3;
-                    if(!strict)
-                    {
-                        if(!modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
-                            y--;
-                        if(!modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
-                            y--;
-                    }
-
-                    temp = modifiers.get(Modifiers.AS_COUNTRY );
-
-                    if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("AS", temp, x, y, centered));
+                        mods.add(new Modifier("T AS", temp, x, y, centered));
                 }
 
                 if(modifiers.containsKey(Modifiers.Z_SPEED)  ||
@@ -5399,13 +5458,13 @@ public class ModifierRenderer implements SettingsEventListener
                 //Do right side labels
                 x = 1;//on right
                 centered = true;
-                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
                 {
                     y = 0;//center
                     centered = true;//vertically centered, only matters for labels on left and right side
-                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
+                    temp = modifiers.get(Modifiers.P_IFF_SIF_AIS);
                     if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("V", temp, x, y, centered));
+                        mods.add(new Modifier("P", temp, x, y, centered));
                 }
                 else if(!strict)
                 {
@@ -5413,72 +5472,60 @@ public class ModifierRenderer implements SettingsEventListener
                     centered = false;
                 }
 
-                if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
                 {
                     y = 1;//above center
-                    temp = modifiers.get(Modifiers.P_IFF_SIF_AIS);
+                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
                     if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("P", temp, x, y, centered));
+                        mods.add(new Modifier("V", temp, x, y, centered));
                 }
 
-                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY))
                 {
                     y = 2;
-                    if(!strict && !modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                    if(!strict && !modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
                         y--;
-                    temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
-
-                    if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("T", temp, x, y, centered));
-                }
-
-                if(modifiers.containsKey(Modifiers.AS_COUNTRY))
-                {
-                    y = 3;
-                    if(!strict)
-                    {
-                        if(!modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
-                            y--;
-                        if(!modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
-                            y--;
-                    }
-
-                    temp = modifiers.get(Modifiers.AS_COUNTRY );
-
-                    if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("AS", temp, x, y, centered));
-                }
-
-                if(modifiers.containsKey(Modifiers.Z_SPEED)  ||
-                        modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
-                {
-                    y = -1;//below center
                     temp = "";
-                    if(modifiers.containsKey(Modifiers.Z_SPEED))
-                        temp = modifiers.get(Modifiers.Z_SPEED) + sep;
-                    if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
-                        temp += modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
                     temp = temp.trim();
 
                     if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("Z X", temp, x, y, centered));
+                        mods.add(new Modifier("T AS", temp, x, y, centered));
                 }
 
-                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) ||
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS)  ||
                         modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
                 {
-                    y = -2;
-                    if(!strict &&
-                            !(modifiers.containsKey(Modifiers.Z_SPEED) || modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)))
-                        y++;
+                    y = -1;//below center
                     temp = "";
                     if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
                         temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
                     if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
                         temp += modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
                     temp = temp.trim();
+
                     if(temp != null && !temp.isEmpty())
                         mods.add(new Modifier("G H", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.Y_LOCATION) ||
+                        modifiers.containsKey(Modifiers.Z_SPEED))
+                {
+                    y = -2;
+                    if(!strict &&
+                            !(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) || modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)))
+                        y++;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                        temp = modifiers.get(Modifiers.Y_LOCATION) + sep;
+                    if(modifiers.containsKey(Modifiers.Z_SPEED))
+                        temp += modifiers.get(Modifiers.Z_SPEED);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Y Z", temp, x, y, centered));
                 }
 
                 //Do left side labels
@@ -5486,7 +5533,7 @@ public class ModifierRenderer implements SettingsEventListener
                 centered = false;
                 if(modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT) || modifiers.containsKey(Modifiers.AR_SPECIAL_DESIGNATOR))
                 {
-                    y = 3;//above center
+                    y = 2;//above center
                     if(!strict)
                         y--;
 
@@ -5509,7 +5556,21 @@ public class ModifierRenderer implements SettingsEventListener
 
                 //Do right side labels
                 x = 1;//on right
-                centered = false;
+                centered = true;
+                if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("X", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    //if no "H', bring G and M closer to the center
+                    centered = false;
+                }
+
                 if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
                 {
                     y = 1;//center
@@ -5518,49 +5579,26 @@ public class ModifierRenderer implements SettingsEventListener
                         mods.add(new Modifier("V", temp, x, y, centered));
                 }
 
-                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY))
                 {
                     y = 2;
                     if(!strict && !modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
                         y--;
-                    temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
 
                     if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("T", temp, x, y, centered));
-                }
-
-                if(modifiers.containsKey(Modifiers.AS_COUNTRY))
-                {
-                    y = 3;
-                    if(!strict)
-                    {
-                        if(!modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
-                            y--;
-                        if(!modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
-                            y--;
-                    }
-
-                    temp = modifiers.get(Modifiers.AS_COUNTRY );
-
-                    if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("AS", temp, x, y, centered));
-                }
-
-                if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
-                {
-                    y = -1;//below center
-
-                    temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
-
-                    if(temp != null && !temp.isEmpty())
-                        mods.add(new Modifier("X", temp, x, y, centered));
+                        mods.add(new Modifier("T AS", temp, x, y, centered));
                 }
 
                 if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
                 {
-                    y = -2;
-                    if(!strict && !(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)))
-                        y++;
+                    y = -1;
+
                     temp = modifiers.get(Modifiers.G_STAFF_COMMENTS);
 
                     if(temp != null && !temp.isEmpty())
@@ -5569,12 +5607,10 @@ public class ModifierRenderer implements SettingsEventListener
 
                 if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
                 {
-                    y = -3;//below center
+                    y = -2;//below center
                     if(!strict)
                     {
                         if(!modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
-                            y++;
-                        if(!modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
                             y++;
                     }
 
@@ -5796,7 +5832,7 @@ public class ModifierRenderer implements SettingsEventListener
             //else//SymbolSet Unknown
                 //processUnknownTextModifiers
         }
-        else// if(ver >= SymbolID.Version_2525E)
+        else if(ver >= SymbolID.Version_2525E)
         {
             int fs = SymbolID.getFrameShape(symbolID);
             if(ss == SymbolID.SymbolSet_LandUnit ||
@@ -6332,9 +6368,9 @@ public class ModifierRenderer implements SettingsEventListener
                     if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
                         temp = modifiers.get(Modifiers.P_IFF_SIF_AIS) + sep;
                     if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
-                        temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH) + sep;
+                        temp += modifiers.get(Modifiers.X_ALTITUDE_DEPTH) + sep;
                     if(modifiers.containsKey(Modifiers.Z_SPEED))
-                        temp = modifiers.get(Modifiers.Z_SPEED);
+                        temp += modifiers.get(Modifiers.Z_SPEED);
 
                     temp = temp.trim();
 
@@ -6356,7 +6392,7 @@ public class ModifierRenderer implements SettingsEventListener
                     if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
                         temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
                     if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
-                        temp = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1) + sep;
+                        temp += modifiers.get(Modifiers.H_ADDITIONAL_INFO_1) + sep;
                     if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING))
                         temp += modifiers.get(Modifiers.J_EVALUATION_RATING);
                     temp = temp.trim();
@@ -6372,7 +6408,7 @@ public class ModifierRenderer implements SettingsEventListener
                 if(modifiers.containsKey(Modifiers.AD_PLATFORM_TYPE))
                 {
                     y = 0;//
-                    temp = temp += modifiers.get(Modifiers.AD_PLATFORM_TYPE);
+                    temp = modifiers.get(Modifiers.AD_PLATFORM_TYPE);
 
                     if(temp != null && !temp.isEmpty())
                         mods.add(new Modifier("AD", temp, x, y, centered));
@@ -7004,6 +7040,1158 @@ public class ModifierRenderer implements SettingsEventListener
             //else//SymbolSet Unknown
             //processUnknownTextModifiers
         }
+        else if(ver >= SymbolID.Version_APP6D)
+        {
+            int fs = SymbolID.getFrameShape(symbolID);
+            if(ss == SymbolID.SymbolSet_LandUnit ||
+                    ss == SymbolID.SymbolSet_LandCivilianUnit_Organization)
+            {
+
+                //Only Command & Control has AA; ec.equals("110000").  Always in the middle of the unit.
+                if(modifiers.containsKey(Modifiers.AA_SPECIAL_C2_HQ))
+                {
+                    temp = modifiers.get(Modifiers.AA_SPECIAL_C2_HQ);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("AA", temp, 0, 0, true));
+                }
+
+                //Do top center label
+                x = 0;//centered
+                y = 9;//on top of symbol
+                if(modifiers.containsKey(Modifiers.B_ECHELON))
+                {
+                    temp = modifiers.get(Modifiers.B_ECHELON);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("B", temp, x, y, centered));
+                }
+
+                //Do right side labels
+                x = 1;//on right
+                if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1) ||
+                        modifiers.containsKey(Modifiers.AF_COMMON_IDENTIFIER))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                        temp = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AF_COMMON_IDENTIFIER))
+                        temp += modifiers.get(Modifiers.AF_COMMON_IDENTIFIER);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("H AF", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    //if no "H', bring G and M closer to the center
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) || modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT))
+                {
+                    y = 1;//above center
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                        temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
+                    if(modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT))
+                        temp += modifiers.get(Modifiers.AQ_GUARDED_UNIT);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G AQ", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.F_REINFORCED_REDUCED) || modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) || modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT)))
+                        y--;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.F_REINFORCED_REDUCED))
+                        temp = modifiers.get(Modifiers.F_REINFORCED_REDUCED) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("F AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.M_HIGHER_FORMATION);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("M", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING) ||
+                        modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS) ||
+                        modifiers.containsKey(Modifiers.L_SIGNATURE_EQUIP) ||
+                        modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                {
+                    y = -2;
+                    if(!strict && !modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                        y++;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING))
+                        temp = modifiers.get(Modifiers.J_EVALUATION_RATING) + sep;
+                    if(modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS))
+                        temp += modifiers.get(Modifiers.K_COMBAT_EFFECTIVENESS) + sep;
+                    if(modifiers.containsKey(Modifiers.L_SIGNATURE_EQUIP))
+                        temp += modifiers.get(Modifiers.L_SIGNATURE_EQUIP) + sep;
+                    if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                        temp += modifiers.get(Modifiers.P_IFF_SIF_AIS);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("J K L P", temp, x, y, centered));
+                }
+
+                //Do left side labels
+                x = -1;//on left
+
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE) ||
+                        modifiers.containsKey(Modifiers.AD_PLATFORM_TYPE) ||
+                        modifiers.containsKey(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                        temp = modifiers.get(Modifiers.V_EQUIP_TYPE) + sep;
+                    if(modifiers.containsKey(Modifiers.AD_PLATFORM_TYPE))
+                        temp += modifiers.get(Modifiers.AD_PLATFORM_TYPE) + sep;
+                    if(modifiers.containsKey(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME))
+                        temp += modifiers.get(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V AD AE", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH) || modifiers.containsKey(Modifiers.Y_LOCATION))
+                {
+                    y = 1;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                        temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH) + sep;
+                    if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                        temp += modifiers.get(Modifiers.Y_LOCATION);
+
+                    temp = temp.trim();
+                    mods.add(new Modifier("X Y", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.W_DTG_1))
+                {
+                    y = 2;//above center
+                    if(!strict && !(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH) || modifiers.containsKey(Modifiers.Y_LOCATION)))
+                        y--;
+
+                    temp = modifiers.get(Modifiers.W_DTG_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("W", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.C_QUANTITY) || modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                {
+                    y = -1;//below center
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.C_QUANTITY))
+                        temp = modifiers.get(Modifiers.C_QUANTITY) + sep;
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp += modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("C T", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.Z_SPEED))
+                {
+                    y = -2;
+                    if(!strict && !(modifiers.containsKey(Modifiers.C_QUANTITY) || modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)))
+                        y++;
+                    temp = modifiers.get(Modifiers.Z_SPEED);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Z", temp, x, y, centered));
+                }
+            }
+            else if(ss == SymbolID.SymbolSet_LandEquipment)
+            {
+                //Do top center label
+                x = 0;//centered
+                y = 9;//on top of symbol
+                if(modifiers.containsKey(Modifiers.C_QUANTITY))
+                {
+                    temp = modifiers.get(Modifiers.C_QUANTITY);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("C", temp, x, y, centered));
+                }
+
+                //Do right side labels
+                x = 1;//on right
+                centered = false;
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) || modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT))
+                {
+                    y = 1;//above center
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                        temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
+                    if(modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT))
+                        temp += modifiers.get(Modifiers.AQ_GUARDED_UNIT);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G AQ", temp, x, y, centered));
+                }
+
+                if( modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) || modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT)))
+                        y--;
+                    temp = modifiers.get(Modifiers.AS_COUNTRY);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1) ||
+                        modifiers.containsKey(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME))
+                {
+                    y = 0;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                        temp = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME))
+                        temp += modifiers.get(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("H AE", temp, x, y, centered));
+                }
+
+                if( modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                {
+                    y = -1;
+                    if(!strict && !(modifiers.containsKey(Modifiers.M_HIGHER_FORMATION)))
+                        y++;
+                    temp = modifiers.get(Modifiers.M_HIGHER_FORMATION);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("M", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING) ||
+                        modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS) ||
+                        modifiers.containsKey(Modifiers.L_SIGNATURE_EQUIP) ||
+                        modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                {
+                    y = -2;
+                    if(!strict && !(modifiers.containsKey(Modifiers.M_HIGHER_FORMATION)))
+                        y++;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING))
+                        temp = modifiers.get(Modifiers.J_EVALUATION_RATING) + sep;
+                    if(modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS))
+                        temp += modifiers.get(Modifiers.K_COMBAT_EFFECTIVENESS) + sep;
+                    if(modifiers.containsKey(Modifiers.L_SIGNATURE_EQUIP))
+                        temp += modifiers.get(Modifiers.L_SIGNATURE_EQUIP) + sep;
+                    if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                        temp += modifiers.get(Modifiers.P_IFF_SIF_AIS);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("J K L P", temp, x, y, centered));
+                }
+
+                //Do left side labels
+                x = -1;//on left
+
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE) ||
+                        modifiers.containsKey(Modifiers.AD_PLATFORM_TYPE) ||
+                        modifiers.containsKey(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                        temp = modifiers.get(Modifiers.V_EQUIP_TYPE) + sep;
+                    if(modifiers.containsKey(Modifiers.AD_PLATFORM_TYPE))
+                        temp += modifiers.get(Modifiers.AD_PLATFORM_TYPE) + sep;
+                    if(modifiers.containsKey(Modifiers.AF_COMMON_IDENTIFIER))
+                        temp += modifiers.get(Modifiers.AF_COMMON_IDENTIFIER);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V AD AF", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH) || modifiers.containsKey(Modifiers.Y_LOCATION))
+                {
+                    y = 1;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                        temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH) + sep;
+                    if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                        temp += modifiers.get(Modifiers.Y_LOCATION);
+
+                    temp = temp.trim();
+                    mods.add(new Modifier("X Y", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.W_DTG_1))
+                {
+                    y = 2;//above center
+                    if(!strict && !(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH) || modifiers.containsKey(Modifiers.Y_LOCATION)))
+                        y--;
+
+                    temp = modifiers.get(Modifiers.W_DTG_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("W", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("T", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.Z_SPEED))
+                {
+                    y = -2;
+                    if(!strict && !modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        y++;
+                    temp = modifiers.get(Modifiers.Z_SPEED);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Z", temp, x, y, centered));
+                }
+            }
+            else if(ss == SymbolID.SymbolSet_LandInstallation)
+            {
+                //No top center label
+
+                //Do right side labels
+                x = 1;//on right
+                if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1) || modifiers.containsKey(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                        temp = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME))
+                        temp += modifiers.get(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("H AE", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    //if no "H', bring G and M closer to the center
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) || modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT))
+                {
+                    y = 1;//above center
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                        temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
+                    if(modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT))
+                        temp += modifiers.get(Modifiers.AQ_GUARDED_UNIT);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G AQ", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) || modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT)))
+                        y--;
+                    temp = modifiers.get(Modifiers.AS_COUNTRY);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.M_HIGHER_FORMATION);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("M", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING) ||
+                        modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS) ||
+                        modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                {
+                    y = -2;
+                    if(!strict && !modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                        y++;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING))
+                        temp = modifiers.get(Modifiers.J_EVALUATION_RATING) + sep;
+                    if(modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS))
+                        temp += modifiers.get(Modifiers.K_COMBAT_EFFECTIVENESS);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("J K P", temp, x, y, centered));
+                }
+
+                //Do left side labels
+                x = -1;//on left
+                centered = false;
+
+                if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH) || modifiers.containsKey(Modifiers.Y_LOCATION))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                        temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH) + sep;
+                    if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                        temp += modifiers.get(Modifiers.Y_LOCATION);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("X Y", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.W_DTG_1))
+                {
+                    y = 1;//above center
+
+                    temp = modifiers.get(Modifiers.W_DTG_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("W AR", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("T", temp, x, y, centered));
+                }
+            }
+            else if(ss == SymbolID.SymbolSet_Air ||
+                    ss == SymbolID.SymbolSet_AirMissile)
+            {
+                //No top center label
+
+
+                //Do right side labels
+                x = 1;//on right
+                centered = false;
+
+                centered = true;
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    //if no "H', bring G and M closer to the center
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                {
+                    y = 1;//above center
+                    temp = modifiers.get(Modifiers.P_IFF_SIF_AIS);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("P", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                        y--;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("T AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.Z_SPEED)  ||
+                        modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                {
+                    y = -1;//below center
+
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.Z_SPEED))
+                        temp = modifiers.get(Modifiers.Z_SPEED) + sep;
+                    if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                        temp += modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Z X", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) ||
+                        modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                {
+                    y = -2;
+                    if(!strict)
+                    {
+                        if(!(modifiers.containsKey(Modifiers.Z_SPEED)  ||
+                                modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)))
+                            y++;
+                    }
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                        temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
+                    if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                        temp += modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G H", temp, x, y, centered));
+                }
+
+                //No left side labels
+
+            }
+            else if(ss == SymbolID.SymbolSet_Space ||
+                    ss == SymbolID.SymbolSet_SpaceMissile)
+            {
+                //No top center label
+
+
+                //Do right side labels
+                x = 1;//on right
+                centered = false;
+
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                {
+                    y = 1;//above center
+                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                        y--;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("T AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.Z_SPEED)  ||
+                        modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                {
+                    y = -1;//below center
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.Z_SPEED))
+                        temp = modifiers.get(Modifiers.Z_SPEED) + sep;
+                    if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                        temp += modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Z X", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) ||
+                        modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                {
+                    y = -2;
+                    if(!strict &&
+                            !(modifiers.containsKey(Modifiers.Z_SPEED) || modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH)))
+                        y++;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                        temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
+                    if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                        temp += modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G H", temp, x, y, centered));
+                }
+
+                //No left side labels
+            }
+            else if(ss == SymbolID.SymbolSet_SeaSurface)
+            {
+                //No top center label
+
+
+                //Do right side labels
+                x = 1;//on right
+                centered = true;
+                if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = modifiers.get(Modifiers.P_IFF_SIF_AIS);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("P", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    //if no "X', bring V and G closer to the center
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                {
+                    y = 1;//above center
+                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                        y--;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("T AS", temp, x, y, centered));
+                }
+
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS)  ||
+                        modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                {
+                    y = -1;//below center
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                        temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
+                    if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                        temp += modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G H", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.Y_LOCATION) ||
+                        modifiers.containsKey(Modifiers.Z_SPEED))
+                {
+                    y = -2;
+                    if(!strict &&
+                            !(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS) || modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)))
+                        y++;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                        temp = modifiers.get(Modifiers.Y_LOCATION) + sep;
+                    if(modifiers.containsKey(Modifiers.Z_SPEED))
+                        temp += modifiers.get(Modifiers.Z_SPEED);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Y Z", temp, x, y, centered));
+                }
+
+                //No left side labels
+                x = -1;
+                centered = false;
+                if(modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT) ||
+                        modifiers.containsKey(Modifiers.AR_SPECIAL_DESIGNATOR))
+                {
+                    y = 2;
+                    if(!strict)
+                    {
+                        y--;
+                    }
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.AQ_GUARDED_UNIT))
+                        temp = modifiers.get(Modifiers.AQ_GUARDED_UNIT) + sep;
+                    if(modifiers.containsKey(Modifiers.AR_SPECIAL_DESIGNATOR))
+                        temp += modifiers.get(Modifiers.AR_SPECIAL_DESIGNATOR);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("AQ AR", temp, x, y, centered));
+                }
+            }
+            else if(ss == SymbolID.SymbolSet_SeaSubsurface)
+            {
+                //No top center label
+
+
+                //Do right side labels
+                x = 1;//on right
+                centered = true;
+                if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("X", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    //if no "H', bring G and M closer to the center
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                {
+                    y = 1;//center
+                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1) || modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                        y--;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                        temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("T AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS)  ||
+                        modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                {
+                    y = -1;//below center
+
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                        temp = modifiers.get(Modifiers.G_STAFF_COMMENTS) + sep;
+                    if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                        temp += modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    temp = temp.trim();
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G H", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.Y_LOCATION) ||
+                        modifiers.containsKey(Modifiers.Z_SPEED))
+                {
+                    y = -2;
+                    if(!strict)
+                    {
+                        if(!(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS)  ||
+                                modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1)))
+                            y++;
+                    }
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                        temp = modifiers.get(Modifiers.Y_LOCATION) + sep;
+                    if(modifiers.containsKey(Modifiers.Z_SPEED))
+                        temp += modifiers.get(Modifiers.Z_SPEED);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Y Z", temp, x, y, centered));
+                }
+
+                //No left side labels
+                x = -1;
+                centered = false;
+
+                if(modifiers.containsKey(Modifiers.AR_SPECIAL_DESIGNATOR))
+                {
+                    y = 2;
+                    if(!strict && !modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                    {
+                        y--;
+                    }
+                    temp = modifiers.get(Modifiers.AR_SPECIAL_DESIGNATOR);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("AR", temp, x, y, centered));
+                }
+            }
+            else if(ss == SymbolID.SymbolSet_DismountedIndividuals)
+            {
+                //Do bottom center label
+                x = 0;//centered
+                y = -9;//on bottom of symbol
+                if(modifiers.containsKey(Modifiers.C_QUANTITY))
+                {
+                    temp = modifiers.get(Modifiers.C_QUANTITY);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("C", temp, x, y, centered));
+                }
+
+                //Do right side labels
+                x = 1;//on right
+                if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("H", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                {
+                    y = 1;//above center
+                    temp = modifiers.get(Modifiers.G_STAFF_COMMENTS);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS)))
+                        y--;
+                    temp = modifiers.get(Modifiers.AS_COUNTRY);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.M_HIGHER_FORMATION);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("M", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING) ||
+                        modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS) ||
+                        modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                {
+                    y = -2;
+                    if(!strict && !modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                        y++;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING))
+                        temp = modifiers.get(Modifiers.J_EVALUATION_RATING) + sep;
+                    if(modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS))
+                        temp += modifiers.get(Modifiers.K_COMBAT_EFFECTIVENESS) + sep;
+                    if(modifiers.containsKey(Modifiers.P_IFF_SIF_AIS))
+                        temp += modifiers.get(Modifiers.P_IFF_SIF_AIS);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("J K P", temp, x, y, centered));
+                }
+
+                //Do left side labels
+                x = -1;//on left
+
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE) ||
+                        modifiers.containsKey(Modifiers.AF_COMMON_IDENTIFIER))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                        temp = modifiers.get(Modifiers.V_EQUIP_TYPE) + sep;
+                    if(modifiers.containsKey(Modifiers.AF_COMMON_IDENTIFIER))
+                        temp += modifiers.get(Modifiers.AF_COMMON_IDENTIFIER);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V AF", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH) || modifiers.containsKey(Modifiers.Y_LOCATION))
+                {
+                    y = 1;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH))
+                        temp = modifiers.get(Modifiers.X_ALTITUDE_DEPTH) + sep;
+                    if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                        temp += modifiers.get(Modifiers.Y_LOCATION);
+
+                    temp = temp.trim();
+                    mods.add(new Modifier("X Y", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.W_DTG_1))
+                {
+                    y = 2;//above center
+                    if(!strict && !(modifiers.containsKey(Modifiers.X_ALTITUDE_DEPTH) || modifiers.containsKey(Modifiers.Y_LOCATION)))
+                        y--;
+
+                    temp = modifiers.get(Modifiers.W_DTG_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("W", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("T", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.Z_SPEED))
+                {
+                    y = -2;
+                    if(!strict && !(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1)))
+                        y++;
+                    temp = modifiers.get(Modifiers.Z_SPEED);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Z", temp, x, y, centered));
+                }
+            }
+            else if(ss == SymbolID.SymbolSet_Activities)
+            {
+                //No top center label
+
+                //Do right side labels
+                x = 1;//on right
+                centered = false;
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                {
+                    y = 1;
+
+                    temp = modifiers.get(Modifiers.G_STAFF_COMMENTS);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                        y--;
+                    temp = modifiers.get(Modifiers.AS_COUNTRY);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("H", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.J_EVALUATION_RATING))
+                {
+                    y = -2;
+                    if(!strict && !modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                        y++;
+                    temp = temp = modifiers.get(Modifiers.J_EVALUATION_RATING);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("J", temp, x, y, centered));
+                }
+
+                //Do left side labels
+                x = -1;//on left
+                centered = false;
+
+                if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                {
+                    y = 1;
+                    temp = modifiers.get(Modifiers.Y_LOCATION);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Y", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.W_DTG_1))
+                {
+                    y = 2;//above center
+                    if(!strict && !modifiers.containsKey(Modifiers.Y_LOCATION))
+                        y--;
+                    temp = modifiers.get(Modifiers.W_DTG_1);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("W", temp, x, y, centered));
+                }
+
+            }
+            else if(ss == SymbolID.SymbolSet_CyberSpace)
+            {
+                //Do top center label
+                x = 0;//centered
+                y = 9;//on top of symbol
+                if(modifiers.containsKey(Modifiers.B_ECHELON))
+                {
+                    temp = modifiers.get(Modifiers.B_ECHELON);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("B", temp, x, y, centered));
+                }
+
+                //Do right side labels
+                x = 1;//on right
+                if(modifiers.containsKey(Modifiers.H_ADDITIONAL_INFO_1))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+                    temp = modifiers.get(Modifiers.H_ADDITIONAL_INFO_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("H", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS))
+                {
+                    y = 1;//above center
+                    temp = modifiers.get(Modifiers.G_STAFF_COMMENTS);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("G", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.F_REINFORCED_REDUCED) || modifiers.containsKey(Modifiers.AS_COUNTRY))
+                {
+                    y = 2;
+                    if(!strict && !(modifiers.containsKey(Modifiers.G_STAFF_COMMENTS)))
+                        y--;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.F_REINFORCED_REDUCED))
+                        temp = modifiers.get(Modifiers.F_REINFORCED_REDUCED) + sep;
+                    if(modifiers.containsKey(Modifiers.AS_COUNTRY))
+                        temp += modifiers.get(Modifiers.AS_COUNTRY);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("F AS", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.M_HIGHER_FORMATION);
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("M", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS) || modifiers.containsKey(Modifiers.L_SIGNATURE_EQUIP))
+                {
+                    y = -2;
+                    if(!strict && !modifiers.containsKey(Modifiers.M_HIGHER_FORMATION))
+                        y++;
+                    temp = "";
+                    if(modifiers.containsKey(Modifiers.K_COMBAT_EFFECTIVENESS))
+                        temp = modifiers.get(Modifiers.K_COMBAT_EFFECTIVENESS) + sep;
+                    if(modifiers.containsKey(Modifiers.L_SIGNATURE_EQUIP))
+                        temp += modifiers.get(Modifiers.L_SIGNATURE_EQUIP);
+                    temp = temp.trim();
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("K L", temp, x, y, centered));
+                }
+
+                //Do left side labels
+                x=-1;
+                if(modifiers.containsKey(Modifiers.V_EQUIP_TYPE))
+                {
+                    y = 0;//center
+                    centered = true;//vertically centered, only matters for labels on left and right side
+
+                    temp = modifiers.get(Modifiers.V_EQUIP_TYPE);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("V", temp, x, y, centered));
+                }
+                else if(!strict)
+                {
+                    centered = false;
+                }
+
+                if(modifiers.containsKey(Modifiers.Y_LOCATION))
+                {
+                    y = 1;
+                    temp = modifiers.get(Modifiers.Y_LOCATION);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("Y", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.W_DTG_1))
+                {
+                    y = 2;//above center
+                    if(!strict && !(modifiers.containsKey(Modifiers.Y_LOCATION)))
+                        y--;
+
+                    temp = modifiers.get(Modifiers.W_DTG_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("W", temp, x, y, centered));
+                }
+
+                if(modifiers.containsKey(Modifiers.T_UNIQUE_DESIGNATION_1))
+                {
+                    y = -1;//below center
+                    temp = modifiers.get(Modifiers.T_UNIQUE_DESIGNATION_1);
+
+                    if(temp != null && !temp.isEmpty())
+                        mods.add(new Modifier("T", temp, x, y, centered));
+                }
+            }
+            /*else if(ver == SymbolID.SymbolSet_MineWarfare)
+            {
+                //no modifiers
+            }//*/
+            //else//SymbolSet Unknown
+            //processUnknownTextModifiers
+        }
 
         return mods;
     }
@@ -7126,6 +8314,10 @@ public class ModifierRenderer implements SettingsEventListener
             if(location == 9)//on top of symbol
             {
                 y = (int)Math.round(bounds.getY() - bufferText - descent);
+            }
+            if(location == -9)//on bottom of symbol
+            {
+                y = (int)Math.round(bounds.getY() + bounds.getHeight() + bufferText + labelHeight - descent);
             }
         }
         return y;

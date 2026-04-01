@@ -68,8 +68,10 @@ public class SectorModUtils
         String id = null;
         StringBuilder sb = null;
         ArrayList<String[]> sectorList = null;
+        ArrayList<String[]> sectorList6 = null;
 
 
+        String line = null;
         try {
 
             if(version <= SymbolID.Version_2525Dch1)
@@ -84,19 +86,27 @@ public class SectorModUtils
                 String[] entry = null;
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-                String line = br.readLine();
+                line = br.readLine();
                 while (line != null)
                 {
                     //parse first line
                     temp = line.split(delimiter);
-                    if(temp.length == 2)
+                    if(temp.length == 3)
                     {
                         if(sectorList != null && sectorList.size() > 0)
                         {//add completed list to sectorModLists
-                            sb = new StringBuilder();
-                            sb.append(ver).append("-").append(ss).append("-").append(l);
-                            id = sb.toString();
-                            _sectorModLists.put(id,sectorList);
+                            String[] vers = temp[2].split(",");
+
+                            for(String v : vers) {
+                                sb = new StringBuilder();
+                                sb.append(v).append("-").append(ss).append("-").append(l);
+                                id = sb.toString();
+
+                                if(Integer.parseInt(v) == SymbolID.Version_2525Ech1 || Integer.parseInt(v) == SymbolID.Version_2525Dch1)
+                                    _sectorModLists.put(id, sectorList);
+                                else
+                                    _sectorModLists.put(id, sectorList6);
+                            }
                         }
 
                         //get symbol set
@@ -105,21 +115,29 @@ public class SectorModUtils
                         l = Integer.parseInt(temp[1]);
                         //start new list
                         sectorList = new ArrayList<>();
+                        sectorList6 = new ArrayList<>();
                     }
-                    else if(temp != null && temp.length >= 3)
+                    else if(temp != null && temp.length >= 4)
                     {
                         name = temp[0];
                         code = temp[2];
                         if(code.length()==1)
                             code = "0" + code;
 
-                        sb = new StringBuilder();
-                        id = sb.append(ver).append("-").append(ss).append("-").append(l).append("-").append(code).toString();
-                        entry = new String[2];
-                        entry[0] = code;
-                        entry[1] = name;
-                        sectorList.add(entry);
-                        _sectorMods.put(id, name);
+                        String[] vers = temp[3].split(",");
+                        for(String v : vers) {
+                            sb = new StringBuilder();
+                            id = sb.append(v).append("-").append(ss).append("-").append(l).append("-").append(code).toString();
+                            entry = new String[2];
+                            entry[0] = code;
+                            entry[1] = name;
+
+                            if(Integer.parseInt(v) == SymbolID.Version_2525Ech1 || Integer.parseInt(v) == SymbolID.Version_2525Dch1)
+                                sectorList.add(entry);
+                            else
+                                sectorList6.add(entry);
+                            _sectorMods.put(id, name);
+                        }
                     }
                     //read next line for next loop
                     line = br.readLine();
@@ -143,9 +161,11 @@ public class SectorModUtils
     public ArrayList<String[]> getSectorModList(int version, int symbolSet, int location)
     {
         StringBuilder sb = new StringBuilder();
-        int ver = SymbolID.Version_2525Dch1;
-        if(version >= SymbolID.Version_2525E )
+        int ver = version;
+        if(version == SymbolID.Version_2525E)
             ver = SymbolID.Version_2525Ech1;
+        if(version == SymbolID.Version_APP6Ech1)
+            ver = SymbolID.Version_APP6Ech2;
 
         int ss = symbolSet;
         if (ss > 50 && ss < 60)
@@ -174,9 +194,11 @@ public class SectorModUtils
     public String getName(int version, int symbolSet, int location, String code)
     {
         StringBuilder sb = new StringBuilder();
-        int ver = SymbolID.Version_2525Dch1;
-        if(version >= SymbolID.Version_2525E )
+        int ver = version;
+        if(version == SymbolID.Version_2525E)
             ver = SymbolID.Version_2525Ech1;
+        if(version == SymbolID.Version_APP6Ech1)
+            ver = SymbolID.Version_APP6Ech2;
 
         int ss = symbolSet;
         if (ss > 50 && ss < 60)

@@ -72,6 +72,8 @@ public class ShapeInfo {
     private Point2D _Position = null;
     private String _ModifierString = null;
     private Point2D _ModifierPosition = null;
+    private Point2D _ModifierAnchor = null;
+    private Point2D _ModifierAnchorOffset = null;
 
     private BufferedImage _ModifierImage = null;
     private double _ModifierAngle = 0;
@@ -174,9 +176,42 @@ public class ShapeInfo {
         _ModifierPosition = value;
     }
 
+    /**
+     * Location to draw modifier if you can't use pixel offsets
+     * @return
+     */
     public Point2D getModifierPosition()
     {
         return _ModifierPosition;
+    }
+
+    public void setModifierAnchor(Point2D value)
+    {
+        _ModifierAnchor = value;
+    }
+
+    /**
+     * Location to draw modifier if you are able to use AnchorOffset(Pixel Offset).
+     * This keeps the modifier near the symbol when zooming in.
+     * @return
+     */
+    public Point2D getModifierAnchor()
+    {
+        return _ModifierAnchor;
+    }
+
+    public void setModifierAnchorOffset(Point2D value)
+    {
+        _ModifierAnchorOffset = value;
+    }
+
+    /**
+     * The pixel offset to use when placing the modifier with the point from getModifierAnchor()
+     * @return
+     */
+    public Point2D getModifierAnchorOffset()
+    {
+        return _ModifierAnchorOffset;
     }
 
     //angle to draw ModifierString.

@@ -84,9 +84,12 @@ public final class clsUtility {
                     hatchStyle = Hatch_BackwardDiagonal;
                     break;
                 case TacticalLines.BIO:
+                case TacticalLines.BIOT:
                 case TacticalLines.NUC:
                 case TacticalLines.CHEM:
+                case TacticalLines.CHEMT:
                 case TacticalLines.RAD:
+                case TacticalLines.RADT:
                     hatchStyle=Hatch_BackwardDiagonal;
                     hatchColor = Color.yellow;
                     hatchLineThickness = (tg.get_LineThickness() * 0.85f) * (float) tg.get_patternScale();
@@ -509,9 +512,11 @@ public final class clsUtility {
             case TacticalLines.SCREEN:
             case TacticalLines.COVER:
             case TacticalLines.GUARD:
+            case TacticalLines.ESCORT:
             case TacticalLines.FLOT:
             case TacticalLines.LC:
             case TacticalLines.PL:
+            case TacticalLines.DECISION_LINE:
             case TacticalLines.FEBA:
             case TacticalLines.LL:
             case TacticalLines.EWL:

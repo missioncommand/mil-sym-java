@@ -12,6 +12,8 @@ public class SVGLookup {
 
     private static Map<String, SVGInfo> _SVGLookupD = null;
     private static Map<String, SVGInfo> _SVGLookupE = null;
+    private static Map<String, SVGInfo> _SVGLookup6D = null;
+    private static Map<String, SVGInfo> _SVGLookup6E = null;
     private String TAG = "SVGLookup";
 
 
@@ -37,16 +39,25 @@ public class SVGLookup {
         {
             _SVGLookupD = new HashMap<>();
             _SVGLookupE = new HashMap<>();
-
+            _SVGLookup6D = new HashMap<>();
+            _SVGLookup6E = new HashMap<>();
 
             try {
                 InputStream isD = this.getClass().getClassLoader().getResourceAsStream("data/svgd.txt");
                 loadData(isD, SymbolID.Version_2525Dch1);
                 isD.close();
 
+                InputStream is6D = this.getClass().getClassLoader().getResourceAsStream("data/svg6d.txt");
+                loadData(is6D, SymbolID.Version_APP6D);
+                is6D.close();
+
                 InputStream isE = this.getClass().getClassLoader().getResourceAsStream("data/svge.txt");
-                loadData(isE, SymbolID.Version_2525E);
+                loadData(isE, SymbolID.Version_2525Ech1);
                 isE.close();
+
+                InputStream is6E = this.getClass().getClassLoader().getResourceAsStream("data/svg6e.txt");
+                loadData(is6E, SymbolID.Version_APP6Ech2);
+                is6E.close();
             }
             catch(Exception exc) {
             }
@@ -67,15 +78,18 @@ public class SVGLookup {
         {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
             String line = br.readLine();
 
-            Map<String, SVGInfo> lookup;
+            Map<String, SVGInfo> lookup = null;
 
-            if(version >= SymbolID.Version_2525E)
+            if(version == SymbolID.Version_2525E || version == SymbolID.Version_2525Ech1)
                 lookup = _SVGLookupE;
-            else
+            else if(version == SymbolID.Version_2525Dch1)
                 lookup = _SVGLookupD;
+            else if(version == SymbolID.Version_APP6D)// || version == SymbolID.Version_APP6Dch2)
+                lookup = _SVGLookup6D;
+            else if(version == SymbolID.Version_APP6Ech1 || version == SymbolID.Version_APP6Ech2)
+                lookup = _SVGLookup6E;
 
             while (line != null)
             {
@@ -103,7 +117,8 @@ public class SVGLookup {
                     svg = RendererUtilities.increaseStrokeWidth(svg, 2);
                 }//*/
 
-                lookup.put(id, new SVGInfo(id, bbox, svg));
+                if(lookup != null)
+                    lookup.put(id, new SVGInfo(id, bbox, svg));
 
                 //read next line for next loop
                 line = br.readLine();
@@ -127,15 +142,32 @@ public class SVGLookup {
      */
     public SVGInfo getSVGLInfo(String id, int version)
     {
-        if(version >= SymbolID.Version_2525E)
+
+        if(version == SymbolID.Version_2525E || version == SymbolID.Version_2525Ech1)
         {
             if (_SVGLookupE.containsKey(id))
                 return _SVGLookupE.get(id);
         }
-        else
+        else if(version == SymbolID.Version_2525Dch1)
         {
             if (_SVGLookupD.containsKey(id))
                 return _SVGLookupD.get(id);
+        }
+        else if(version == SymbolID.Version_APP6Ech2 || version == SymbolID.Version_APP6Ech1)
+        {
+            if (_SVGLookup6E.containsKey(id))
+                return _SVGLookup6E.get(id);
+            else if (_SVGLookupE.containsKey(id))
+                return _SVGLookupE.get(id);
+        }
+        else if(version == SymbolID.Version_APP6D)
+        {
+            if (_SVGLookup6D.containsKey(id))
+                return _SVGLookup6D.get(id);
+            else if (_SVGLookupD.containsKey(id))
+                return _SVGLookupD.get(id);
+            else if (_SVGLookupE.containsKey(id))//Dismounted Individual
+                return _SVGLookupE.get(id);
         }
 
         return null;
@@ -289,6 +321,7 @@ public class SVGLookup {
         {
             switch(SymbolID.getEntityCode(symbolID))
             {
+                case 110501:
                 case 111000:
                 case 111001:
                 case 111002:
@@ -397,6 +430,21 @@ public class SVGLookup {
                     break;
             }
         }
+        else if(ss == SymbolID.SymbolSet_DismountedIndividuals)
+        {
+            switch (SymbolID.getEntityCode(symbolID))
+            {
+                case 110101:
+                case 110102:
+                case 110103:
+                case 110104:
+                    //do thing to append correct number
+                    mainIconID += getPostFixForIcon(symbolID);
+                    break;
+                default:
+                    break;
+            }
+        }
         else if(ss == SymbolID.SymbolSet_Activities)
         {
             switch (SymbolID.getEntityCode(symbolID))
@@ -419,7 +467,6 @@ public class SVGLookup {
                 ss != SymbolID.SymbolSet_Space &&
                 ss != SymbolID.SymbolSet_SpaceMissile &&
                 ss != SymbolID.SymbolSet_LandCivilianUnit_Organization &&
-                ss != SymbolID.SymbolSet_DismountedIndividuals &&
                 ss != SymbolID.SymbolSet_ControlMeasure &&
                 ss != SymbolID.SymbolSet_SeaSurface &&
                 ss != SymbolID.SymbolSet_SeaSubsurface &&

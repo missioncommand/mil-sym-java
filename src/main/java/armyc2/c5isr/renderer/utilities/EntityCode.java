@@ -3,22 +3,30 @@ public class EntityCode {
     public static final int EntityCode_FLOT = 140100;
 
     public static final int EntityCode_BioContaminatedArea = 271700;
+    public static final int EntityCode_BioContaminatedAreaToxic = 271701;
 
     public static final int EntityCode_ChemContaminatedArea = 271800;
+    public static final int EntityCode_ChemContaminatedAreaToxic = 271801;
 
     public static final int EntityCode_NuclearContaminatedArea = 271900;
     public static final int EntityCode_RadiologicalContaminatedArea = 272000;
+    public static final int EntityCode_RadiologicalContaminatedAreaToxic = 272001;
 
 
     public static final int EntityCode_BioEvent = 281400;
+    public static final int EntityCode_BioEvent_Toxic = 281401;
 
     public static final int EntityCode_ChemicalEvent = 281300;
+    public static final int EntityCode_ChemicalEvent_Toxic = 281301;
 
     public static final int EntityCode_NuclearEvent = 281500;
 
     public static final int EntityCode_RadiologicalEvent = 281700;
+    public static final int EntityCode_RadiologicalEvent_Toxic = 281701;
 
     public static final int EntityCode_AnchoragePoint = 120304;
+
+    public static final int EntityCode_Decision_Point = 130700;
 
     /**
      * Returns the modifier icon for a given contamination area
@@ -29,15 +37,22 @@ public class EntityCode {
         switch (contaminationArea) {
             case EntityCode_BioContaminatedArea:
                 return EntityCode_BioEvent;
+            case EntityCode_BioContaminatedAreaToxic:
+                return EntityCode_BioEvent_Toxic;
 
             case EntityCode_ChemContaminatedArea:
                 return EntityCode_ChemicalEvent;
+            case EntityCode_ChemContaminatedAreaToxic:
+                return EntityCode_ChemicalEvent_Toxic;
 
             case EntityCode_NuclearContaminatedArea:
                 return EntityCode_NuclearEvent;
 
             case EntityCode_RadiologicalContaminatedArea:
                 return EntityCode_RadiologicalEvent;
+
+            case EntityCode_RadiologicalContaminatedAreaToxic:
+                return EntityCode_RadiologicalEvent_Toxic;
 
             default:
                 return -1;

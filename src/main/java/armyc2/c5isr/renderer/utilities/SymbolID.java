@@ -109,13 +109,24 @@ public class SymbolID {
 
 
     //Version, 1-2 (Can't start with zero, will be 10 at a minimum)
+    public static final int Version_APP6D = 10;
+    /**
+     * @deprecated 2525D(10) will be treated like APP6D(also 10)
+     * For 2525D use 2525Dch1(11)
+     */
     public static final int Version_2525D = 10;
     public static final int Version_2525Dch1 = 11;
     /**
      * @deprecated withdrawn from standard
      */
     public static final int Version_APP6Dch2 = 12;
+    /**
+     * @deprecated use 2525Ech1
+     */
     public static final int Version_2525E = 13;
+    /**
+     * @deprecated use APP6EEch2
+     */
     public static final int Version_APP6Ech1 = 14;
     public static final int Version_2525Ech1 = 15;
     public static final int Version_APP6Ech2 = 16;
@@ -1124,6 +1135,39 @@ public class SymbolID {
         if(symbolID.length() == 30)
             scc = symbolID.substring(27,30);
         return Integer.parseInt(scc);
+    }
+
+    /**
+     * Sets the country code on the symbol code
+     * @param symbolID 30 Character string
+     * @param countryCode country code like 840 for USA or 76 for Brazil
+     * @return
+     */
+    public static String setCountryCode(String symbolID, int countryCode)
+    {
+        return setCountryCode(symbolID,String.valueOf(countryCode));
+    }
+
+    /**
+     * Sets the country code on the symbol code
+     * @param symbolID 30 Character string
+     * @param countryCode country code like "840" for USA or "076" for Brazil
+     * @return
+     */
+    public static String setCountryCode(String symbolID, String countryCode)
+    {
+        if(symbolID != null && symbolID.length() >= 20)
+        {
+            if(countryCode.length() > 3)
+                countryCode = countryCode.substring(0,3);
+            while(countryCode.length()<3)
+                countryCode = "0" + countryCode;
+            return symbolID.substring(0,27) + countryCode;
+        }
+        else
+        {
+            return symbolID;
+        }
     }
 
     /**

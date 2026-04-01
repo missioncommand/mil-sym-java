@@ -366,7 +366,6 @@ public class SymbolUtilities {
      * G*G*GPP---****X
      * @param strSymbolID 15 Character {@link String}
      * @return 15 Character {@link String}
-     * @deprecated function will be removed
      */
     public static String getBasicSymbolID2525C(String strSymbolID)
     {
@@ -416,12 +415,13 @@ public class SymbolUtilities {
 
 
             int v = SymbolID.getVersion(symbolID);
-            if (v < SymbolID.Version_2525E)
+            if (v < SymbolID.Version_APP6D)
                 newID = String.valueOf(SymbolID.Version_2525Dch1);
-            else
-                newID = String.valueOf(SymbolID.Version_2525E);
+            else if(v > SymbolID.Version_APP6Ech2)
+                newID = String.valueOf(SymbolID.Version_2525Ech1);
+            v = SymbolID.getVersion(newID);
             int c = SymbolID.getContext(symbolID);
-            if (c > 2)
+            if (c > 4)
                 newID += String.valueOf(SymbolID.StandardIdentity_Context_Reality);
             else
                 newID += String.valueOf(c);
@@ -476,9 +476,11 @@ public class SymbolUtilities {
             if (ec == 0)
                 newID += "000000";//root symbol for symbol set
             else if (SVGLookup.getInstance().getSVGLInfo(SVGLookup.getMainIconID(newID + ec + "0000"),v) == null) {
-                //set to invalid symbol since we couldn't find it in the lookup
+                //set to blank symbol
+                newID += "000000";
+                /*//set to invalid symbol since we couldn't find it in the lookup
                 newID = SymbolID.setSymbolSet(newID, 98);
-                newID += 100000;
+                newID += 100000;//*/
             }
             else
                 newID += String.format("%06d",ec);//we found it so add the entity code
@@ -733,10 +735,11 @@ public class SymbolUtilities {
     public static boolean isActionPoint(String symbolID)
     {
         MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
-        if(msi.getDrawRule()==DrawRules.POINT1)
+        if(msi != null && msi.getDrawRule()==DrawRules.POINT1)
         {
             int ec = SymbolID.getEntityCode(symbolID);
-            if(ec != 131300 && ec != 131301 && ec != 182600 && ec != 212800)
+            if(ec != 131300 && ec != 131301 && ec != 182600 && ec != 212800
+                    && ec != 360100 && ec != 360200 && ec != 360300)
                 return true;
         }
         return false;
@@ -988,10 +991,13 @@ public class SymbolUtilities {
             switch (ec)
             {
                 case 281300:
+                case 281301:
                 case 281400:
+                case 281401:
                 case 281500:
                 case 281600:
                 case 281700:
+                case 281701:
                     return true;
                 default:
             }
@@ -1087,6 +1093,7 @@ public class SymbolUtilities {
                 case 131900: //Airfield (AEGIS Only)
                 case 132000: //Target Handover
                 case 132100: //Key Terrain
+                case 132300: //Vital Ground
                 case 160300: //Target Point Reference
                 case 180100: //Air Control Point
                 case 180200: //Communications Check Point
@@ -1096,6 +1103,7 @@ public class SymbolUtilities {
                 case 210800: //Impact Point
                 case 211000: //Launched Torpedo
                 case 212800: //Harbor
+                case 213400: //Navigational reference waypoint
                 case 213500: //Sonobuoy
                 case 213501: //Ambient Noise Sonobuoy
                 case 213502: //Air Transportable Communication (ATAC) (Sonobuoy)
@@ -1123,10 +1131,16 @@ public class SymbolUtilities {
                 case 282001: //Tower, Low
                 case 282002: //Tower, High
                 case 281300: //Chemical Event
+                case 281301: //Chemical Event - toxic material
                 case 281400: //Biological Event
+                case 281402: //Biological Event - toxic material
                 case 281500: //Nuclear Event
                 case 281600: //Nuclear Fallout Producing Event
                 case 281700: //Radiological Event
+                case 281701: //Radiological Event - toxic material
+                case 360100: //Protection of cultural property - General
+                case 360200: //Protection of cultural property - Special
+                case 360300: //Protection of cultural property - Enhanced
                     return true;
                 default:
                     return false;

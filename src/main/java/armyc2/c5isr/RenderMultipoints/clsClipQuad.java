@@ -462,7 +462,10 @@ public final class clsClipQuad {
                 case TacticalLines.CATKBYFIRE:
                 case TacticalLines.CORDONSEARCH:
                 case TacticalLines.CORDONKNOCK:
+                case TacticalLines.DENY:
                 case TacticalLines.SECURE:
+                case TacticalLines.CONTROL:
+                case TacticalLines.LOCATE:
                 case TacticalLines.OCCUPY:
                 case TacticalLines.RETAIN:
                 case TacticalLines.ISOLATE:
