@@ -735,7 +735,7 @@ public class SymbolUtilities {
     public static boolean isActionPoint(String symbolID)
     {
         MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
-        if(msi.getDrawRule()==DrawRules.POINT1)
+        if(msi != null && msi.getDrawRule()==DrawRules.POINT1)
         {
             int ec = SymbolID.getEntityCode(symbolID);
             if(ec != 131300 && ec != 131301 && ec != 182600 && ec != 212800

@@ -189,7 +189,7 @@ public class MilStdIconRenderer
         ImageInfo temp = null;
         SVGSymbolInfo svgTemp = null;
         MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
-        if (msi == null)
+        /*if (msi == null)
         {
             //Attempt to fix the code or set if to invalid symbol if unfixable
             symbolID = SymbolUtilities.reconcileSymbolID(symbolID);
@@ -201,7 +201,7 @@ public class MilStdIconRenderer
         }
         if (msi != null && msi.getDrawRule() == DrawRules.DONOTDRAW) {
             return null;
-        }
+        }//*/
 
         if (ss==SymbolID.SymbolSet_ControlMeasure)
         {

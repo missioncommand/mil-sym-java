@@ -967,7 +967,7 @@
 			Electro-Optical Intercept	220106	10,11	Line	Line5	H	
 			Jammer	220107	10,11	Line	Line5	H	
 			Radio Direction Finder (RDF)	220108	10,11	Line	Line5	H
-	Deception			230000	10,11
+	Deception			230000	10
 		Decoy/Dummy/Deception		230100	10	Line	Line29
 		Decoy/Dummy and Feint		230200	10	Line	Line29
 	Fires Areas			240000	10,11				

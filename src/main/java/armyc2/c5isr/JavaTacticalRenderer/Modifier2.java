@@ -4483,6 +4483,9 @@ public class Modifier2 {
                 g2d.setBackground(Color.white);
             }
 
+            Point2D anchor = null;
+            Point2D anchorOffset = null;
+
             int direction = -1;
             Point glyphPosition = null;
             for (j = 0; j < tg.modifiers.size(); j++) {
@@ -4545,26 +4548,42 @@ public class Modifier2 {
                             justify = ShapeInfo.justify_left;
                         }
 
+                        //3rd point value is location to start perpendicular line from
                         pt3 = lineutility.ExtendDirectedLine(pt1, pt0, pt0, direction, lineFactor * stringHeight);
+                        //pt3 is the end point of the perpendicularline
 
                         glyphPosition = new Point((int) pt3.x, (int) pt3.y);
                         modifierPosition = new Point2D.Double(pt3.x, pt3.y);
+
+                        anchor = new Point2D.Double(pt0.x, pt0.y);
+                        anchorOffset = new Point2D.Double(pt3.x - pt0.x, pt3.y - pt0.y);
+
                         break;
                     case aboveStartInside:
+                        //returns pt3 which is based on the specified distance from pt0 along the line of pt0 to pt1.
                         pt3 = lineutility.ExtendAlongLineDouble(pt0, pt1, stringWidth);
 
                         glyphPosition = new Point((int) pt3.x, (int) pt3.y);
                         modifierPosition = new Point2D.Double((int) pt3.x, pt3.y);
+
+                        anchor = new Point2D.Double(pt0.x, pt0.y);
+                        anchorOffset = new Point2D.Double(pt3.x - pt0.x, pt3.y - pt0.y);
                         break;
                     case aboveEndInside:
+                        //returns pt3 which is based on the specified distance from pt0 along the line of pt1 to pt0.
                         pt3 = lineutility.ExtendAlongLineDouble(pt1, pt0, stringWidth);
 
                         glyphPosition = new Point((int) pt3.x, (int) pt3.y);
                         modifierPosition = new Point2D.Double((int) pt3.x, pt3.y);
+
+                        anchor = new Point2D.Double(pt1.x, pt1.y);
+                        anchorOffset = new Point2D.Double(pt3.x - pt1.x, pt3.y - pt1.y);
                         break;
                     case aboveMiddle:
                     case aboveMiddlePerpendicular:
                         pt2 = midPt;
+                        anchor = new Point2D.Double(midPt.x,midPt.y);
+
                         if (tg.get_Client().equals("2D")) {
                             lineFactor += 0.5;
                         }
@@ -4590,6 +4609,10 @@ public class Modifier2 {
                         justify = ShapeInfo.justify_center;
                         modifierPosition = new Point2D.Double(midPt.x, midPt.y);
 
+                        //anchor = new Point2D.Double(midPt.x, midPt.y);
+                        anchorOffset = new Point2D.Double(midPt.x - anchor.getX(), midPt.y - anchor.getY());
+
+
                         if(modifier.type == aboveMiddlePerpendicular) {
                             // Need to negate the original rotation
                             if (x1 > x2) {
@@ -4613,11 +4636,17 @@ public class Modifier2 {
                         glyphPosition = new Point(x, y);
                         justify = ShapeInfo.justify_center;
                         modifierPosition = new Point2D.Double(x, y);
+
+                        anchor = new Point2D.Double(x1, y1);
+                        anchorOffset = new Point2D.Double(x - x1, y - y1);
                         break;
                     case areaImage:
                         glyphPosition = new Point((int)x1, (int)y1);
                         justify = ShapeInfo.justify_center;
                         modifierPosition = new Point2D.Double((int)x1, (int)y1);
+
+                        anchor = new Point2D.Double(x1, y1);
+                        anchorOffset = new Point2D.Double(0, 0);
                         break;
                     case screen:    //for SCREEN, GUARD, COVER, not currently used
                         if (tg.Pixels.size() >= 14) {
@@ -4652,10 +4681,12 @@ public class Modifier2 {
                             x = (int) x1 - (int) stringWidth / 2;
                             y = (int) y1 - (int) stringHeight / 2 + (int) (lineFactor * stringHeight);
                             y = (int) y1 + (int) (stringHeight / 2) + (int) (lineFactor * stringHeight);
+                            anchor = new Point2D.Double(x1, y1);
                         } else {
                             theta = 0;
                             x = (int) tg.Pixels.get(0).x;
                             y = (int) tg.Pixels.get(0).y;
+                            anchor = new Point2D.Double(x, y);
                             x = (int) x - (int) stringWidth / 2;
                             y = (int) y - (int) stringHeight / 2 + (int) (lineFactor * stringHeight);
                             y = (int) y + (int) (stringHeight / 2) + (int) (lineFactor * stringHeight);
@@ -4663,6 +4694,8 @@ public class Modifier2 {
 
                         glyphPosition = new Point(x, y);
                         //glyphPosition=new Point2D.Double(x,y);
+                        //anchor = new Point2D.Double(x1, y1);
+                        anchorOffset = new Point2D.Double(x - anchor.getX(), y - anchor.getY());
                         break;
                     default:
                         break;
@@ -4699,6 +4732,8 @@ public class Modifier2 {
                 //shape2.setModifierStringPosition(glyphPosition);//M. Deutch 7-6-11
                 shape2.setModifierAngle(theta * 180 / Math.PI);
                 shape2.setModifierPosition(modifierPosition);
+                shape2.setModifierAnchor(anchor);
+                shape2.setModifierAnchorOffset(anchorOffset);
 
                 if (shape2 != null) {
                     shapes.add(shape2);

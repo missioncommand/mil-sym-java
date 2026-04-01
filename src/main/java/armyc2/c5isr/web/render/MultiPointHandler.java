@@ -1113,6 +1113,19 @@ public class MultiPointHandler {
                 double longitude = geoCoord.getX();
                 label.setModifierPosition(new Point2D.Double(longitude, latitude));
 
+                //Anchor Point for use with Anchor Offset////////////////////////
+                pixelCoord = label.getModifierAnchor();
+
+                geoCoord = ipc.PixelsToGeo(pixelCoord);
+
+                if (normalize) {
+                    geoCoord = NormalizeCoordToGECoord(geoCoord);
+                }
+                latitude = geoCoord.getY();
+                longitude = geoCoord.getX();
+
+                label.setModifierAnchor(new Point2D.Double(longitude, latitude));
+
             }   
 
             ////////////////////////////////////////////////////////////////////
