@@ -50,7 +50,7 @@ public class C2DLookup {
                     //parse first line
                     temp = line.split(delimiter);
 
-                    if(temp.length >= 3) {
+                    if(temp.length >= 4) {
                         _C2DLookup.put(temp[0], temp);
                     }
 
@@ -94,16 +94,35 @@ public class C2DLookup {
         if(parts==null)
             return null;
 
+        //set version
+        newCode = SymbolID.setVersion(newCode, Integer.parseInt(parts[1]));
         //set symbol set
-        newCode = SymbolID.setSymbolSet(newCode, Integer.parseInt(parts[1]));
+        newCode = SymbolID.setSymbolSet(newCode, Integer.parseInt(parts[2]));
         //set entity code
-        newCode = SymbolID.setEntityCode(newCode, Integer.parseInt(parts[2]));
-        //set sector modifier 1
-        if(!parts[3].isEmpty())
-            newCode = SymbolID.setModifier1(newCode, (parts[3]));
-        //set sector modifier 2
+        newCode = SymbolID.setEntityCode(newCode, Integer.parseInt(parts[3]));
+        //set ammplifier
         if(!parts[4].isEmpty())
-            newCode = SymbolID.setModifier1(newCode, (parts[4]));
+            newCode = SymbolID.setAmplifierDescriptor(newCode, Integer.parseInt(parts[4]));
+        //set sector modifier 1
+        if(!parts[5].isEmpty()) {
+            if(parts[5].length()==2)
+                newCode = SymbolID.setModifier1(newCode, (parts[5]));
+            else if(parts[5].length()==3)
+            {
+                newCode = SymbolID.setCommonModifier1(newCode, Integer.parseInt(parts[5].substring(0,1)));
+                newCode = SymbolID.setModifier1(newCode, parts[5].substring(1));
+            }
+        }
+        //set sector modifier 2
+        if(!parts[6].isEmpty()) {
+            if(parts[6].length()==2)
+                newCode = SymbolID.setModifier2(newCode, (parts[6]));
+            else if(parts[6].length()==3)
+            {
+                newCode = SymbolID.setCommonModifier2(newCode, Integer.parseInt(parts[6].substring(0,1)));
+                newCode = SymbolID.setModifier2(newCode, parts[6].substring(1));
+            }
+        }
 
         //get affiliation to set context and affiliation
         char aff = symbolID.charAt(1);
@@ -288,19 +307,6 @@ public class C2DLookup {
             }
         }
 
-        switch(SymbolID.getEntityCode(newCode))
-        {
-            case 151406://Axis of Advance for a Feint
-            case 140605://Direction of attack feint
-            case 270705://Dummy Minefield
-            case 270706://Dummy Minefield, Dynamic
-            case 270900://Decoy Mined Area
-            case 270901://Decoy Mined Area, Fenced
-                newCode = SymbolID.setVersion(newCode,10);
-                break;
-            default:
-                break;
-        }
 
         //country code
         if(includeCountryCode)
