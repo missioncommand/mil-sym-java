@@ -1,6 +1,8 @@
 package armyc2.c5isr.renderer.utilities;
 
 
+import com.github.weisj.jsvg.parser.SVGLoader;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -693,5 +695,11 @@ public class RendererUtilities {
 
         return retVal;
     }
+
+    /*public static BufferedImage renderSVG(String svg, int width, int height)
+    {
+        SVGLoader loader = new SVGLoader();
+        loader.
+    }/*/
 
 }

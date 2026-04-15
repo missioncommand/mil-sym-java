@@ -2,7 +2,8 @@ package armyc2.c5isr.renderer;
 
 
 import armyc2.c5isr.renderer.utilities.*;
-import com.github.weisj.jsvg.attributes.ViewBox;
+import com.github.weisj.jsvg.parser.LoaderContext;
+import com.github.weisj.jsvg.view.ViewBox;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -360,8 +361,8 @@ public class SinglePointRenderer implements SettingsEventListener{
                 com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
                 com.github.weisj.jsvg.SVGDocument svgDocument = null;
                 InputStream stream = new ByteArrayInputStream(strSVG.getBytes(StandardCharsets.UTF_8));
-                svgDocument = loader.load(stream);
-                com.github.weisj.jsvg.attributes.ViewBox vb = new ViewBox(0,0,bmp.getWidth(),bmp.getHeight());
+                svgDocument = loader.load(stream,null, LoaderContext.createDefault());
+                ViewBox vb = new ViewBox(0,0,bmp.getWidth(),bmp.getHeight());
                 Graphics2D g = bmp.createGraphics();
                 g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                 g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -711,8 +712,8 @@ public class SinglePointRenderer implements SettingsEventListener{
                 com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
                 com.github.weisj.jsvg.SVGDocument svgDocument = null;
                 InputStream stream = new ByteArrayInputStream(strSVG.getBytes(StandardCharsets.UTF_8));
-                svgDocument = loader.load(stream);
-                com.github.weisj.jsvg.attributes.ViewBox vb = new ViewBox(0,0,bmp.getWidth(),bmp.getHeight());
+                svgDocument = loader.load(stream,null, LoaderContext.createDefault());
+                ViewBox vb = new ViewBox(0,0,bmp.getWidth(),bmp.getHeight());
                 Graphics2D g = bmp.createGraphics();
                 g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                 g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -982,8 +983,8 @@ public class SinglePointRenderer implements SettingsEventListener{
                 com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
                 com.github.weisj.jsvg.SVGDocument svgDocument = null;
                 InputStream stream = new ByteArrayInputStream(strSVG.getBytes(StandardCharsets.UTF_8));
-                svgDocument = loader.load(stream);
-                com.github.weisj.jsvg.attributes.ViewBox vb = new ViewBox(0,0,bmp.getWidth(),bmp.getHeight());
+                svgDocument = loader.load(stream,null, LoaderContext.createDefault());
+                ViewBox vb = new ViewBox(0,0,bmp.getWidth(),bmp.getHeight());
                 Graphics2D g = bmp.createGraphics();
                 g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                 g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
