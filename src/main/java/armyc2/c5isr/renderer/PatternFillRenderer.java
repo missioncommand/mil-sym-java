@@ -5,8 +5,9 @@ import armyc2.c5isr.JavaTacticalRenderer.TGLight;
 import armyc2.c5isr.RenderMultipoints.clsUtility;
 import armyc2.c5isr.renderer.utilities.*;
 import com.github.weisj.jsvg.SVGDocument;
-import com.github.weisj.jsvg.attributes.ViewBox;
+import com.github.weisj.jsvg.parser.LoaderContext;
 import com.github.weisj.jsvg.parser.SVGLoader;
+import com.github.weisj.jsvg.view.ViewBox;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -88,7 +89,7 @@ public class PatternFillRenderer {
         resGraphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         resGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         InputStream stream = new ByteArrayInputStream(hatchFillSVGString.getBytes(StandardCharsets.UTF_8));
-        SVGDocument svgDocument = new SVGLoader().load(stream);
+        SVGDocument svgDocument = new SVGLoader().load(stream,null, LoaderContext.createDefault());
 
         if (svgDocument != null) {
             ViewBox vb = new ViewBox(0, 0, spacing, spacing);
