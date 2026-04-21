@@ -708,7 +708,7 @@
 		Bridgehead Line		141400	15,16	Line	Line1		
 		Holding Line		141500	15,16	Line	Line1		
 		Release Line		141600	15,16	Line	Line1		
-		Ambush		141700	15,16	Line	Line19		
+		Ambush		141700	15,16	Line	Line29
 		Handover Line		141800	15,16	Line	Line1		
 		Battle Handover Line		141900	15,16	Line	Line1		
 		Name Area of Interest Line (NAI)		141200	16	Line	Line1		
