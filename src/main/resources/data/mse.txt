@@ -2127,36 +2127,66 @@
 	Threat Actors			120000	15,16
 		Criminal		120100	16
 		Insider		120200	15,16
-	Agent			130000	15,16
-		Firewall		130100	15,16
-		Firmware		130200	15,16
-	Application			140000	15,16
+	Agent			130000	15
+		Firewall		130100	15
+		Firmware		130200	15
+	Application			140000	15
+		Fileserver		140200	15
+		Search Engine		140300	15
+		Social Media		140400	15
+	Threat			150000	15
+		Malware		150100	15
+		Phishing		150200	15
+	Data			160000	15
+		Digital Currency		160100	15
+		Persona		160200	15
+	Endpoint			170000	15
+		Server		170100	15
+		Workstation		170200	15
+		Portable Electronic Device (PED)		170300	15
+			Smartphone	170301	15
+			Tablet	170302	15
+			Laptop	170303	15
+			Health Monitor	170304	15
+			Smartvest	170305	15
+			Smartwatch	170306	15
+			Wearable	170307	15
+		Internet of Things Device		170400	15
+		Printer		170500	15
+		Router		170600	15
+		Switch		170700	15
+	Network			180000	15
+64	Unspecified			0	16
+	Agent			130000	16
+		Firewall		130100	16
+		Firmware		130200	16
+	Application			140000	16
 		Banking		140100	16
-		Fileserver		140200	15,16
-		Search Engine		140300	15,16
-		Social Media		140400	15,16
+		Fileserver		140200	16
+		Search Engine		140300	16
+		Social Media		140400	16
 		Database		140500	16
 		Service		140600	16
-	Threat			150000	15,16
-		Malware		150100	15,16
-		Phishing		150200	15,16
-	Data			160000	15,16
-		Digital Currency		160100	15,16
-		Persona		160200	15,16
-	Endpoint			170000	15,16
-		Server		170100	15,16
-		Workstation		170200	15,16
-		Portable Electronic Device (PED)		170300	15,16
-			Smartphone	170301	15,16
-			Tablet	170302	15,16
-			Laptop	170303	15,16
-			Health Monitor	170304	15,16
-			Smartvest	170305	15,16
-			Smartwatch	170306	15,16
-			Wearable	170307	15,16
-		Internet of Things Device		170400	15,16
-		Printer		170500	15,16
-		Router		170600	15,16
-		Switch		170700	15,16
+	Threat			150000	16
+		Malware		150100	16
+		Phishing		150200	16
+	Data			160000	16
+		Digital Currency		160100	16
+		Persona		160200	16
+	Endpoint			170000	16
+		Server		170100	16
+		Workstation		170200	16
+		Portable Electronic Device (PED)		170300	16
+			Smartphone	170301	16
+			Tablet	170302	16
+			Laptop	170303	16
+			Health Monitor	170304	16
+			Smartvest	170305	16
+			Smartwatch	170306	16
+			Wearable	170307	16
+		Internet of Things Device		170400	16
+		Printer		170500	16
+		Router		170600	16
+		Switch		170700	16
 		Remote Operated Relay (ROR)		170800	16
-	Network			180000	15,16
+	Network			180000	16

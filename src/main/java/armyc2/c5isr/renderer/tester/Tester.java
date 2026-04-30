@@ -294,6 +294,7 @@ public class Tester extends javax.swing.JFrame {
         DefaultMutableTreeNode msn46 = new DefaultMutableTreeNode(new MSNodeInfo("46","Oceanographic"));
         DefaultMutableTreeNode msn47 = new DefaultMutableTreeNode(new MSNodeInfo("47","Meteorological Space"));
         DefaultMutableTreeNode msn60 = new DefaultMutableTreeNode(new MSNodeInfo("60","Cyberspace"));
+        DefaultMutableTreeNode msn64 = new DefaultMutableTreeNode(new MSNodeInfo("64","Cyberspace Equipment"));//APP6Ev2 only
         DefaultMutableTreeNode msn99 = new DefaultMutableTreeNode(new MSNodeInfo("99","CUSTOM"));
         
         
@@ -417,6 +418,10 @@ public class Tester extends javax.swing.JFrame {
                     {
                         msn60.add(MSNI);
                     }
+                    else if(id.startsWith("64"))
+                    {
+                        msn64.add(MSNI);
+                    }
                     else if(id.startsWith("99"))
                     {
                         msn99.add(MSNI);
@@ -467,6 +472,8 @@ public class Tester extends javax.swing.JFrame {
         root.add(msn46);
         root.add(msn47);
         root.add(msn60);
+        if(version == SymbolID.Version_APP6Ech2)
+            root.add(msn64);
         
         msTree.getSelectionModel().setSelectionMode((TreeSelectionModel.SINGLE_TREE_SELECTION));
         
