@@ -714,7 +714,7 @@
 		Name Area of Interest Line (NAI)		141200	16	Line	Line1		
 		Mobility Corridor		142100	16	Line	Line26	B,H	
 	Maneuver Areas			150000	15,16				
-		Area		150100	15,16		Area1		
+		Area		150100	15,16	Area	Area1
 		Assembly Area		150200	15,16	Area	Area1	T	
 		Action Area		150500	15,16				
 			Joint Tactical Action Area (JTAA)	150501	15,16	Area	Area1	T,N,W,W1	
@@ -742,7 +742,7 @@
 		Assault Position		151500	15,16	Area	Area1	T	
 		Attack Position		151600	15,16	Area	Area1	T	
 		Objective		151700	15,16	Area	Area1	T	
-		Encirclement		151800	15,16		Area1		
+		Encirclement		151800	15,16	Area	Area1
 		Penetration Box		151900	15,16	Area	Area1		
 		Attack by Fire Position		152000	15,16	Area	Area7		
 		Support by Fire		152100	15,16	Area	Area8		
