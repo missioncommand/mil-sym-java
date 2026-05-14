@@ -511,6 +511,9 @@ public class MSInfo {
             case "60":
                 name = "Cyberspace";
                 break;
+            case "64":
+                name = "Cyberspace Equipment";
+                break;
             default:
                 name = "UNKNOWN";
         }

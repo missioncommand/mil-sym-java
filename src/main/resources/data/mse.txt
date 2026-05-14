@@ -2131,7 +2131,6 @@
 		Firewall		130100	15
 		Firmware		130200	15
 	Application			140000	15
-		Fileserver		140200	15
 		Search Engine		140300	15
 		Social Media		140400	15
 	Threat			150000	15
@@ -2162,7 +2161,6 @@
 		Firmware		130200	16
 	Application			140000	16
 		Banking		140100	16
-		Fileserver		140200	16
 		Search Engine		140300	16
 		Social Media		140400	16
 		Database		140500	16
