@@ -2123,7 +2123,7 @@
 		Internet Service Provider		110800	15,16
 		Security 		110900	15,16
 		Operations		111000	15,16
-		Security Operations Center		111100	16
+		Security Operations Centre		111100	16
 	Threat Actors			120000	15,16
 		Criminal		120100	16
 		Insider		120200	15,16
