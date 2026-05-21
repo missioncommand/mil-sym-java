@@ -82,6 +82,135 @@ public class ModifierRenderer implements SettingsEventListener
         return _instance;
     }
 
+    private static boolean hasPlannedCircle(String symbolID)
+    {
+        if(SymbolID.getVersion(symbolID)==SymbolID.Version_APP6Ech2 &&
+                SymbolID.getStatus(symbolID)==SymbolID.Status_Planned_Anticipated_Suspect &&
+                SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_ControlMeasure)
+        {
+            int ec = SymbolID.getEntityCode(symbolID);
+            switch (ec)
+            {
+                case 130400:
+                case 210700:
+                case 210800:
+                case 211000:
+                case 211100:
+                case 211200:
+                case 211400:
+                case 212000:
+                case 212100:
+                case 212200:
+                case 213000:
+                case 213100:
+                case 213200:
+                case 213300:
+                case 214900:
+                case 215000:
+                case 215100:
+                case 215200:
+                case 215300:
+                case 215400:
+                case 215500:
+                case 215600:
+                case 215700:
+                case 215800:
+                case 215900:
+                case 216000:
+                case 216100:
+                case 216200:
+                case 216300:
+                case 216400:
+                case 216500:
+                case 216600:
+                case 216700:
+                case 216800:
+                case 216900:
+                case 217000:
+                case 218000:
+                case 218100:
+                case 218200:
+                case 218300:
+                case 218500:
+                case 218600:
+                case 218700:
+                case 218900:
+                case 219100:
+                case 219200:
+                case 282001:
+                case 282002:
+                case 280900:
+                case 281000:
+                case 281100:
+                    return true;
+                default:
+                    return false;
+            }
+            //Check if it's a symbol that has this
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param bounds full image bounds of symbol so far
+     * @param symbolID 30 character string
+     * @return SVGSymbolInfo containing circle SVG string and its bounds
+     */
+    public static SVGSymbolInfo createPlannedCircle(Rectangle2D bounds, String symbolID)
+    {
+        if(!hasPlannedCircle(symbolID))
+            return null;
+
+        Point2D offset = new Point2D.Double(bounds.getCenterX() - 305.0, bounds.getCenterY() - 391.0);
+
+        int cx = Math.round(305f);
+        int cy = Math.round(391f);
+        float cRadius = 150;
+        float cDiameter = cRadius*2;
+        int cstroke = 9;
+        double scale = 1;
+
+        if(bounds.getHeight() > bounds.getWidth())
+        {
+            scale = bounds.getHeight() * 1.3 / cDiameter;//want to scale circle a little larger than the symbol
+        }
+        else
+        {
+            scale = bounds.getWidth() * 1.25 / cDiameter;
+        }
+
+        String lineColor="#000000";
+
+        String transform = " transform=\"translate(" + (cx) + "," + (cy) + ") scale(" + scale + ") translate(" + -(cx) + "," + -(cy) + ")\"";
+
+        StringBuilder svg = new StringBuilder();
+        svg.append("<circle cx=\"").append(cx).append("\" cy=\"").append(cy).append("\" r=\"").append(cRadius).append("\" fill=\"none\" stroke=\"white\" stroke-width=\"").append(cstroke-2).append("\"");
+        svg.append(transform);
+        svg.append("/>");
+        svg.append("<circle cx=\"").append(cx).append("\" cy=\"").append(cy).append("\" r=\"").append(cRadius).append("\" fill=\"none\" stroke=\"").append(lineColor).append("\" stroke-width=\"").append(cstroke).append("\"");
+        svg.append(" stroke-dasharray=\"2,11,14,11,85,11,14,11,151,11,14,11,90,11,14,11,90,11,14,11,90,11,14,11,90,11,14,11,105\"");
+        svg.append(transform);
+        svg.append("/>");
+
+        svg.insert(0,"<g " + "transform=\"translate(" + (float)offset.getX() + "," + (float)offset.getY() + ")\">");
+        svg.append("</g>");
+
+
+        double radius = Math.ceil((cRadius + (cstroke/2f)) * scale);
+
+        Rectangle2D cBounds = new Rectangle2D.Double(bounds.getCenterX() - radius, bounds.getCenterY() - radius, radius*2, radius*2);
+
+        //SVGSymbolInfo(String svg, Point anchorPoint, Rect symbolBounds, Rect svgBounds)
+
+        return new SVGSymbolInfo(svg.toString(),new Point2D.Double(bounds.getCenterX(),bounds.getCenterY()),bounds,cBounds);
+        /*
+          <circle cx="305" cy="391" r="150" fill="none" stroke="white" stroke-width="7" />
+            <circle cx="305" cy="391" r="150" fill="none" stroke="black" stroke-width="9"
+        stroke-dasharray="2,11,14,11,85,11,14,11,151,11,14,11,90,11,14,11,90,11,14,11,90,11,14,11,90,11,14,11,105"
+        stroke-dashoffset="0" transform="matrix(1.5, 0, 0, 1.5, -152.5, -195.5)"
+            />*/
+    }
 
     public static SymbolDimensionInfo processUnitDisplayModifiers(SymbolDimensionInfo sdi, String symbolID, Map<String,String> modifiers, Map<String,String> attributes, FontRenderContext frc)
     {
@@ -3467,8 +3596,11 @@ public class ModifierRenderer implements SettingsEventListener
                     if (strText != null) {
                         ti = new TextInfo(strText, 0, 0, modifierFont, frc);
                         labelWidth = (int)Math.round(ti.getTextBounds().getWidth());
-                        x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.7));
-                        y = (int)bounds.getMinY() + labelHeight;// + (bounds.getHeight * 0.5);
+                        if(SymbolID.getStatus(symbolID)==SymbolID.Status_Planned_Anticipated_Suspect)
+                            x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.9));
+                        else
+                            x = (int)(bounds.getMinX() + (bounds.getWidth() * 0.8));
+                        y = (int)bounds.getMinY() + labelHeight - descent;// + (bounds.getHeight * 0.5);
                         //y = y + (labelHeight * 0.5);
 
                         ti.setLocation(Math.round(x), Math.round(y));
@@ -3907,7 +4039,7 @@ public class ModifierRenderer implements SettingsEventListener
                 g2d.setFont(modifierFont);
                 //render////////////////////////////////////////////////////////
                 //draw original icon with potential modifiers.
-                g2d.drawImage((Image) ii.getImage(), (int) symbolBounds.getX(), (int) symbolBounds.getY(), null);
+                g2d.drawImage((Image) ii.getImage(), (int) imageBounds.getX(), (int) imageBounds.getY(), null);
                 //ctx.drawBitmap(ii.getImage(), symbolBounds.getX(), symbolBounds.getY(), null);
 
                 renderText(g2d, arrMods, textColor, textBackgroundColor);

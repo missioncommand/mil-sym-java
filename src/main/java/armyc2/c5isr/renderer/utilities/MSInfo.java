@@ -63,7 +63,7 @@ public class MSInfo {
             if(_Path == null)
                 _Path = _SymbolSet + " / ";
         }
-        if(entityCode != null & entityCode.length()==6)
+        if(entityCode != null && entityCode.length()==6)
             _EntityCode = entityCode;
 
         _Geometry = "point";
