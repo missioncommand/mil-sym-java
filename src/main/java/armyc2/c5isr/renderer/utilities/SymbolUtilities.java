@@ -1247,7 +1247,7 @@ public class SymbolUtilities {
             }
         }
 
-        return new Point(Math.round((float)centerX),Math.round((float)centerY));
+        return new Point((int)Math.round(centerX + bounds.getX()),(int)Math.round(centerY + bounds.getY()));
     }
 
 

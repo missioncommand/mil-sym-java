@@ -748,11 +748,10 @@ public class SinglePointRenderer implements SettingsEventListener{
                 g.dispose();
 
                 Point centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, symbolBounds);
-                /*if(offset > 0)
-                    centerPoint.setLocation(centerPoint.x + symbolBounds.getX(), centerPoint.y + symbolBounds.getY());*/
-                if(symbolBounds.getX() > 0 || symbolBounds.getY() > 0)
-                    centerPoint.translate((int)symbolBounds.getX(),(int)symbolBounds.getY());
 
+                //now that we're done building symbol and applying outlines if needed,
+                //imageBounds and symbolBounds can be considered to be the same
+                symbolBounds = RectUtilities.copyRect(imageBounds);//circle.getSymbolBounds();
 
                 ii = new ImageInfo(bmp, centerPoint, symbolBounds);
 

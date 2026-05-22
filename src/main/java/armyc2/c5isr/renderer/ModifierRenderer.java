@@ -2952,7 +2952,7 @@ public class ModifierRenderer implements SettingsEventListener
         ArrayList<TextInfo> arrMods = new ArrayList<TextInfo>();
         boolean duplicate = false;
 
-        Rectangle2D bounds = RectUtilities.copyRect(sdi.getSymbolBounds());
+        Rectangle2D bounds = RectUtilities.copyRect(sdi.getImageBounds());
         Rectangle2D symbolBounds = RectUtilities.copyRect(sdi.getSymbolBounds());
         Point centerPoint = new Point(sdi.getSymbolCenterPoint());
         Rectangle2D imageBounds = RectUtilities.copyRect(sdi.getImageBounds());
@@ -3908,7 +3908,7 @@ public class ModifierRenderer implements SettingsEventListener
                         domBounds = domBounds.createUnion(new Rectangle2D.Double(temp.getX(), temp.getY(),0,0));
                     }
                 }
-                imageBounds = imageBounds.createUnion(domBounds);
+                //imageBounds = imageBounds.createUnion(domBounds);
             }
         }
         // </editor-fold>
@@ -3939,7 +3939,7 @@ public class ModifierRenderer implements SettingsEventListener
                 //fdiBounds.offset(0, shiftY);
             }
 
-            imageBounds = imageBounds.createUnion(fdiBounds);
+            //imageBounds = imageBounds.createUnion(fdiBounds);
 
         }
         // </editor-fold>
@@ -4039,7 +4039,7 @@ public class ModifierRenderer implements SettingsEventListener
                 g2d.setFont(modifierFont);
                 //render////////////////////////////////////////////////////////
                 //draw original icon with potential modifiers.
-                g2d.drawImage((Image) ii.getImage(), (int) imageBounds.getX(), (int) imageBounds.getY(), null);
+                g2d.drawImage((Image) ii.getImage(), (int) symbolBounds.getX(), (int) symbolBounds.getY(), null);
                 //ctx.drawBitmap(ii.getImage(), symbolBounds.getX(), symbolBounds.getY(), null);
 
                 renderText(g2d, arrMods, textColor, textBackgroundColor);

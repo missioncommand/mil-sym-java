@@ -751,8 +751,10 @@ public class SinglePointSVGRenderer {
 
                 //Point centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, RectUtilities.makeRectangle2DFromRect(offset, offset, symbolBounds.getWidth()-offset, symbolBounds.getHeight()-offset));
                 Point centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, symbolBounds);
-                if(symbolBounds.getX() > 0 || symbolBounds.getY() > 0)
-                    centerPoint.translate((int)symbolBounds.getX(),(int)symbolBounds.getY());
+
+                //now that we're done building symbol and applying outlines if needed,
+                //imageBounds and symbolBounds can be considered to be the same
+                symbolBounds = RectUtilities.copyRect(imageBounds);//circle.getSymbolBounds();
 
                 si = new SVGSymbolInfo(sbGroupUnit.toString(), centerPoint,symbolBounds,imageBounds);
 
