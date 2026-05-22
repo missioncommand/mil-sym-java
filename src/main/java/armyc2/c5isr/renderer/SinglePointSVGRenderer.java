@@ -466,6 +466,7 @@ public class SinglePointSVGRenderer {
         double scale = 1.0;
         String lineColor = null;//SymbolUtilitiesD.getLineColorOfAffiliation(symbolID);
         String fillColor = null;
+        int outlineWidth = RendererUtilities.calculateOutlineWidth();
         float alpha = -1;
 
         boolean keepUnitRatio = true;
@@ -480,21 +481,17 @@ public class SinglePointSVGRenderer {
         SVGInfo siIcon = null;
         String mod1ID = null;
         SVGInfo siMod1 = null;
-        int top = 0;
-        int left = 0;
-        int width = 0;
-        int height = 0;
+        float top = 0;
+        float left = 0;
+        float width = 0;
+        float height = 0;
         String svgStart = null;
         String strSVG = null;
 
         double ratio = 0;
 
         Rectangle2D symbolBounds = null;
-        Rectangle2D fullBounds = null;
-        BufferedImage fullBMP = null;
-
-
-        ImageInfo ii = null;
+        Rectangle2D imageBounds = null;
 
 
         try
@@ -595,7 +592,9 @@ public class SinglePointSVGRenderer {
                 siMod1 = SVGLookup.getInstance().getSVGLInfo(mod1ID, version);
                 float borderPadding = 0;
                 if (outlineSymbol) {
-                    borderPadding = RendererUtilities.findWidestStrokeWidth(siIcon.getSVG());
+                    borderPadding = (int)Math.ceil(outlineWidth/2f);
+                    if(borderPadding % 2 > 0)
+                        borderPadding++;
                 }
 
                 //Oceanographic / Bottom Feature - essentially italic serif fonts need more vertical space
@@ -648,17 +647,34 @@ public class SinglePointSVGRenderer {
                 //Set dash array depending on affiliation and status
                 siIcon = RendererUtilities.setAffiliationDashArray(symbolID, siIcon);
 
+                //Generate Affiliation Planned Circle for version 16
+                SVGSymbolInfo circle = ModifierRenderer.createPlannedCircle(siIcon.getBbox(),symbolID);
+                String svgCircle = "";
+                if(circle != null)
+                {
+                    symbolBounds = circle.getImageBounds();
+                    top = (int)Math.floor(circle.getImageBounds().getY());
+                    left = (int)Math.floor(circle.getImageBounds().getX());
+                    width = (int)Math.ceil(circle.getImageBounds().getWidth() + (circle.getImageBounds().getX() - left));
+                    height = (int)Math.ceil(circle.getImageBounds().getHeight() + (circle.getImageBounds().getY() - top));
+                    if(keepUnitRatio)
+                        pixelSize = (int)(pixelSize * (width / Math.max(siIcon.getBbox().getWidth(),siIcon.getBbox().getHeight())));
+                    String newSVG = siIcon.getSVG().substring(0,siIcon.getSVG().lastIndexOf("</g>"));
+                    newSVG += circle.getSVG() + "</g>";
+                    siIcon = new SVGInfo(siIcon.getID(),circle.getImageBounds(), newSVG);
+                }
+
                 //update line and fill color of frame SVG
                 if(msi.getSymbolSet() == SymbolID.SymbolSet_ControlMeasure && (lineColor != null || fillColor != null)) {
                     if (outlineSymbol) {
                         // create outline with larger stroke-width first (if selected)
-                        strSVGIcon = RendererUtilities.setSVGSPCMColors(symbolID, siIcon.getSVG(), RendererUtilities.getIdealOutlineColor(RendererUtilities.getColorFromHexString(lineColor)), RendererUtilities.getColorFromHexString(fillColor), true);
+                        strSVGIcon = RendererUtilities.setSVGSPCMColors(symbolID, siIcon.getSVG(), RendererUtilities.getIdealOutlineColor(RendererUtilities.getColorFromHexString(lineColor)), RendererUtilities.getColorFromHexString(fillColor), true,siIcon.getBbox(),pixelSize,outlineWidth);
                     }
                     else
                         strSVGIcon = "";
 
                     // append normal symbol SVG to be layered on top of outline
-                    strSVGIcon += RendererUtilities.setSVGSPCMColors(symbolID, siIcon.getSVG(), RendererUtilities.getColorFromHexString(lineColor), RendererUtilities.getColorFromHexString(fillColor), false);
+                    strSVGIcon += RendererUtilities.setSVGSPCMColors(symbolID, siIcon.getSVG(), RendererUtilities.getColorFromHexString(lineColor), RendererUtilities.getColorFromHexString(fillColor));
                 }
                 else//weather symbol (don't change color of weather graphics)
                     strSVGIcon = siIcon.getSVG();
@@ -668,16 +684,21 @@ public class SinglePointSVGRenderer {
                 {
                     if (outlineSymbol) {
                         // create outline with larger stroke-width first (if selected)
-                        strSVGIcon += RendererUtilities.setSVGSPCMColors(mod1ID, siMod1.getSVG(), RendererUtilities.getIdealOutlineColor(RendererUtilities.getColorFromHexString("#00A651")), RendererUtilities.getColorFromHexString("#00A651"), true);
+                        strSVGIcon += RendererUtilities.setSVGSPCMColors(mod1ID, siMod1.getSVG(), RendererUtilities.getIdealOutlineColor(RendererUtilities.getColorFromHexString("#00A651")), RendererUtilities.getColorFromHexString("#00A651"), true,siIcon.getBbox(),pixelSize,outlineWidth);
                     }
                     //strSVGIcon += siMod1.getSVG();
-                    strSVGIcon += RendererUtilities.setSVGSPCMColors(mod1ID, siMod1.getSVG(), RendererUtilities.getColorFromHexString(lineColor), RendererUtilities.getColorFromHexString(fillColor), false);
+                    strSVGIcon += RendererUtilities.setSVGSPCMColors(mod1ID, siMod1.getSVG(), RendererUtilities.getColorFromHexString(lineColor), RendererUtilities.getColorFromHexString(fillColor));
                 }
 
                 if (pixelSize > 0)
                 {
-                    symbolBounds = RectUtilities.toRectangle(left,top,width,height);//actual measurement of symbol svg
-                    rect = RectUtilities.copyRect(symbolBounds);
+                    imageBounds = RectUtilities.toRectangle(left,top,width,height);//actual measurement of symbol svg
+                    if(circle != null)
+                        symbolBounds = circle.getSymbolBounds();
+                    else
+                        symbolBounds = RectUtilities.copyRect(imageBounds);
+
+                    rect = RectUtilities.copyRect(imageBounds);
 
                     //adjust size
                     float p = pixelSize;
@@ -687,13 +708,14 @@ public class SinglePointSVGRenderer {
                     ratio = Math.min((p / h), (p / w));
 
                     //measurement of target size/location of symbol after being translated/scaled into the new SVG
-                    symbolBounds = RectUtilities.toRectangle(0, 0, w * ratio, h * ratio);//.makeRect(0f, 0f, w * ratio, h * ratio);
+                    symbolBounds = RectUtilities.toRectangle((symbolBounds.getX() - imageBounds.getX())*ratio, (symbolBounds.getY() - imageBounds.getY())*ratio, symbolBounds.getWidth() * ratio, symbolBounds.getHeight() * ratio);
+                    imageBounds = RectUtilities.toRectangle(0f, 0f, w * ratio, h * ratio);
 
                     //make sure border padding isn't excessive.
-                    w = symbolBounds.getWidth();
-                    h = symbolBounds.getHeight();
+                    w = imageBounds.getWidth();
+                    h = imageBounds.getHeight();
 
-                    if(borderPadding > (h * 0.1))
+                    /*if(borderPadding > (h * 0.1))
                     {
                         borderPadding = (float)(h * 0.1);
                     }
@@ -704,18 +726,15 @@ public class SinglePointSVGRenderer {
 
                 }
 
-                Rectangle2D borderPaddingBounds = null;
                 int offset = 0;
                 if(msi.getSymbolSet()==SymbolID.SymbolSet_ControlMeasure && outlineSymbol && borderPadding != 0)
                 {
-                    borderPaddingBounds = RectUtilities.toRectangle(0, 0, (rect.getWidth()+(borderPadding)) * ratio, (rect.getHeight()+(borderPadding)) * ratio);//.makeRect(0f, 0f, w * ratio, h * ratio);
-                    symbolBounds = borderPaddingBounds;
-
-                    //grow size SVG to accommodate the outline we added
-                    offset = (int)borderPadding/2;//4;
-                    RectUtilities.grow(rect, offset);
-
+                    RectUtilities.grow(rect, (int)Math.ceil(borderPadding / (float)ratio));
+                    offset = (int)borderPadding;
                 }
+
+                imageBounds = RectUtilities.toRectangle(0, 0, (int)(imageBounds.getWidth() + Math.round(borderPadding)*2), (int)(imageBounds.getHeight() + Math.round(borderPadding)*2));
+                RectUtilities.shift(symbolBounds,offset,offset);
 
                 String strLineJoin = "";
 
@@ -731,13 +750,13 @@ public class SinglePointSVGRenderer {
                 }
 
                 //Point centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, RectUtilities.makeRectangle2DFromRect(offset, offset, symbolBounds.getWidth()-offset, symbolBounds.getHeight()-offset));
-                Point centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, RectUtilities.makeRectangle2DFromRect(0, 0, symbolBounds.getWidth(), symbolBounds.getHeight()));
+                Point centerPoint = SymbolUtilities.getCMSymbolAnchorPoint(symbolID, symbolBounds);
 
-                if(borderPaddingBounds != null) {
-                    RectUtilities.grow(symbolBounds, 4);
-                }
+                //now that we're done building symbol and applying outlines if needed,
+                //imageBounds and symbolBounds can be considered to be the same
+                symbolBounds = RectUtilities.copyRect(imageBounds);//circle.getSymbolBounds();
 
-                si = new SVGSymbolInfo(sbGroupUnit.toString(), centerPoint,symbolBounds,symbolBounds);
+                si = new SVGSymbolInfo(sbGroupUnit.toString(), centerPoint,symbolBounds,imageBounds);
 
             }
 
@@ -792,7 +811,7 @@ public class SinglePointSVGRenderer {
             double transX = si.getImageBounds().getX() * -1;
             double transY = si.getImageBounds().getY() * -1;
             Point2D anchor = si.getSymbolCenterPoint();
-            Rectangle2D imageBounds = si.getImageBounds();
+            imageBounds = si.getImageBounds();
             if(transX > 0 || transY > 0)
             {
                 ShapeUtilities.offset(anchor,transX,transY);

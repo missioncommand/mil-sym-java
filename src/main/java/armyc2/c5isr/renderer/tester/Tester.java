@@ -1264,8 +1264,10 @@ public class Tester extends javax.swing.JFrame {
         g2d.setColor(new Color(255,0,0,255));
         Point center = ii.getSymbolCenterPoint();
         Ellipse2D point = new Ellipse2D.Double(center.x-1,center.y-1,2,2);//ellipse is built in a rectangle
-        g2d.draw(point);
-        g2d.fill(point);
+        //g2d.draw(point);
+        g2d.drawLine(center.x-1,center.y, center.x+1,center.y );
+        g2d.drawLine(center.x,center.y-1, center.x,center.y+1 );
+        //g2d.fill(point);
 
         //Symbol BORDER
         Rectangle2D bbox =  ii.getSymbolBounds();

@@ -1171,8 +1171,8 @@ public class SymbolUtilities {
     public static Point getCMSymbolAnchorPoint(String symbolID, Rectangle2D bounds)
     {
 
-        double centerX = (bounds.getWidth()/2) - 1;//-1 because width might be 37 but the points are only 0 - 36
-        double centerY = (bounds.getHeight()/2) - 1;
+        double centerX = (bounds.getWidth()/2)-0.5;
+        double centerY = (bounds.getHeight()/2)-0.5;
 
         int ss = SymbolID.getSymbolSet(symbolID);
         int ec = SymbolID.getEntityCode(symbolID);
@@ -1205,7 +1205,7 @@ public class SymbolUtilities {
                     centerX = 0;
                     break;
                 case DrawRules.POINT16://Tower  //circle at base of tower
-                    centerY = (bounds.getHeight() * 0.87);
+                    centerY = (bounds.getHeight() * 0.89);
                     break;
                 case DrawRules.POINT2://Several different symbols
                     if(ec == 280500)//Wide Area Antitank Mine
@@ -1247,7 +1247,7 @@ public class SymbolUtilities {
             }
         }
 
-        return new Point(Math.round((float)centerX),Math.round((float)centerY));
+        return new Point((int)Math.round(centerX + bounds.getX()),(int)Math.round(centerY + bounds.getY()));
     }
 
 
