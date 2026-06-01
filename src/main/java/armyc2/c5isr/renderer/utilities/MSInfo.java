@@ -625,13 +625,13 @@ public class MSInfo {
                 points[0] = 2;
                 points[1] = 300;
                 break;
-            case DrawRules.LINE26:
-            case DrawRules.LINE27:
-                points[0] = 3;
-                if (version >= SymbolID.Version_2525E)
-                    points[1] = 4;
-                else
-                    points[1] = 3;
+            case DrawRules.LINE26: //like Screen 25342203
+            case DrawRules.LINE27: //like Seize 25342300
+                if (version >= SymbolID.Version_2525E)//always 4 points
+                    points[0] = 4;
+                else//3 or 4 points total
+                    points[0] = 3;
+                points[1] = 4;
                 break;
             case DrawRules.AXIS1:
             case DrawRules.AXIS2:
