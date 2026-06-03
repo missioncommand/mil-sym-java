@@ -738,7 +738,7 @@
 		Handover Line		141800	10	Line	Line1		
 		Battle Handover Line		141900	10	Line	Line1		
 	Maneuver Areas			150000	10,11				
-		Area		150100	10,11		Area1		
+		Area		150100	10,11	Area	Area1
 		Assembly Area		150200	10,11	Area	Area1	T	
 		Occupied Assembly Area		150300	10,11	Area	Area1	T	
 		Action Area		150500	10,11				
@@ -766,7 +766,7 @@
 		Assault Position		151500	10,11	Area	Area1	T	
 		Attack Position		151600	10,11	Area	Area1	T	
 		Objective		151700	10,11	Area	Area1	T	
-		Encirclement		151800	10,11		Area1		
+		Encirclement		151800	10,11	Area	Area1
 		Penetration Box		151900	10,11	Area	Area1		
 		Attack by Fire Position		152000	10,11	Area	Area7		
 		Support by Fire		152100	10,11	Area	Area8		

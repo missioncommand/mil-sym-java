@@ -2303,8 +2303,8 @@ public class Modifier2 {
                     POINT2 ptDP1 = lineutility.ExtendLine2Double(pt1,pt0,bi.getWidth()/2,0);
                     POINT2 ptDP2 = lineutility.ExtendLine2Double(ptNextToLast, ptLast,bi.getWidth()/2,0);
 
-                    AddIntegralAreaModifier(tg,bi,toEnd,0,ptDP1,ptDP1,false);
-                    AddIntegralAreaModifier(tg,bi,toEnd,0,ptDP2,ptDP2,false);
+                    AddIntegralAreaModifier(tg,bi,toEnd,0,pt0,ptDP1,false);
+                    AddIntegralAreaModifier(tg,bi,toEnd,0,ptLast,ptDP2,false);
                     break;
                 case TacticalLines.BS_LINE:
                 case TacticalLines.BBS_LINE:
@@ -4557,6 +4557,8 @@ public class Modifier2 {
 
                         anchor = new Point2D.Double(pt0.x, pt0.y);
                         anchorOffset = new Point2D.Double(pt3.x - pt0.x, pt3.y - pt0.y);
+                        if(image != null)//images are centered and don't have text justification
+                            anchorOffset = new Point2D.Double(pt1.x - pt0.x, pt1.y - pt0.y);
 
                         break;
                     case aboveStartInside:

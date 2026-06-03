@@ -2042,7 +2042,7 @@ public class MultiPointHandler {
         //AffineTransform at = shapeInfo.getAffineTransform();
         //Point2D coord = (Point2D)new Point2D.Double(at.getTranslateX(), at.getTranslateY());
         //Point2D coord = (Point2D) new Point2D.Double(shapeInfo.getGlyphPosition().getX(), shapeInfo.getGlyphPosition().getY());
-        Point2D coord = (Point2D) new Point2D.Double(shapeInfo.getModifierPosition().getX(), shapeInfo.getModifierPosition().getY());
+        Point2D coord = new Point2D.Double(shapeInfo.getModifierPosition().getX(), shapeInfo.getModifierPosition().getY());
         Point2D geoCoord = ipc.PixelsToGeo(coord);
         //M. Deutch 9-27-11
         if (normalize) {
@@ -2091,9 +2091,28 @@ public class MultiPointHandler {
             //JSONed.append(",\"labelAlign\":\"lm\"");
             JSONed.append(",\"labelAlign\":\"");
             JSONed.append(strJustify);
-            JSONed.append("\",\"labelBaseline\":\"alphabetic");
-            JSONed.append("\",\"labelXOffset\":0");
-            JSONed.append(",\"labelYOffset\":0");
+            JSONed.append("\",\"labelBaseline\":\"alphabetic\"");
+
+            //Process Anchor point if available
+            if(shapeInfo.getModifierAnchor() != null)
+            {
+                Point2D anchorPoint = ipc.PixelsToGeo(shapeInfo.getModifierAnchor());
+                if(normalize)
+                    anchorPoint = NormalizeCoordToGECoord(anchorPoint);
+                anchorPoint = new Point2D.Double(Math.round(anchorPoint.getX() * 100000000.0) / 100000000.0,Math.round(anchorPoint.getY() * 100000000.0) / 100000000.0);
+
+                JSONed.append(",\"anchorPoint\":{\"type\":\"Point\",\"coordinates\":[");
+                JSONed.append(anchorPoint.getX());
+                JSONed.append(",");
+                JSONed.append(anchorPoint.getY());
+                JSONed.append("]");
+                JSONed.append("}");
+
+                JSONed.append(",\"anchorOffsetX\":").append(Math.round(shapeInfo.getModifierAnchorOffset().getX()));
+                JSONed.append(",\"anchorOffsetY\":").append(Math.round(shapeInfo.getModifierAnchorOffset().getY()));
+            }
+
+
             JSONed.append(",\"labelOutlineColor\":\"");
             JSONed.append(RendererUtilities.colorToHexString(outlineColor, false));
             JSONed.append("\",\"labelOutlineWidth\":");
@@ -2317,6 +2336,24 @@ public class MultiPointHandler {
             JSONed.append(angle);
             JSONed.append(",\"angle\":");
             JSONed.append(angle);
+            //Process Anchor point if available
+            if(shapeInfo.getModifierAnchor() != null)
+            {
+                Point2D anchorPoint = ipc.PixelsToGeo(shapeInfo.getModifierAnchor());
+                if(normalize)
+                    anchorPoint = NormalizeCoordToGECoord(anchorPoint);
+                anchorPoint = new Point2D.Double(Math.round(anchorPoint.getX() * 100000000.0) / 100000000.0,Math.round(anchorPoint.getY() * 100000000.0) / 100000000.0);
+
+                JSONed.append(",\"anchorPoint\":{\"type\":\"Point\",\"coordinates\":[");
+                JSONed.append(anchorPoint.getX());
+                JSONed.append(",");
+                JSONed.append(anchorPoint.getY());
+                JSONed.append("]");
+                JSONed.append("}");
+
+                JSONed.append(",\"anchorOffsetX\":").append(Math.round(shapeInfo.getModifierAnchorOffset().getX()));
+                JSONed.append(",\"anchorOffsetY\":").append(Math.round(shapeInfo.getModifierAnchorOffset().getY()));
+            }
             JSONed.append("},");
             JSONed.append("\"geometry\":{\"type\":\"Point\",\"coordinates\":[");
             JSONed.append(longitude);

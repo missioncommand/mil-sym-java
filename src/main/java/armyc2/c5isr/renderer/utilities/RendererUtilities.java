@@ -385,7 +385,7 @@ public class RendererUtilities {
      * @return SVG String
      *
      */
-    public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor, boolean isOutline)
+    /*public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor, boolean isOutline)
     {
         String returnSVG = svg;
         String hexStrokeColor = null;
@@ -447,18 +447,112 @@ public class RendererUtilities {
         }
         else
         {
-            /* //this code just returned the entire svg string back.  Maybe because there's no line breaks.
-            Pattern pattern = Pattern.compile("(font-size=\"\\d+\\.?\\d*)\"");
-            Matcher m = pattern.matcher(svg);
-            TreeSet<String> fontStrings = new TreeSet<>();
-            while (m.find()) {
-                fontStrings.add(m.group(0));
+            String replacement = " fill=\"#" + ColorToHex(strokeColor).substring(2) + "\" ";
+            returnSVG = returnSVG.replace("fill=\"#000000\"",replacement);//only replace black fills, leave white fills alone.
+
+            //In case there are lines that don't have stroke defined, apply stroke color to the top level group.
+            String topGroupTag = "<g id=\"" + SymbolUtilities.getBasicSymbolID(symbolID) + "\">";//<g id="25212902">
+            String newGroupTag = "<g id=\"" + SymbolUtilities.getBasicSymbolID(symbolID) + "\" stroke=\"" + hexStrokeColor + "\"" + strokeOpacity + " " + replacement + ">";
+            returnSVG = returnSVG.replace(topGroupTag,newGroupTag);
+
+        }
+
+        if(fillColor != null)
+        {
+            if(fillColor.getAlpha() != 255)
+            {
+                fillAlpha = fillColor.getAlpha() / 255.0f;
+                fillOpacity =  " fill-opacity=\"" + fillAlpha + "\"";
             }
-            for (String target : fontStrings) {
-                String replacement = target + " fill=\"#" + ColorToHex(strokeColor).substring(2) + "\" ";
-                returnSVG = returnSVG.replace(target, replacement);
+
+            hexFillColor = colorToHexString(fillColor,false);
+            defaultFillColor = "fill=\"#000000\"";
+
+            returnSVG = returnSVG.replaceAll(defaultFillColor, "fill=\"" + hexFillColor + "\"" + fillOpacity);
+        }
+
+        return returnSVG;
+    }//*/
+
+    /**
+     * For Renderer Use Only
+     * Changes colors for single point control measures
+     * @param symbolID
+     * @param svg
+     * @param strokeColor hex value like "#FF0000";
+     * @param fillColor hex value like "#FF0000";
+     * @param pixelSize target size if symbol
+     * @param outlineWidth effective outline width
+     * @return SVG String
+     *
+     */
+    public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor, boolean isOutline, Rectangle2D bounds, int pixelSize, int outlineWidth)
+    {
+        String returnSVG = svg;
+        String hexStrokeColor = null;
+        String hexFillColor = null;
+        float strokeAlpha = 1;
+        float fillAlpha = 1;
+        String strokeOpacity = "";
+        String fillOpacity = "";
+        String strokeCapSquare = " stroke-linecap=\"square\"";
+        String strokeCapButt = " stroke-linecap=\"butt\"";
+        String strokeCapRound = " stroke-linecap=\"round\"";
+        int outlineSize = 15;
+
+        int affiliation = SymbolID.getAffiliation(symbolID);
+        String defaultFillColor = null;
+        if(strokeColor != null)
+        {
+            if(strokeColor.getAlpha() != 255)
+            {
+                strokeAlpha = strokeColor.getAlpha() / 255.0f;
+                strokeOpacity =  " stroke-opacity=\"" + strokeAlpha + "\"";
+                fillOpacity =  " fill-opacity=\"" + strokeAlpha + "\"";
             }
-            //*/
+
+            hexStrokeColor = colorToHexString(strokeColor,false);
+            String defaultStrokeColor = "#000000";
+            if(symbolID.length()==5)
+            {
+                int mod = Integer.valueOf(symbolID.substring(2,4));
+                if(mod >= 13)
+                    defaultStrokeColor = "#00A651";
+
+            }
+
+            if(symbolID.length() >= 20)
+            {
+                if(SymbolUtilities.getBasicSymbolID(symbolID).equals("25132100") && //key terrain
+                        SymbolID.getVersion(symbolID) >= SymbolID.Version_2525E)
+                    defaultStrokeColor = "#800080";
+                else if(isOutline && SymbolUtilities.getBasicSymbolID(symbolID).startsWith("2535"))//space debris doesn't change color
+                    defaultStrokeColor = "black";
+            }
+            returnSVG = returnSVG.replaceAll("stroke=\"" + defaultStrokeColor + "\"", "stroke=\"" + hexStrokeColor + "\"" + strokeOpacity);
+            returnSVG = returnSVG.replaceAll("fill=\"" + defaultStrokeColor + "\"", "fill=\"" + hexStrokeColor + "\"" + fillOpacity);
+        }
+        else
+        {
+            strokeColor = Color.BLACK;
+        }
+
+        if (isOutline && bounds != null)
+        {
+            float p = pixelSize;
+            double h = bounds.getHeight();
+            double w = bounds.getWidth();
+            double ratio = Math.min((p / h), (p / w));
+
+            outlineSize = (int)Math.round(outlineWidth / ratio);
+            //increase stroke-width so the white outline shows around the symbol
+            returnSVG = increaseStrokeWidth(returnSVG,outlineSize);
+            //set the stroke color for the group so filled shapes without stokes get outlined as well.
+            returnSVG = returnSVG.replaceFirst("<g", "<g stroke=\"" + hexStrokeColor + "\" " + strokeOpacity + " stroke-linecap=\"square\"");
+
+        }
+        else
+        {
             String replacement = " fill=\"#" + ColorToHex(strokeColor).substring(2) + "\" ";
             returnSVG = returnSVG.replace("fill=\"#000000\"",replacement);//only replace black fills, leave white fills alone.
 
@@ -653,7 +747,12 @@ public class RendererUtilities {
 
     // Overloaded method to return non-outline symbols as normal.
     public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor) {
-        return setSVGSPCMColors(symbolID, svg, strokeColor, fillColor, false);
+        return setSVGSPCMColors(symbolID, svg, strokeColor, fillColor, false, null, 0,0);
+    }
+
+    public static int calculateOutlineWidth()
+    {
+        return RendererSettings.getInstance().getDeviceDPI()>100 ? RendererSettings.getInstance().getDeviceDPI()/96 * 3 : 3;
     }
 
     public static SVGInfo scaleIcon(String symbolID, SVGInfo icon)
@@ -687,6 +786,22 @@ public class RendererUtilities {
                 String svg = icon.getSVG();
                 svg = svg.replaceFirst(">",transform);
                 Rectangle2D newBbox = new Rectangle2D.Double(bbox.getX() - transx,bbox.getY() - transy,bbox.getWidth() * ratio, bbox.getHeight() * ratio);
+                //retVal = new SVGInfo(icon.getID(),newBbox,svg);
+
+                //Adjust stroke widths so they remain the same and don't scale up.
+                int decimals = 3;
+                Pattern pattern = Pattern.compile("stroke-width=\"([\\d.]+)\"");
+                Matcher matcher = pattern.matcher(svg);
+                StringBuffer sb = new StringBuffer();
+                while (matcher.find()) {
+                    double original = Double.parseDouble(matcher.group(1));
+                    double adjusted = original * 1.5 / ratio;//multiply by 1.5 to reduce but not eliminate scaling
+                    String replacement = String.format("stroke-width=\"%." + decimals + "f\"", adjusted);
+                    matcher.appendReplacement(sb, replacement);
+                }
+                matcher.appendTail(sb);
+                svg = sb.toString();//*/
+
                 retVal = new SVGInfo(icon.getID(),newBbox,svg);
             }
         }
