@@ -116,7 +116,12 @@ public class Tester extends javax.swing.JFrame {
             //DrawAllIcons();
 
             //test code conversion
-            /*String newCode = C2DLookup.getInstance().getDCode("GFGPDAE---**USX",true);
+            //G*G*PN----****X//dummy minefield
+            /*String newCode = C2DLookup.getInstance().getDCode("GFGPPN----**USX",true);
+            ErrorLogger.LogMessage(newCode);
+            newCode = C2DLookup.getInstance().getDCode("GFGPDAE---**USX",true);//S*A*WMCM--*****
+            ErrorLogger.LogMessage(newCode);
+            newCode = C2DLookup.getInstance().getDCode("S*A*WMCM--**USX",true);//11	02	110000		07	06			Cruise Missile
             ErrorLogger.LogMessage(newCode);
             String country = GENCLookup.getInstance().get3CharCode(840);
             ErrorLogger.LogMessage(country);

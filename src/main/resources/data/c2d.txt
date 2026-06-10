@@ -132,18 +132,23 @@ S*G*UCAAAS*****	11	10	120401		00	59			Armorered, Air Assault		Symbol is displaye
 S*G*UCAAAW*****	11	10	120401		00	51			Armored, Wheeled
 S*G*UCAAO-*****	11	10	120402		00	00			Motorized
 S*G*UCAAOS*****	11	10	120402		00	59			Motorized, Air Assault		Symbol is displayed differently between versions
-S*G*UCAT--*****	11	10	120500		00	00		Armor/Armored/Mechanized/Self-Propelled/ Tracked
-S*G*UCATL-*****	11	10	120500		00	19			Light
-S*G*UCATM-*****	11	10	120500		00	24			Medium
-S*G*UCATH-*****	11	10	120500		00	15			Heavy
-S*G*UCATA-*****	11	10	120500		00	01			Airborne
-S*G*UCATR-*****	11	10	120500		00	38			Recovery		Can use 37 or 38 for MOD2 (Unmanned or Maintainence)
-S*G*UCRVA-*****	11	10	120501		00	00			Reconnaissance/Cavalry/Scout
-S*G*UCRRL-*****	11	10	120501		00	19			Reconnaissance/Cavalry/Scout, Light		Symbol is displayed differently between versions
-S*G*UCATW-*****	11	10	120502		00	00			Amphibious
-S*G*UCAWW-*****	11	10	120502		00	51			Wheeled Amphibious
-S*G*UCATWR*****	11	10	120502		00	38			Amphibious, Recovery
+S*G*UCA---*****	11	10	120500		00	00		Armor
+S*G*UCAT--*****	11	10	120500		00	00			Track - Armor/Armored/Mechanized/Self-Propelled/ Tracked
+S*G*UCATL-*****	11	10	120500		00	19				Light
+S*G*UCATM-*****	11	10	120500		00	24				Medium
+S*G*UCATH-*****	11	10	120500		00	15				Heavy
+S*G*UCATA-*****	11	10	120500		00	01				Airborne
+S*G*UCATR-*****	11	10	120500		00	38				Recovery		Can use 37 or 38 for MOD2 (Unmanned or Maintainence)
+S*G*UCRVA-*****	11	10	120501		00	00				Reconnaissance/Cavalry/Scout
+S*G*UCRRL-*****	11	10	120501		00	19				Reconnaissance/Cavalry/Scout, Light		Symbol is displayed differently between versions
+S*G*UCATW-*****	11	10	120502		00	00				Amphibious
+S*G*UCAW--*****	11	10	120500		00	51			Wheeled	
+S*G*UCAWS-*****	11	10	120500		00	51				Air Assault		Use Parent Node
+S*G*UCAWA-*****	11	10	120500		00	51				Airborne		Use Parent Node
+S*G*UCAWW-*****	11	10	120502		00	51				Wheeled Amphibious
+S*G*UCATWR*****	11	10	120502		00	38					Amphibious, Recovery
 S*G*UCV---*****	11	10	120600		00	00		Army Aviation/Aviation Rotary Wing
+S*G*UCVR--*****	11	10	120600		00	00			Rotary Wing
 S*G*UCVUR-*****	11	10	120600		00	59			Air Mobile/Air Assault		Listed as Unmanned in 2525C, Symbol is displayed differently between versions
 S*G*UCVRA-*****	11	10	120600		03	00			Attack
 S*G*UCVRUC*****	11	10	120600		10	00			Command and Control
@@ -217,12 +222,18 @@ S*G*UCVU--*****	11	10	121900		00	00		Unmanned Aerial Systems
 S*F*GR----*****	11	10	122000		00	00		Ranger
 S*G*UCD---*****	11	10	130100		00	00		Air Defense
 S*G*UCDS--*****	11	10	130100		00	43			Short Range
+S*G*UCDSC-*****	11	10	130100		00	43				Chaparral - use parent symbol
+S*G*UCDSS-*****	11	10	130100		00	43				Stinger - use parent symbol
+S*G*UCDSV-*****	11	10	130101		00	43				Vulcan - use parent symbol
 S*G*UCDT--*****	11	10	130100		67	00			Targeting Unit		Symbol is displayed differently between versions
 S*G*UCDO--*****	11	10	130100		94	00			Theater		Symbol is displayed differently between versions
 S*G*UCDG--*****	11	10	130101		00	00			Main Gun System		Symbol is displayed differently between versions
 S*G*UCDM--*****	11	10	130102		00	00			Missile
-S*G*UCDH--*****	11	10	130102		28	00			Missile, Ground Station Module		Symbol is named and displayed differently between versions (H/MAD in 2525C)
+S*G*UCDH--*****	11	10	130102		00	28			Missile, High/Med Alt		Symbol is named and displayed differently between versions (H/MAD in 2525C)
+S*G*UCDHH-*****	11	10	130102		00	25				Hawk	Low to Med Altitude
+S*G*UCDHP-*****	11	10	130102		00	16				Patriot	High Altitude
 S*G*UCDML-*****	11	10	130102		00	19			Missile, Light		Symbol is displayed differently between versions
+S*G*UCDMA-*****	11	10	130102		00	19				MOTORIZED (AVENGER)	Use parent node
 S*G*UCDMM-*****	11	10	130102		00	24			Missile, Medium		Symbol is displayed differently between versions
 S*G*UCDMH-*****	11	10	130102		00	15			Missile, Heavy		Symbol is displayed differently between versions
 S*G*UCDC---****	11	10	130103		00	00			Air and Missile Defense
@@ -520,8 +531,8 @@ S*G*EWMAL-*****	11	15	111107		00	00			Heavy		Symbol is displayed differently bet
 S*G*EWMALR*****	11	15	111108		00	00			Heavy, TLAR		Symbol is displayed differently between versions
 S*G*EWMALE*****	11	15	111109		00	00			Heavy, TELAR		Symbol is displayed differently between versions
 S*G*EWMAT-*****	11	16	111100		185	00			Theatre     Instead of 'T' on bottom, 'XXXXX' on top
-S*G*EWMATE*****	11	16	111100		185	00			Theatre, TLAR     Instead of 'T' on bottom, 'XXXXX' on top, no ER
-S*G*EWMATR*****	11	16	111100		185	00			Theatre, TELAR     Instead of 'T' on bottom, 'XXXXX' on top, no R
+S*G*EWMATE*****	11	16	111108		185	00			Theatre, TLAR     Instead of 'T' on bottom, 'XXXXX' on top, heavy ER
+S*G*EWMATR*****	11	16	111109		185	00			Theatre, TELAR     Instead of 'T' on bottom, 'XXXXX' on top, heavy R
 S*G*EWMT--*****	11	15	111200		00	00		Antitank Missile Launcher
 S*G*EWMTL-*****	11	15	111201		00	00			Light
 S*G*EWMTM-*****	11	15	111202		00	00			Medium
@@ -740,7 +751,10 @@ E*F*CJ----H****	11	20	120310		00	00			Toxic Release Inventory
 E*F*D-----H****	11	20	120400		00	00		Educational Facilities Infrastructure
 E*F*DA----H****	11	20	120401		00	00			College/University
 E*F*DB----H****	11	20	120402		00	00			School
-S*G*IUE---H****	11	20	120500		00	00		Energy Facility Infrastructure
+S*G*IU----H****	11	20	000000		111	00		Service, Research, Utility Facility
+S*G*IUR---H****	11	20	000000		111	00			Technological Research Facility		Use Parent Node
+S*G*IUT---H****	11	20	121200		00	00			Telecommunications Facility		Rough D equivalent
+S*G*IUE---H****	11	20	120500		00	00		Electric Power Facility
 S*G*IUED--H****	11	20	120501		08	00			Electric Power, Hydro		Symbol is displayed differently between versions
 S*G*IUEF--H****	11	20	120501		00	00			Electric Power, Fossil Fuel		No fossil fuel modifier, can choose coal (06) or natural gas (09) for s1 mod
 S*G*IUEN--H****	11	20	120501		03	00			Electric Power, Nuclear		Symbol is displayed differently between versions
@@ -1398,7 +1412,7 @@ E*I*BC----*****	11	40	110606		00	00			Bomb Explosion
 E*I*A-----*****	11	40	120000		00	00	Civil Disturbance
 O*O*D-----*****	11	40	120100		00	00		Demonstration
 O*O*P-----*****	11	40	130100		00	00		Patrolling
-O*O*Y-----*****	11	40	130200		00	00		Military Information Support Operation (MISO)			Psychological Operations in 2525C
+O*O*Y-----*****	15	40	130200		00	00		Military Information Support Operation (MISO)			Psychological Operations in 2525C
 O*O*YH----*****	11	40	130200		04	00			House-to-House
 O*O*YW----*****	11	40	130200		09	00			Written
 O*O*YT----*****	11	40	130201		00	00			TV and Radio Propaganda
@@ -1421,7 +1435,7 @@ E*O*BF----H****	11	40	131204		00	00			Emergency Operations Center
 E*O*BG----H****	11	40	131205		00	00			Emergency Public Information Center
 E*O*BH----H****	11	40	131206		00	00			Emergency Shelter
 E*O*BI----H****	11	40	131207		00	00			Emergency Staging Area
-E*O*BJ----H****	11	40	131200	11	00	00			Emergency Team
+E*O*BJ----H****	15	40	131200		162	00			Emergency Team
 E*O*BK----H****	11	40	131208		00	00			Emergency Water Distribution Center
 E*O*A-----*****	11	40	131300		00	00		Emergency Medical Operation
 E*O*AD----H****	11	40	131301		00	00			EMT Station Location		Symbol is displayed differently between versions
