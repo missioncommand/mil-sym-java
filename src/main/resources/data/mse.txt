@@ -694,10 +694,10 @@
 		Forward Edge of the Battle Area		140400	15,16	Line	Line1		
 		Principle Direction of Fire		140500	15,16	Line	Line3		
 		Direction of Attack		140600	15,16
-			Friendly Aviation	140601	15,16	Line	Line9	T,W,W1	std says line 1, I think it's wrong
-			Friendly Main Attack /Decisive	140602	15,16	Line	Line9	T,W,W1	std says line 1, I think it's wrong
-			Friendly Supporting Attack	140603	15,16	Line	Line9	T,W,W1	std says line 1, I think it's wrong
-			Direction of Attack Feint	140605	16	Line	Line9	T,W,W1	
+			Friendly Aviation	140601	15,16	Line	Line1	T,W,W1
+			Friendly Main Attack /Decisive	140602	15,16	Line	Line1	T,W,W1
+			Friendly Supporting Attack	140603	15,16	Line	Line1	T,W,W1
+			Direction of Attack Feint	140605	16	Line	Line1	T,W,W1
 		Final Coordination Line		140700	15,16	Line	Line1		
 		Infiltration Lane		140800	15,16	Line	Polyline1	T	
 		Limit of Advance		140900	15,16	Line	Line1		
@@ -1256,7 +1256,7 @@
 		Clear		340500	15,16	Line	Line23		
 		Counterattack		340600	15,16	Line	Axis1		
 		Counterattack by Fire		340700	15,16	Line	Axis1		
-		Delay		340800	15,16	Line	Line14	W	
+		Delay		340800	15,16	Line	Line24	W
 		Destroy		340900	15,16	Point	Point2		
 		Disrupt		341000	15,16	Area	Area12		
 		Fix		341100	15,16	Line	Line9		
@@ -1268,7 +1268,7 @@
 		Occupy		341700	15,16	Area	Area16		
 		Penetrate		341800	15,16	Area	Area17		
 		Relief in Place (RIP)		341900	15,16	Area	Area18		
-		Retire/Retirement		342000	15,16	Line	Line14		
+		Retire/Retirement		342000	15,16	Line	Line24
 		Secure		342100	15,16	Area	Area19		
 		Security		342200	15,16				
 			Cover	342201	15,16	Line	Line26		
@@ -1292,11 +1292,11 @@
 		Infiltration		343800	15,16	Line	Line32		
 		Locate		343900	16	Area	Area19		
 		Pursuit		344000	15,16	Line	Line33		
-		Forward Passage of Lines		344100	15,16	Line	Line14		
-		Rearward Passage of Lines		344200	15,16	Line	Line14		
+		Forward Passage of Lines		344100	15,16	Line	Line24
+		Rearward Passage of Lines		344200	15,16	Line	Line24
 		Defeat		344300	15,16	Point	Point2			
-		Disengage		344400	15,16	Line	Line14			
-		Evacuate/Evacuation		344500	15,16	Line	Line17			
+		Disengage		344400	15,16	Line	Line24
+		Evacuate/Evacuation		344500	15,16	Line	Line27
 		Recover		344600	16	Line	Line27		
 		Turn		344700	15,16	Line	Line10			
 	Space Debris			350000	16				Always Black

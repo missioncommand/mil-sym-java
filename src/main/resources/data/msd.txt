@@ -720,10 +720,10 @@
 		Forward Edge of the Battle Area		140400	10,11	Line	Line2		
 		Principle Direction of Fire		140500	10,11	Line	Line3		
 		Direction of Attack		140600	10,11
-			Friendly Aviation	140601	10,11	Line	Line9	T,W,W1	std says line 1, I think it's wrong
-			Friendly Main Attack /Decisive	140602	10,11	Line	Line9	T,W,W1	std says line 1, I think it's wrong
-			Friendly Supporting Attack	140603	10,11	Line	Line9	T,W,W1	std says line 1, I think it's wrong
-			Direction of Attack Feint	140605	10	Line	Line9	T,W,W1	std says line 1, I think it's wrong
+			Friendly Aviation	140601	10,11	Line	Line1	T,W,W1
+			Friendly Main Attack /Decisive	140602	10,11	Line	Line1	T,W,W1
+			Friendly Supporting Attack	140603	10,11	Line	Line1	T,W,W1
+			Direction of Attack Feint	140605	10	Line	Line1	T,W,W1
 		Final Coordination Line		140700	10,11	Line	Line2		
 		Infiltration Lane		140800	10,11	Line	Polyline1	T	
 		Limit of Advance		140900	10,11	Line	Line2		
@@ -805,7 +805,7 @@
 	Airspace Control Points			180000	10,11	Point	Point2
 		Air Control Point		180100	10,11	Point	Point2	T	
 		Communications Checkpoint		180200	10,11	Point	Point2	T	
-		Downed Aircraft Pick-up Point		180300	11	Point	Point1		
+		Downed Aircrew Pick-up Point		180300	11	Point	Point1
 		Isolated Personnel Recovery Point		180300	10	Point	Point1	H,W,W1	
 		Pop-up Point		180400	10,11	Point	Point2		
 		Air Control Rendezvous		180500	10,11	Point	Point2		

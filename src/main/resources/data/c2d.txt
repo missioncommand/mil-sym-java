@@ -687,6 +687,7 @@ S*G*IP----H****	11	20	120000		00	00		Installation, Processing Facility, no match
 S*G*IPD---H****	11	20	110600		05	00			Decontamination
 S*G*IMN---H****	11	20	110700		00	00		Engineering Equipment Production
 S*G*IMNB--H****	11	20	110701		00	00		Engineering Equipment Production,  Bridge
+S*G*IMC---H****	11	20	110600		00	01		Chem & Bio Warfare Production
 S*G*IE----H****	11	20	110800		00	00		Equipment Manufacture
 S*G*IG----H****	11	20	110900		00	00		Government Leadership
 O*L*G-----*****	11	20	111000		00	00		Gray List Location
