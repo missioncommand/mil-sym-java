@@ -2534,9 +2534,12 @@ public final class Channels {
                 }//end switch
             }   //end for
             //a requirement was added to enable fill for the axis of advance line types
-            ArrayList<Shape2>fillShapes=getAXADFillShapes(vbiDrawThis, pLinePoints);
-            if(fillShapes != null && fillShapes.size()>0)
-                shapes.addAll(0,fillShapes);
+            if(tg.get_FillColor() != null)//if there's a fill color, create fill shape
+            {
+                ArrayList<Shape2> fillShapes = getAXADFillShapes(vbiDrawThis, pLinePoints);
+                if (fillShapes != null && !fillShapes.isEmpty())
+                    shapes.addAll(0, fillShapes);
+            }
 
             //diagnostic
             if(vbiDrawThis==TacticalLines.BBS_LINE)

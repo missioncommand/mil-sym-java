@@ -646,7 +646,7 @@ public class Tester extends javax.swing.JFrame {
                     modifier.put(Modifiers.AM_DISTANCE, "1000");
                 } else if (drawRule == DrawRules.RECTANGULAR2) {
                     modifier.put(Modifiers.AM_DISTANCE, "1000,6000");
-                    modifier.put(Modifiers.AN_AZIMUTH, "45"); // mils
+                    modifier.put(Modifiers.AN_AZIMUTH, String.valueOf(45 * 17.7778)); // 45 degrees to mils
                 } else if (drawRule == DrawRules.RECTANGULAR3) {
                     modifier.put(Modifiers.AM_DISTANCE, "1000");
                 }
@@ -1155,6 +1155,8 @@ public class Tester extends javax.swing.JFrame {
                 //attributes.put(MilStdAttributes.EngagementBarColor,"#FF0000");
                 //attributes.put(MilStdAttributes.Alpha,"77");
 
+                //attributes.put(MilStdAttributes.KeepUnitRatio,"false");
+
                 //No fill example
                 //attributes.put(MilStdAttributes.FillColor,"#00000000");//set alpha to zero on fill
                 //attributes.put(MilStdAttributes.IconColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));
@@ -1171,6 +1173,7 @@ public class Tester extends javax.swing.JFrame {
                 Graphics2D g2d;
                 try
                 {
+
                     //modifiers.put(Modifiers.X_ALTITUDE_DEPTH,"0000");//TEST
                     icon = MilStdIconRenderer.getInstance().RenderIcon(symbolID, modifiers, attributes);
                     MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
@@ -1413,6 +1416,9 @@ public class Tester extends javax.swing.JFrame {
         //ErrorLogger.LogMessage("ScaleAwareText: " + ms.isTextScaleSensitive());
         //ErrorLogger.LogMessage("ScaleAwareDetails: " + ms.isSymbolScaleSensitive());
         //ErrorLogger.LogMessage("wasClipped: " + ms.getWasClipped());
+
+        //Test Fill Color
+        //ms.setFillColor(Color.cyan);
 
         //TEST CLIPPING
         //Rectangle2D clipBounds = new Rectangle(0,0,pConverter.getPixelWidth()/2, pConverter.getPixelHeight()/2);
