@@ -548,6 +548,10 @@ public class ShapeInfo {
         return _justify;
     }
 
+    /**
+     *
+     * @param value 0=left, 1=center, 2=right
+     */
     public void setTextJustify(int value)
     {
         _justify = value;

@@ -3076,10 +3076,10 @@ public class Modifier2 {
                     GetMBR(tg, ul, ur, lr, ll);
                     POINT2 ptLeft = ul;
                     POINT2 ptRight = ur;
-                    if (tg.get_Client().equalsIgnoreCase("ge")) {
+                    /*if (tg.get_Client().equalsIgnoreCase("ge")) {
                         ptLeft.x -= font.getSize() / 2;
                         ptRight.x -= font.getSize() / 2;
-                    }
+                    }*/
                     AddIntegralAreaModifier(tg, tg.get_DTG() + WDash, toEnd, 0.5 * csFactor, ptLeft, ptRight, false, "W");
                     AddIntegralAreaModifier(tg, tg.get_DTG1(), toEnd, 1.5 * csFactor, ptLeft, ptRight, false, "W1");
                     break;
@@ -3990,6 +3990,8 @@ public class Modifier2 {
                     pt1 = tg.Pixels.get(1);
                     pt2 = tg.Pixels.get(2);
                     pt3 = tg.Pixels.get(3);
+
+                    /*//modifiers top left following angle
                     if (tg.get_Client().equalsIgnoreCase("ge")) {
                         pt0.x -= font.getSize() / 2;
                         pt2.x -= font.getSize() / 2;
@@ -4000,7 +4002,6 @@ public class Modifier2 {
                         clsUtility.shiftModifiersLeft(pt1, pt2, 12.5);
                     }
 
-                    /*//modifiers top left following angle
                     if (ptLeft.x == ptRight.x) {
                         ptRight.x += 1;
                     }
@@ -4012,30 +4013,27 @@ public class Modifier2 {
                         AddModifier(tg, tg.get_DTG1(), toEnd, 1 * csFactor, pt2, pt1);//was 3,0
                     }//*/
 
-                    //top left-ish of rectangle
-                    POINT2 leftmost = tg.Pixels.get(0);
-                    for (POINT2 p : tg.Pixels) {
-                        if (p.x < leftmost.x || (p.x == leftmost.x && p.y > leftmost.y)) {
-                            leftmost = p;
-                        }
-                    }
+                    //highest point left of center
                     POINT2 highest = tg.Pixels.get(0);
-                    for (POINT2 p : tg.Pixels) {
-                        if (p.y < highest.y || (p.y == highest.y && p.x < highest.x)) {
-                            highest = p;
+                    boolean validPointFound = false;
+                    for (POINT2 p : tg.Pixels) //loop through points
+                    {
+                        if(p.x <= ptCenter.x)//we only care about points left of center
+                        {
+                            if(!validPointFound)//find initial left-of-center point
+                            {
+                                highest = p;//set initial value
+                                validPointFound = true;
+                            }
+                            else if(p.y < highest.y)//see if this point is higher than the current point
+                                highest = p;//set new highest, left-of-center point
                         }
                     }
-
-                    POINT2 dtgPosition;
-                    if (highest.x < ptCenter.x) {
-                        dtgPosition = highest;
-                    } else {
-                        dtgPosition = leftmost;
-                    }
+                    POINT2 dtgPosition = highest;
 
                     //DTG at north west-ish point and right-side-up
-                    AddIntegralAreaModifier(tg, tg.get_DTG() + WDash, toEnd, 0.5 * csFactor, dtgPosition, new POINT2(dtgPosition.x+1,dtgPosition.y,0), false);
-                    AddIntegralAreaModifier(tg, tg.get_DTG1() + " ", toEnd, 1.5 * csFactor, dtgPosition, new POINT2(dtgPosition.x+1,dtgPosition.y,0), false);
+                    AddIntegralAreaModifier(tg, tg.get_DTG() + WDash, toEnd, 0.5 * csFactor, dtgPosition, new POINT2(dtgPosition.x+0.001,dtgPosition.y,0), false);
+                    AddIntegralAreaModifier(tg, tg.get_DTG1() + " ", toEnd, 1.5 * csFactor, dtgPosition, new POINT2(dtgPosition.x+0.001,dtgPosition.y,0), false);
 
                     //DTG at first point and angled with rectangle
                     //AddOffsetModifier(tg, tg.get_DTG() + WDash, toEnd, -1 * csFactor, tg.Pixels.size() / 2, 0, 4, "left");
@@ -4613,6 +4611,13 @@ public class Modifier2 {
 
                         anchor = new Point2D.Double(pt0.x, pt0.y);
                         anchorOffset = new Point2D.Double(pt3.x - pt0.x, pt3.y - pt0.y);
+
+                        //adjust so it doesn't start right on top of the line.
+                        if(justify == ShapeInfo.justify_right)
+                            anchorOffset.setLocation(anchorOffset.getX() - font.getSize()/2f,anchorOffset.getY());
+                        else if(justify == ShapeInfo.justify_left)
+                            anchorOffset.setLocation(anchorOffset.getX() + font.getSize()/2f,anchorOffset.getY());
+
                         if(image != null)//images are centered and don't have text justification
                             anchorOffset = new Point2D.Double(pt1.x - pt0.x, pt1.y - pt0.y);
 
