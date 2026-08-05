@@ -2350,6 +2350,30 @@ public class Modifier2 {
                         //AddIntegralAreaModifier(tg, buildAreaGroupDTGString(tg), toEnd, 1 * csFactor, ptLeft, new POINT2(ptLeft.x + 0.001, ptLeft.y, 0), false);
                         modifiersGrouped = true;
                         break;
+                    case TacticalLines.SPT:
+                    case TacticalLines.FRONTAL_ATTACK:
+                    case TacticalLines.TURNING_MOVEMENT:
+                    case TacticalLines.MOVEMENT_TO_CONTACT:
+                    case TacticalLines.AIRAOA:
+                    case TacticalLines.AAAAA:
+                    case TacticalLines.MAIN:
+                        if (tg.Pixels.size() == 3) //one segment
+                        {
+                            midPt = lineutility.MidPointDouble(pt0, pt1, 0);
+                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG() + '\n' + tg.get_Name(), area, 0, midPt, midPt, false);
+
+                        } else if (tg.Pixels.size() == 4) //2 segments
+                        {
+                            midPt = lineutility.MidPointDouble(pt1, pt2, 0);
+                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG() + '\n' + tg.get_Name(), area, 0, midPt, midPt, false);
+                        } else // 3 or more segments
+                        {
+                            midPt = lineutility.MidPointDouble(pt1, pt2, 0);
+                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG(), area, 0, midPt, midPt, false);
+                            midPt = lineutility.MidPointDouble(pt2, pt3, 0);
+                            AddIntegralAreaModifier(tg, tg.get_Name(), area, 0, midPt, midPt, false);
+                        }
+                        break;
                 }
             }
 
