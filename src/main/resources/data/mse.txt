@@ -738,7 +738,7 @@
 			Attack Helicopter	151402	15,16	Line	Axis1	T,W,W1	
 			Main Attack	151403	15,16	Line	Axis2	T,W,W1	
 			Supporting Attack	151404	15,16	Line	Axis1	T,W,W1	
-			Axis of Advancee for Feint	151406	16	Line	Axis1	T,W,W1	
+			Axis of Advance for Feint	151406	16	Line	Axis1	T,W,W1
 		Assault Position		151500	15,16	Area	Area1	T	
 		Attack Position		151600	15,16	Area	Area1	T	
 		Objective		151700	15,16	Area	Area1	T	

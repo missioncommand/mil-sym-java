@@ -1399,9 +1399,31 @@ public final class clsRenderer {
             } else if (drawRule == DrawRules.AXIS1 || drawRule == DrawRules.AXIS2) {
                 // Axis of Advance symbols
                 ArrayList<POINT2> points = shapes.get(0).getPoints();
-                POINT2 ptA = new POINT2(points.get(points.size() / 2 - 1));
+
+                //find arrowhead points
+                int tipIndex =0, leftIndex =0, rightIndex =0;//arrowhead points
+                int mCount = 0;//moveTo counter
+                for(int i=0; i<points.size(); i++)
+                {
+                    if(points.get(i).style==0)
+                        mCount++;
+                    if(mCount==3) {
+                        tipIndex = i;
+                        //get left
+                        leftIndex = i+1;
+                        rightIndex = i+4;
+                        //get right/
+                        i =points.size();
+                    }
+                }
+
+                POINT2 ptA = new POINT2(points.get(leftIndex));
+                POINT2 ptB = new POINT2(points.get(tipIndex));
+                POINT2 ptC = new POINT2(points.get(rightIndex));
+
+                /*POINT2 ptA = new POINT2(points.get(points.size() / 2 - 1));
                 POINT2 ptB = new POINT2(points.get(points.size() / 2));
-                POINT2 ptC = new POINT2(points.get(points.size() / 2 + 1));
+                POINT2 ptC = new POINT2(points.get(points.size() / 2 + 1));//*/
                 shapes.add(DISMSupport.getFDIShape(tg, ptA, ptB, ptC));
             }
             // Direction of attack symbols

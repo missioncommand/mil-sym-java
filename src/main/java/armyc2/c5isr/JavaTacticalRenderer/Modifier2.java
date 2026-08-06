@@ -2360,19 +2360,20 @@ public class Modifier2 {
                         if (tg.Pixels.size() == 3) //one segment
                         {
                             midPt = lineutility.MidPointDouble(pt0, pt1, 0);
-                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG() + '\n' + tg.get_Name(), area, 0, midPt, midPt, false);
+                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG1() + '\n' + tg.get_Name(), area, 0, midPt, midPt, false);
 
                         } else if (tg.Pixels.size() == 4) //2 segments
                         {
                             midPt = lineutility.MidPointDouble(pt1, pt2, 0);
-                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG() + '\n' + tg.get_Name(), area, 0, midPt, midPt, false);
+                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG1() + '\n' + tg.get_Name(), area, 0, midPt, midPt, false);
                         } else // 3 or more segments
                         {
                             midPt = lineutility.MidPointDouble(pt1, pt2, 0);
-                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG(), area, 0, midPt, midPt, false);
+                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG1(), area, 0, midPt, midPt, false);
                             midPt = lineutility.MidPointDouble(pt2, pt3, 0);
                             AddIntegralAreaModifier(tg, tg.get_Name(), area, 0, midPt, midPt, false);
                         }
+                        modifiersGrouped = true;
                         break;
                 }
             }
