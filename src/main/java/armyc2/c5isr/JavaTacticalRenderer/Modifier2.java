@@ -2341,7 +2341,7 @@ public class Modifier2 {
 
                         //DTG Labels at highest left-of-center point
                         POINT2 highest = getHighestPointLeftOfCenter(tg.Pixels,ptCenter);
-                        AddIntegralAreaModifier(tg, buildAreaGroupDTGString(tg), toEnd, 0 * csFactor, highest, new POINT2(highest.x + 0.001, highest.y, 0), false);
+                        AddIntegralAreaModifier(tg, buildAreaGroupDTGString(tg), toEnd, 1 * csFactor, highest, new POINT2(highest.x + 0.001, highest.y, 0), false);
 
                         //DTG labels at top left of BBOX
                         //GetMBR(tg, ul, ur, lr, ll);
@@ -2357,19 +2357,32 @@ public class Modifier2 {
                     case TacticalLines.AIRAOA:
                     case TacticalLines.AAAAA:
                     case TacticalLines.MAIN:
+                        String axisMod = buildAreaGroupDTGString(tg);
                         if (tg.Pixels.size() == 3) //one segment
                         {
                             midPt = lineutility.MidPointDouble(pt0, pt1, 0);
-                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG1() + '\n' + tg.get_Name(), area, 0, midPt, midPt, false);
+                            if(!tg.get_Name().isEmpty())
+                            {
+                                if(!axisMod.isEmpty())
+                                    axisMod += '\n';
+                                axisMod += tg.get_Name();
+                            }
+                            AddIntegralAreaModifier(tg, axisMod, area, 0, midPt, midPt, false);
 
                         } else if (tg.Pixels.size() == 4) //2 segments
                         {
                             midPt = lineutility.MidPointDouble(pt1, pt2, 0);
-                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG1() + '\n' + tg.get_Name(), area, 0, midPt, midPt, false);
+                            if(!tg.get_Name().isEmpty())
+                            {
+                                if(!axisMod.isEmpty())
+                                    axisMod += '\n';
+                                axisMod += tg.get_Name();
+                            }
+                            AddIntegralAreaModifier(tg, axisMod, area, 0, midPt, midPt, false);
                         } else // 3 or more segments
                         {
                             midPt = lineutility.MidPointDouble(pt1, pt2, 0);
-                            AddIntegralAreaModifier(tg, tg.get_DTG() + WDash + '\n' + tg.get_DTG1(), area, 0, midPt, midPt, false);
+                            AddIntegralAreaModifier(tg, axisMod, area, 0, midPt, midPt, false);
                             midPt = lineutility.MidPointDouble(pt2, pt3, 0);
                             AddIntegralAreaModifier(tg, tg.get_Name(), area, 0, midPt, midPt, false);
                         }
@@ -3808,7 +3821,7 @@ public class Modifier2 {
                         AddIntegralAreaModifier(tg, buildAreaGroupString(tg, label), area, 0, ptCenter, ptCenter, false);
                         //DTG on top left
                         POINT2 dtgCircularPosition = tg.Pixels.get(Math.round(tg.Pixels.size() * 0.5625f));
-                        AddIntegralAreaModifier(tg, buildAreaGroupDTGString(tg), toEnd, -2 * csFactor, dtgCircularPosition, new POINT2(dtgCircularPosition.x + 0.001, dtgCircularPosition.y, 0), false);
+                        AddIntegralAreaModifier(tg, buildAreaGroupDTGString(tg), toEnd, -1 * csFactor, dtgCircularPosition, new POINT2(dtgCircularPosition.x + 0.001, dtgCircularPosition.y, 0), false);
                         modifiersGrouped = true;
                         break;
                     case TacticalLines.FFA_CIRCULAR:
@@ -3847,7 +3860,7 @@ public class Modifier2 {
                         //highest point left of center
                         POINT2 dtgPosition = getHighestPointLeftOfCenter(tg.Pixels,ptCenter);
 
-                        AddIntegralAreaModifier(tg, buildAreaGroupDTGString(tg), toEnd, 0 * csFactor, dtgPosition, new POINT2(dtgPosition.x + 0.001, dtgPosition.y, 0), false);
+                        AddIntegralAreaModifier(tg, buildAreaGroupDTGString(tg), toEnd, 1 * csFactor, dtgPosition, new POINT2(dtgPosition.x + 0.001, dtgPosition.y, 0), false);
                         modifiersGrouped = true;
                         break;
                 }
@@ -4462,7 +4475,7 @@ public class Modifier2 {
         String modifier = "";
 
         if(tg.get_DTG() != null && !tg.get_DTG().isEmpty())
-            modifier += "\n" + tg.get_DTG() + " -";
+            modifier += tg.get_DTG() + " -";
         if(tg.get_DTG1() != null && !tg.get_DTG1().isEmpty())
             modifier += "\n" + tg.get_DTG1();
 
