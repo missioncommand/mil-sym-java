@@ -1400,6 +1400,13 @@ public final class clsRenderer {
                 // Axis of Advance symbols
                 //symbol shape is last index, fill is first if present.
                 ArrayList<POINT2> points = shapes.get(shapes.size()-1).getPoints();
+                if(SymbolID.getEntityCode(tg.get_SymbolId())==342900)//movement to contact
+                {
+                    if(tg.get_FillColor() != null)
+                        points = shapes.get(3).getPoints();
+                    else
+                        points = shapes.get(2).getPoints();
+                }
 
                 //find arrowhead points
                 int tipIndex =0, leftIndex =0, rightIndex =0;//arrowhead points
