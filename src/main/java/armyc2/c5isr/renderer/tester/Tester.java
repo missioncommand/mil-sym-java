@@ -4,9 +4,9 @@
  */
 package armyc2.c5isr.renderer.tester;
 
+import armyc2.c5isr.JavaLineArray.LinePattern;
 import armyc2.c5isr.renderer.MilStdIconRenderer;
 import armyc2.c5isr.renderer.SinglePointRenderer;
-import armyc2.c5isr.renderer.SinglePointSVGRenderer;
 import armyc2.c5isr.renderer.utilities.*;
 import armyc2.c5isr.web.render.WebRenderer;
 
@@ -18,13 +18,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
@@ -1457,6 +1454,11 @@ public class Tester extends javax.swing.JFrame {
         renderWebFormat(msi, symbolID, ms, pConverter,modifiers,attributes,format);
 
         points.clear();
+
+        LinePattern lp = LinePattern.getLinePattern(symbolID, attributes);
+        if(lp != null)
+            ErrorLogger.LogMessage("linePattern: " + lp.getLinePatternSVG());
+
 
     }
 
