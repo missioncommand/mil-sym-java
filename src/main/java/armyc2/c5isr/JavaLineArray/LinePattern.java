@@ -17,9 +17,9 @@ public class LinePattern {
 
     BufferedImage pattern = null;
     String svg = null;
-    int vOffset = 0;
+    double vOffset = 0;
 
-    LinePattern(BufferedImage linePattern, String svgPattern, int verticalOffset)
+    LinePattern(BufferedImage linePattern, String svgPattern, double verticalOffset)
     {
         pattern = linePattern;
         svg = svgPattern;
@@ -60,6 +60,7 @@ public class LinePattern {
         StringBuilder svgEllipse = null;
         StringBuilder svgText = null;
         Rectangle2D svgBounds = null;
+        double vOffset = 0;
 
 
         if(symbolCode != null && symbolCode.length() >= 20)
@@ -71,11 +72,8 @@ public class LinePattern {
             float offset = lineWidth/2f;// + 0.5f;
             float multiplier = dpi > 96 ? dpi/96f : 1;
 
-            if(ec == 151000)//Fortified Area
-            {
 
-            }
-            else if(ec == 151203)//Strong Point
+            if(ec == 151203)//Strong Point
             {
 
             }
@@ -83,65 +81,362 @@ public class LinePattern {
             {
 
             }
-            else if(ec == 270100)//Obstacle Belt
+            else if(ec == 270100 || ec == 270200 || ec == 290100)//Obstacle Belt || Obstacle Zone || Obstacle Line
             {
+                // _/\_/\_/\_
 
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = (eRadW * 3) + lineWidth;
+
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build '_/\_'
+                y += lwOffset + (eRadH) + lwOffset;
+                svgPath.append("M ").append(0).append(" ").append(y).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(-eRadH).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(eRadH).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append("\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = lwOffset + eRadH;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
-            else if(ec == 270200)//Obstacle Zone
-            {
+            else if(ec == 270300 || ec == 270400 || ec == 290204)
+                {//Obstacle Free Zone OR
+                //Obstacle Restricted Zone (has fill, might be a problem) OR
+                // Antitank Wall
+                // _  _  _
+                //  \/ \/
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = (eRadW * 3) + lineWidth;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build
+                // _  _  _
+                //  \/ \/
+                y += lwOffset + (eRadH) + lwOffset;
+                svgPath.append("M ").append(0).append(" ").append(lwOffset).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(eRadH).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(-eRadH).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append("\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = lwOffset + eRadH;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
-            else if(ec == 270300)//Obstacle Free Zone
+            else if(ec == 290201 || ec == 290202)//Ditch - Under Construction || Ditch - Completed
             {
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = (eRadW * 2) + lineWidth;
 
-            }
-            else if(ec == 270400)//Obstacle Restricted Zone (has fill, might be a problem)
-            {
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
 
-            }
-            else if(ec == 290100)//Obstacle Line
-            {
+                //build '/\'
+                y += lwOffset + (eRadH) + lwOffset;
+                svgPath.append("M ").append(lwOffset).append(" ").append(y).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(-eRadH).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(eRadH).append(" Z").append("\" ");
 
-            }
-            else if(ec == 290201)//Ditch - Under Construction
-            {
+                if(ec == 290202)
+                    fillColor = SymbolUtilities.getLineColorOfAffiliation(symbolCode);
 
-            }
-            else if(ec == 290202)//Ditch - Completed
-            {
 
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = lwOffset + eRadH;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290203)//Ditch Reinforced, with Antitank Mines
             {
 
-            }
-            else if(ec == 290204)//Antitank Wall
-            {
+                fillColor = SymbolUtilities.getLineColorOfAffiliation(symbolCode);
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = (eRadW * 3) + lineWidth*2 + ((eRadW*0.6));
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+                svgEllipse = new StringBuilder("<circle ");
+
+                //build
+                // ______
+                //  \/ 0
+                y += lwOffset + (eRadH) + lwOffset;
+                svgPath.append("M ").append(lwOffset).append(" ").append(lwOffset).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(eRadH).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(-eRadH).append(" Z ");
+                svgPath.append("M ").append(0).append(" ").append(lwOffset).append(" ");
+                svgPath.append("l ").append(patternWidth).append(" ").append(0).append("\" ");
+
+                svgEllipse.append("r=\"").append((eRadW*0.6)-lwOffset).append("\" cx=\"").append(lineWidth + (eRadW*3) + lineWidth).append("\" cy=\"").append((y + lwOffset)*0.6).append("\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = lwOffset + eRadH;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290301)//Unspecified
             {
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = (eRadH + lineWidth) * 2.5f;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build 'X'
+                double eCenterX = lwOffset + (patternWidth/2);
+                double eCenterY = lineWidth + lwOffset + eRadH;
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY - eRadH - lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(eRadH*2 + lineWidth).append(" ");
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY + eRadH + lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(-(eRadH*2) - lineWidth).append(" ").append("\" ");
+
+                //calculate bounds of line pattern
+                y += lineWidth + (eRadH * 2) + lineWidth;
+                double left = 0;
+                double width = patternWidth + lineWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = y;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290302)//Single Fence
             {
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = eRadH * 3.5f;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build 'X'
+                double eCenterX = lwOffset + (patternWidth/2);
+                double eCenterY = lineWidth + lwOffset + eRadH;
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY - eRadH - lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(eRadH*2 + lineWidth).append(" ");
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY + eRadH + lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(-(eRadH*2) - lineWidth).append(" ");
+
+                //center line
+                y += lineWidth + (eRadH * 2) + lineWidth;
+                svgPath.append("M ").append(x).append(" ").append(eCenterY).append(" ");
+                svgPath.append("l ").append(patternWidth + lineWidth).append(" 0").append("\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth + lineWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = y;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290303)//Double Fence
             {
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = (eRadH + lineWidth) * 5.5f;//(eRadH * 5.5f) + lineWidth;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build 'X'
+                double eCenterX = (patternWidth/2) - eRadW - lwOffset;
+                double eCenterY = lineWidth + lwOffset + eRadH;
+                //X1
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY - eRadH - lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(eRadH*2 + lineWidth).append(" ");
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY + eRadH + lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(-(eRadH*2) - lineWidth).append(" ");
+                //X2
+                eCenterX = (patternWidth/2) + eRadW + lwOffset;
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY - eRadH - lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(eRadH*2 + lineWidth).append(" ");
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY + eRadH + lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(-(eRadH*2) - lineWidth).append(" ");
+
+                //center line
+                y += lineWidth + (eRadH * 2) + lineWidth;
+                svgPath.append("M ").append(x).append(" ").append(eCenterY).append(" ");
+                svgPath.append("l ").append(patternWidth).append(" 0").append("\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = y;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290304)//Double Apron Fence
             {
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = eRadH * 2.5f;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build 'X'
+                double eCenterX = lwOffset + (patternWidth/2);
+                double eCenterY = lineWidth + lwOffset + eRadH;
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY - eRadH - lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(eRadH*2 + lineWidth).append(" ");
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY + eRadH + lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(-(eRadH*2) - lineWidth).append(" ");
+
+                //center line
+                y += lineWidth + (eRadH * 2) + lineWidth;
+                svgPath.append("M ").append(x).append(" ").append(eCenterY).append(" ");
+                svgPath.append("l ").append(patternWidth + lineWidth).append(" 0").append("\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth + lineWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = y;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290305)//Low Wire Fence
             {
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = eRadH * 2.5f;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build 'X'
+                double eCenterX = lwOffset + (patternWidth/2);
+                double eCenterY = lineWidth + lwOffset + eRadH;
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY - eRadH - lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(eRadH*2 + lineWidth).append(" ");
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY + eRadH + lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(-(eRadH*2) - lineWidth).append(" ");
+
+                //bottom line
+                y += lineWidth + (eRadH * 2) + lineWidth;
+                svgPath.append("M ").append(x).append(" ").append(y).append(" ");
+                svgPath.append("l ").append(patternWidth + lineWidth).append(" 0").append("\" ");
+
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth + lineWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = y;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290306)//High Wire Fence
             {
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = eRadH * 2.5f;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build 'X'
+                double eCenterX = lwOffset + (patternWidth/2);
+                double eCenterY = lineWidth + lwOffset + eRadH;
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY - eRadH - lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(eRadH*2 + lineWidth).append(" ");
+                svgPath.append("M ").append(eCenterX-eRadW).append(" ").append(eCenterY + eRadH + lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW*2).append(" ").append(-(eRadH*2) - lineWidth).append(" ");
+
+
+                //top line
+                svgPath.append("M ").append(x).append(" ").append(y).append(" ");
+                svgPath.append("l ").append(patternWidth + lineWidth).append(" 0 ");
+
+                //bottom line
+                y += lineWidth + (eRadH * 2) + lineWidth;
+                svgPath.append("M ").append(x).append(" ").append(y).append(" ");
+                svgPath.append("l ").append(patternWidth + lineWidth).append(" 0").append("\" ");
+
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth + lineWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = y;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290307)//Single Concertina
             {
@@ -175,6 +470,7 @@ public class LinePattern {
                 double top = 0;
                 double bottom = y + lwOffset;
 
+                vOffset = y;
                 svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }else if(ec == 290308)//Double Strand Concertina
             {
@@ -213,6 +509,7 @@ public class LinePattern {
                 double top = 0;
                 double bottom = y + lwOffset;
 
+                vOffset = y;
                 svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 290309)//Triple Strand Concertina
@@ -252,41 +549,39 @@ public class LinePattern {
                 double top = 0;
                 double bottom = y + lwOffset;
 
+                vOffset = y;
                 svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
-            else if(ec == 290900)//Fortified Line
+            else if(ec == 290900 || ec == 151000)//Fortified Line OR Fortified Area
             {
-                Path2D path = new Path2D.Float();
-                path.moveTo(10,50);
-                path.lineTo(20,50);
-                path.lineTo(20,30);
-                path.lineTo(40,30);
-                path.lineTo(40,50);
-                path.lineTo(50,50);
-
+                fillColor = null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = 0;
+                double eRadH = (10 + lineWidth) * multiplier;
+                double eRadW = eRadH;
+                double patternWidth = (eRadW * 2) + (lineWidth*2);
 
                 //build line pattern
                 svgPath = new StringBuilder("<path d=\"");
-                svgPath.append("M ").append("10 ").append("200 ");
-                svgPath.append("l ").append((10 + offset) * multiplier).append(" 0 ");
-                svgPath.append("l ").append(" 0 ").append((-20 - lineWidth)*multiplier).append(" ");
-                svgPath.append("l ").append((20 + lineWidth) * multiplier).append(" 0 ");
-                svgPath.append("l ").append(" 0 ").append((20 + lineWidth)*multiplier).append(" ");
-                svgPath.append("l ").append((10 + offset) * multiplier).append(" 0 ").append("\" ");
-                //svgPath.append(sbStyle);
-                //svgPath.append(" />");
+                //         _
+                //build '_| |_'
+                y += lwOffset + (eRadH) + lwOffset;
+                svgPath.append("M ").append(0).append(" ").append(y).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append(" ");
+                svgPath.append("l ").append(0).append(" ").append(-eRadH - lwOffset).append(" ");
+                svgPath.append("l ").append(eRadW + lineWidth).append(" ").append(0).append(" ");
+                svgPath.append("l ").append(0).append(" ").append(eRadH + lwOffset).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append("\" ");
 
                 //calculate bounds of line pattern
-                double left = 10;
-                double width = 0;
-                double top = 200;
-                double bottom = 200;
-                top += ( -20 - lineWidth)*multiplier - Math.ceil(lineWidth/2.0f);
-                bottom += Math.ceil(lineWidth/2.0f);
-                width = (10 + lineWidth + 20+lineWidth + 10 + lineWidth) * multiplier;
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
 
+                vOffset = lwOffset + eRadH;
                 svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
-
             }
 
             if(svgPath != null)
@@ -310,7 +605,7 @@ public class LinePattern {
                 svgPath.append(" />");//close path tag
 
                 //add style to Ellipse if present
-                if(svgEllipse != null){
+                if(svgEllipse != null ){
                     svgEllipse.append(sbStyle);
                     svgEllipse.append(" />");//close path tag
                 }
@@ -331,7 +626,7 @@ public class LinePattern {
                 BufferedImage bmp = RendererUtilities.renderSVG(biBounds, sbSVG.toString());
 
                 if(bmp != null)
-                    lp = new LinePattern(bmp,sbSVG.toString(), 0);
+                    lp = new LinePattern(bmp,sbSVG.toString(), vOffset);
             }
         }
         return lp;
