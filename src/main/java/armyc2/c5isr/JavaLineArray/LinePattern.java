@@ -73,13 +73,131 @@ public class LinePattern {
             float multiplier = dpi > 96 ? dpi/96f : 1;
 
 
-            if(ec == 151203)//Strong Point
+            if(ec == 140100)//FLOT
             {
+                fillColor=null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = 0;
+                double eRadH = ((10 + lineWidth) * multiplier);
+                double eRadW = eRadH;// * 0.5f;
+                double patternHeight = eRadH + lineWidth;
+                double patternWidth = lwOffset + (eRadW * 2) + lineWidth + lwOffset;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build 'uuuu'
+                y += eRadH + lineWidth;
+                svgPath.append("M ").append(lwOffset).append(" ").append(y).append(" ");
+                svgPath.append("a ").append(eRadW+lwOffset).append(",").append(eRadW+lwOffset).append(" 0 0,1 ").append((eRadW*2) + lineWidth).append(",0\" ");
+
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y;
+
+                vOffset = lwOffset + eRadH;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
+            }
+            if(ec == 140200)//Line of Contact
+            {
+                fillColor=null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = 0;
+                double eRadH = ((10 + lineWidth) * multiplier);
+                double eRadW = eRadH;// * 0.5f;
+                double patternHeight = (eRadH + lineWidth)*2;
+                double patternWidth = lwOffset + (eRadW * 2) + lineWidth + lwOffset;
+
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build 'uuuu'
+                y += patternHeight;
+                //red squiggle
+                svgPath.append("M ").append(lwOffset).append(" ").append(y).append(" ");
+                svgPath.append("a ").append(eRadW+lwOffset).append(",").append(eRadW+lwOffset).append(" 0 0,1 ").append((eRadW*2) + lineWidth).append(",0\" ");
+                svgPath.append("style=\"fill:none;stroke:red;");
+                if(lineColor.getAlpha() < 255)
+                    svgPath.append("stroke-opacity:").append(lineColor.getAlpha()/255).append(";");
+                svgPath.append("stroke-width:").append(lineWidth).append("\" />");
+                //affiliation color squiggle
+                svgPath.append("<path d=\"");
+                svgPath.append("M ").append(lwOffset).append(" ").append(0).append(" ");
+                svgPath.append("a ").append(eRadW+lwOffset).append(",").append(eRadW+lwOffset).append(" 0 0,0 ").append((eRadW*2) + lineWidth).append(",0\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y;
+
+                vOffset = lwOffset + eRadH;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
+            }
+            else if(ec == 151203)//Strong Point
+            {
+                fillColor=null;
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = 0;
+                double eRadH = ((10 + lineWidth) * multiplier);
+                double eRadW = eRadH * 0.5f;
+                double patternHeight = eRadH + lineWidth;
+                double patternWidth = (eRadW * 2) + lineWidth;
+
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build '_|_' which will repeat
+                y += eRadH + lwOffset;
+                svgPath.append("M ").append(0).append(" ").append(y).append(" ");
+                svgPath.append("l ").append(patternWidth/2).append(" ").append(0).append(" ");
+                svgPath.append("l ").append(0).append(" ").append(-eRadH - lineWidth).append(" ");
+                svgPath.append("m ").append(0).append(" ").append(eRadH + lineWidth).append(" ");
+                svgPath.append("l ").append(patternWidth/2).append(" ").append(0).append("\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = lwOffset + eRadH;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 151800)//Encirclement
             {
+                double lwOffset = lineWidth/2f;
+                double x = 0;
+                double y = lwOffset;
+                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadW = eRadH * 0.6f;
+                double patternWidth = (eRadW * 3) + lineWidth;
 
+                //build line pattern
+                svgPath = new StringBuilder("<path d=\"");
+
+                //build '/\'
+                y += lineWidth + (eRadH) + lwOffset;
+                svgPath.append("M ").append(0).append(" ").append(y).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(-eRadH - lineWidth).append(" ");
+                svgPath.append("l ").append(eRadW).append(" ").append(eRadH + lineWidth).append(" ");
+                svgPath.append("l ").append((eRadW/2) + lwOffset).append(" ").append(0).append(" Z\" ");
+
+                //calculate bounds of line pattern
+                double left = 0;
+                double width = patternWidth;
+                double top = 0;
+                double bottom = y + lwOffset;
+
+                vOffset = lwOffset + eRadH;
+                svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 270100 || ec == 270200 || ec == 290100)//Obstacle Belt || Obstacle Zone || Obstacle Line
             {
@@ -114,7 +232,8 @@ public class LinePattern {
                 svgBounds = new Rectangle2D.Double(left,top,width,bottom - top);
             }
             else if(ec == 270300 || ec == 270400 || ec == 290204)
-                {//Obstacle Free Zone OR
+                {
+                //Obstacle Free Zone OR
                 //Obstacle Restricted Zone (has fill, might be a problem) OR
                 // Antitank Wall
                 // _  _  _
