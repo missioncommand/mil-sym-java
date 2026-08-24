@@ -36,6 +36,65 @@ public class LinePattern {
         return svg;
     }
 
+    public double getLinePatternVerticalOffset(){return vOffset;}
+
+    public static boolean supportsLinePattern(String symbolCode) {
+        int ec = SymbolID.getEntityCode(symbolCode);
+        if (SymbolID.getSymbolSet(symbolCode) == SymbolID.SymbolSet_ControlMeasure)
+        {
+            switch (ec)
+            {
+                // FLOT
+                case 140100:
+                // Line of Contact
+                case 140200:
+                // Strong Point
+                case 151203:
+                // Encirclement
+                case 151800:
+                // Obstacle Belt || Obstacle Zone || Obstacle Line
+                case 270100:
+                case 270200:
+                case 290100:
+                // Obstacle Free Zone OR Obstacle Restricted Zone OR Antitank Wall
+                case 270300:
+                case 270400:
+                case 290204:
+                // Ditch - Under Construction || Ditch - Completed
+                case 290201:
+                case 290202:
+                // Ditch Reinforced, with Antitank Mines
+                case 290203:
+                // Unspecified (Obstacle)
+                case 290301:
+                // Single Fence
+                case 290302:
+                // Double Fence
+                case 290303:
+                // Double Apron Fence
+                case 290304:
+                // Low Wire Fence
+                case 290305:
+                // High Wire Fence
+                case 290306:
+                // Single Concertina
+                case 290307:
+                // Double Strand Concertina
+                case 290308:
+                // Triple Strand Concertina
+                case 290309:
+                // Fortified Line OR Fortified Area
+                case 290900:
+                case 151000:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        else
+            return false;
+    }
+
     public static LinePattern getLinePattern(String symbolCode, Map<String,String> attributes)
     {
         Color lineColor = SymbolUtilities.getLineColorOfAffiliation(symbolCode);
@@ -53,7 +112,7 @@ public class LinePattern {
         return getLinePattern(symbolCode, lineColor, fillColor, lineWidth);
     }
 
-    private static LinePattern getLinePattern(String symbolCode, Color lineColor, Color fillColor, float lineWidth)
+    public static LinePattern getLinePattern(String symbolCode, Color lineColor, Color fillColor, float lineWidth)
     {
         LinePattern lp = null;
         StringBuilder svgPath = null;
