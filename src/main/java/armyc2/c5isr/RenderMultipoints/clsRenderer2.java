@@ -4,6 +4,7 @@
  */
 
 package armyc2.c5isr.RenderMultipoints;
+import armyc2.c5isr.JavaLineArray.LinePattern;
 import armyc2.c5isr.JavaLineArray.arraysupport;
 import armyc2.c5isr.JavaLineArray.CELineArray;
 import armyc2.c5isr.JavaTacticalRenderer.clsChannelUtility;
@@ -303,12 +304,22 @@ public final class clsRenderer2 {
                     }
                     else
                     {
-                        tg.Pixels=arraysupport.GetLineArray2(tg, tg.Pixels,shapes, clipBounds2, converter);
+                        //if not using line patterns, generate points
+                        if(!(tg.get_UseLinePattern() && LinePattern.supportsLinePattern(tg.get_SymbolId())))
+                            tg.Pixels=arraysupport.GetLineArray2(tg, tg.Pixels,shapes, clipBounds2, converter);
+                        else {
+                            clsChannelUtility.DrawChannelPatterns(tg.get_Pixels(),tg,shapes);
+                        }
                     }
                 }
                 else //channel type
                 {
-                    clsChannelUtility.DrawChannel(tg.Pixels, lineType, tg,shapes, null, clipBounds2, converter);
+                    //if not using line patterns, generate points
+                    if(!(tg.get_UseLinePattern() && LinePattern.supportsLinePattern(tg.get_SymbolId())))
+                        clsChannelUtility.DrawChannel(tg.Pixels, lineType, tg,shapes, null, clipBounds2, converter);
+                    else {
+                        clsChannelUtility.DrawChannelPatterns(tg.get_Pixels(),tg,shapes);
+                    }
                 }
             }
             //set CELineArray.shapes properties

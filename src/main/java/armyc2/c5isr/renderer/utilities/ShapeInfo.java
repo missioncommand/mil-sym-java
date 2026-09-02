@@ -4,6 +4,8 @@
  */
 
 package armyc2.c5isr.renderer.utilities;
+import armyc2.c5isr.JavaLineArray.LinePattern;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -81,6 +83,7 @@ public class ShapeInfo {
 
     private BufferedImage _shader=null;
     private BufferedImage _patternFill = null;
+    private LinePattern _linePattern = null;
     private int _justify=justify_left;
     //for google earth
     private ArrayList<ArrayList<Point2D>> _Polylines = null;
@@ -542,6 +545,9 @@ public class ShapeInfo {
 
     public void setPatternFillImage(BufferedImage bmp){_patternFill = bmp;}
     public BufferedImage getPatternFillImage(){return _patternFill;}
+
+    public void setLinePattern(LinePattern linePattern){_linePattern = linePattern;}
+    public LinePattern getLinePattern(){return _linePattern;}
 
     public int getTextJustify()
     {

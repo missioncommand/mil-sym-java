@@ -589,6 +589,15 @@ public class TGLight {
         _useHatchFill = value;
     }
 
+    boolean _useLinePattern = false;
+    public boolean get_UseLinePattern() {
+        return _useLinePattern;
+    }
+
+    public void set_UseLinePattern(boolean value) {
+        _useLinePattern = value;
+    }
+
 //    boolean _usePatternFill = false;    
 //    public boolean get_UsePatternFill() {
 //        return _usePatternFill;

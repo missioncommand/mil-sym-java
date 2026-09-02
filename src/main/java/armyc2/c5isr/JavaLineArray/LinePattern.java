@@ -1,5 +1,6 @@
 package armyc2.c5isr.JavaLineArray;
 
+import armyc2.c5isr.renderer.utilities.LRUCache;
 import armyc2.c5isr.renderer.utilities.MilStdAttributes;
 import armyc2.c5isr.renderer.utilities.RectUtilities;
 import armyc2.c5isr.renderer.utilities.RendererSettings;
@@ -8,13 +9,13 @@ import armyc2.c5isr.renderer.utilities.SymbolID;
 import armyc2.c5isr.renderer.utilities.SymbolUtilities;
 
 import java.awt.*;
-import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
 public class LinePattern {
 
+    private static final LRUCache<LinePattern> _patternCache = new LRUCache<>(128);
     BufferedImage pattern = null;
     String svg = null;
     double vOffset = 0;
@@ -95,6 +96,13 @@ public class LinePattern {
             return false;
     }
 
+    private static String makeCacheKey(String symbolID, String lineColor, String fillColor, float lineWidth, int dpi)
+    {
+        //String key = symbolID.substring(0, 20) + String.valueOf(lineColor) + String.valueOf(fillColor) + String.valueOf(size) + String.valueOf(keepUnitRatio);
+        String key = symbolID.substring(0, 7) + symbolID.substring(10, 20) + SymbolID.getFrameShape(symbolID) + lineColor + fillColor + lineWidth + dpi;
+        return key;
+    }
+
     public static LinePattern getLinePattern(String symbolCode, Map<String,String> attributes)
     {
         Color lineColor = SymbolUtilities.getLineColorOfAffiliation(symbolCode);
@@ -121,6 +129,7 @@ public class LinePattern {
         Rectangle2D svgBounds = null;
         double vOffset = 0;
         boolean grouped = false;
+        String key = null;
 
         if(symbolCode != null && symbolCode.length() >= 20)
         {
@@ -131,6 +140,14 @@ public class LinePattern {
             float offset = lineWidth/2f;// + 0.5f;
             float multiplier = dpi > 96 ? dpi/96f : 1;
 
+            key = makeCacheKey(symbolCode,RendererUtilities.colorToHexString(lineColor,true),RendererUtilities.colorToHexString(fillColor,true),lineWidth,dpi);
+            //see if it's in the cache
+            if(_patternCache != null)
+            {
+                lp = _patternCache.get(key);
+                if(lp != null)
+                    return lp;
+            }
 
             if(ec == 140100)//FLOT
             {
@@ -835,6 +852,8 @@ public class LinePattern {
                     lp = new LinePattern(bmp,sbSVG.toString(), vOffset);
             }
         }
+        if(_patternCache != null && _patternCache.get(key) == null)
+            _patternCache.put(key, lp);
         return lp;
     }
 

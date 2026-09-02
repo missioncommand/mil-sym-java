@@ -544,7 +544,7 @@ public final class clsRenderer {
      * @param converter geographic to pixels to converter
      * @return MilstdSymbol object
      */
-    public static MilStdSymbol createMilStdSymboFromTGLight(TGLight tg, IPointConversion converter) {
+    public static MilStdSymbol createMilStdSymbolFromTGLight(TGLight tg, IPointConversion converter) {
         MilStdSymbol milStd = null;
         try {
             String symbolId = tg.get_SymbolId();
@@ -619,6 +619,7 @@ public final class clsRenderer {
             tg.set_LineThickness(milStd.getLineWidth());
             tg.set_TexturePaint(milStd.getFillStyle());
             tg.set_patternScale(milStd.getPatternScale());
+            tg.set_UseLinePattern(milStd.getUseLinePattern());
 
             tg.setIconSize(milStd.getUnitSize());
             tg.set_KeepUnitRatio(milStd.getKeepUnitRatio());

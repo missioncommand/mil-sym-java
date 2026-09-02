@@ -11,90 +11,117 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 
 
-//The class for LRU Cache storage and its operations
-public class LRUCache {
+/**
+ * The class for LRU Cache storage and its operations
+ * @param <T>
+ */
+public class LRUCache<T> {
 
-// Variable to store the least recently used element
-private LRUEntry lruElement;
-
-// Variable to store the most recently used element
-private LRUEntry mruElement;
-
-private Map<String, LRUEntry> container;
-private int capacity;
-private int currentSize;
-
-private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
-
-// Constructor for setting the values in instance variables
-public LRUCache(int capacity) {
-
-
-    this.capacity = capacity;
-        this.currentSize = 0;
-        lruElement = new LRUEntry(null, null, null, null);
-        mruElement = lruElement;
-        container = new ConcurrentHashMap<String, LRUEntry>();
-        }
-
-// The get method to perform the retrieve operations on data
-public ImageInfo get(String key)
-{
-        this.lock.readLock().lock();
-        try {
-                LRUEntry tempLRUEntry = container.get(key);
-                if (tempLRUEntry == null) {
-                        return null;
-                }
-                // In case the MRU leave the list as it is :
-                else if (tempLRUEntry.key == mruElement.key) {
-                        return mruElement.value;
-                }
-
-                // Getting the Next and Previous Nodes
-                LRUEntry nextLRUEntry = tempLRUEntry.next;
-                LRUEntry prevLRUEntry = tempLRUEntry.prev;
-
-                // If LRU is updated at the left-most
-                if (tempLRUEntry.key == lruElement.key) {
-                        nextLRUEntry.prev = null;
-                        lruElement = nextLRUEntry;
-                }
-
-                // In case we are in the middle, we are required to update the items before and
-                // after our item
-                else if (tempLRUEntry.key != mruElement.key) {
-                        prevLRUEntry.next = nextLRUEntry;
-                        nextLRUEntry.prev = prevLRUEntry;
-                }
-
-                // And here we are finally moving our item to MRU
-                tempLRUEntry.prev = mruElement;
-                mruElement.next = tempLRUEntry;
-                mruElement = tempLRUEntry;
-                mruElement.next = null;
-
-                return tempLRUEntry.value;
-        }
-        finally
+        private static class LRUEntry<T>
         {
-                this.lock.readLock().unlock();
-        }
+
+                public String key;
+                public T value;
+                public LRUEntry<T> next;
+                public LRUEntry<T> prev;
+
+                public LRUEntry(LRUEntry<T> prev, LRUEntry<T> next, String key, T value) {
+                        this.prev = prev;
+                        this.next = next;
+                        this.key = key;
+                        this.value = value;
+                }
 
         }
 
-// The put method to perform the insert operations on cache
+        // Variable to store the least recently used element
+        private LRUEntry<T> lruElement;
 
-        public void put(String key, ImageInfo value)
+        // Variable to store the most recently used element
+        private LRUEntry<T> mruElement;
+
+        private Map<String, LRUEntry<T>> container;
+        private int capacity;
+        private int currentSize;
+
+        private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+
+        // Constructor for setting the values in instance variables
+        public LRUCache(int capacity) {
+
+
+            this.capacity = capacity;
+                currentSize = 0;
+                lruElement = new LRUEntry<T>(null, null, null, null);
+                mruElement = lruElement;
+                container = new ConcurrentHashMap<>();
+                }
+
+        /**
+         * The get method to perform the retrieve operations on data
+         * @param key String
+         * @return T
+         */
+        public T get(String key)
         {
-                this.lock.writeLock().lock();
+                lock.readLock().lock();
+                try {
+                        LRUEntry<T> tempLRUEntry = container.get(key);
+                        if (tempLRUEntry == null) {
+                                return null;
+                        }
+                        // In case the MRU leave the list as it is :
+                        else if (tempLRUEntry.key.equals(mruElement.key)) {
+                                return mruElement.value;
+                        }
+
+                        // Getting the Next and Previous Nodes
+                        LRUEntry<T> nextLRUEntry = tempLRUEntry.next;
+                        LRUEntry<T> prevLRUEntry = tempLRUEntry.prev;
+
+                        // If LRU is updated at the left-most
+                        if (tempLRUEntry.key.equals(lruElement.key)) {
+                                nextLRUEntry.prev = null;
+                                lruElement = nextLRUEntry;
+                        }
+
+                        // In case we are in the middle, we are required to update the items before and
+                        // after our item
+                        else if (tempLRUEntry.key != mruElement.key) {
+                                prevLRUEntry.next = nextLRUEntry;
+                                nextLRUEntry.prev = prevLRUEntry;
+                        }
+
+                        // And here we are finally moving our item to MRU
+                        tempLRUEntry.prev = mruElement;
+                        mruElement.next = tempLRUEntry;
+                        mruElement = tempLRUEntry;
+                        mruElement.next = null;
+
+                        return tempLRUEntry.value;
+                }
+                finally
+                {
+                        lock.readLock().unlock();
+                }
+
+        }
+
+        /**
+         * The put method to perform the insert operations on cache
+          * @param key String
+         * @param value T
+         */
+        public void put(String key, T value)
+        {
+                lock.writeLock().lock();
                 try {
                         if (container.containsKey(key)) {
                                 return;
                         }
 
                         // Inserting the new Node at the right-most end position of the linked-list
-                        LRUEntry myLRUEntry = new LRUEntry(mruElement, null, key, value);
+                        LRUEntry<T> myLRUEntry = new LRUEntry<>(mruElement, null, key, value);
                         mruElement.next = myLRUEntry;
                         container.put(key, myLRUEntry);
                         mruElement = myLRUEntry;
@@ -118,7 +145,7 @@ public ImageInfo get(String key)
                 }
                 finally
                 {
-                        this.lock.writeLock().unlock();
+                        lock.writeLock().unlock();
                 }
         }
 }

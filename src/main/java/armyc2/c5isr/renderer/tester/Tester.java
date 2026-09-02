@@ -1159,6 +1159,11 @@ public class Tester extends javax.swing.JFrame {
                 //attributes.put(MilStdAttributes.IconColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));
                 //attributes.put(MilStdAttributes.LineColor,RendererUtilities.colorToHexString(AffiliationColors.FriendlyUnitFillColor,false));//*/
 
+                //Dark Mode?
+                /*attributes.put(MilStdAttributes.LineColor,"#FFFFFF");
+                attributes.put(MilStdAttributes.TextColor,"#FFFFFF");
+                attributes.put(MilStdAttributes.TextBackgroundColor,"#000000");//*/
+
                 //new line color, no fill
                 //attributes.put(MilStdAttributes.FillColor,"#00000000");
                 //attributes.put(MilStdAttributes.LineColor,RendererUtilities.colorToHexString(SymbolUtilities.getFillColorOfAffiliation(symbolID),false));
@@ -1421,6 +1426,9 @@ public class Tester extends javax.swing.JFrame {
         //Rectangle2D clipBounds = new Rectangle(0,0,pConverter.getPixelWidth()/2, pConverter.getPixelHeight()/2);
         Rectangle2D clipBounds = null;
 
+        //test line pattern
+        ms.setUseLinePattern(true);
+
         ms = render(ms, pConverter, clipBounds);
 
         ErrorLogger.LogMessage("ScaleAwareText: " + ms.isTextScaleSensitive());
@@ -1449,8 +1457,9 @@ public class Tester extends javax.swing.JFrame {
         //Generate GeoJSON
         Map<String,String> attributes = new HashMap<>();
         attributes.put(MilStdAttributes.LineWidth,String.valueOf(ms.getLineWidth()));
-        //attributes.put(MilStdAttributes.FillColor,"#00FF00");
+        //attributes.put(MilStdAttributes.FillColor,"#00FF00");-
         int format = WebRenderer.OUTPUT_FORMAT_GEOJSON;
+        ms.setUseLinePattern(false);
         renderWebFormat(msi, symbolID, ms, pConverter,modifiers,attributes,format);
 
         points.clear();
