@@ -852,7 +852,7 @@ public class LinePattern {
                     lp = new LinePattern(bmp,sbSVG.toString(), vOffset);
             }
         }
-        if(_patternCache != null && _patternCache.get(key) == null)
+        if(_patternCache != null && _patternCache.get(key) == null && lp != null)
             _patternCache.put(key, lp);
         return lp;
     }
