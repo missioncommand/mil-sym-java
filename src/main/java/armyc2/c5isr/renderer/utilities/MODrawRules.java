@@ -217,5 +217,15 @@ public class MODrawRules {
      */
     public static final int LINE8 = 308;
 
+    /**
+     * Converts a DrawRules constant into its corresponding draw-rule string.
+     *
+     * @param drawRule the DrawRules constant
+     * @return the draw-rule name, or "DoNotDraw" if no match exists
+     */
+    static public String getDrawRuleName(int drawRule)
+    {
+        return DrawRules.getDrawRuleName(drawRule);
+    }
 
 }
