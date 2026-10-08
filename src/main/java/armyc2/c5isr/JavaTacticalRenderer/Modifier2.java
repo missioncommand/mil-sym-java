@@ -3534,14 +3534,17 @@ public class Modifier2 {
                                 break;
                             }
                             pt0 = locModifier.get(k);
-                            AddAreaModifier(tg, "ALT " + altitudes[k], area, -1, pt0, pt0);
+                            if(!altitudes[k].isEmpty())
+                                AddAreaModifier(tg, "ALT " + altitudes[k], area, 0, pt0, pt0);
+                            else
+                                AddAreaModifier(tg, "ALT GL", area, 0, pt0, pt0);
                         }
                     }
 
                     if (!tg.get_HideOptionalLabels()) {
                         for (int k = 0; k < numSectors; k++) {
                             pt0 = locModifier.get(k);
-                            AddAreaModifier(tg, "RG " + removeDecimal(AM.get(k + 1)), area, 0, pt0, pt0);
+                            AddAreaModifier(tg, "RG " + removeDecimal(AM.get(k + 1)), area, -1, pt0, pt0);
                             ptLeft = locAZModifier.get(2 * k);
                             ptRight = locAZModifier.get(2 * k + 1);
                             AddAreaModifier(tg, removeDecimal(an[2 * k]), area, 0, ptLeft, ptLeft);
@@ -4319,9 +4322,12 @@ public class Modifier2 {
                             if (tg.get_X() != null) {
                                 X = tg.get_X().split(",");
                                 for (j = 0; j < X.length; j++) {
+                                    String altLabel = "ALT GL";
                                     if (tg.Pixels.size() > j * 102 + 25) {
                                         pt0 = tg.Pixels.get(j * 102 + 25);
-                                        AddAreaModifier(tg, "ALT " + X[j], area, 1, pt0, pt0);
+                                        if(!X[j].isEmpty())
+                                            altLabel = "ALT " + X[j];
+                                        AddAreaModifier(tg, altLabel, area, 1, pt0, pt0);
                                     }
                                 }
                             }
