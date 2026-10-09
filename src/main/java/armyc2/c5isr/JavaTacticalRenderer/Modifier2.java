@@ -3527,24 +3527,53 @@ public class Modifier2 {
                     locAZModifier.add(ptRight);
                     //end section
                 }
-                if (altitudes != null) {
-                    for (int k = 0; k < altitudes.length; k++) {
-                        if (k >= locModifier.size()) {
-                            break;
+                if(!RendererSettings.getInstance().getGroupModifiers()) {
+                    if (altitudes != null) {
+                        for (int k = 0; k < altitudes.length; k++) {
+                            if (k >= locModifier.size()) {
+                                break;
+                            }
+                            pt0 = locModifier.get(k);
+                            if(!altitudes[k].isEmpty())
+                                AddAreaModifier(tg, "ALT " + altitudes[k], area, 0, pt0, pt0);
+                            else
+                                AddAreaModifier(tg, "ALT GL", area, 0, pt0, pt0);
                         }
-                        pt0 = locModifier.get(k);
-                        AddAreaModifier(tg, "ALT " + altitudes[k], area, 0, pt0, pt0);
+                    }
+
+                    if (!tg.get_HideOptionalLabels()) {
+                        for (int k = 0; k < numSectors; k++) {
+                            pt0 = locModifier.get(k);
+                            AddAreaModifier(tg, "RG " + removeDecimal(AM.get(k + 1)), area, -1, pt0, pt0);
+                            ptLeft = locAZModifier.get(2 * k);
+                            ptRight = locAZModifier.get(2 * k + 1);
+                            AddAreaModifier(tg, removeDecimal(an[2 * k]), area, 0, ptLeft, ptLeft);
+                            AddAreaModifier(tg, removeDecimal(an[2 * k + 1]), area, 0, ptRight, ptRight);
+                        }
                     }
                 }
-
-                if (!tg.get_HideOptionalLabels()) {
-                    for (int k = 0; k < numSectors; k++) {
-                        pt0 = locModifier.get(k);
-                        AddAreaModifier(tg, "RG " + removeDecimal(AM.get(k + 1)), area, -1, pt0, pt0);
-                        ptLeft = locAZModifier.get(2 * k);
-                        ptRight = locAZModifier.get(2 * k + 1);
-                        AddAreaModifier(tg, removeDecimal(an[2 * k]), area, 0, ptLeft, ptLeft);
-                        AddAreaModifier(tg, removeDecimal(an[2 * k + 1]), area, 0, ptRight, ptRight);
+                else//grouped
+                {
+                    if (!tg.get_HideOptionalLabels()) {
+                        for (int k = 0; k < numSectors; k++) {
+                            String label = "";
+                            if (!tg.get_HideOptionalLabels())
+                                label = "RG " + removeDecimal(AM.get(k + 1)) + "\n";
+                            if(altitudes != null)
+                            {
+                                label += "ALT " + altitudes[k];
+                            }
+                            else
+                                label += "ALT GL";
+                            pt0 = locModifier.get(k);
+                            AddAreaModifier(tg, label, area, 0, pt0, pt0);
+                            if (!tg.get_HideOptionalLabels()) {
+                                ptLeft = locAZModifier.get(2 * k);
+                                ptRight = locAZModifier.get(2 * k + 1);
+                                AddAreaModifier(tg, removeDecimal(an[2 * k]), area, 0, ptLeft, ptLeft);
+                                AddAreaModifier(tg, removeDecimal(an[2 * k + 1]), area, 0, ptRight, ptRight);
+                            }
+                        }
                     }
                 }
             } else if (tg.get_LineType() == TacticalLines.RADAR_SEARCH) {
@@ -4289,28 +4318,63 @@ public class Modifier2 {
                         }
                         break;
                     case TacticalLines.RANGE_FAN:
-                        if (tg.get_X() != null) {
-                            X = tg.get_X().split(",");
-                            for (j = 0; j < X.length; j++) {
-                                if (tg.Pixels.size() > j * 102 + 25) {
-                                    pt0 = tg.Pixels.get(j * 102 + 25);
-                                    AddAreaModifier(tg, "ALT " + X[j], area, 0, pt0, pt0);
+                        if(!RendererSettings.getInstance().getGroupModifiers()) {
+                            if (tg.get_X() != null) {
+                                X = tg.get_X().split(",");
+                                for (j = 0; j < X.length; j++) {
+                                    String altLabel = "ALT GL";
+                                    if (tg.Pixels.size() > j * 102 + 25) {
+                                        pt0 = tg.Pixels.get(j * 102 + 25);
+                                        if(!X[j].isEmpty())
+                                            altLabel = "ALT " + X[j];
+                                        AddAreaModifier(tg, altLabel, area, 1, pt0, pt0);
+                                    }
                                 }
                             }
+                            if (!tg.get_HideOptionalLabels()) {
+                                String[] am = tg.get_AM().split(",");
+                                for (j = 0; j < am.length; j++) {
+                                    if (tg.Pixels.size() > j * 102 + 25) {
+                                        pt0 = tg.Pixels.get(j * 102 + 25);
+                                        //AddAreaModifier(tg, "RG " + am[j], area, -1, pt0, pt0);
+                                        if (j == 0)
+                                            AddAreaModifier(tg, "MIN RG " + removeDecimal(am[j]), 3, 0, pt0, pt0);
+                                        else
+                                            AddAreaModifier(tg, "MAX RG " + "(" + Integer.toString(j) + ") " + removeDecimal(am[j]), 3, 0, pt0, pt0);
+                                    }
+                                }
+                            }// end if set range fan text
                         }
-                        if (!tg.get_HideOptionalLabels()) {
+                        else // grouped
+                        {
                             String[] am = tg.get_AM().split(",");
+                            String crfLabel;
                             for (j = 0; j < am.length; j++) {
-                                if (tg.Pixels.size() > j * 102 + 25) {
-                                    pt0 = tg.Pixels.get(j * 102 + 25);
-                                    //AddAreaModifier(tg, "RG " + am[j], area, -1, pt0, pt0);
-                                    if (j == 0)
-                                        AddAreaModifier(tg, "MIN RG " + removeDecimal(am[j]), 3, -1, pt0, pt0);
-                                    else
-                                        AddAreaModifier(tg, "MAX RG " + "(" + Integer.toString(j) + ") " + removeDecimal(am[j]), 3, -1, pt0, pt0);
+                                crfLabel = "";
+                                if (!tg.get_HideOptionalLabels()) {
+                                    if (tg.Pixels.size() > j * 102 + 25) {
+                                        pt0 = tg.Pixels.get(j * 102 + 25);
+                                        //AddAreaModifier(tg, "RG " + am[j], area, -1, pt0, pt0);
+                                        if (j == 0)
+                                            crfLabel = "MIN RG " + removeDecimal(am[j]) + "\n";
+                                        else
+                                            crfLabel = "MAX RG " + "(" + j + ") "  + removeDecimal(am[j]) + "\n";
+                                    }
                                 }
+                                if (tg.get_X() != null && !tg.get_X().isEmpty()) {
+                                    X = tg.get_X().split(",");
+                                    if (tg.Pixels.size() > j * 102 + 25) {
+                                        pt0 = tg.Pixels.get(j * 102 + 25);
+                                        if(X[j] != null && !X[j].isEmpty())
+                                            crfLabel += "ALT " + X[j];
+                                    }
+                                }
+                                else
+                                    crfLabel += "ALT GL";
+
+                                AddAreaModifier(tg, crfLabel, 3, 1, pt0, pt0);
                             }
-                        }// end if set range fan text
+                        }//*/
                         break;
                     case TacticalLines.RANGE_FAN_SECTOR:
                     case TacticalLines.RADAR_SEARCH:
