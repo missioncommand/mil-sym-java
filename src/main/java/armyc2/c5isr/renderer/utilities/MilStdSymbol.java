@@ -220,7 +220,7 @@ public class MilStdSymbol
         setSymbolID(symbolID);
 
         // Set up default line fill and text colors
-        setLineColor(SymbolUtilities.getDefaultLineColor(_symbolID));
+        _LineColor = SymbolUtilities.getDefaultLineColor(_symbolID);
         setTextColor(SymbolUtilities.getLineColorOfAffiliation(symbolID));
         //if(SymbolUtilities.isWarfighting(_symbolID))
         if (SymbolUtilities.hasDefaultFill(_symbolID))
@@ -703,9 +703,8 @@ public class MilStdSymbol
      */
     public void setLineColor(Color value)
     {
-        if (SymbolUtilities.isGreenProtectionGraphic(getSymbolID())) {
-            _LineColor = AffiliationColors.ObstacleGreen;//new Color(0,166,81); // Green from SymbolUtilities.getLineColorOfAffiliation()
-        } else if (value != null) {
+        if(!SymbolUtilities.hasStaticLineColor(_symbolID) && value != null)
+        {
             _LineColor = value;
         }
     }
