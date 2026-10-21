@@ -11,6 +11,7 @@ import armyc2.c5isr.renderer.utilities.SymbolUtilities;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Locale;
 import java.util.Map;
 
 public class LinePattern {
@@ -18,18 +19,43 @@ public class LinePattern {
     private static final LRUCache<LinePattern> _patternCache = new LRUCache<>(128);
     BufferedImage pattern = null;
     String svg = null;
+    String dataUrl = null;
     double vOffset = 0;
 
-    LinePattern(BufferedImage linePattern, String svgPattern, double verticalOffset)
+    String _sybmolCode = null;
+    Color _fillColor = null;
+    Color _lineColor = null;
+    float _lineWidth = 0;
+
+    private LinePattern(BufferedImage linePattern, String svgPattern, double verticalOffset)
     {
         pattern = linePattern;
         svg = svgPattern;
         vOffset = verticalOffset;
     }
 
+    LinePattern(BufferedImage linePattern, String svgPattern, double verticalOffset, String symbolCode, Color lineColor, Color fillColor, float lineWidth)
+    {
+        pattern = linePattern;
+        svg = svgPattern;
+        vOffset = verticalOffset;
+
+        _sybmolCode = symbolCode;
+        _lineColor = lineColor;
+        _fillColor = fillColor;
+        _lineWidth = lineWidth;
+    }
+
     public BufferedImage getLinePatternImage()
     {
         return pattern;
+    }
+
+    public String getLinePatternDataUrl()
+    {
+        if(dataUrl == null)
+            dataUrl = RendererUtilities.imgToBase64String(pattern);
+        return dataUrl;
     }
 
     public String getLinePatternSVG()
@@ -96,10 +122,10 @@ public class LinePattern {
             return false;
     }
 
-    private static String makeCacheKey(String symbolID, String lineColor, String fillColor, float lineWidth, int dpi)
+    private static String makeCacheKey(String symbolID, String lineColor, String fillColor, float lineWidth, int dpi, float patternScale)
     {
         //String key = symbolID.substring(0, 20) + String.valueOf(lineColor) + String.valueOf(fillColor) + String.valueOf(size) + String.valueOf(keepUnitRatio);
-        String key = symbolID.substring(0, 7) + symbolID.substring(10, 20) + SymbolID.getFrameShape(symbolID) + lineColor + fillColor + lineWidth + dpi;
+        String key = symbolID.substring(0, 7) + symbolID.substring(10, 20) + SymbolID.getFrameShape(symbolID) + lineColor + fillColor + lineWidth + dpi + patternScale;
         return key;
     }
 
@@ -120,7 +146,17 @@ public class LinePattern {
         return getLinePattern(symbolCode, lineColor, fillColor, lineWidth);
     }
 
+    public static LinePattern scaleLinePattern(LinePattern lp, float scale)
+    {
+        return getLinePattern(lp._sybmolCode, lp._lineColor,lp._fillColor,lp._lineWidth,scale);
+    }
+
     public static LinePattern getLinePattern(String symbolCode, Color lineColor, Color fillColor, float lineWidth)
+    {
+        return getLinePattern(symbolCode,lineColor,fillColor,lineWidth,1f);
+    }
+
+    public static LinePattern getLinePattern(String symbolCode, Color lineColor, Color fillColor, float lineWidth, float patternScale)
     {
         LinePattern lp = null;
         StringBuilder svgPath = null;
@@ -139,8 +175,9 @@ public class LinePattern {
 
             float offset = lineWidth/2f;// + 0.5f;
             float multiplier = dpi > 96 ? dpi/96f : 1;
+            multiplier = multiplier * patternScale;
 
-            key = makeCacheKey(symbolCode,RendererUtilities.colorToHexString(lineColor,true),RendererUtilities.colorToHexString(fillColor,true),lineWidth,dpi);
+            key = makeCacheKey(symbolCode,RendererUtilities.colorToHexString(lineColor,true),RendererUtilities.colorToHexString(fillColor,true),lineWidth,dpi, patternScale);
             //see if it's in the cache
             if(_patternCache != null)
             {
@@ -251,7 +288,7 @@ public class LinePattern {
                 double lwOffset = lineWidth/2f;
                 double x = 0;
                 double y = lwOffset;
-                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadH = (10 + (lineWidth)) * multiplier;
                 double eRadW = eRadH * 0.6f;
                 double patternWidth = (eRadW * 3) + lineWidth;
 
@@ -283,7 +320,7 @@ public class LinePattern {
                 double lwOffset = lineWidth/2f;
                 double x = 0;
                 double y = lwOffset;
-                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadH = (10 + (lineWidth)) * multiplier;
                 double eRadW = eRadH * 0.6f;
                 double patternWidth = (eRadW * 3) + lineWidth;
 
@@ -325,7 +362,7 @@ public class LinePattern {
                 double lwOffset = lineWidth/2f;
                 double x = 0;
                 double y = lwOffset;
-                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadH = (10 + (lineWidth)) * multiplier;
                 double eRadW = eRadH * 0.6f;
                 double patternWidth = (eRadW * 3) + lineWidth;
 
@@ -357,7 +394,7 @@ public class LinePattern {
                 double lwOffset = lineWidth/2f;
                 double x = 0;
                 double y = lwOffset;
-                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadH = (10 + (lineWidth)) * multiplier;
                 double eRadW = eRadH * 0.6f;
                 double patternWidth = (eRadW * 2) + lineWidth;
 
@@ -390,7 +427,7 @@ public class LinePattern {
                 double lwOffset = lineWidth/2f;
                 double x = 0;
                 double y = lwOffset;
-                double eRadH = (10 + (lineWidth*2)) * multiplier;
+                double eRadH = (10 + (lineWidth)) * multiplier;
                 double eRadW = eRadH * 0.6f;
                 double patternWidth = (eRadW * 3) + lineWidth*2 + ((eRadW*0.6));
 
@@ -849,12 +886,58 @@ public class LinePattern {
                 BufferedImage bmp = RendererUtilities.renderSVG(biBounds, sbSVG.toString());
 
                 if(bmp != null)
-                    lp = new LinePattern(bmp,sbSVG.toString(), vOffset);
+                    lp = new LinePattern(bmp,sbSVG.toString(), vOffset, symbolCode, lineColor, fillColor, lineWidth);
             }
         }
         if(_patternCache != null && _patternCache.get(key) == null && lp != null)
             _patternCache.put(key, lp);
         return lp;
+    }
+
+    /**
+     * Calculates a vertically expanded SVG viewBox that places verticalAnchorY
+     * at the exact vertical center of the resulting SVG coordinate space.
+     *
+     * The original graphic remains unchanged; the extra area is transparent
+     * whitespace introduced by expanding the viewBox.
+     */
+    private static String createVerticallyCenteredViewBox(
+            float minX,
+            float minY,
+            float maxX,
+            float maxY,
+            float verticalAnchorY) {
+
+        // Preserve the original horizontal range.
+        float width = maxX - minX;
+
+        // Find the farthest existing vertical edge from the desired anchor.
+        float distanceToTop = verticalAnchorY - minY;
+        float distanceToBottom = maxY - verticalAnchorY;
+        float halfHeight = Math.max(distanceToTop, distanceToBottom);
+
+        // Make the anchor equidistant from the top and bottom viewBox edges.
+        float centeredMinY = verticalAnchorY - halfHeight;
+        float centeredHeight = halfHeight * 2.0f;
+
+        // Returned in standard SVG viewBox order:
+        // min-x, min-y, width, height.
+        float[] viewBox = new float[] {
+                minX,
+                centeredMinY,
+                width,
+                centeredHeight
+        };
+
+        String svgViewBox = String.format(
+                Locale.US,
+                "viewBox=\"%f %f %f %f\"",
+                viewBox[0],
+                viewBox[1],
+                viewBox[2],
+                viewBox[3]
+        );
+        return svgViewBox;
     }
 
     public static LinePattern centerLinePattern(LinePattern linePattern)
@@ -911,7 +994,7 @@ public class LinePattern {
             graphics.dispose();
         }
 
-        return new LinePattern(result,"",result.getHeight()/2f);
+        return new LinePattern(result,"",result.getHeight()/2f, linePattern._sybmolCode, linePattern._lineColor, linePattern._fillColor, linePattern._lineWidth);
     }
 }
 

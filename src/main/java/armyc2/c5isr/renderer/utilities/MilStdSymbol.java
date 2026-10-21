@@ -4,6 +4,8 @@
  */
 package armyc2.c5isr.renderer.utilities;
 
+import armyc2.c5isr.JavaLineArray.LinePattern;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -1305,7 +1307,10 @@ public class MilStdSymbol
                 case 341500://Isolate, most detail contained inside
                 case 342600://Cordon and Knock, most detail contained inside
                 case 342700://Cordon and Search, most detail contained inside
-                    return 2;//decoration
+                    if(getUseLinePattern() && LinePattern.supportsLinePattern(_symbolID))
+                        return 0;//using pattern, don't need to refresh
+                    else
+                        return 2;//decoration
 
                 //Areas with Pattern Fill
                 case 151100://Limited Access Area
@@ -1328,6 +1333,7 @@ public class MilStdSymbol
                         return 0;
                 default:
                     return 0;
+
             }
         }
 
