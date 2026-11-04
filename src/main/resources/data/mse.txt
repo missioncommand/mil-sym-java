@@ -772,7 +772,7 @@
 		Standard Use Army Aircraft Flight Route		170500	15,16	Area	Corridor1	AM,T,X,W,W1	
 		Transit Corridor		170600	15,16	Area	Corridor1	AM,T,X,W,W1	
 		Special Corridor		170700	15,16	Area	Corridor1	AM,T,X,W,W1	
-		Base Defense Zone		170800	15,16	Point	Area22		
+		Base Defense Zone		170800	15,16	Area	Circular1	AM,X
 		High-Density Airspace Control Zone		170900	15,16	Area	Area1	T,X,W,W1	2 X values
 		Restricted Operations Zone		171000	15,16	Area	Area1	T,X,W,W1	2 X values
 		Air-to-Air Restricted Operating Zone		171100	15,16	Area	Area1	T,X,W,W1	2 X values
@@ -1076,7 +1076,7 @@
 		Battlefield Coordination Line		260400	16	Line	Line1	AS,T2,W,W1	
 		Restrictive Fire Line		260500	15	Line	Line1	T,W,W1	
 		Restrictive Fire Line		260500	16	Line	Line1	AS,T2,W,W1	
-		Munition Flight Path		260600	15,16	Line	Line8	W,W1	
+		Munition Flight Path		260600	15,16	Line	Line1	W,W1
 	Protection Areas			270000	15,16				
 		Obstacle Belt		270100	15,16	Area	Area1	T	
 		Obstacle Zone		270200	15,16	Area	Area1	T	
@@ -1962,7 +1962,7 @@
 			Berths (Onshore)	120302	15	Point	Point1	000000	
 			Berths (Anchor)	120303	15	Point	Point1	000000	
 			Anchorage - Point	120304	15	Point	Point1	000000	
-			Anchorage - Line	120305	15	Line	Line8	000000	
+			Anchorage - Line	120305	15	Line	Line1	000000
 			Anchorage - Area	120306	15	Area	Area2	000000	
 			Call in Point	120307	15	Point	Point1	000000	
 			Pier/Wharf/Quay	120308	15	Line	Line1	000000	

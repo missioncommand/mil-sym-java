@@ -3865,6 +3865,11 @@ public class Modifier2 {
                         AddIntegralAreaModifier(tg, buildAreaGroupDTGString(tg), toEnd, -1 * csFactor, dtgCircularPosition, new POINT2(dtgCircularPosition.x + 0.001, dtgCircularPosition.y, 0), false);
                         modifiersGrouped = true;
                         break;
+                    case TacticalLines.BDZ:
+                        ptCenter = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(tg.Pixels.size() / 2), 0);
+                        //center labels
+                        AddIntegralAreaModifier(tg, label, area, 0, ptCenter, ptCenter, false);
+                        break;
                     case TacticalLines.FFA_CIRCULAR:
                     case TacticalLines.NFA_CIRCULAR:
                     case TacticalLines.RFA_CIRCULAR:
@@ -4126,6 +4131,11 @@ public class Modifier2 {
                         POINT2 dtgCircularPosition = tg.Pixels.get(Math.round(tg.Pixels.size() * 0.5625f));
                         AddIntegralAreaModifier(tg, tg.get_DTG() + WDash, toEnd, -2 * csFactor, dtgCircularPosition, new POINT2(dtgCircularPosition.x + 0.001, dtgCircularPosition.y, 0), false);
                         AddIntegralAreaModifier(tg, tg.get_DTG1(), toEnd, -1 * csFactor, dtgCircularPosition, new POINT2(dtgCircularPosition.x + 0.001, dtgCircularPosition.y, 0), false);
+                        break;
+                    case TacticalLines.BDZ:
+                        ptCenter = lineutility.MidPointDouble(tg.Pixels.get(0), tg.Pixels.get(tg.Pixels.size() / 2), 0);
+                        //center labels
+                        AddIntegralAreaModifier(tg, label, area, 0, ptCenter, ptCenter, false);
                         break;
                     case TacticalLines.FFA_CIRCULAR:
                     case TacticalLines.NFA_CIRCULAR:
