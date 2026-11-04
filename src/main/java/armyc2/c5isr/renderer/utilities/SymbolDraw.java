@@ -1,9 +1,11 @@
 package armyc2.c5isr.renderer.utilities;
+import armyc2.c5isr.JavaLineArray.LinePattern;
 import armyc2.c5isr.JavaLineArray.TacticalLines;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.font.TextLayout;
+import java.awt.geom.FlatteningPathIterator;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
@@ -140,6 +142,10 @@ public class SymbolDraw {
                                     point = siTemp.getGlyphPosition();
                                     siTemp.getTextLayout().draw(destination, (float)point.getX(), (float)point.getY());
                                 }
+                            }
+                            if(siTemp.getLinePattern() != null)
+                            {
+                                drawImageAlongPath(destination, siTemp.getLinePattern(), siTemp.getShape(), siTemp.getLinePattern().getLinePatternImage().getWidth(),true);
                             }
 
                             destination.setTransform(oldTransform);
@@ -343,6 +349,107 @@ public class SymbolDraw {
             RendererException re2 = new RendererException("Draw Operation Failed", exc);
             loggy.logp(Level.INFO, "SymbolDraw", "Draw()", "draw failure", re2);
             throw re2;
+        }
+    }
+
+    /**
+     * Draws a BufferedImage repeatedly along the contour of a Shape.
+     *
+     * @param g2d         The Graphics2D context to draw onto.
+     * @param linePattern The LinePatter to repeat.
+     * @param path        The Shape (e.g., GeneralPath or Path2D) to follow.
+     * @param spacing     The distance in pixels between each repeated image.
+     * @param alignToPath If true, rotates the image to match the tangent of the path.
+     */
+    public static void drawImageAlongPath(Graphics2D g2d, LinePattern linePattern, Shape path, double spacing, boolean alignToPath) {
+
+        if (path == null || linePattern == null || spacing <= 0) {
+            return;
+        }
+
+        BufferedImage image = linePattern.getLinePatternImage();
+
+
+        // 1. Flatten the path into small line segments.
+        // A flatness of 1.0 means the flattened path will not deviate from the curve by more than 1 pixel.
+        ArrayList<Point2D> points = new ArrayList<>();
+        FlatteningPathIterator fpi = new FlatteningPathIterator(path.getPathIterator(null), 1.0);
+        double[] coords = new double[6];
+
+        while (!fpi.isDone()) {
+            int type = fpi.currentSegment(coords);
+            // After flattening, segments are only SEG_MOVETO (start) or SEG_LINETO (lines)
+            if (type == PathIterator.SEG_MOVETO || type == PathIterator.SEG_LINETO) {
+                points.add(new Point2D.Double(coords[0], coords[1]));
+            }
+            fpi.next();
+        }
+
+        if (points.size() < 2) {
+            return; // Not enough points to define a line
+        }
+
+        // Get half dimensions of the image to center it on the path
+        double halfW = image.getWidth() / 2.0;
+        double halfH = linePattern.getLinePatternVerticalOffset();//image.getHeight();// / 2.0;
+
+        //uncomment to draw with image centered by adding empty space
+        /*image = LinePattern.centerLinePattern(linePattern).getLinePatternImage();
+        halfH = image.getHeight() / 2.0;//*/
+
+
+
+        // 2. Traverse the flattened segments and draw the image at regular intervals
+        double distanceNeeded = 0.0; // Distance to the next draw point
+
+        for (int i = 0; i < points.size() - 1; i++) {
+            Point2D p1 = points.get(i);
+            Point2D p2 = points.get(i + 1);
+
+            double dx = p2.getX() - p1.getX();
+            double dy = p2.getY() - p1.getY();
+            double segmentLength = Math.sqrt(dx * dx + dy * dy);
+
+            // Skip degenerate segments (where points are identical)
+            if (segmentLength < 0.001) {
+                continue;
+            }
+
+            double segmentProgress = 0.0;
+
+            // Draw as many patterns as fit within the current segment
+            while (segmentProgress + distanceNeeded <= segmentLength) {
+                segmentProgress += distanceNeeded;
+
+                // Calculate interpolation factor t
+                double t = segmentProgress / segmentLength;
+                double x = p1.getX() + t * dx;
+                double y = p1.getY() + t * dy;
+
+                // Save the current graphics transform state
+                AffineTransform originalTransform = g2d.getTransform();
+
+                // Translate to the target point on the path
+                g2d.translate(x, y);
+
+                // Rotate the graphics context to align with the segment direction
+                if (alignToPath) {
+                    double angle = Math.atan2(dy, dx);
+                    g2d.rotate(angle);
+                }
+
+                // Draw the image centered on the point
+                g2d.drawImage(image, (int) -halfW, (int) -halfH, null);
+
+                // Restore the original transform state
+                g2d.setTransform(originalTransform);
+
+                // Reset the distance needed to the full spacing interval
+                distanceNeeded = spacing;
+            }
+
+            // Carry over the remaining distance needed into the next segment
+            distanceNeeded -= (segmentLength - segmentProgress);
         }
     }
 

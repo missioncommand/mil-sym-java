@@ -636,15 +636,15 @@ public class SymbolUtilities {
             int version = SymbolID.getVersion(symbolID);
 
             if (symbolSet == SymbolID.SymbolSet_ControlMeasure) {
-                if (entityCode == 200600) {
+                if (entityCode == 200600) { //Cued Acquisition Doctrine
                     return Color.WHITE;
-                } else if (entityCode == 200700) {
+                } else if (entityCode == 200700) { //Radar Search Doctrine
                     return new Color(51, 136, 136);
-                } else if (entityCode == 200101) {
+                } else if (entityCode == 200101) { //Launch Area
                     return new Color(255, 155, 0);
-                } else if (entityCode == 200201 || entityCode == 200202) {
+                } else if (entityCode == 200201 || entityCode == 200202) { //Defended Area
                     return new Color(85, 119, 136);
-                } else if (version >= SymbolID.Version_2525E &&
+                } else if (version >= SymbolID.Version_2525E && //TODO: check about APP6E3
                         (entityCode == 132100 || //key terrain
                                 entityCode == 282001 || //Tower, Low
                                 entityCode == 282002 || //Tower, High
@@ -656,6 +656,43 @@ public class SymbolUtilities {
             ErrorLogger.LogException("SymbolUtilities", "getDefaultLineColor", e);
         }
         return getLineColorOfAffiliation(symbolID);
+    }
+
+    /**
+     * METOCs and several Control measures have colors that should not change
+     * @param symbolID 20-30 character id string for symbol
+     * @return true if color should not change
+     */
+    public static boolean hasStaticLineColor(String symbolID)
+    {
+        int ss = SymbolID.getSymbolSet(symbolID);
+        int version = SymbolID.getVersion(symbolID);
+
+        if(ss == SymbolID.SymbolSet_ControlMeasure)
+        {
+            int ec = SymbolID.getEntityCode(symbolID);
+            switch (ec)
+            {
+                case 200600: //Cued Acquisition Doctrine
+                case 200700: //Radar Search Doctrine
+                case 200101: //Launch Area
+                //case 200201: //Defended Area Ellipse/Circle may be depicted as orange (RGB: 255,155,0) where, the area fill is 75% transparent.
+                //case 200202: //Defended Area Rectangle may be depicted as gray (RGB:85,119,136) where the gray area fill is 75% transparent.
+                    return true;
+                case 132100: //key terrain
+                case 282001: //Tower, Low
+                case 282002: //Tower, High
+                case 282003: // Overhead wire
+                    return version >= SymbolID.Version_2525E;
+                default:
+                    break;
+            }
+            return isGreenProtectionGraphic(symbolID);
+        }
+        else
+            return ss == SymbolID.SymbolSet_Atmospheric ||
+                ss == SymbolID.SymbolSet_Oceanographic ||
+                ss == SymbolID.SymbolSet_MeteorologicalSpace;
     }
 
     /**

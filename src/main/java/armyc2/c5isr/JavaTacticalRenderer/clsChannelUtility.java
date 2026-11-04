@@ -6,8 +6,10 @@ package armyc2.c5isr.JavaTacticalRenderer;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import armyc2.c5isr.JavaLineArray.*;
 import armyc2.c5isr.RenderMultipoints.clsRenderer2;
@@ -15,6 +17,7 @@ import armyc2.c5isr.renderer.utilities.EntityCode;
 import armyc2.c5isr.renderer.utilities.ErrorLogger;
 import armyc2.c5isr.renderer.utilities.IPointConversion;
 import armyc2.c5isr.renderer.utilities.RendererException;
+import armyc2.c5isr.renderer.utilities.ShapeInfo;
 import armyc2.c5isr.renderer.utilities.SymbolID;
 
 /**
@@ -352,6 +355,90 @@ public final class clsChannelUtility {
                     new RendererException("Failed inside getLCPixels", exc));
         }    
         return pixels2;
+    }
+
+    public static void DrawChannelPatterns(ArrayList<POINT2> pixels,
+                                           TGLight tg,
+                                           ArrayList<Shape2> shapes)
+    {
+
+        pixels=getLCPixels(tg,pixels);
+        Shape2 shape = new Shape2(Shape2.SHAPE_TYPE_POLYLINE);
+        int i = 0;
+
+        //make sure points are always clockwise for use with Line Patterns
+        if(clsUtility.isClosedPolygon(tg.get_LineType())) {
+            if (!isClockwise(tg))
+                Collections.reverse(tg.Pixels);
+        }
+
+        //undo point reversals for certain lines
+        int ec = SymbolID.getEntityCode(tg.get_SymbolId());
+        switch (ec)
+        {
+            case 290100://Obstacle Line
+            case 290301://Unspecified
+            case 290305://Low Wire Fence
+            case 290306://High Wire Fence
+            //case 290307://Single Strand Concertina
+            case 290308://Double Strand Concertina
+            case 290309://Triple Strand Concertina
+                Collections.reverse(tg.Pixels);
+                break;
+        }
+
+        for(POINT2 p : pixels)
+        {
+            if(i > 0) {
+                shape.lineTo(new POINT2(p.x, p.y));
+            }
+            else {
+                shape.moveTo(new POINT2(p.x, p.y));
+            }
+            i++;
+        }
+
+        LinePattern lp = LinePattern.getLinePattern(tg.get_SymbolId(),tg.get_LineColor(),tg.get_FillColor(),tg.get_LineThickness());
+
+        shape.setLineColor(tg.get_LineColor());
+        shape.setFillColor(tg.get_FillColor());
+        shape.setLinePattern(lp);
+
+        shapes.add(shape);
+    }
+
+    private static boolean isClockwise(TGLight tg)
+    {
+        ArrayList<POINT2> points = tg.get_Pixels();
+        if (points == null || points.size() < 3) {
+            return false; // A polygon must have at least 3 points
+        }
+
+        double sum = 0.0;
+        int numPoints = points.size();
+
+        // If the list is already closed (the last point is identical to the first),
+        // we ignore the last point to avoid calculating a redundant 0-length edge.
+        if (numPoints > 1 && points.get(0).equals(points.get(numPoints - 1))) {
+            numPoints--;
+        }
+
+        for (int i = 0; i < numPoints; i++) {
+            POINT2 current = points.get(i);
+            // Wrap around to the first point if we are at the last point
+            POINT2 next = points.get((i + 1) % numPoints);
+
+            // Shoelace calculation for the current edge
+            double dx = next.x - current.x;
+            double sumY = next.y + current.y;
+
+            sum += dx * sumY;
+        }
+
+        // In Y-down coordinates, a positive sum means Clockwise
+        // - A negative sum (< 0) means Clockwise (CW)
+        // - A positive sum (> 0) means Counter-Clockwise (CCW)
+        return sum < 0;
     }
 
     /**

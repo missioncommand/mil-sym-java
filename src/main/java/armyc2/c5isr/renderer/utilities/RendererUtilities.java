@@ -1,14 +1,21 @@
 package armyc2.c5isr.renderer.utilities;
 
 
+import com.github.weisj.jsvg.parser.LoaderContext;
+import com.github.weisj.jsvg.view.ViewBox;
+import sun.jvm.hotspot.utilities.BitMap;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -807,6 +814,36 @@ public class RendererUtilities {
         }
 
         return retVal;
+    }
+
+    public static BufferedImage renderSVG(Rectangle2D bounds, String svg)
+    {
+        BufferedImage bmp = null;
+        Graphics2D g = null;
+        try {
+            bmp = new BufferedImage((int) bounds.getWidth(), (int) bounds.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            //Render Code
+            com.github.weisj.jsvg.parser.SVGLoader loader = new com.github.weisj.jsvg.parser.SVGLoader();
+            com.github.weisj.jsvg.SVGDocument svgDocument = null;
+            InputStream stream = new ByteArrayInputStream(svg.getBytes(StandardCharsets.UTF_8));
+            svgDocument = loader.load(stream, null, LoaderContext.createDefault());
+            ViewBox vb = new ViewBox(0, 0, bmp.getWidth(), bmp.getHeight());
+            g = bmp.createGraphics();
+            g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            if (svgDocument != null)
+                svgDocument.render(null, g, vb);
+            //g.setPaint(Color.RED);
+            //g.drawRect(0, 0, (int)bmp.getWidth()-1, (int)bmp.getHeight()-1);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            if(g != null)
+                g.dispose();
+        }
+
+        return bmp;
     }
 
 }

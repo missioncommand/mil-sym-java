@@ -25,8 +25,8 @@ public class SinglePointRenderer implements SettingsEventListener{
     private BufferedImage _buffer = null;
     private FontRenderContext _fontRenderContext = null;
 
-    private LRUCache _unitCache = new LRUCache(1536);
-    private LRUCache _tgCache = new LRUCache(512);
+    private LRUCache<ImageInfo> _unitCache = new LRUCache<>(1536);
+    private LRUCache<ImageInfo> _tgCache = new LRUCache<>(512);
     private final int maxMemory = (int) (Runtime.getRuntime().maxMemory());// / 1024);
     private int cacheSize = 5;//RendererSettings.getInstance().getCacheSize() / 2;
     private int maxCachedEntrySize = cacheSize / 5;

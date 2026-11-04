@@ -4,6 +4,8 @@
  */
 package armyc2.c5isr.renderer.utilities;
 
+import armyc2.c5isr.JavaLineArray.LinePattern;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -76,6 +78,8 @@ public class MilStdSymbol
     private static DistanceUnit _DistanceUnit = null;
 
     private static boolean _useDashArray = true;
+
+    private static boolean _useLinePattern  = false;
 
     private static boolean _hideOptionalLabels = false;
 
@@ -218,7 +222,7 @@ public class MilStdSymbol
         setSymbolID(symbolID);
 
         // Set up default line fill and text colors
-        setLineColor(SymbolUtilities.getDefaultLineColor(_symbolID));
+        _LineColor = SymbolUtilities.getDefaultLineColor(_symbolID);
         setTextColor(SymbolUtilities.getLineColorOfAffiliation(symbolID));
         //if(SymbolUtilities.isWarfighting(_symbolID))
         if (SymbolUtilities.hasDefaultFill(_symbolID))
@@ -310,6 +314,16 @@ public class MilStdSymbol
     public void setUseDashArray(boolean value)
     {
         _useDashArray = value;
+    }
+
+    public boolean getUseLinePattern()
+    {
+        return _useLinePattern;
+    }
+
+    public void setUseLinePattern(boolean value)
+    {
+        _useLinePattern = value;
     }
 
     public boolean getHideOptionalLabels()
@@ -691,9 +705,8 @@ public class MilStdSymbol
      */
     public void setLineColor(Color value)
     {
-        if (SymbolUtilities.isGreenProtectionGraphic(getSymbolID())) {
-            _LineColor = AffiliationColors.ObstacleGreen;//new Color(0,166,81); // Green from SymbolUtilities.getLineColorOfAffiliation()
-        } else if (value != null) {
+        if(!SymbolUtilities.hasStaticLineColor(_symbolID) && value != null)
+        {
             _LineColor = value;
         }
     }
@@ -1294,7 +1307,10 @@ public class MilStdSymbol
                 case 341500://Isolate, most detail contained inside
                 case 342600://Cordon and Knock, most detail contained inside
                 case 342700://Cordon and Search, most detail contained inside
-                    return 2;//decoration
+                    if(getUseLinePattern() && LinePattern.supportsLinePattern(_symbolID))
+                        return 0;//using pattern, don't need to refresh
+                    else
+                        return 2;//decoration
 
                 //Areas with Pattern Fill
                 case 151100://Limited Access Area
@@ -1317,6 +1333,7 @@ public class MilStdSymbol
                         return 0;
                 default:
                     return 0;
+
             }
         }
 

@@ -941,16 +941,16 @@
 			Bottom Return/Non-MILCO, Wreck, Dangerous	219100	15,16	Point	Point2		
 			Bottom Return/Non-MILCO, Wreck, Non Dangerous	219200	15,16	Point	Point2		
 	Maritime Control Lines			220000	15,16				
-		Bearing Line		220100	15,16	Line	Line1	H	
-			Electronic	220101	15,16	Line	Line1	H	
-			Electronic Warfare (EW)	220102	15,16	Line	Line1	H	
-			Acoustic	220103	15,16	Line	Line1	H	
-			Acoustic (Ambiguous)	220104	15,16	Line	Line1	H	
-			Torpedo	220105	15,16	Line	Line1	H	
-			Electro-Optical Intercept	220106	15,16	Line	Line1	H	
-			Jammer	220107	15,16	Line	Line1	H	
-			Radio Direction Finder (RDF)	220108	15,16	Line	Line1	H	
-			Navigationl Rhumb Line	220109	16	Line	Line1	T,AN	
+		Bearing Line		220100	15,16	Line	Line5	H
+			Electronic	220101	15,16	Line	Line5	H
+			Electronic Warfare (EW)	220102	15,16	Line	Line5	H
+			Acoustic	220103	15,16	Line	Line5	H
+			Acoustic (Ambiguous)	220104	15,16	Line	Line5	H
+			Torpedo	220105	15,16	Line	Line5	H
+			Electro-Optical Intercept	220106	15,16	Line	Line5	H
+			Jammer	220107	15,16	Line	Line5	H
+			Radio Direction Finder (RDF)	220108	15,16	Line	Line5	H
+			Navigational Rhumb Line	220109	16	Line	Line5	T,AN
 	Deception			230000	16				
 		Decoy/Dummy/Deception		230100	16	Line	Line29		
 		Deceive/Decoy/Dummy/Feint		230200	16	Line	Line29		
