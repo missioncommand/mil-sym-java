@@ -389,7 +389,12 @@ public class SymbolUtilities {
                 sb.append(strSymbolID.charAt(2));
                 sb.append("*");
                 sb.append(strSymbolID.substring(4, 10));
-                sb.append("*****");
+                if(sb.toString().startsWith("S*G*I"))//Installation
+                    sb.append("H****");
+                else if(sb.toString().startsWith("I"))//SIGINT
+                    sb.append("--***");
+                else//Warfighting and anything else
+                    sb.append("*****");
             }
             else
             {

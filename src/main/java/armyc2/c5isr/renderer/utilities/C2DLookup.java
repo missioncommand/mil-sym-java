@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +69,7 @@ public class C2DLookup {
     }
 
     /**
-     * Take a complete 15 character 2525C symbol code and converts it to 2525D if there is a match.
+     * Take a complete 15 character 2525C symbol code and converts it to 2525D/E if there is a match.
      * Returns null if no match.
      * @param symbolID 15 character 2525C symbol code.
      * @return 30 character 2525D code or null if no matching symbol
@@ -79,7 +80,7 @@ public class C2DLookup {
     }
 
     /**
-     * Take a complete 15 character 2525C symbol code and converts it to 2525D if there is a match.
+     * Take a complete 15 character 2525C symbol code and converts it to 2525D/E if there is a match.
      * Returns null if no match.
      * @param symbolID 15 character 2525C symbol code.
      * @param includeCountryCode 2525C symbols don't display the country label so set to false if you don't want it displayed.
@@ -239,8 +240,26 @@ public class C2DLookup {
         }
         else
         {
-            if(modifier.equals("HB"))
-                SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy);
+            if(modifier.charAt(0)=='H')
+            {
+                if(SymbolID.getSymbolSet(newCode)!=SymbolID.SymbolSet_LandInstallation)
+                {
+                    //If there's an attempt to add the installation modifier to something that isn't normally an installation,
+                    //change version to 2525E and leverage the frame shape modifier.  If code isn't in 2525E, leave it be.
+                    char cs = symbolID.charAt(0);
+                    if(cs=='S' || cs=='O' || cs=='E')
+                    {
+                        String temp = newCode;
+                        temp = SymbolID.setVersion(temp, SymbolID.Version_2525Ech1);
+                        temp = SymbolID.setFrameShape(temp, SymbolID.FrameShape_LandInstallation);
+                        if(MSLookup.getInstance().getMSLInfo(temp) != null)
+                            newCode = temp;
+                    }
+                }
+
+                if(modifier.equals("HB"))
+                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy);
+            }
             else if(modifier.charAt(0)=='M')
             {
                 switch(modifier.charAt(1))

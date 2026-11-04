@@ -141,7 +141,12 @@ public class Tester extends javax.swing.JFrame {
             ErrorLogger.LogMessage(country);//*/
 
             //C3DLookup test
-            /*String c2dCode = C2DLookup.getInstance().getDCode("GFGPPY----****X");
+            String c2dCode = C2DLookup.getInstance().getDCode("GFGPPY----****X");
+            c2dCode = C2DLookup.getInstance().getDCode("SFGPIMA--------");
+            c2dCode = C2DLookup.getInstance().getDCode("SFGPIMA---HB---");
+            c2dCode = C2DLookup.getInstance().getDCode("EFOPCE----H----");
+            c2dCode = C2DLookup.getInstance().getDCode("IFPPSCD--------");
+
             ErrorLogger.LogMessage(c2dCode);//*/
 
         }

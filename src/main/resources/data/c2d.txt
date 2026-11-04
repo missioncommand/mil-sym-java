@@ -143,7 +143,7 @@ S*G*UCRVA-*****	11	10	120501		00	00				Reconnaissance/Cavalry/Scout
 S*G*UCRRL-*****	11	10	120501		00	19				Reconnaissance/Cavalry/Scout, Light		Symbol is displayed differently between versions
 S*G*UCATW-*****	11	10	120502		00	00				Amphibious
 S*G*UCAW--*****	11	10	120500		00	51			Wheeled	
-S*G*UCAWS-*****	11	10	120500		00	51				Air Assault		Use Parent Node
+S*G*UCAWS-*****	11	10	120500		00	59				Air Assault		Use Parent Node
 S*G*UCAWA-*****	11	10	120500		00	51				Airborne		Use Parent Node
 S*G*UCAWW-*****	11	10	120502		00	51				Wheeled Amphibious
 S*G*UCATWR*****	11	10	120502		00	38					Amphibious, Recovery
@@ -236,7 +236,7 @@ S*G*UCDML-*****	11	10	130102		00	19			Missile, Light		Symbol is displayed differ
 S*G*UCDMA-*****	11	10	130102		00	19				MOTORIZED (AVENGER)	Use parent node
 S*G*UCDMM-*****	11	10	130102		00	24			Missile, Medium		Symbol is displayed differently between versions
 S*G*UCDMH-*****	11	10	130102		00	15			Missile, Heavy		Symbol is displayed differently between versions
-S*G*UCDC---****	11	10	130103		00	00			Air and Missile Defense
+S*G*UCDC--*****	11	10	130103		00	00			Air and Missile Defense
 S*G*UCFTA-*****	11	10	130200		00	00		Air/Naval Gunfire Liaison
 S*G*UCF---*****	11	10	130300		00	00		Field Artillery
 S*G*UCFHA-*****	11	10	130300		00	01			Airborne
@@ -324,7 +324,7 @@ S*G*UCSM--*****	11	10	141701		00	51			Mechanized, Wheeled
 S*G*UCSGM-*****	11	10	141702		00	00			Motorized
 S*G*UULF--*****	11	10	141900		00	00		Security Police (Air)
 S*G*UULS--*****	11	10	142000		00	00		Shore Patrol
-S*G*UUMC-------	11	10	150200		00	00		Counterintelligence
+S*G*UUMC--*****	11	10	150200		00	00		Counterintelligence
 S*G*UUSX--*****	11	10	150400		00	00		Electronic Ranging
 S*G*UUMSE-*****	11	10	150500		00	00		Electronic Warfare
 S*G*UUMSET*****	11	10	150500		94	00			Theater/Echelons Above Corps Support		Symbol is displayed differently between versions
@@ -706,52 +706,52 @@ S*G*IC----H****	11	20	111900		00	00		Tented Camp			2525C codes approved after re
 S*G*ICD---H****	11	20	111901		00	00			Displaced Persons/ Refugee/Evacuees Camp		2525C codes approved after release of 2525C
 S*G*ICT---H****	11	20	111902		00	00			Training Camp		2525C codes approved after release of 2525C
 S*G*IW----H****	11	20	112000		00	00		Warehouse/Storage Facility			2525C codes approved after release of 2525C
-E*O*DC----H****	11	20	112100		00	00		Law Enforcement
-E*O*DDC---H****	11	20	112101		00	00			Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) (Department of Justice)
-E*O*DEC---H****	11	20	112102		00	00			Border Patrol
-E*O*DFC---H****	11	20	112103		00	00			Customs Service
-E*O*DGC---H****	11	20	112104		00	00			Drug Enforcement Administration (DEA)
-E*O*DHC---H****	11	20	112105		00	00			Department of Justice (DOJ)
-E*O*DIC---H****	11	20	112106		00	00			Federal Bureau of Investigation (FBI)
-E*O*DJC---H****	11	20	112107		00	00			Police
+E*O*DC----*****	11	20	112100		00	00		Law Enforcement
+E*O*DDC---*****	11	20	112101		00	00			Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) (Department of Justice)
+E*O*DEC---*****	11	20	112102		00	00			Border Patrol
+E*O*DFC---*****	11	20	112103		00	00			Customs Service
+E*O*DGC---*****	11	20	112104		00	00			Drug Enforcement Administration (DEA)
+E*O*DHC---*****	11	20	112105		00	00			Department of Justice (DOJ)
+E*O*DIC---*****	11	20	112106		00	00			Federal Bureau of Investigation (FBI)
+E*O*DJC---*****	11	20	112107		00	00			Police
 E*O*DK----*****	11	20	112108		00	00			Prison
-E*O*DLC---H****	11	20	112109		00	00			United States Secret Service (USSS)
-E*O*DMC---H****	11	20	112110		00	00			Transportation Security Administration (TSA)
-E*O*DNC---H****	11	20	112111		00	00			Coast Guard
-E*O*DOC---H****	11	20	112112		00	00			US Marshals Service
-E*O*BC----H****	11	20	112200		00	00		Emergency Operation
-E*O*CE----H****	11	20	112201		00	00			Fire Station
-E*O*AC----H****	11	20	112202		00	00			Emergency Medical Operation
-E*F*A-----H****	11	20	120100		00	00		Agriculture and Food Infrastructure
-E*F*AA----H****	11	20	120101		00	00			Agriculture Laboratory
-E*F*AB----H****	11	20	120102		00	00			Animal Feedlot
-E*F*AC----H****	11	20	120103		00	00			Commercial Food Distribution Center
-E*F*AD----H****	11	20	120104		00	00			Farm/Ranch
-E*O*BL----H****	11	20	120105		00	00			Food Distribution
-E*F*AE----H****	11	20	120106		00	00			Food Production Center
-E*F*AF----H****	11	20	120107		00	00			Food Retail
-E*F*AG----H****	11	20	120108		00	00			Grain Storage
-E*F*B-----H****	11	20	120200		00	00		Banking Finance and Insurance Infrastructure
+E*O*DLC---*****	11	20	112109		00	00			United States Secret Service (USSS)
+E*O*DMC---*****	11	20	112110		00	00			Transportation Security Administration (TSA)
+E*O*DNC---*****	11	20	112111		00	00			Coast Guard
+E*O*DOC---*****	11	20	112112		00	00			US Marshals Service
+E*O*BC----*****	11	20	112200		00	00		Emergency Operation
+E*O*CE----*****	11	20	112201		00	00			Fire Station
+E*O*AC----*****	11	20	112202		00	00			Emergency Medical Operation
+E*F*A-----*****	11	20	120100		00	00		Agriculture and Food Infrastructure
+E*F*AA----*****	11	20	120101		00	00			Agriculture Laboratory
+E*F*AB----*****	11	20	120102		00	00			Animal Feedlot
+E*F*AC----*****	11	20	120103		00	00			Commercial Food Distribution Center
+E*F*AD----*****	11	20	120104		00	00			Farm/Ranch
+E*O*BL----*****	11	20	120105		00	00			Food Distribution
+E*F*AE----*****	11	20	120106		00	00			Food Production Center
+E*F*AF----*****	11	20	120107		00	00			Food Retail
+E*F*AG----*****	11	20	120108		00	00			Grain Storage
+E*F*B-----*****	11	20	120200		00	00		Banking Finance and Insurance Infrastructure
 E*F*BA----*****	11	20	120201		00	00			ATM
-E*F*BB----H****	11	20	120202		00	00			Bank
-E*F*BC----H****	11	20	120203		00	00			Bullion Storage
-E*F*BD----H****	11	20	120205		00	00			Federal Reserve Bank
-E*F*BE----H****	11	20	120206		00	00			Financial Exchange
-E*F*BF----H****	11	20	120207		00	00			Financial Services, Other
-E*F*C-----H****	11	20	120300		00	00		Commercial Infrastructure
-E*F*CA----H****	11	20	120301		00	00			Chemical Plant
-E*F*CB----H****	11	20	120302		00	00			Firearms Manufacturer
-E*F*CC----H****	11	20	120303		00	00			Firearms Retailer
-E*F*CD----H****	11	20	120304		00	00			Hazardous Material Production
-E*F*CE----H****	11	20	120305		00	00			Hazardous Material Storage
-E*F*CF----H****	11	20	120306		00	00			Industrial Site
-E*F*CG----H****	11	20	120307		00	00			Landfill
-E*F*CH----H****	11	20	120308		00	00			Pharmaceutical Manufacturer
-E*F*CI----H****	11	20	120309		00	00			Contaminated Hazardous Waste Site
-E*F*CJ----H****	11	20	120310		00	00			Toxic Release Inventory
-E*F*D-----H****	11	20	120400		00	00		Educational Facilities Infrastructure
-E*F*DA----H****	11	20	120401		00	00			College/University
-E*F*DB----H****	11	20	120402		00	00			School
+E*F*BB----*****	11	20	120202		00	00			Bank
+E*F*BC----*****	11	20	120203		00	00			Bullion Storage
+E*F*BD----*****	11	20	120205		00	00			Federal Reserve Bank
+E*F*BE----*****	11	20	120206		00	00			Financial Exchange
+E*F*BF----*****	11	20	120207		00	00			Financial Services, Other
+E*F*C-----*****	11	20	120300		00	00		Commercial Infrastructure
+E*F*CA----*****	11	20	120301		00	00			Chemical Plant
+E*F*CB----*****	11	20	120302		00	00			Firearms Manufacturer
+E*F*CC----*****	11	20	120303		00	00			Firearms Retailer
+E*F*CD----*****	11	20	120304		00	00			Hazardous Material Production
+E*F*CE----*****	11	20	120305		00	00			Hazardous Material Storage
+E*F*CF----*****	11	20	120306		00	00			Industrial Site
+E*F*CG----*****	11	20	120307		00	00			Landfill
+E*F*CH----*****	11	20	120308		00	00			Pharmaceutical Manufacturer
+E*F*CI----*****	11	20	120309		00	00			Contaminated Hazardous Waste Site
+E*F*CJ----*****	11	20	120310		00	00			Toxic Release Inventory
+E*F*D-----*****	11	20	120400		00	00		Educational Facilities Infrastructure
+E*F*DA----*****	11	20	120401		00	00			College/University
+E*F*DB----*****	11	20	120402		00	00			School
 S*G*IU----H****	11	20	000000		111	00		Service, Research, Utility Facility
 S*G*IUR---H****	11	20	000000		111	00			Technological Research Facility		Use Parent Node
 S*G*IUT---H****	11	20	121200		00	00			Telecommunications Facility		Rough D equivalent
@@ -759,53 +759,53 @@ S*G*IUE---H****	11	20	120500		00	00		Electric Power Facility
 S*G*IUED--H****	11	20	120501		08	00			Electric Power, Hydro		Symbol is displayed differently between versions
 S*G*IUEF--H****	11	20	120501		00	00			Electric Power, Fossil Fuel		No fossil fuel modifier, can choose coal (06) or natural gas (09) for s1 mod
 S*G*IUEN--H****	11	20	120501		03	00			Electric Power, Nuclear		Symbol is displayed differently between versions
-E*F*EA----H****	11	20	120502						Generation Station
-E*F*EB----H****	11	20	120503						Natural Gas Facility
+E*F*EA----*****	11	20	120502						Generation Station
+E*F*EB----*****	11	20	120503						Natural Gas Facility
 S*G*IRP---H****	11	20	120505						Petroleum/Gas/Oil		2525C appears to be a full octagon icon and 2525D is a main icon
-E*F*EE----H****	11	20	120506						Propane Facility
-E*F*F-----H****	11	20	120600					Government Site Infrastructure
+E*F*EE----*****	11	20	120506						Propane Facility
+E*F*F-----*****	11	20	120600					Government Site Infrastructure
 S*G*IX----H****	11	20	120701						Medical
 S*G*IXH---H****	11	20	120702						Medical Treatment Facility (Hospital)
-E*F*G-----H****	11	20	120800					Military Infrastructure
-E*F*GA----H****	11	20	120801						Military Armory
+E*F*G-----*****	11	20	120800					Military Infrastructure
+E*F*GA----*****	11	20	120801						Military Armory
 S*G*IB----H****	11	20	120802						Military Base
-E*F*H-----H****	11	20	120900					Postal Services Infrastructure
-E*F*HA----H****	11	20	120901						Postal Distribution Center
-E*F*HB----H****	11	20	120902						Post Office
-E*F*I-----H****	11	20	121000					Public Venues Infrastructure
-E*F*IA----H****	11	20	121001						Enclosed Facility		Symbol is displayed differently between versions
-E*F*IB----H****	11	20	121002						Open Facility
-E*F*IC----H****	11	20	121003						Recreational Area
-E*F*ID----H****	11	20	121004						Religious Institution
-E*F*J-----H****	11	20	121100					Special Needs Infrastructure
-E*F*JA----H****	11	20	121101						Adult Day Care
-E*F*JB----H****	11	20	121102						Child Day Care
-E*F*JC----H****	11	20	121103						Elder Care
-E*F*K-----H****	11	20	121200					Telecommunications Infrastructure
-E*F*KB----H****	11	20	121203						Telecommunications Tower
+E*F*H-----*****	11	20	120900					Postal Services Infrastructure
+E*F*HA----*****	11	20	120901						Postal Distribution Center
+E*F*HB----*****	11	20	120902						Post Office
+E*F*I-----*****	11	20	121000					Public Venues Infrastructure
+E*F*IA----*****	11	20	121001						Enclosed Facility		Symbol is displayed differently between versions
+E*F*IB----*****	11	20	121002						Open Facility
+E*F*IC----*****	11	20	121003						Recreational Area
+E*F*ID----*****	11	20	121004						Religious Institution
+E*F*J-----*****	11	20	121100					Special Needs Infrastructure
+E*F*JA----*****	11	20	121101						Adult Day Care
+E*F*JB----*****	11	20	121102						Child Day Care
+E*F*JC----*****	11	20	121103						Elder Care
+E*F*K-----*****	11	20	121200					Telecommunications Infrastructure
+E*F*KB----*****	11	20	121203						Telecommunications Tower
 S*G*IT----H****	11	20	121300					Transportation Infrastructure
 S*G*IBA---H****	11	20	121301						Airport/Air Base		Symbol is displayed differently between versions
-E*F*LA----H****	11	20	121302						Air Traffic Control Facility
-E*F*LD----H****	11	20	121303						Bus Station
-E*F*LE----H****	11	20	121304						Ferry Terminal
-E*F*LF----H****	11	20	121305						Helicopter Landing Site
-E*F*LH----H****	11	20	121306						Maintenance Facility
-E*F*LJ----H****	11	20	121307						Railhead/Railroad Station
-E*F*LK----H****	11	20	121308						Rest Stop
+E*F*LA----*****	11	20	121302						Air Traffic Control Facility
+E*F*LD----*****	11	20	121303						Bus Station
+E*F*LE----*****	11	20	121304						Ferry Terminal
+E*F*LF----*****	11	20	121305						Helicopter Landing Site
+E*F*LH----*****	11	20	121306						Maintenance Facility
+E*F*LJ----*****	11	20	121307						Railhead/Railroad Station
+E*F*LK----*****	11	20	121308						Rest Stop
 S*G*IBN---H****	11	20	121309						Sea Port/Naval Base		Symbol is displayed differently between versions
 S*G*IMS---H****	11	20	121310						Ship Yard
-E*F*LM----H****	11	20	121311						Toll Facility
-E*F*LO----H****	11	20	121312						Traffic Inspection Facility
-E*F*LP----H****	11	20	121313						Tunnel
+E*F*LM----*****	11	20	121311						Toll Facility
+E*F*LO----*****	11	20	121312						Traffic Inspection Facility
+E*F*LP----*****	11	20	121313						Tunnel
 E*F*MA----*****	11	20	121401						Control Valve
-E*F*MB----H****	11	20	121402						Dam
+E*F*MB----*****	11	20	121402						Dam
 E*F*MC----*****	11	20	121403						Discharge Outfall
-E*F*MD----H****	11	20	121404						Ground Water Well
-E*F*ME----H****	11	20	121405						Pumping Station
-E*F*MF----H****	11	20	121406						Reservoir
-E*F*MG----H****	11	20	121407						Storage Tower
-E*F*MH----H****	11	20	121408						Surface Water Intake
-E*F*MI----H****	11	20	121409						Wastewater Treatment Facility
+E*F*MD----*****	11	20	121404						Ground Water Well
+E*F*ME----*****	11	20	121405						Pumping Station
+E*F*MF----*****	11	20	121406						Reservoir
+E*F*MG----*****	11	20	121407						Storage Tower
+E*F*MH----*****	11	20	121408						Surface Water Intake
+E*F*MI----*****	11	20	121409						Wastewater Treatment Facility
 S*G*IUP---H****	11	20	121410						Water
 G*G*GL----****X	11	25	110000				Command and Control Lines
 G*G*GLB---****X	11	25	110100					Boundary
@@ -1402,7 +1402,7 @@ O*P*F-----*****	11	40	110304		00	00			IED Suicide Bomber		2525C codes approved a
 E*I*BF----*****	11	40	110400		00	00		Shooting
 O*V*S-----*****	11	40	110401		00	00			Sniping
 O*O*UT----*****	11	40	110501		00	00			Trafficking		2525C codes approved after release of 2525C
-O*L*E-----H****	11	40	110502		00	00			Illegal Drug Lab		2525C codes approved after release of 2525C
+O*L*E-----*****	11	40	110502		00	00			Illegal Drug Lab		2525C codes approved after release of 2525C
 O*V*E-----*****	11	40	110600		00	00		Explosion
 O*V*EG----*****	11	40	110601		00	00			Grenade Explosion		2525C codes approved after release of 2525C
 O*V*EN----*****	11	40	110602		00	00			Incendiary Explosion		2525C codes approved after release of 2525C
@@ -1426,28 +1426,27 @@ O*O*Q-----*****	11	40	130700		00	00		Warrant Served			2525C codes approved after
 O*P*G-----*****	11	40	130800		00	00		Exfiltration			2525C codes approved after release of 2525C
 O*P*H-----*****	11	40	130900		00	00		Infiltration			2525C codes approved after release of 2525C
 O*I*M-----*****	11	40	131000		00	00		Meeting			2525C codes approved after release of 2525C
-O*L*F-----H****	11	40	131001		00	00			Polling Place/Election		2525C codes approved after release of 2525C
+O*L*F-----*****	11	40	131001		00	00			Polling Place/Election		2525C codes approved after release of 2525C
 O*O*N-----*****	11	40	131100		00	00		Raid on House			2525C codes approved after release of 2525C
 E*O*B-----*****	11	40	131200		00	00		Emergency Operation
 E*O*BD----*****	11	40	131201		00	00			Emergency Collection Evacuation Point
 O*O*O-----*****	11	40	131202		00	00			Emergency Food Distribution		Symbol is displayed differently between versions
-E*O*BE----H****	11	40	131203		00	00			Emergency Incident Command Center
-E*O*BF----H****	11	40	131204		00	00			Emergency Operations Center
-E*O*BG----H****	11	40	131205		00	00			Emergency Public Information Center
-E*O*BH----H****	11	40	131206		00	00			Emergency Shelter
-E*O*BI----H****	11	40	131207		00	00			Emergency Staging Area
-E*O*BJ----H****	15	40	131200		162	00			Emergency Team
-E*O*BK----H****	11	40	131208		00	00			Emergency Water Distribution Center
+E*O*BE----*****	11	40	131203		00	00			Emergency Incident Command Center
+E*O*BF----*****	11	40	131204		00	00			Emergency Operations Center
+E*O*BG----*****	11	40	131205		00	00			Emergency Public Information Center
+E*O*BH----*****	11	40	131206		00	00			Emergency Shelter
+E*O*BI----*****	11	40	131207		00	00			Emergency Staging Area
+E*O*BJ----*****	15	40	131200		162	00			Emergency Team
+E*O*BK----*****	11	40	131208		00	00			Emergency Water Distribution Center
 E*O*A-----*****	11	40	131300		00	00		Emergency Medical Operation
-E*O*AD----H****	11	40	131301		00	00			EMT Station Location		Symbol is displayed differently between versions
-E*O*AG----H****	11	40	131302		00	00			Health Department Facility
-E*O*AJ----H****	11	40	131303		00	00			Medical Facilities Outpatient
-E*O*AK----H****	11	40	131304		00	00			Morgue
-E*O*AL----H****	11	40	131305		00	00			Pharmacy
-E*O*AM----H****	11	40	131306		00	00			Triage
+E*O*AD----*****	11	40	131301		00	00			EMT Station Location		Symbol is displayed differently between versions
+E*O*AG----*****	11	40	131302		00	00			Health Department Facility
+E*O*AJ----*****	11	40	131303		00	00			Medical Facilities Outpatient
+E*O*AK----*****	11	40	131304		00	00			Morgue
+E*O*AL----*****	11	40	131305		00	00			Pharmacy
+E*O*AM----*****	11	40	131306		00	00			Triage
 E*O*CC----*****	11	40	131401		00	00			Fire Hydrant
-E*O*CE----*****	11	40	131402		00	00			Fire Station
-E*O*CD----H****	11	40	131403		00	00			Other Water Supply Location
+E*O*CD----*****	11	40	131403		00	00			Other Water Supply Location
 E*O*D-----*****	11	40	131500		00	00		Law Enforcement Operation
 E*O*DD----*****	11	40	131501		00	00			ATF
 E*O*DE----*****	11	40	131502		00	00			Border Patrol		Code is also listed in Land Installation
@@ -1456,7 +1455,6 @@ E*O*DG----*****	11	40	131504		00	00			Drug Enforcement Administration (DEA)
 E*O*DH----*****	11	40	131505		00	00			Department of Justice (DOJ)
 E*O*DI----*****	11	40	131506		00	00			Federal Bureau of Investigation (FBI)
 E*O*DJ----*****	11	40	131507		00	00			Police
-E*O*DK----H****	11	40	131508		00	00			Prison
 E*O*DL----*****	11	40	131509		00	00			United States Secret Service(Treas) (USSS)
 E*O*DM----*****	11	40	131510		00	00			Transportation Security Administration (TSA)
 E*O*DN----*****	11	40	131511		00	00			Coast Guard
@@ -1507,7 +1505,7 @@ E*N*AD----*****	11	40	170104		00	00			Landslide		Listed as unframed in 2525C and
 E*N*AE----*****	11	40	170105		00	00			Subsidence		Listed as unframed in 2525C and Full Octagon in 2525D
 W*S*WSVE--P----	11	40	170106		00	00			Volcanic Eruption		Identical symbol to METOC.Volcanic Eruption Symbol - 2525C uses same code for both
 E*N*AG----*****	11	40	170107		00	00			Volcanic Threat		Listed as unframed in 2525C and Full Octagon in 2525D
-O*L*N-----H****	11	40	170108		00	00			Cave Entrance		2525C codes approved after release of 2525C, Symbol is displayed differently between versions
+O*L*N-----*****	11	40	170108		00	00			Cave Entrance		2525C codes approved after release of 2525C, Symbol is displayed differently between versions
 E*N*BB----*****	11	40	170201		00	00			Drought		Listed as unframed in 2525C and Full Octagon in 2525D
 E*N*BC----*****	11	40	170202		00	00			Flood		Listed as unframed in 2525C and Full Octagon in 2525D
 E*N*BM----*****	11	40	170203		00	00			Tsunami		Listed as unframed in 2525C and Full Octagon in 2525D
