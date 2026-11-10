@@ -759,7 +759,7 @@ public class RendererUtilities {
 
     public static int calculateOutlineWidth()
     {
-        return RendererSettings.getInstance().getDeviceDPI()>100 ? RendererSettings.getInstance().getDeviceDPI()/96 * 3 : 3;
+        return RendererSettings.getInstance().getDeviceDPI()>240 ? (RendererSettings.getInstance().getDeviceDPI()/240 * 2) + 1 : 3;
     }
 
     public static SVGInfo scaleIcon(String symbolID, SVGInfo icon)
