@@ -948,15 +948,13 @@ public class SymbolUtilities {
     public static Boolean hasFDI(String symbolID)
     {
         int hqtfd = SymbolID.getHQTFD(symbolID);
-        if(hqtfd == SymbolID.HQTFD_FeintDummy
+        return hqtfd == SymbolID.HQTFD_FeintDummy
                 || hqtfd == SymbolID.HQTFD_FeintDummy_TaskForce
                 || hqtfd == SymbolID.HQTFD_FeintDummy_Headquarters
-                || hqtfd == SymbolID.HQTFD_FeintDummy_TaskForce_Headquarters)
-        {
-            return true;
-        }
-        else
-            return false;
+                || hqtfd == SymbolID.HQTFD_FeintDummy_TaskForce_Headquarters
+                || hqtfd == SymbolID.HQTFD_Unmanned_Marker_FeintDummy
+                || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous_FeintDummy
+                || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted_FeintDummy;
     }
 
     /***
