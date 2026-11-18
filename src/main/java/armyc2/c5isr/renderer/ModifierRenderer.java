@@ -1090,6 +1090,109 @@ public class ModifierRenderer implements SettingsEventListener
         }
         // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="Build Unmanned Indicator">
+        Rectangle2D umBounds = null;
+        Ellipse2D umCircle = null;
+        Path2D umPath = null;
+        double umStrokeWidth = 2;
+        if(pixelSize <= 50)
+            umStrokeWidth = 1;
+        if(hqtfd == SymbolID.HQTFD_Unmanned_Marker ||
+                hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous ||
+                hqtfd == SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted ||
+                hqtfd == SymbolID.HQTFD_Unmanned_Marker_FeintDummy ||
+                hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous_FeintDummy ||
+                hqtfd == SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted_FeintDummy)
+        {
+            //octagon~182.08058166503906~272.0794677734375~245.8407440185547~244.85235595703125
+            //restricted~375.44801678047673~248.63298320770264~85.1039714496415~79.36734275822477
+            //no-strike~378.0~248.0~80.0~80.0
+            //<circle cx="418" cy="288" fill="yellow" r="36" stroke="black" stroke-width="8"/>
+            //<line fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="8" x1="390" x2="446" y1="265" y2="310"/>
+            //nsCircle = new Ellipse(x,y,radius * 2, radius * 2);
+            //nsLine = new Line(390 * ratio, 265 * ratio, 446 * ratio, 310 * ratio);
+            double nsTx = 0;
+            double nsTy = 0;
+            double ratio = 1;
+            SVGInfo si = SVGLookup.getInstance().getSVGLInfo(SVGLookup.getFrameID(symbolID),SymbolID.getVersion(symbolID));
+            if(symbolBounds.getHeight() > symbolBounds.getWidth())
+            {
+                double sHeight = si.getBbox().getHeight();
+                ratio = symbolBounds.getHeight() / sHeight;
+            }
+            else
+            {
+                double sWidth = si.getBbox().getWidth();
+                ratio = symbolBounds.getWidth() / sWidth;
+            }
+
+            double umTx = (si.getBbox().getX() * ratio) * -1;
+            double umTy = (si.getBbox().getY() * ratio) * -1;
+
+            double xOffset = 0;
+            double yOffset = 0;
+
+            char fs = SymbolID.getFrameShape(symbolID);
+            if(fs == 0)
+                fs = SymbolID.getDefaultFrameShape(symbolID);
+
+
+            Rectangle2D octagonBounds = RectUtilities.roundRect(new Rectangle2D.Double(182.08058166503906,272.0794677734375,245.8407440185547,244.85235595703125));
+            double half = octagonBounds.getWidth()/2;
+            int affiliation = SymbolID.getAffiliation(symbolID);
+
+            if(fs == SymbolID.FrameShape_SeaSubsurface || affiliation == SymbolID.StandardIdentity_Affiliation_Neutral ||
+                    (affiliation == SymbolID.StandardIdentity_Affiliation_Friend &&
+                            (ss == SymbolID.SymbolSet_LandUnit ||
+                                    ss == SymbolID.SymbolSet_LandInstallation ||
+                                    ss == SymbolID.SymbolSet_Activities ||
+                                    ss == SymbolID.SymbolSet_CyberSpace
+                            )))
+            {
+                //indicator just sits on the left side of the symbol
+                String frameID = SVGLookup.getFrameID(symbolID);
+                SVGInfo siFrame = SVGLookup.getInstance().getSVGLInfo(frameID,SymbolID.getVersion(symbolID));
+                //um indicator anchor - frame left + 1/2 outline width to center indicator on outline of frame
+                //xOffset = -96f;
+                //xOffset = -123.9f;//126.1 is the x value for the rectangle friendly land unit frame.  205 - 123.9 = 126.1
+                int lineWidthAdjustment = 9;
+                xOffset = (205 -  siFrame.getBbox().getX() - lineWidthAdjustment) * -1;
+                //xOffset = -305 * ratio;//((octagonBounds.getWidth() * 1.3) - half) * -1;
+            }
+            else if(affiliation == SymbolID.StandardIdentity_Affiliation_Unknown &&
+                    ss == SymbolID.SymbolSet_SeaSubsurface)
+            {
+                String frameID = SVGLookup.getFrameID(symbolID);
+                SVGInfo siFrame = SVGLookup.getInstance().getSVGLInfo(frameID,SymbolID.getVersion(symbolID));
+                xOffset = (205 -  140) * -1;
+                int lineWidthAdjustment = 9;
+                xOffset = ((205 -  siFrame.getBbox().getX()) * 0.75f) * -1;
+                //xOffset = ((octagonBounds.getWidth() * 1.2) - half) * -1;
+            }
+            else//else, rest can use default position of x=205
+            {
+                yOffset = -20;
+            }
+
+            umPath = createUnmannedIndicatorShape(xOffset ,yOffset);
+            umPath.transform(AffineTransform.getScaleInstance(ratio,ratio));
+            if(hqtfd == SymbolID.HQTFD_Unmanned_Marker || hqtfd == SymbolID.HQTFD_Unmanned_Marker_FeintDummy)
+                umCircle = new Ellipse2D.Double((205 + xOffset - (9f/2f)) * ratio,(310 + yOffset - (9f/2f)) * ratio,9f * ratio,9f * ratio);
+            umBounds = umPath.getBounds(); //RectUtilities.toRectangle2D(169,277,72,66);
+            RectUtilities.grow(umBounds,(int)Math.ceil(umStrokeWidth/2));
+
+            //need to shift like we do the frame and main icons since it's based in that space
+            //AffineTransform txfm = AffineTransform.getTranslateInstance(nsTx,nsTy);
+            if(umCircle != null)
+                umCircle = new Ellipse2D.Double(umCircle.getX() + umTx,umCircle.getY() + umTy,umCircle.getWidth(),umCircle.getHeight());
+            umPath.transform(AffineTransform.getTranslateInstance(umTx,umTy));
+            umBounds = AffineTransform.getTranslateInstance(umTx, umTy).createTransformedShape(umBounds).getBounds2D();
+
+
+            imageBounds = imageBounds.createUnion(umBounds);
+        }
+        // </editor-fold>
+
         // <editor-fold defaultstate="collapsed" desc="Shift Modifiers">
         //adjust points if necessary
         if (sdi instanceof ImageInfo && (imageBounds.getX() < 0 || imageBounds.getY() < 0))
@@ -1162,6 +1265,13 @@ public class ModifierRenderer implements SettingsEventListener
                 ShapeUtilities.offset(nsBounds, shiftX, shiftY);
                 nsCircle = ShapeUtilities.offset(nsCircle, shiftX, shiftY);//circle
                 nsLine = ShapeUtilities.offset(nsLine, shiftX, shiftY);//line
+            }
+            if(umBounds != null)
+            {
+                ShapeUtilities.offset(umBounds, shiftX, shiftY);
+                if(umCircle != null)
+                    umCircle = ShapeUtilities.offset(umCircle, shiftX, shiftY);//circle
+                ShapeUtilities.offset(umPath,shiftX,shiftY);
             }
             if (domBounds != null)
             {
@@ -1363,6 +1473,23 @@ public class ModifierRenderer implements SettingsEventListener
                 noStrikeGroup += Shape2SVG.Convert(nsLine, "#000000", null, String.valueOf(nsStrokeWidth),svgAlpha,svgAlpha,null,null);
                 noStrikeGroup += "</g>";
                 sbSVG.append(noStrikeGroup);
+            }
+
+            if(umBounds != null)
+            {
+                String umStroke = "#000000";
+                String umFill = "#FFFFFF";
+                if(hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous_FeintDummy)
+                {
+                    umStroke = "#FFFFFF";
+                    umFill = "#000000";
+                }
+                String unmannedMarker = "<g id=\"unmanned_marker\">";
+                unmannedMarker += Shape2SVG.Convert(umPath, umStroke, umFill, String.valueOf(umStrokeWidth),svgAlpha,svgAlpha,null,null);
+                if(umCircle != null)
+                    unmannedMarker += Shape2SVG.Convert(umCircle, "none", "#000000", "0",svgAlpha,svgAlpha,null,null);
+                unmannedMarker += "</g>";
+                sbSVG.append(unmannedMarker);
             }
 
             if (domBounds != null)
@@ -1652,6 +1779,28 @@ public class ModifierRenderer implements SettingsEventListener
                 g2d.draw(nsLine);
             }
 
+            if(umBounds != null)
+            {
+                Color umStroke = Color.BLACK;
+                Color umFill = Color.WHITE;
+                if(hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous_FeintDummy)
+                {
+                    umStroke = Color.WHITE;
+                    umFill = Color.BLACK;
+                }
+
+                stroke = new BasicStroke((float)umStrokeWidth);
+                g2d.setStroke(stroke);
+                g2d.setColor(RendererUtilities.setColorAlpha(umFill,alpha));
+                g2d.fill(umPath);
+                g2d.setColor(RendererUtilities.setColorAlpha(umStroke,alpha));
+                g2d.draw(umPath);
+                if(umCircle != null) {
+                    g2d.setColor(RendererUtilities.setColorAlpha(Color.BLACK, alpha));
+                    g2d.fill(umCircle);
+                }
+            }
+
             if (domBounds != null) {
                 drawDOMArrow(g2d, domPoints, lineColor, strokeWidth);
 
@@ -1923,6 +2072,99 @@ public class ModifierRenderer implements SettingsEventListener
         domPath.lineTo(domPoints[5].getX(), domPoints[5].getY());
         g2d.fill(domPath);
     }
+
+    private static Path2D createUnmannedIndicatorShape()
+    {
+        return createUnmannedIndicatorShape(0,0);
+    }
+    private static Path2D createUnmannedIndicatorShape(double xOffset, double yOffset) {
+        Path2D.Double path = new Path2D.Double();
+
+        //10% bigger
+        // Track cursor for relative offset calculations
+        double x = 205.000 + xOffset;
+        double y = 343.841 + yOffset;
+
+        path.moveTo(x, y);
+
+        // Relative curve 1
+        path.curveTo(x - 3.207, y - 5.299,
+                x - 5.694, y - 10.540,
+                x - 9.796, y - 15.138);
+        x -= 9.796; y -= 15.138;
+
+        // Relative curve 2
+        path.curveTo(x - 1.306, y - 1.614,
+                x - 2.681, y - 3.184,
+                x - 4.121, y - 4.691);
+        x -= 4.121; y -= 4.691;
+
+        // Relative curve 3
+        path.curveTo(x - 5.808, y - 5.497,
+                x - 12.601, y - 11.068,
+                x - 20.332, y - 13.823);
+        x -= 20.332; y -= 13.823;
+
+        // Relative curve 4
+        path.curveTo(x + 7.731, y - 2.755,
+                x + 14.524, y - 8.326,
+                x + 20.332, y - 13.823);
+        x += 20.332; y -= 13.823;
+
+        // Relative curve 5
+        path.curveTo(x + 1.440, y - 1.508,
+                x + 2.816, y - 3.077,
+                x + 4.121, y - 4.691);
+        x += 4.121; y -= 4.691;
+
+        // Relative curve 6
+        path.curveTo(x + 4.102, y - 4.598,
+                x + 6.590, y - 9.840,
+                x + 9.796, y - 15.138);
+        x += 9.796; y -= 15.138;
+
+        // Relative curve 7
+        path.curveTo(x + 3.207, y + 5.299,
+                x + 5.694, y + 10.540,
+                x + 9.796, y + 15.138);
+        x += 9.796; y += 15.138;
+
+        // Relative curve 8
+        path.curveTo(x + 1.306, y + 1.614,
+                x + 2.681, y + 3.184,
+                x + 4.121, y + 4.691);
+        x += 4.121; y += 4.691;
+
+        // Relative curve 9
+        path.curveTo(x + 5.808, y + 5.497,
+                x + 12.601, y + 11.068,
+                x + 20.332, y + 13.823);
+        x += 20.332; y += 13.823;
+
+        // Relative curve 10
+        path.curveTo(x - 7.731, y + 2.755,
+                x - 14.524, y + 8.326,
+                x - 20.332, y + 13.823);
+        x -= 20.332; y += 13.823;
+
+        // Relative curve 11
+        path.curveTo(x - 1.440, y + 1.508,
+                x - 2.816, y + 3.077,
+                x - 4.121, y + 4.691);
+        x -= 4.121; y += 4.691;
+
+        // Relative curve 12
+        path.curveTo(x - 4.102, y + 4.598,
+                x - 6.590, y + 9.840,
+                x - 9.796, y + 15.138);
+        x -= 9.796; y += 15.138;
+
+        // Close the shape
+        path.closePath();
+
+        return path;
+    }
+
 
     private static Rectangle2D processOperationalConditionIndicator(String symbolID, Rectangle2D symbolBounds, int offsetY)
     {
