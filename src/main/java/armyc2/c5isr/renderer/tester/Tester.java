@@ -526,6 +526,12 @@ public class Tester extends javax.swing.JFrame {
         cbHQTFD.addItem("5-D/TF");
         cbHQTFD.addItem("6-TF/HQ");
         cbHQTFD.addItem("7-D/TF/HQ");
+        cbHQTFD.addItem("8-UM");
+        cbHQTFD.addItem("9-UM-A");
+        cbHQTFD.addItem("10-UM-RP");
+        cbHQTFD.addItem("11-UM/D");
+        cbHQTFD.addItem("12-UM-A/D");
+        cbHQTFD.addItem("13-UM-RP/D");
         cbHQTFD.setSelectedIndex(0);
         
         cbAmplifier.addItem("00-Unknown");
@@ -1232,6 +1238,13 @@ public class Tester extends javax.swing.JFrame {
             //String svgCustom = MilStdIconRenderer.getInstance().RenderSVG("130310000016570000000000000000",modifiers, attributes).getSVG();
 
             //System.out.println("\nCustom SVG: \n" + svgCustom);
+
+            //Test set/get HQTFD
+            String code = SymbolID.setHQTFD("130310000016570000000000000000",SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted);
+            System.out.println("Updated Code: " + code);
+            System.out.println("Int Value: " + SymbolID.getHQTFD(code));
+            System.out.println("Char Value: " + SymbolID2.getHQTFDU(code));
+
         }
         else if (drawMode == drawModeMPDraw)
         {
