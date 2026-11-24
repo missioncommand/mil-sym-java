@@ -1239,10 +1239,10 @@ public class Tester extends javax.swing.JFrame {
             //System.out.println("\nCustom SVG: \n" + svgCustom);
 
             //Test set/get HQTFD
-            String code = SymbolID.setHQTFD("130310000016570000000000000000",SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted);
+            /*String code = SymbolID.setHQTFD("130310000016570000000000000000",SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted);
             System.out.println("Updated Code: " + code);
             System.out.println("Int Value: " + SymbolID.getHQTFD(code));
-            System.out.println("Char Value: " + SymbolID2.getHQTFDU(code));
+            System.out.println("Char Value: " + SymbolID2.getHQTFDU(code));//*/
 
         }
         else if (drawMode == drawModeMPDraw)
