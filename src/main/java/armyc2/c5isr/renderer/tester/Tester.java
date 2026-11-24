@@ -1787,10 +1787,17 @@ public class Tester extends javax.swing.JFrame {
                     String message = String.valueOf(limit) + " " + msInfo.getName() + " drawn in " + String.valueOf((endTime - startTime)/1000f) + " seconds.";
                     JOptionPane.showMessageDialog(null,message ,"Speed Test Image",1);
 
-                    g2d = (Graphics2D) this.getGraphics();
+                    //OLD DRAW
+                    /*g2d = (Graphics2D) this.getGraphics();
                     Graphics2D graphics = (Graphics2D) jPanel1.getGraphics();
                     Point2D mouseClickLocation = new Point2D.Double(this.getWidth()/2, this.getHeight()/4);
-                    SymbolDraw.Draw(icon, g2d, (int) (mouseClickLocation.getX() - icon.getSymbolCenterX()), (int) (mouseClickLocation.getY() - icon.getSymbolCenterY()));
+                    SymbolDraw.Draw(icon, g2d, (int) (mouseClickLocation.getX() - icon.getSymbolCenterX()), (int) (mouseClickLocation.getY() - icon.getSymbolCenterY()));*/
+
+                    //NEW DRAW
+                    activeIcon = icon;
+                    Point2D mouseClickLocation = new Point2D.Double(this.getWidth()/2, this.getHeight()/4);
+                    activeIconLocation = mouseClickLocation;//icon.getSymbolCenterPoint();
+                    repaint();
 
                     //SVG Speed Test
                     SVGSymbolInfo svg = null;
