@@ -37,8 +37,14 @@ public class Tester extends javax.swing.JFrame {
     int drawMode = 0;
     int drawModeSPDraw = 1;
     int drawModeMPDraw = 2;
-    
     int maxPointCount = 1;
+
+    // Keep track of what to draw during standard Swing paint cycle
+    private ImageInfo activeIcon = null;
+    private MilStdSymbol activeMultiPointSymbol = null;
+    private Point2D activeIconLocation = null;
+    private boolean drawCenter = true; // Set this based on your debug preferences
+
     ArrayList<Point2D> points = new ArrayList<Point2D>();
 
     String currentBasicID = "";
@@ -1186,20 +1192,17 @@ public class Tester extends javax.swing.JFrame {
                 Graphics2D g2d;
                 try
                 {
-
-                    //modifiers.put(Modifiers.X_ALTITUDE_DEPTH,"0000");//TEST
                     icon = MilStdIconRenderer.getInstance().RenderIcon(symbolID, modifiers, attributes);
-                    MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);
-                    g2d = (Graphics2D) this.getGraphics();
-                    Graphics2D graphics = (Graphics2D)jPanel1.getGraphics();
-                    Point2D mouseClickLocation = new Point2D.Double(evt.getPoint().getX(),evt.getPoint().getY());
                     if(icon != null) {
-
-                        if(drawCenter)
+                        if(drawCenter) {
                             DrawCenterBorder(icon);
+                        }
 
-                        SymbolDraw.Draw(icon, g2d, (int) (mouseClickLocation.getX() - icon.getSymbolCenterX()), (int) (mouseClickLocation.getY() - icon.getSymbolCenterY()));
-
+                        // SAVE TO STATE AND REPAINT
+                        this.activeIcon = icon;
+                        this.activeMultiPointSymbol = null; // Clear any old multi-point symbols
+                        this.activeIconLocation = new Point2D.Double(evt.getPoint().getX(), evt.getPoint().getY());
+                        this.repaint(); // Triggers the clean paint cycle
 
                         icon.SaveImageToFile("C:\\temp\\test.png","png");
                     }
@@ -1208,10 +1211,6 @@ public class Tester extends javax.swing.JFrame {
                         String message = "RenderIcon - " + symbolID + " returned null.";
                         ErrorLogger.LogMessage("Tester", "formMouseClicked", message);
                     }
-                }
-                catch(RendererException rexc)
-                {
-                    ErrorLogger.LogException("Tester", "formMouseClicked", rexc);
                 }
                 catch(Exception exc)
                 {
@@ -1449,11 +1448,16 @@ public class Tester extends javax.swing.JFrame {
 
         ms = render(ms, pConverter, clipBounds);
 
+        // SAVE TO STATE AND REPAINT (Instead of drawing here directly)
+        this.activeIcon = null; // Clear old single-point icon
+        this.activeMultiPointSymbol = ms;
+        this.repaint(); // Triggers the paint override in Step 2
+
         ErrorLogger.LogMessage("ScaleAwareText: " + ms.isTextScaleSensitive());
         ErrorLogger.LogMessage("ScaleAwareDetails: " + ms.isSymbolScaleSensitive());
         ErrorLogger.LogMessage("wasClipped: " + ms.getWasClipped());
 
-        Graphics2D graphics = (Graphics2D) this.getGraphics();
+        /*Graphics2D graphics = (Graphics2D) this.getGraphics();
         //Graphics2D graphics = (Graphics2D)jPanel1.getGraphics();
         try
         {
@@ -1466,7 +1470,7 @@ public class Tester extends javax.swing.JFrame {
         catch(Exception exc)
         {
             ErrorLogger.LogException("Tester", "formMouseClicked", exc);
-        }
+        }//*/
         drawMode = 0;
         btnDraw.setBackground(Color.LIGHT_GRAY);
         btnDrawMP.setBackground(Color.LIGHT_GRAY);
@@ -1962,7 +1966,42 @@ public class Tester extends javax.swing.JFrame {
 
     }
 
-        public MilStdSymbol render(MilStdSymbol symbol, IPointConversion converter, Object clipBounds) {
+    @Override
+    public void paint(Graphics g) {
+        // Let standard components paint themselves first
+        super.paint(g);
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        try {
+            // High-Quality Rendering Hints for high DPI / Scaling
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+            // Render single-point icon if present
+            if (activeIcon != null && activeIconLocation != null) {
+
+                int drawX = (int) (activeIconLocation.getX() - activeIcon.getSymbolCenterX());
+                int drawY = (int) (activeIconLocation.getY() - activeIcon.getSymbolCenterY());
+
+                SymbolDraw.Draw(activeIcon, g2d, drawX, drawY);
+            }
+
+            // Render multi-point symbol if present
+            if (activeMultiPointSymbol != null) {
+                // The renderer expects a pixel location map relative to the window/component bounds.
+                SymbolDraw.Draw(activeMultiPointSymbol, g2d, 0, 0);
+            }
+        } catch (RendererException e) {
+            throw new RuntimeException(e);
+        } finally {
+            g2d.dispose();
+        }
+    }
+
+
+    public MilStdSymbol render(MilStdSymbol symbol, IPointConversion converter, Object clipBounds) {
 
         try
         {
