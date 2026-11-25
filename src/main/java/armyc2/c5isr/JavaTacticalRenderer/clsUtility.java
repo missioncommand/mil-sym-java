@@ -166,7 +166,6 @@ public final class clsUtility {
             case TacticalLines.DEMONSTRATE:
             case TacticalLines.GAP:
             case TacticalLines.ASLTXING:
-            case TacticalLines.MSDZ:
                 result = 4;
                 break;
             case TacticalLines.BYPASS:
@@ -216,6 +215,7 @@ public final class clsUtility {
             case TacticalLines.BYIMP:
             case TacticalLines.FORDSITE:
             case TacticalLines.FORDIF:
+            case TacticalLines.MSDZ:
             //METOCs
             case TacticalLines.IFR:
             case TacticalLines.MVFR:

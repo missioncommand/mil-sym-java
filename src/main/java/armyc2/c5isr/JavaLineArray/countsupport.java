@@ -296,7 +296,7 @@ public final class countsupport
                     count = 20;
                     break;
                 case TacticalLines.MSDZ:
-                    count = 300;
+                    count = 200;
                     break;
                 case TacticalLines.CONVOY:
                 case TacticalLines.HCONVOY:
